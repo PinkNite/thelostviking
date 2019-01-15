@@ -3,7 +3,6 @@
 #include "stdafx.h"
 #include "image.h"
 
-static image* _cameraBuffer = IMAGEMANAGER->addImage("magicCircle","magicCircle.bmp", MAPSIZEX, MAPSIZEY,true,RGB(255,0,255));
 
 
 class CAMERA {
@@ -14,7 +13,7 @@ private:
 	int _height;
 	int	_left;
 	int _top;
-
+	image* _pCameraBuffer;
 public:
 	CAMERA();
 	~CAMERA();
@@ -24,6 +23,6 @@ public:
 
 	void render(HDC hdc);
 
-	image* getCameraBuffer() { return _cameraBuffer; }
-	HDC getMemDC() { return _cameraBuffer->getMemDC(); }
+	image* getCameraBuffer() { return _pCameraBuffer; }
+	HDC getMemDC() { return _pCameraBuffer->getMemDC(); }
 };

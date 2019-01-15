@@ -17,6 +17,7 @@ void CAMERA::init(int posX, int posY, int width, int height)
 	_height = height;
 	_left = _posX - _width;
 	_top = _posY - _height;
+	_pCameraBuffer = IMAGEMANAGER->addImage("magicCircle", "magicCircle.bmp", MAPSIZEX, MAPSIZEY, true, RGB(255, 0, 255));
 }
 
 void CAMERA::update()
@@ -71,5 +72,5 @@ void CAMERA::update()
 
 void CAMERA::render(HDC hdc)
 {
-	_cameraBuffer->render(hdc, 0, 0, _left, _top, _width, _height);
+	_pCameraBuffer->render(hdc, 0, 0, _left, _top, _width, _height);
 }
