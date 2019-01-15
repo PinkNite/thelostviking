@@ -1,19 +1,19 @@
 #pragma once
 
-#include "object.h"
 
+class ERIC;
 
-class PLAYER : public OBJECT
+class PLAYER
 {
 private:
-	int _nHp;
+
 public:
 	PLAYER();
 	~PLAYER();
 
 public:
-	void	create();
-	virtual void update()			override;
-	virtual void release()			override;
-	virtual void render(HDC hdc)	override;
+	void	init();
+	void update()			;
+	void release()			;
+	void render(HDC hdc)	;
 };

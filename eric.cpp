@@ -11,8 +11,8 @@ ERIC::~ERIC()
 
 void ERIC::init()
 {
-	PLAYER::create();
-	PLAYER::OBJECT::getPosX();
+	OBJECT::init(5, 5, 20, 20);
+	_nHp = 3;
 }
 
 void ERIC::update()

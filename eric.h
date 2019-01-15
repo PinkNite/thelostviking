@@ -1,11 +1,11 @@
 #pragma once
 
-#include "player.h"
+#include "object.h"
 
-class ERIC : public PLAYER {
+class ERIC : public OBJECT{
 
 private:
-
+	int _nHp;
 
 public:
 	ERIC();

@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "player.h"
+#include "eric.h"
 
-PLAYER::PLAYER():
-	_nHp(0)
+PLAYER::PLAYER()
 {
 }
 
@@ -10,10 +10,9 @@ PLAYER::~PLAYER()
 {
 }
 
-void PLAYER::create()
+void PLAYER::init()
 {
-	OBJECT::init(5,5,20,20);
-	_nHp = 3;
+
 }
 
 void PLAYER::update()
