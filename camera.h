@@ -13,12 +13,17 @@ private:
 	int _width;
 	int _height;
 	int	_left;
-	int _right;
+	int _top;
 
 public:
 	CAMERA();
 	~CAMERA();
 	
+	void init(int posX, int posY, int width, int height);
+	void update();
+
+	void render(HDC hdc);
+
 	image* getCameraBuffer() { return _cameraBuffer; }
 	HDC getMemDC() { return _cameraBuffer->getMemDC(); }
 };
