@@ -55,7 +55,7 @@ void playGround::render()
 
 
 	pCamera->getCameraBuffer()->render(getMemDC(), 0, 0, 200, 200, 800, 600);
-
+	pCamera->getMemDC();
 
 	TIMEMANAGER->render(getMemDC());
 	//===========================================================
