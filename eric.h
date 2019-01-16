@@ -54,10 +54,10 @@ private:
 
 
 private:
-	int _hp;
-	int _itemCount;
-	float	_speed;
-	int		_maxSpeed;
+	int			_hp;
+	int			_itemCount;
+	float		_speed;
+	int			_maxSpeed;
 public:
 	ERIC();
 	~ERIC();
@@ -69,10 +69,10 @@ public:
 	virtual void render(HDC hdc)	override;
 
 
-	void moveLeft(int nOffset) { OBJECT::setPosX(OBJECT::getPosX() - nOffset); };
-	void moveRight(int nOffset) { OBJECT::setPosX(OBJECT::getPosX() + nOffset); };
-	void moveUp(int nOffset) { OBJECT::setPosY(OBJECT::getPosY() - nOffset); };
-	void moveDown(int nOffset) { OBJECT::setPosY(OBJECT::getPosY() + nOffset); };
+	void moveLeft(int nOffset) { OBJECT::setPosX((OBJECT::getPosX() - nOffset)	 );}//* TIMEMANAGER->getElpasedTime()); }
+	void moveRight(int nOffset) { OBJECT::setPosX((OBJECT::getPosX() + nOffset)  );}//* TIMEMANAGER->getElpasedTime()); }
+	void moveUp(int nOffset) { OBJECT::setPosY((OBJECT::getPosY() - nOffset)	 );}//* TIMEMANAGER->getElpasedTime()); }
+	void moveDown(int nOffset) { OBJECT::setPosY((OBJECT::getPosY() + nOffset)	 );}//* TIMEMANAGER->getElpasedTime()); }
 
 
 	inline int getPosX() { return OBJECT::getPosX(); }
