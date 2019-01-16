@@ -168,6 +168,9 @@
     <ClInclude Include="camera.h">
       <Filter>PlayGround\camera</Filter>
     </ClInclude>
+    <ClInclude Include="TestStage1.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -244,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="camera.cpp">
       <Filter>PlayGround\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="TestStage1.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

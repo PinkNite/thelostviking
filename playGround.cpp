@@ -25,6 +25,11 @@ HRESULT playGround::init()
 	load();
 	_pCamera = new CAMERA();
 	_pCamera->init(512, 512, WINSIZEX, WINSIZEY);
+
+	// working on: Test Enemies Scene 
+	SCENEMANAGER->addScene("TestStage1", new TestStage1);
+	SCENEMANAGER->changeScene("TestStage1");
+
 	return S_OK;
 }
 
@@ -59,6 +64,8 @@ void playGround::render()
 
 	//pCamera->getCameraBuffer()->render(getMemDC(), 0, 0, 200, 200, 800, 600);
 	////getMemDc 대신 뭐 넣을때는 pCamera->getMemDc()를 쓰세요.
+
+	//SCENEMANAGER->render();
 
 	//pCamera->getMemDC();
 
