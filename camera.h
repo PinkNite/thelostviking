@@ -16,7 +16,8 @@ private:
 	int	_left;
 	int _top;
 	image* _pCameraBuffer;
-	
+	HDC		_hdc;
+	image* pBac;
 public:
 	CAMERA();
 	~CAMERA();
@@ -25,7 +26,9 @@ public:
 	void update();
 
 	void render(HDC hdc);
-
+	void renderinit();
 	image* getCameraBuffer() { return _pCameraBuffer; }
 	HDC getMemDC() { return _pCameraBuffer->getMemDC(); }
+	HDC getHDC() { return _hdc; }
+
 };

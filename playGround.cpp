@@ -77,6 +77,9 @@ void playGround::update()
 void playGround::render()
 {
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
+	_pCamera->renderinit();
+
+
 	_pPlayer->render(_pCamera->getMemDC());
 
 	//pCamera->getCameraBuffer()->render(getMemDC(), 0, 0, 200, 200, 800, 600);
@@ -86,13 +89,13 @@ void playGround::render()
 
 	//pCamera->getMemDC();
 	
-	_pCamera->render(getMemDC());
 	//UI
 
 	//Scene
-	_pSceneStart->render();//ÀÌ½ÂÀç 2019-01-16
+	//_pSceneStart->render();//ÀÌ½ÂÀç 2019-01-16
 
 	TIMEMANAGER->render(getMemDC());
+	_pCamera->render(getMemDC());
 	//===========================================================
 	this->getBackBuffer()->render(getHDC(), 0, 0);
 }

@@ -18,8 +18,7 @@ void ERIC::init(int posX, int posY, int width, int height)
 	_speed = 3.0f;
 	_state = ERIC_STATE::LEFT_IDLE;
 	initAnimation();
-	_pAnimation = KEYANIMANAGER->findAnimation("eric", _arStrAniState[0]);
-	_pAnimation->start();
+
 }
 
 void ERIC::update()
@@ -53,7 +52,7 @@ void ERIC::update()
 		{
 			_speed += _upSpeed * TIMEMANAGER->getElpasedTime();
 		}		
-		moveLeft(static_cast<int>(_speed));
+		moveRight(static_cast<int>(_speed));
 	}
 
 	if(KEYMANAGER->isOnceKeyDown(VK_DOWN))
@@ -68,6 +67,7 @@ void ERIC::update()
 		_speed = _minSpeed;
 		moveUp(static_cast<int>(_speed));
 	}
+	KEYANIMANAGER->update();
 
 }
 
@@ -87,19 +87,16 @@ void ERIC::initAnimation()
 	//백테의 배열과 반복문 스트링 배열로 처리될거같은데?
 	for (int i = 0; i < static_cast<int>(ERIC_STATE::MAX); i++)
 	{
-		KEYANIMANAGER->addArrayFrameAnimation("eric", _arStrAniState[i], "eric", _vAniFrame[i], _arAniFrameCount[i], 2, _arIsLoop[i]);
+		KEYANIMANAGER->addArrayFrameAnimation("eric", _arStrAniState[i], "eric", _vAniFrame[i], _arAniFrameCount[i], 1, _arIsLoop[i]);
 	}
 
+	_pAnimation = KEYANIMANAGER->findAnimation("eric", _arStrAniState[static_cast<int>(ERIC_STATE::RIGHT_IDLE)]);
+	_pAnimation->start();
 }
 
 void ERIC::initAniFrame()
 {
-	//프레임들이 담길 벡터
-	_vAniFrame;
-	//각 상태마다 프레임 수를 저장
-	_arAniFrameCount;
-	//각 상태의 이름을 저장
-	_arStrAniState;
+
 
 
 
@@ -242,6 +239,7 @@ void ERIC::initAniFrame()
 
 	int nTmp = 0;
 
+	
 	for (int i = 0; i < static_cast<int>(ERIC_STATE::MAX); i++)
 	{
 		_vAniFrame.push_back(new int[_arAniFrameCount[i]]);
