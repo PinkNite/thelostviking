@@ -14,7 +14,7 @@ playGround::~playGround()
 void playGround::load()
 {
 	//이미지 넣는것은 여기서 하세요
-	IMAGEMANAGER->addFrameImage("eric", "resource/viking/ericSprites.bmp", 352, 576, 11, 18, true, RGB(105, 0, 152));
+	IMAGEMANAGER->addFrameImage("eric", "resource/viking/ericSprites.bmp", 352, 672, 11, 21, true, RGB(255, 0, 255));
 
 }
 
@@ -31,6 +31,8 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("TestStage1", new TestStage1);
 	SCENEMANAGER->changeScene("TestStage1");
 
+	_pPlayer = new PLAYER;
+	_pPlayer->init();
 	return S_OK;
 }
 
@@ -40,7 +42,8 @@ void playGround::release()
 	gameNode::release();
 	delete _pCamera;
 	_pCamera = nullptr;
-
+	delete _pPlayer;
+	_pPlayer = nullptr;
 }
 
 
@@ -50,7 +53,7 @@ void playGround::update()
 
 	_pCamera->update();
 
-
+	_pPlayer->update();
 	SCENEMANAGER->update();
 	
 }
@@ -60,7 +63,7 @@ void playGround::update()
 void playGround::render()
 {
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
-
+	_pPlayer->render(_pCamera->getMemDC());
 	_pCamera->render(getMemDC());
 
 	//pCamera->getCameraBuffer()->render(getMemDC(), 0, 0, 200, 200, 800, 600);

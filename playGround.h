@@ -8,7 +8,7 @@ class playGround : public gameNode
 {
 private:
 	CAMERA * _pCamera;
-
+	PLAYER* _pPlayer;
 public:
 	virtual HRESULT init();
 	virtual void release();
