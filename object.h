@@ -11,6 +11,8 @@ protected:
 	int			_height;	//세로길이
 	int			_left;		//사각형 왼쪽
 	int			_top;		//사각형 위
+	image*		_pImg;		//이미지 설정
+
 public:
 	//x,y가로길이 세로길이 초기화
 	void	init(int posX,int posY,int width, int height);
@@ -20,6 +22,7 @@ public:
 	virtual void release()			abstract;
 	virtual void render(HDC hdc)	abstract;
 
+	void setImage(image* pImage);
 
 public:
 	//get set 모음
@@ -36,6 +39,7 @@ public:
 	inline void setPosY(int posY) { _posY = posY; }
 	inline void setWidth(int width) { _width = width; }
 	inline void setHeight(int height) { _height = height; }
+	
 	
 };
 
