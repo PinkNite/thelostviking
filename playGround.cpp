@@ -64,7 +64,6 @@ void playGround::render()
 {
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
 	_pPlayer->render(_pCamera->getMemDC());
-	_pCamera->render(getMemDC());
 
 	//pCamera->getCameraBuffer()->render(getMemDC(), 0, 0, 200, 200, 800, 600);
 	////getMemDc 대신 뭐 넣을때는 pCamera->getMemDc()를 쓰세요.
@@ -72,6 +71,10 @@ void playGround::render()
 	//SCENEMANAGER->render();
 
 	//pCamera->getMemDC();
+	
+	_pCamera->render(getMemDC());
+	//UI
+
 
 	TIMEMANAGER->render(getMemDC());
 	//===========================================================
