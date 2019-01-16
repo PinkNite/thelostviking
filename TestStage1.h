@@ -3,6 +3,8 @@
 
 class TestStage1 : public gameNode
 {
+private:
+
 
 
 public:

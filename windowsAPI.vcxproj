@@ -154,6 +154,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
+    <ClInclude Include="enemy.h" />
     <ClInclude Include="eric.h" />
     <ClInclude Include="FrameWork.h" />
     <ClInclude Include="gameNode.h" />
@@ -194,6 +195,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
+    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="eric.cpp" />
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="image.cpp" />

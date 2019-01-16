@@ -174,9 +174,6 @@
     <ClInclude Include="camera.h">
       <Filter>PlayGround\camera</Filter>
     </ClInclude>
-    <ClInclude Include="TestStage1.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="scene4.h">
       <Filter>PlayGround\scene\sceneStart\scenes</Filter>
     </ClInclude>
@@ -197,6 +194,12 @@
     </ClInclude>
     <ClInclude Include="sceneStart.h">
       <Filter>PlayGround\scene\sceneStart</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>PlayGround\Object\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="TestStage1.h">
+      <Filter>PlayGround\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -275,9 +278,6 @@
     <ClCompile Include="camera.cpp">
       <Filter>PlayGround\camera</Filter>
     </ClCompile>
-    <ClCompile Include="TestStage1.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="scene4.cpp">
       <Filter>PlayGround\scene\sceneStart\scenes</Filter>
     </ClCompile>
@@ -298,6 +298,12 @@
     </ClCompile>
     <ClCompile Include="sceneStart.cpp">
       <Filter>PlayGround\scene\sceneStart</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>PlayGround\Object\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="TestStage1.cpp">
+      <Filter>PlayGround\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
