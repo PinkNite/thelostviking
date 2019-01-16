@@ -25,6 +25,11 @@ HRESULT playGround::init()
 	load();
 	_pCamera = new CAMERA();
 	_pCamera->init(512, 512, WINSIZEX, WINSIZEY);
+
+	// working on: Test Enemies Scene 
+	SCENEMANAGER->addScene("TestStage1", new TestStage1);
+	SCENEMANAGER->changeScene("TestStage1");
+
 	return S_OK;
 }
 

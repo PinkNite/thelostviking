@@ -1,6 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "camera.h"
+#include "TestStage1.h"
 
 class playGround : public gameNode
 {
