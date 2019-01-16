@@ -23,38 +23,6 @@ void ERIC::init(int posX, int posY, int width, int height)
 
 void ERIC::update()
 {
-	//왼쪽이동 시작
-	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
-	{
-		setMoveStart(true);
-
-	}
-	//왼쪽 이동 중
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
-	{
-		moveLeft();
-	}
-	//오른쪽 이동 시작
-	if(KEYMANAGER->isOnceKeyDown(VK_RIGHT))
-	{
-		setMoveStart(true);
-	}
-	//오른쪽 이동 중
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
-	{
-		moveRight();
-	}
-
-	if(KEYMANAGER->isOnceKeyDown(VK_DOWN))
-	{
-		moveDown();
-	}
-
-
-	if(KEYMANAGER->isOnceKeyDown(VK_UP))
-	{
-		moveUp();
-	}
 
 
 
@@ -70,7 +38,7 @@ void ERIC::render(HDC hdc)
 {
 
 
-	OBJECT::getIamge()->aniRender(hdc, OBJECT::getPosX(), OBJECT::getPosY(), _pAnimation);
+	OBJECT::getIamge()->aniRender(hdc, OBJECT::getPosX()- OBJECT::getWidth()/2, OBJECT::getPosY() - OBJECT::getHeight() / 2, _pAnimation);
 }
 
 void ERIC::moveLeft()

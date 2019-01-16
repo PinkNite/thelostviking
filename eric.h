@@ -80,10 +80,10 @@ public:
 	virtual void render(HDC hdc)	override;
 
 
-	void moveLeft()	;//{ OBJECT::setPosX((OBJECT::getPosX() - nOffset)	 );}//* TIMEMANAGER->getElpasedTime()); }
-	void moveRight() ;//{ OBJECT::setPosX((OBJECT::getPosX() + nOffset)  );}//* TIMEMANAGER->getElpasedTime()); }
-	void moveUp()	;//{ OBJECT::setPosY((OBJECT::getPosY() - nOffset)	 );}//* TIMEMANAGER->getElpasedTime()); }
-	void moveDown()	;//{ OBJECT::setPosY((OBJECT::getPosY() + nOffset)	 );}//* TIMEMANAGER->getElpasedTime()); }
+	void moveLeft()	;
+	void moveRight();
+	void moveUp()	;
+	void moveDown()	;
 
 
 	inline int getPosX() { return OBJECT::getPosX(); }

@@ -91,6 +91,7 @@ void CAMERA::setting()
 {
 	_posX = _pPlayer->getPosX();
 	_posY = _pPlayer->getPosY();
+	setLeftTop();
 }
 
 void CAMERA::setLeftTop()

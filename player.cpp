@@ -66,3 +66,30 @@ void PLAYER::render(HDC hdc)
 {
 	return _pViking[_nCurrentViking]->getLeft();
 }
+
+ void PLAYER::moveLeft()
+ {
+	 _pViking[_nCurrentViking]->moveLeft();
+ }
+
+ void PLAYER::moveRight()
+ {
+	 _pViking[_nCurrentViking]->moveRight();
+ }
+
+ void PLAYER::moveUp()
+ {
+	 _pViking[_nCurrentViking]->moveUp();
+
+ }
+
+ void PLAYER::moveDown()
+ {
+	 _pViking[_nCurrentViking]->moveDown();
+
+ }
+
+ void PLAYER::setMoveStart(bool isMoveStart)
+ {
+	 _pViking[_nCurrentViking]->setMoveStart(isMoveStart);
+ }

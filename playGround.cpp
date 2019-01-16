@@ -56,6 +56,7 @@ HRESULT playGround::init()
 
 	_pCamera->setting();
 
+	_pInputMgr = new INPUTMANAGER();
 	_pInputMgr->init(_pPlayer, _pCamera);
 
 	return S_OK;

@@ -13,3 +13,23 @@ void OBJECT::setImage(image * pImage)
 {
 	_pImg = pImage;
 }
+
+void OBJECT::moveLeft()
+{
+}
+
+void OBJECT::moveRight()
+{
+}
+
+void OBJECT::moveUp()
+{
+}
+
+void OBJECT::moveDown()
+{
+}
+
+void OBJECT::setMoveStart(bool isMoveStart)
+{
+}

@@ -30,8 +30,14 @@ public:
 
 	int getPosX	();
 	int getPosY	();
-	int getWidth	();
+	int getWidth();
 	int getHeight();
 	int getTop	();
 	int getLeft	();
+
+	void moveLeft();
+	void moveRight();
+	void moveUp();
+	void moveDown();
+	void setMoveStart(bool isMoveStart);
 };
