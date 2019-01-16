@@ -15,7 +15,7 @@ protected:
 
 public:
 	//x,y가로길이 세로길이 초기화
-	void	init(int posX,int posY,int width, int height);
+	virtual void	init(int posX,int posY,int width, int height);
 
 	//자식들에서 재정의 필수
 	virtual void update()			abstract;
@@ -32,7 +32,7 @@ public:
 	inline int getHeight() { return _height; }
 	inline int getLeft() { return _left; }
 	inline int getTop() { return _top; }
-
+	inline image* getIamge() { return _pImg; }
 
 
 	inline void setPosX(int posX) { _posX = posX; }
