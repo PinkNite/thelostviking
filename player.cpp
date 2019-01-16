@@ -14,7 +14,7 @@ void PLAYER::init()
 {
 	//바이킹들 초기화
 	_pViking[static_cast<const int>(VIKING::ERIC)] = new ERIC();
-	_pViking[static_cast<const int>(VIKING::ERIC)]->init(610, 610, 32, 32);
+	_pViking[static_cast<const int>(VIKING::ERIC)]->init(610, 610, 64, 64);
 
 
 
