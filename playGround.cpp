@@ -56,6 +56,8 @@ HRESULT playGround::init()
 
 	_pCamera->setting();
 
+	_pInputMgr->init(_pPlayer, _pCamera);
+
 	return S_OK;
 }
 
@@ -63,6 +65,9 @@ HRESULT playGround::init()
 void playGround::release()
 {
 	gameNode::release();
+
+	_pInputMgr->release();
+
 	delete _pCamera;
 	_pCamera = nullptr;
 	delete _pPlayer;
@@ -77,6 +82,9 @@ void playGround::update()
 	_pCamera->update();
 
 	_pPlayer->update();
+
+	_pInputMgr->update();
+
 	SCENEMANAGER->update();
 	_pSceneStart->update();//ÀÌ½ÂÀç 2019-01-16
 }

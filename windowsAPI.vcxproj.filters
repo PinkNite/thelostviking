@@ -82,6 +82,9 @@
     <Filter Include="PlayGround\scene\sceneStart\scenes">
       <UniqueIdentifier>{331fb875-0b04-46bf-b214-cbd77585ef4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlayGround\inputMgr">
+      <UniqueIdentifier>{0fc96cf9-1364-42ff-adf7-d09d4d01d054}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -201,6 +204,9 @@
     <ClInclude Include="TestStage1.h">
       <Filter>PlayGround\scene</Filter>
     </ClInclude>
+    <ClInclude Include="inputMgr.h">
+      <Filter>PlayGround\inputMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -304,6 +310,9 @@
     </ClCompile>
     <ClCompile Include="TestStage1.cpp">
       <Filter>PlayGround\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="inputMgr.cpp">
+      <Filter>PlayGround\inputMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

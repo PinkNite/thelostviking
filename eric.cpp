@@ -26,47 +26,38 @@ void ERIC::update()
 	//왼쪽이동 시작
 	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
 	{
-		_speed = _minSpeed;
-		moveLeft(static_cast<int>(_speed));
+		setMoveStart(true);
+
 	}
 	//왼쪽 이동 중
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		if (_speed < _maxSpeed)
-		{
-			_speed += _upSpeed * TIMEMANAGER->getElpasedTime();
-		}
-		moveLeft(static_cast<int>(_speed));
+		moveLeft();
 	}
 	//오른쪽 이동 시작
 	if(KEYMANAGER->isOnceKeyDown(VK_RIGHT))
 	{
-		_speed = _speed = _minSpeed;
-		3.0f;
-		moveRight(static_cast<int>(_speed));
+		setMoveStart(true);
 	}
 	//오른쪽 이동 중
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		if (_speed < _maxSpeed)
-		{
-			_speed += _upSpeed * TIMEMANAGER->getElpasedTime();
-		}		
-		moveRight(static_cast<int>(_speed));
+		moveRight();
 	}
 
 	if(KEYMANAGER->isOnceKeyDown(VK_DOWN))
 	{
-		_speed = _minSpeed;
-		moveDown(static_cast<int>(_speed));
+		moveDown();
 	}
 
 
 	if(KEYMANAGER->isOnceKeyDown(VK_UP))
 	{
-		_speed = _minSpeed;
-		moveUp(static_cast<int>(_speed));
+		moveUp();
 	}
+
+
+
 	KEYANIMANAGER->update();
 
 }
@@ -77,7 +68,54 @@ void ERIC::release()
 
 void ERIC::render(HDC hdc)
 {
+
+
 	OBJECT::getIamge()->aniRender(hdc, OBJECT::getPosX(), OBJECT::getPosY(), _pAnimation);
+}
+
+void ERIC::moveLeft()
+{
+	if (_isMoveStart)
+	{
+		_speed = _minSpeed;
+		setMoveStart(false);
+	}
+
+	OBJECT::setPosX((OBJECT::getPosX() - _speed));
+
+	if (_speed < _maxSpeed)
+	{
+		_speed += _upSpeed * TIMEMANAGER->getElpasedTime();
+	}
+}
+
+void ERIC::moveRight()
+{
+	if (_isMoveStart)
+	{
+		_speed = _minSpeed;
+		setMoveStart(false);
+	}
+	OBJECT::setPosX((OBJECT::getPosX() + _speed));
+
+	if (_speed < _maxSpeed)
+	{
+		_speed += _upSpeed * TIMEMANAGER->getElpasedTime();
+	}
+}
+
+void ERIC::moveUp()
+{
+	_speed = _minSpeed;
+	OBJECT::setPosY((OBJECT::getPosY() - _speed));
+
+}
+
+void ERIC::moveDown()
+{
+	_speed = _minSpeed;
+	OBJECT::setPosY((OBJECT::getPosY() + _speed));
+
 }
 
 void ERIC::initAnimation()
@@ -96,10 +134,6 @@ void ERIC::initAnimation()
 
 void ERIC::initAniFrame()
 {
-
-
-
-
 	//아이들 순간이동 공포
 	_arStrAniState[static_cast<int>(ERIC_STATE::RIGHT_IDLE)] = "RIGHT_IDLE";
 	_arAniFrameCount[static_cast<int>(ERIC_STATE::RIGHT_IDLE)] = 2;

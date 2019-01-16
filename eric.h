@@ -67,6 +67,8 @@ private:
 	bool			_arIsLoop[static_cast<const int>(ERIC_STATE::MAX)];
 	animation*		_pAnimation;
 
+	bool			_isMoveStart;
+
 public:
 	ERIC();
 	~ERIC();
@@ -78,10 +80,10 @@ public:
 	virtual void render(HDC hdc)	override;
 
 
-	void moveLeft(int nOffset) { OBJECT::setPosX((OBJECT::getPosX() - nOffset)	 );}//* TIMEMANAGER->getElpasedTime()); }
-	void moveRight(int nOffset) { OBJECT::setPosX((OBJECT::getPosX() + nOffset)  );}//* TIMEMANAGER->getElpasedTime()); }
-	void moveUp(int nOffset) { OBJECT::setPosY((OBJECT::getPosY() - nOffset)	 );}//* TIMEMANAGER->getElpasedTime()); }
-	void moveDown(int nOffset) { OBJECT::setPosY((OBJECT::getPosY() + nOffset)	 );}//* TIMEMANAGER->getElpasedTime()); }
+	void moveLeft()	;//{ OBJECT::setPosX((OBJECT::getPosX() - nOffset)	 );}//* TIMEMANAGER->getElpasedTime()); }
+	void moveRight() ;//{ OBJECT::setPosX((OBJECT::getPosX() + nOffset)  );}//* TIMEMANAGER->getElpasedTime()); }
+	void moveUp()	;//{ OBJECT::setPosY((OBJECT::getPosY() - nOffset)	 );}//* TIMEMANAGER->getElpasedTime()); }
+	void moveDown()	;//{ OBJECT::setPosY((OBJECT::getPosY() + nOffset)	 );}//* TIMEMANAGER->getElpasedTime()); }
 
 
 	inline int getPosX() { return OBJECT::getPosX(); }
@@ -93,4 +95,6 @@ public:
 
 	void	initAnimation();
 	void	initAniFrame();
+
+	inline void	setMoveStart(bool isMoveStart) { _isMoveStart = isMoveStart; }
 };

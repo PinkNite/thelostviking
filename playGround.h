@@ -4,14 +4,16 @@
 #include "TestStage1.h"
 #include "player.h"
 #include "sceneStart.h"//ÀÌ½ÂÀç 2019-01-16
+#include "inputMgr.h"
+
 
 class playGround : public gameNode
 {
 private:
-	CAMERA * _pCamera;
-	PLAYER* _pPlayer;
-	SCENESTART* _pSceneStart;//ÀÌ½ÂÀç 2019-01-16
-
+	CAMERA *		_pCamera;
+	PLAYER*			_pPlayer;
+	SCENESTART*		_pSceneStart;//ÀÌ½ÂÀç 2019-01-16
+	INPUTMANAGER*	_pInputMgr;
 public:
 	virtual HRESULT init();
 	virtual void release();
