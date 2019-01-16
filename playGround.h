@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "camera.h"
 #include "TestStage1.h"
+#include "player.h"
 
 class playGround : public gameNode
 {

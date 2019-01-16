@@ -61,6 +61,11 @@ private:
 	int				_itemCount;
 	float			_speed;
 	ERIC_STATE		_state;
+	vector<int*>	_vAniFrame;
+	int				_arAniFrameCount[static_cast<const int>(ERIC_STATE::MAX)];
+	string			_arStrAniState[static_cast<const int>(ERIC_STATE::MAX)];
+	bool			_arIsLoop[static_cast<const int>(ERIC_STATE::MAX)];
+	animation*		_pAnimation;
 
 public:
 	ERIC();
@@ -87,5 +92,5 @@ public:
 	inline int getLeft() { return OBJECT::getLeft(); }
 
 	void	initAnimation();
-
+	void	initAniFrame();
 };
