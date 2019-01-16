@@ -16,6 +16,16 @@ void playGround::load()
 	//이미지 넣는것은 여기서 하세요
 	IMAGEMANAGER->addFrameImage("eric", "resource/viking/ericSprites.bmp", 352, 672, 11, 21, true, RGB(255, 0, 255));
 
+	//이승재 2019-01-16
+	IMAGEMANAGER->addImage("검은배경화면", "resource/intro/검은배경화면.bmp", 640, 480, false, RGB(0, 0, 0));
+	IMAGEMANAGER->addImage("핑크행님", "resource/intro/제외배경화면.bmp", 640, 480, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("인트로1", "resource/intro/인트로1.bmp", 640, 480, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("인트로2", "resource/intro/인트로2.bmp", 640, 480, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("인트로3", "resource/intro/인트로3.bmp", 640, 480, false, RGB(0, 0, 0));
+	IMAGEMANAGER->addImage("인트로행님", "resource/intro/인트로제목.bmp", 640, 204, true, RGB(255, 0, 255));
+
+
+	
 }
 
 
@@ -33,6 +43,10 @@ HRESULT playGround::init()
 
 	_pPlayer = new PLAYER;
 	_pPlayer->init();
+	//이승재 2019-01-16
+	_pSceneStart = new SCENESTART;
+	_pSceneStart->init();
+
 	return S_OK;
 }
 
@@ -55,7 +69,7 @@ void playGround::update()
 
 	_pPlayer->update();
 	SCENEMANAGER->update();
-	
+	_pSceneStart->update();//이승재 2019-01-16
 }
 
 
@@ -75,6 +89,8 @@ void playGround::render()
 	_pCamera->render(getMemDC());
 	//UI
 
+	//Scene
+	_pSceneStart->render();//이승재 2019-01-16
 
 	TIMEMANAGER->render(getMemDC());
 	//===========================================================

@@ -76,6 +76,12 @@
     <Filter Include="2DFramework\pixelCollision">
       <UniqueIdentifier>{3380f7d9-0ea7-4cc0-a609-198afb80da11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlayGround\scene\sceneStart">
+      <UniqueIdentifier>{333bd487-7441-43ca-94bb-53c3a6183303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayGround\scene\sceneStart\scenes">
+      <UniqueIdentifier>{331fb875-0b04-46bf-b214-cbd77585ef4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -171,6 +177,27 @@
     <ClInclude Include="TestStage1.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="scene4.h">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scene0.h">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scene1.h">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scene2.h">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scene3.h">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="backGround.h">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneStart.h">
+      <Filter>PlayGround\scene\sceneStart</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -250,6 +277,27 @@
     </ClCompile>
     <ClCompile Include="TestStage1.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="scene4.cpp">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="scene3.cpp">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="scene2.cpp">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="scene1.cpp">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="scene0.cpp">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="backGround.cpp">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneStart.cpp">
+      <Filter>PlayGround\scene\sceneStart</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
