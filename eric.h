@@ -11,7 +11,7 @@ public:
 	ERIC();
 	~ERIC();
 
-private:
+public:
 	void	init(int posX,int posY, int width, int height);
 	virtual void update()			override;
 	virtual void release()			override;

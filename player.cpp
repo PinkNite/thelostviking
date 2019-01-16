@@ -12,7 +12,8 @@ PLAYER::~PLAYER()
 
 void PLAYER::init()
 {
-
+	_pEric = new ERIC();
+	_pEric->init(100, 100, 32, 32);
 }
 
 void PLAYER::update()

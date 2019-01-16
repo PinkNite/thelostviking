@@ -6,7 +6,7 @@ class ERIC;
 class PLAYER
 {
 private:
-
+	ERIC * _pEric;
 public:
 	PLAYER();
 	~PLAYER();

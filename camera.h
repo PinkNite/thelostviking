@@ -4,6 +4,8 @@
 #include "image.h"
 
 
+class PLAYER;
+
 
 class CAMERA {
 private:
@@ -14,7 +16,7 @@ private:
 	int	_left;
 	int _top;
 	image* _pCameraBuffer;
-	  
+	
 public:
 	CAMERA();
 	~CAMERA();
