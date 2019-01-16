@@ -15,7 +15,7 @@ protected:
 
 public:
 	//x,y가로길이 세로길이 초기화
-	virtual void	init(int posX,int posY,int width, int height);
+	virtual void init(int posX,int posY,int width, int height);
 
 	//자식들에서 재정의 필수
 	virtual void update()			abstract;

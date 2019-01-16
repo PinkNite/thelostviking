@@ -19,6 +19,7 @@ void ERIC::init(int posX, int posY, int width, int height)
 	_state = ERIC_STATE::LEFT_IDLE;
 	initAnimation();
 	_pAnimation = KEYANIMANAGER->findAnimation("eric", _arStrAniState[0]);
+	_pAnimation->start();
 }
 
 void ERIC::update()
