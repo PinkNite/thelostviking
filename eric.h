@@ -51,13 +51,17 @@ private:
 		LEFT_LAZER_DEATH,
 		MAX
 	};
-
+	
+	const	float	_maxSpeed = 7.0f;
+	const	float	_minSpeed = 3.0f;
+	const	float	_upSpeed = 0.2f;
 
 private:
-	int			_hp;
-	int			_itemCount;
-	float		_speed;
-	int			_maxSpeed;
+	int				_hp;
+	int				_itemCount;
+	float			_speed;
+	ERIC_STATE		_state;
+
 public:
 	ERIC();
 	~ERIC();
@@ -82,5 +86,6 @@ public:
 	inline int getTop() { return OBJECT::getTop(); }
 	inline int getLeft() { return OBJECT::getLeft(); }
 
+	void	initAnimation();
 
 };

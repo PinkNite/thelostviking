@@ -16,7 +16,7 @@ void ERIC::init(int posX, int posY, int width, int height)
 	_itemCount = 0;
 	OBJECT::setImage(IMAGEMANAGER->findImage("eric"));
 	_speed = 3.0f;
-	_maxSpeed = 5;
+	_state = ERIC_STATE::LEFT_IDLE;
 }
 
 void ERIC::update()
@@ -24,36 +24,45 @@ void ERIC::update()
 	//왼쪽이동 시작
 	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
 	{
-		_speed = 3.0f;
+		_speed = _minSpeed;
 		moveLeft(static_cast<int>(_speed));
 	}
 	//왼쪽 이동 중
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		_speed += 0.2f;
+		if (_speed < _maxSpeed)
+		{
+			_speed += _upSpeed * TIMEMANAGER->getElpasedTime();
+		}
 		moveLeft(static_cast<int>(_speed));
 	}
 	//오른쪽 이동 시작
 	if(KEYMANAGER->isOnceKeyDown(VK_RIGHT))
 	{
-		_speed = 3.0f;
+		_speed = _speed = _minSpeed;
+		3.0f;
 		moveRight(static_cast<int>(_speed));
 	}
 	//오른쪽 이동 중
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		_speed += 0.2f;
+		if (_speed < _maxSpeed)
+		{
+			_speed += _upSpeed * TIMEMANAGER->getElpasedTime();
+		}		
 		moveLeft(static_cast<int>(_speed));
 	}
 
 	if(KEYMANAGER->isOnceKeyDown(VK_DOWN))
 	{
-		_speed = 3.0f;
+		_speed = _minSpeed;
 		moveDown(static_cast<int>(_speed));
 	}
+
+
 	if(KEYMANAGER->isOnceKeyDown(VK_UP))
 	{
-		_speed = 3.0f;
+		_speed = _minSpeed;
 		moveUp(static_cast<int>(_speed));
 	}
 
@@ -65,4 +74,11 @@ void ERIC::release()
 
 void ERIC::render(HDC hdc)
 {
+}
+
+void ERIC::initAnimation()
+{
+	
+
+
 }
