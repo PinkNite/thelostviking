@@ -9,10 +9,11 @@ ERIC::~ERIC()
 {
 }
 
-void ERIC::init()
+void ERIC::init(int posX, int posY, int width, int height)
 {
-	OBJECT::init(5, 5, 20, 20);
-	_nHp = 3;
+	OBJECT::init(posX, posY, width, height);
+	_hp = 3;
+	_itemCount = 0;
 }
 
 void ERIC::update()

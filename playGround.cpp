@@ -22,8 +22,8 @@ HRESULT playGround::init()
 	gameNode::init(true);
 	
 	load();
-	pCamera = new CAMERA();
-	pCamera->init(512, 512, WINSIZEX, WINSIZEY);
+	_pCamera = new CAMERA();
+	_pCamera->init(512, 512, WINSIZEX, WINSIZEY);
 	return S_OK;
 }
 
@@ -31,8 +31,8 @@ HRESULT playGround::init()
 void playGround::release()
 {
 	gameNode::release();
-	delete pCamera;
-	pCamera = nullptr;
+	delete _pCamera;
+	_pCamera = nullptr;
 
 }
 
@@ -41,7 +41,7 @@ void playGround::update()
 {
 	gameNode::update();
 
-	pCamera->update();
+	_pCamera->update();
 
 
 	SCENEMANAGER->update();
@@ -54,7 +54,7 @@ void playGround::render()
 {
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
 
-	pCamera->render(getMemDC());
+	_pCamera->render(getMemDC());
 
 	//pCamera->getCameraBuffer()->render(getMemDC(), 0, 0, 200, 200, 800, 600);
 	////getMemDc 대신 뭐 넣을때는 pCamera->getMemDc()를 쓰세요.

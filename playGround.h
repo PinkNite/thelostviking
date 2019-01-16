@@ -5,7 +5,7 @@
 class playGround : public gameNode
 {
 private:
-	CAMERA * pCamera;
+	CAMERA * _pCamera;
 
 public:
 	virtual HRESULT init();

@@ -14,6 +14,7 @@ private:
 	int	_left;
 	int _top;
 	image* _pCameraBuffer;
+	  
 public:
 	CAMERA();
 	~CAMERA();

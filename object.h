@@ -27,12 +27,15 @@ public:
 	inline int getPosY() { return _posY; }
 	inline int getWidth() { return _width; }
 	inline int getHeight() { return _height; }
+	inline int getLeft() { return _left; }
+	inline int getTop() { return _top; }
+
 
 
 	inline void setPosX(int posX) { _posX = posX; }
 	inline void setPosY(int posY) { _posY = posY; }
 	inline void setWidth(int width) { _width = width; }
 	inline void setHeight(int height) { _height = height; }
-
+	
 };
 
