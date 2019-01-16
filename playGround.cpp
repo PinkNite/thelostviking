@@ -28,6 +28,11 @@ void playGround::load()
 	
 }
 
+void playGround::link()
+{
+	_pCamera->setPlayer(_pPlayer);
+}
+
 
 HRESULT playGround::init()
 {
@@ -46,6 +51,10 @@ HRESULT playGround::init()
 	//ÀÌ½ÂÀç 2019-01-16
 	_pSceneStart = new SCENESTART;
 	_pSceneStart->init();
+
+	link();
+
+	_pCamera->setting();
 
 	return S_OK;
 }

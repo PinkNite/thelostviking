@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "camera.h"
+#include "player.h"
 
 CAMERA::CAMERA()
 {
@@ -15,11 +16,10 @@ void CAMERA::init(int posX, int posY, int width, int height)
 	_posY = posY;
 	_width = width;
 	_height = height;
-	_left = _posX - _width/2;
-	_top = _posY - _height/2;
+	setLeftTop();
+
 	_pCameraBuffer = IMAGEMANAGER->addImage("b", MAPSIZEX, MAPSIZEY);
-	_hdc = GetDC(_hWnd);
-	pBac = IMAGEMANAGER->addImage("magicCircle", "magicCircle.bmp", MAPSIZEX, MAPSIZEY, true, RGB(255, 0, 255));
+	_pBac = IMAGEMANAGER->addImage("magicCircle", "magicCircle.bmp", MAPSIZEX, MAPSIZEY, true, RGB(255, 0, 255));
 }
 
 void CAMERA::update()
@@ -69,21 +69,32 @@ void CAMERA::update()
 
 	//_left = _posX - _width/2;
 	//_top = _posY - _height/2;
+
+	
+
 }
 
 void CAMERA::render(HDC hdc)
 {
-	//_hdc = hdc;
-
-
 	_pCameraBuffer->render(hdc, 0, 0, _left, _top, _width, _height);
-	
-	//_pCameraBuffer->render(hdc, 0, 0);
+
 }
 
 void CAMERA::renderinit()
 {
 	PatBlt(this->getMemDC(), 0, 0, MAPSIZEX, MAPSIZEY, WHITENESS);
-	pBac->render(this->getMemDC(), 0, 0);//, _left, _top, _width, _height);
 
+	_pBac->render(this->getMemDC(), 0, 0);
+}
+
+void CAMERA::setting()
+{
+	_posX = _pPlayer->getPosX();
+	_posY = _pPlayer->getPosY();
+}
+
+void CAMERA::setLeftTop()
+{
+	_left = _posX - _width / 2;
+	_top = _posY - _height / 2;
 }

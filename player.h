@@ -1,8 +1,9 @@
 #pragma once
-
+#include "stdafx.h"
 
 class ERIC;
 class OBJECT;
+
 class PLAYER
 {
 private:
@@ -27,5 +28,10 @@ public:
 	void release()			;
 	void render(HDC hdc)	;
 
-
+	int getPosX	();
+	int getPosY	();
+	int getWidth	();
+	int getHeight();
+	int getTop	();
+	int getLeft	();
 };

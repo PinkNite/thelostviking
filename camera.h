@@ -17,7 +17,9 @@ private:
 	int _top;
 	image* _pCameraBuffer;
 	HDC		_hdc;
-	image* pBac;
+	image*	_pBac;
+	PLAYER*	_pPlayer;
+
 public:
 	CAMERA();
 	~CAMERA();
@@ -30,5 +32,15 @@ public:
 	image* getCameraBuffer() { return _pCameraBuffer; }
 	HDC getMemDC() { return _pCameraBuffer->getMemDC(); }
 	HDC getHDC() { return _hdc; }
+
+	void	setting();
+
+private:
+	void	setLeftTop();
+
+public:
+	inline	void	setPlayer(PLAYER* pPlayer) { _pPlayer = pPlayer; }
+
+
 
 };

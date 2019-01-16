@@ -36,3 +36,33 @@ void PLAYER::render(HDC hdc)
 {
 	_pViking[_nCurrentViking]->render(hdc);
 }
+
+ int PLAYER::getPosX()
+{
+	return _pViking[_nCurrentViking]->getPosX();
+}
+
+ int PLAYER::getPosY()
+{
+	return _pViking[_nCurrentViking]->getPosY();
+}
+
+ int PLAYER::getWidth()
+{
+	return _pViking[_nCurrentViking]->getWidth();
+}
+
+ int PLAYER::getHeight()
+{
+	return _pViking[_nCurrentViking]->getHeight();
+}
+
+ int PLAYER::getTop()
+{
+	return  _pViking[_nCurrentViking]->getTop();
+}
+
+ int PLAYER::getLeft()
+{
+	return _pViking[_nCurrentViking]->getLeft();
+}

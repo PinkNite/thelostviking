@@ -11,6 +11,7 @@ private:
 	CAMERA * _pCamera;
 	PLAYER* _pPlayer;
 	SCENESTART* _pSceneStart;//이승재 2019-01-16
+
 public:
 	virtual HRESULT init();
 	virtual void release();
@@ -20,7 +21,9 @@ public:
 
 	playGround();
 	~playGround();
-
+	//이미지 로드 여기서 하세요
 	void	load();
+	//상호참조 여기서 하세요
+	void	link();
 };
 
