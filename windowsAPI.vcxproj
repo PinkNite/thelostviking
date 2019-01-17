@@ -149,7 +149,6 @@
   <ItemGroup>
     <ClInclude Include="action.h" />
     <ClInclude Include="animation.h" />
-    <ClInclude Include="backGround.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="effect.h" />
@@ -169,13 +168,7 @@
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="scene0.h" />
-    <ClInclude Include="scene1.h" />
-    <ClInclude Include="scene2.h" />
-    <ClInclude Include="scene3.h" />
-    <ClInclude Include="scene4.h" />
     <ClInclude Include="sceneManager.h" />
-    <ClInclude Include="sceneStart.h" />
     <ClInclude Include="singletonBase.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="stdafx.h" />
@@ -191,7 +184,6 @@
   <ItemGroup>
     <ClCompile Include="action.cpp" />
     <ClCompile Include="animation.cpp" />
-    <ClCompile Include="backGround.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="effect.cpp" />
@@ -209,13 +201,7 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="playGround.cpp" />
     <ClCompile Include="progressBar.cpp" />
-    <ClCompile Include="scene0.cpp" />
-    <ClCompile Include="scene1.cpp" />
-    <ClCompile Include="scene2.cpp" />
-    <ClCompile Include="scene3.cpp" />
-    <ClCompile Include="scene4.cpp" />
     <ClCompile Include="sceneManager.cpp" />
-    <ClCompile Include="sceneStart.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

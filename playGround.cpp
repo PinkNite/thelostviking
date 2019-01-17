@@ -48,9 +48,6 @@ HRESULT playGround::init()
 
 	_pPlayer = new PLAYER;
 	_pPlayer->init();
-	//ÀÌ½ÂÀç 2019-01-16
-	_pSceneStart = new SCENESTART;
-	_pSceneStart->init();
 
 	link();
 
@@ -87,7 +84,6 @@ void playGround::update()
 	_pInputMgr->update();
 
 	SCENEMANAGER->update();
-	_pSceneStart->update();//ÀÌ½ÂÀç 2019-01-16
 }
 
 
