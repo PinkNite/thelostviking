@@ -3,54 +3,8 @@
 #include "object.h"
 
 class ERIC : public OBJECT{
-private:
-	enum class ERIC_STATE 
-	{
-		RIGHT_IDLE = 0,
-		LEFT_IDLE,
-		RIGHT_TELEPORT,
-		LEFT_TELEPORT,
-		RIGHT_AFFRIGHT,
-		LEFT_AFFRIGHT,
-		RIGHT_RUN,
-		LEFT_RUN,
-		RIGHT_HADING,
-		LEFT_HADING,
-		RIGHT_HADING_STUN,
-		LEFT_HADING_STUN,
-		RIGHT_JUMP,
-		LEFT_JUMP,
-		RIGHT_SIGN,
-		LEFT_SIGN,
-		ON_LADDER,
-		RIGHT_PUSH,
-		LEFT_PUSH,
-		RIGHT_FOOT_ROLL,
-		LEFT_FOOT_ROLL,
-		RIGHT_BOOLEAN,
-		LEFT_BOOLEAN,
-		RIGHT_GUITAR,
-		LEFT_GUITAR,
-		RIGHT_SKELETON_DEATH,
-		LEFT_SKELETON_DEATH,
-		RIGHT_WATER_DEATH,
-		LEFT_WATER_DEATH,
-		RIGHT_ELECTRIC_DEATH,
-		LEFT_ELECTRIC_DEATH,
-		RIGHT_FIRE_DEATH,
-		LEFT_FIRE_DEATH,
-		RIGHT_PRESS_DEATH,
-		LEFT_PRESS_DEATH,
-		RIGHT_FALLDOWN,
-		LEFT_FALLDOWN,
-		RIGHT_FALLIN_DEATH,
-		LEFT_FALLIN_DEATH,
-		RIGHT_FALLDOWN_DEATH,
-		LEFT_FALLDOWN_DEATH,
-		RIGHT_LAZER_DEATH,
-		LEFT_LAZER_DEATH,
-		MAX
-	};
+public:
+
 	
 	const	float	_maxSpeed = 560.0f;
 	const	float	_minSpeed = 300.0f;
@@ -62,7 +16,7 @@ private:
 	int				_hp;
 	int				_itemCount;
 	float			_speed;
-	ERIC_STATE		_state;
+	OBJECT::ERIC_STATE		_state;
 	vector<int*>	_vAniFrame;
 	int				_arAniFrameCount[static_cast<const int>(ERIC_STATE::MAX)];
 	string			_arStrAniState[static_cast<const int>(ERIC_STATE::MAX)];
@@ -79,9 +33,13 @@ private:
 	int				_endPosY;
 	int				_turn;
 	float			_jumpAngle;
-	float			_moveAngle;
+	float			_moveAngleX;
+	float			_moveAngleY;
 	float			_offsetX;
 	float			_offsetY;
+
+	
+
 public:
 	ERIC();
 	~ERIC();
@@ -109,6 +67,10 @@ public:
 	//스킬
 	virtual void skillOne() override;
 	virtual void skillTwo()	override;
+
+	//상태 변화
+	virtual OBJECT::ERIC_STATE	getEricState();
+	virtual void				setEricState(OBJECT::ERIC_STATE ericState);
 public:
 	//인라인 함수
 	inline void	setMoveStart(bool isMoveStart) { _isMoveStart = isMoveStart; }
@@ -120,4 +82,6 @@ public:
 	inline int	getLeft() { return OBJECT::getLeft(); }
 	inline void	setJumping(bool isJumping) { _isJumpimg = isJumping; }
 	inline void	setJumpPower(float jumpPower) { _jumpPower = jumpPower; }
+
+
 };
