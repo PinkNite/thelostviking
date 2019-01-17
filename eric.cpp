@@ -86,6 +86,12 @@ void ERIC::moveDown()
 
 }
 
+void ERIC::jump()
+{
+
+
+}
+
 float ERIC::getSpeed()
 {
 	return _speed;

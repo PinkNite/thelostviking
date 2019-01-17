@@ -69,6 +69,8 @@ private:
 
 	bool			_isMoveStart;
 
+	float			_jumpPower;
+
 public:
 	ERIC();
 	~ERIC();
@@ -84,7 +86,7 @@ public:
 	void moveRight();
 	void moveUp()	;
 	void moveDown()	;
-
+	void jump();
 
 	inline int getPosX() { return OBJECT::getPosX(); }
 	inline int getPosY() { return OBJECT::getPosY(); }
