@@ -186,6 +186,12 @@
     <ClInclude Include="inputMgr.h">
       <Filter>PlayGround\inputMgr</Filter>
     </ClInclude>
+    <ClInclude Include="map1.h">
+      <Filter>PlayGround\map</Filter>
+    </ClInclude>
+    <ClInclude Include="map2.h">
+      <Filter>PlayGround\map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -271,6 +277,12 @@
     </ClCompile>
     <ClCompile Include="inputMgr.cpp">
       <Filter>PlayGround\inputMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="map1.cpp">
+      <Filter>PlayGround\map</Filter>
+    </ClCompile>
+    <ClCompile Include="map2.cpp">
+      <Filter>PlayGround\map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
