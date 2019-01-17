@@ -160,6 +160,12 @@
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="iniDataManager.h" />
+    <ClInclude Include="itemBoom.h" />
+    <ClInclude Include="itemFrame.h" />
+    <ClInclude Include="itemFruit1.h" />
+    <ClInclude Include="itemFruit2.h" />
+    <ClInclude Include="itemMeat.h" />
+    <ClInclude Include="itemQuestionMark.h" />
     <ClInclude Include="keyAniManager.h" />
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="map1.h" />
@@ -203,6 +209,12 @@
     <ClCompile Include="imageManager.cpp" />
     <ClCompile Include="iniDataManager.cpp" />
     <ClCompile Include="inputMgr.cpp" />
+    <ClCompile Include="itemBoom.cpp" />
+    <ClCompile Include="itemFrame.cpp" />
+    <ClCompile Include="itemFruit1.cpp" />
+    <ClCompile Include="itemFruit2.cpp" />
+    <ClCompile Include="itemMeat.cpp" />
+    <ClCompile Include="itemQuestionMark.cpp" />
     <ClCompile Include="keyAniManager.cpp" />
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="map1.cpp" />

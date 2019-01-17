@@ -210,6 +210,24 @@
     <ClInclude Include="scenePassword.h">
       <Filter>PlayGround\scene\sceneStart\scenes</Filter>
     </ClInclude>
+    <ClInclude Include="itemBoom.h">
+      <Filter>PlayGround\Object\item</Filter>
+    </ClInclude>
+    <ClInclude Include="itemFrame.h">
+      <Filter>PlayGround\Object\item</Filter>
+    </ClInclude>
+    <ClInclude Include="itemFruit1.h">
+      <Filter>PlayGround\Object\item</Filter>
+    </ClInclude>
+    <ClInclude Include="itemFruit2.h">
+      <Filter>PlayGround\Object\item</Filter>
+    </ClInclude>
+    <ClInclude Include="itemMeat.h">
+      <Filter>PlayGround\Object\item</Filter>
+    </ClInclude>
+    <ClInclude Include="itemQuestionMark.h">
+      <Filter>PlayGround\Object\item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -316,6 +334,24 @@
     </ClCompile>
     <ClCompile Include="scenePassword.cpp">
       <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="itemQuestionMark.cpp">
+      <Filter>PlayGround\Object\item</Filter>
+    </ClCompile>
+    <ClCompile Include="itemMeat.cpp">
+      <Filter>PlayGround\Object\item</Filter>
+    </ClCompile>
+    <ClCompile Include="itemFruit2.cpp">
+      <Filter>PlayGround\Object\item</Filter>
+    </ClCompile>
+    <ClCompile Include="itemFruit1.cpp">
+      <Filter>PlayGround\Object\item</Filter>
+    </ClCompile>
+    <ClCompile Include="itemFrame.cpp">
+      <Filter>PlayGround\Object\item</Filter>
+    </ClCompile>
+    <ClCompile Include="itemBoom.cpp">
+      <Filter>PlayGround\Object\item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
