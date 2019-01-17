@@ -66,9 +66,7 @@ void INPUTMANAGER::update()
 	if (_pPlayer->getPosX() < _pCamera->getLeft() + _pCamera->getWidth() / 2 - 32)
 	{
 		float offset = _pCamera->getLeft() + _pCamera->getWidth() / 2 - 32 - _pPlayer->getPosX();
-		_pCamera->moveLeft(offset);
-		//차이값 받아서 해보자
-		
+		_pCamera->moveLeft(offset);		
 	}
 	else if (_pPlayer->getPosX() > _pCamera->getLeft() + _pCamera->getWidth() / 2 + 32)
 	{

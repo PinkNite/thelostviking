@@ -114,7 +114,7 @@ void ERIC::jump()
 	}
 
 	_jumpPower = Mins::presentPowerY(_jumpAngle, 500.0f)*TIMEMANAGER->getElpasedTime();
-
+	_offsetY = _jumpPower;
 	//땅 착지하면 점핑을 false로 바꾸어야 하는데 지금 바닥이 없다 픽셀충돌 그렇기에 기존 위치를 받아서 임시로 처리하겠다.
 	if (_posY >= _startPosY)
 	{
@@ -139,7 +139,6 @@ void ERIC::initAnimation()
 {
 	initAniFrame();
 	KEYANIMANAGER->addObject("eric");
-	//백테의 배열과 반복문 스트링 배열로 처리될거같은데?
 	for (int i = 0; i < static_cast<int>(ERIC_STATE::MAX); i++)
 	{
 		KEYANIMANAGER->addArrayFrameAnimation("eric", _arStrAniState[i], "eric", _vAniFrame[i], _arAniFrameCount[i], 1, _arIsLoop[i]);
