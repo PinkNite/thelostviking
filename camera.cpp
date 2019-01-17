@@ -30,7 +30,6 @@ void CAMERA::update()
 void CAMERA::render(HDC hdc)
 {
 	_pCameraBuffer->render(hdc, 0, 0, _left, _top, _width, _height);
-
 }
 
 void CAMERA::renderinit()

@@ -48,8 +48,6 @@ public:
 	void	moveUp(float offset);
 	void	moveDown(float offset);
 
-
-
 public:
 	inline	float	getLeft() { return _left; }
 	inline	float	getTop() { return _top; }
@@ -57,6 +55,4 @@ public:
 	inline	int	getBotton() { return _top + _height; }
 	inline	int	getWidth() { return _width; }
 	inline	int	getHeight() { return _height; }
-
-
 };
