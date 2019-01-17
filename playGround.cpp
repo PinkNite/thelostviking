@@ -24,8 +24,17 @@ void playGround::load()
 	IMAGEMANAGER->addImage("인트로3", "resource/intro/인트로3.bmp", 640, 480, false, RGB(0, 0, 0));
 	IMAGEMANAGER->addImage("인트로행님", "resource/intro/인트로제목.bmp", 640, 204, true, RGB(255, 0, 255));
 
-
-	
+	// enemy image resources
+	IMAGEMANAGER->addImage("redEnemy", "resource/enemies/red.bmp", 259, 128, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("blueEnemy", "resource/enemies/blue.bmp", 259, 128, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("greenEnemy", "resource/enemies/green.bmp", 105, 64, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("blueBallEnemy", "resource/enemies/blueBall.bmp", 210, 128, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("yellowBallEnemy", "resource/enemies/yellowBall.bmp", 74, 64, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("miraEnemy", "resource/enemies/mira.bmp", 222, 128, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("cannonEnemy", "resource/enemies/cannon.bmp", 78, 64, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("snailEnemy", "resource/enemies/snail.bmp", 175, 128, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("goliathEnemy", "resource/enemies/goliath.bmp", 175, 128, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("bossEnemy", "resource/enemies/bossTomator.bmp", 300, 300, true, RGB(255, 0, 255));
 }
 
 void playGround::link()
