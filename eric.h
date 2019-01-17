@@ -74,6 +74,8 @@ private:
 	
 	//임시변수들입니다.
 	int				_startPosY;
+	int				_endPosY;
+	int				_turn;
 public:
 	ERIC();
 	~ERIC();

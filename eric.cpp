@@ -90,8 +90,12 @@ void ERIC::jump()
 {
 	if (!_isJumpimg)return;
 
-	_posY -= _jumpPower;
-	_jumpPower -= _gravity + 0.7f;//현 그래비티값이 크다 시간을 곱해야하기에
+	_posY += _turn * _jumpPower;
+	//_jumpPower -= _gravity + 0.7f;//현 그래비티값이 크다 시간을 곱해야하기에
+	if (_posY <= _endPosY)
+	{
+		_turn *= -1;
+	}
 
 	//땅 착지하면 점핑을 false로 바꾸어야 하는데 지금 바닥이 없다 픽셀충돌 그렇기에 기존 위치를 받아서 임시로 처리하겠다.
 	if (_posY >= _startPosY)
@@ -295,10 +299,13 @@ void ERIC::skillOne()
 {
 	if (_isJumpimg) return;
 	_startPosY = _posY;
-	_jumpPower = 20.0f;
+	_jumpPower = 3.0f;
+	_endPosY = _posY - 100;
+	_turn = -1;
 	setJumping(true);
 }
 
 void ERIC::skillTwo()
 {
+
 }
