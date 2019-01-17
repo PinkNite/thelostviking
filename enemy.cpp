@@ -35,47 +35,48 @@ void enemy::setEnemyType(ENEMY_TYPE type)
 	switch (_type)
 	{
 	case enemy::ENEMY_TYPE::RED:
-		OBJECT::setImage(IMAGEMANAGER->findImage("redEnemy"));
+		_typeName = "redEnemy";
 		_moveType = ENEMY_MOVE_TYPE::MOVER;
 		break;
 	case enemy::ENEMY_TYPE::BLUE:
-		OBJECT::setImage(IMAGEMANAGER->findImage("blueEnemy"));
+		_typeName = "blueEnemy";
 		_moveType = ENEMY_MOVE_TYPE::MOVER;
 		break;
 	case enemy::ENEMY_TYPE::GREEN:
-		OBJECT::setImage(IMAGEMANAGER->findImage("greenEnemy"));
+		_typeName = "greenEnemy";
 		_moveType = ENEMY_MOVE_TYPE::MOVER;
 		break;
 	case enemy::ENEMY_TYPE::BLUE_BALL:
-		OBJECT::setImage(IMAGEMANAGER->findImage("blueBallEnemy"));
+		_typeName = "blueBallEnemy";
 		_moveType = ENEMY_MOVE_TYPE::MOVER;
 		break;
 	case enemy::ENEMY_TYPE::YELLOW_BALL:
-		OBJECT::setImage(IMAGEMANAGER->findImage("yellowBallEnemy"));
+		_typeName = "yellowBallEnemy";
 		_moveType = ENEMY_MOVE_TYPE::MOVER;
 		break;
 	case enemy::ENEMY_TYPE::MIRA:
-		OBJECT::setImage(IMAGEMANAGER->findImage("miraEnemy"));
+		_typeName = "miraEnemy";
 		_moveType = ENEMY_MOVE_TYPE::MOVER;
 		break;
 	case enemy::ENEMY_TYPE::CANNON:
-		OBJECT::setImage(IMAGEMANAGER->findImage("cannonEnemy"));
+		_typeName = "cannonEnemy";
 		_moveType = ENEMY_MOVE_TYPE::STAND;
 		break;
 	case enemy::ENEMY_TYPE::sNAIL:
-		OBJECT::setImage(IMAGEMANAGER->findImage("snailEnemy"));
+		_typeName = "snailEnemy";
 		_moveType = ENEMY_MOVE_TYPE::SHOOTER;
 		break;
 	case enemy::ENEMY_TYPE::GOLIATH:
-		OBJECT::setImage(IMAGEMANAGER->findImage("goliathEnemy"));
+		_typeName = "goliathEnemy";
 		_moveType = ENEMY_MOVE_TYPE::SHOOTER;
 		break;
 	case enemy::ENEMY_TYPE::BOSS:
-		OBJECT::setImage(IMAGEMANAGER->findImage("bossEnemy"));
+		_typeName = "bossEnemy";
 		_moveType = ENEMY_MOVE_TYPE::SHOOTER;
 		break;
 	}
 
+	OBJECT::setImage(IMAGEMANAGER->findImage(_typeName));
 }
 
 void enemy::moveLeft()
@@ -110,8 +111,80 @@ float enemy::getSpeedY()
 
 void enemy::initAnimation()
 {
+	initAniFrame();
+	KEYANIMANAGER->addObject(_typeName);
+
+
 }
 
 void enemy::initAniFrame()
 {
+	int* frameNum;
+	switch (_type)
+	{
+	case enemy::ENEMY_TYPE::RED: case enemy::ENEMY_TYPE::BLUE:
+
+		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_RIGHT)] = "IDLE_RIGHT";
+		_arAniFrameCount[int(ENEMY_STATE::IDLE_RIGHT)] = 1;
+		frameNum = new int [1] {0};
+		_vAniFrame.push_back(frameNum);
+
+		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_LEFT)] = "IDLE_LEFT";
+		_arAniFrameCount[int(ENEMY_STATE::IDLE_LEFT)] = 1;
+		frameNum = new int [1] {10};
+		_vAniFrame.push_back(frameNum);
+
+		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_RIGHT)] = "MOVE_RIGHT";
+		_arAniFrameCount[int(ENEMY_STATE::MOVE_RIGHT)] = 4;
+		frameNum = new int [4] {0, 1, 2, 3};
+		_vAniFrame.push_back(frameNum);
+
+		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_LEFT)] = "MOVE_LEFT";
+		_arAniFrameCount[int(ENEMY_STATE::MOVE_LEFT)] = 4;
+		frameNum = new int [4] {7, 8, 9, 10};
+		_vAniFrame.push_back(frameNum);
+
+		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_RIGHT)] = "ATTACK_RIGHT";
+		_arAniFrameCount[int(ENEMY_STATE::ATTACK_RIGHT)] = 7;
+		frameNum = new int [7] {14, 15, 16, 17, 18, 19, 20};
+		_vAniFrame.push_back(frameNum);
+
+		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_LEFT)] = "ATTACK_LEFT";
+		_arAniFrameCount[int(ENEMY_STATE::ATTACK_LEFT)] = 7;
+		frameNum = new int [7] {21, 22, 23, 24, 25, 26, 27};
+		_vAniFrame.push_back(frameNum);
+
+		break;
+	case enemy::ENEMY_TYPE::GREEN:
+
+		break;
+	case enemy::ENEMY_TYPE::BLUE_BALL:
+		OBJECT::setImage(IMAGEMANAGER->findImage("blueBallEnemy"));
+		_moveType = ENEMY_MOVE_TYPE::MOVER;
+		break;
+	case enemy::ENEMY_TYPE::YELLOW_BALL:
+		OBJECT::setImage(IMAGEMANAGER->findImage("yellowBallEnemy"));
+		_moveType = ENEMY_MOVE_TYPE::MOVER;
+		break;
+	case enemy::ENEMY_TYPE::MIRA:
+		OBJECT::setImage(IMAGEMANAGER->findImage("miraEnemy"));
+		_moveType = ENEMY_MOVE_TYPE::MOVER;
+		break;
+	case enemy::ENEMY_TYPE::CANNON:
+		OBJECT::setImage(IMAGEMANAGER->findImage("cannonEnemy"));
+		_moveType = ENEMY_MOVE_TYPE::STAND;
+		break;
+	case enemy::ENEMY_TYPE::sNAIL:
+		OBJECT::setImage(IMAGEMANAGER->findImage("snailEnemy"));
+		_moveType = ENEMY_MOVE_TYPE::SHOOTER;
+		break;
+	case enemy::ENEMY_TYPE::GOLIATH:
+		OBJECT::setImage(IMAGEMANAGER->findImage("goliathEnemy"));
+		_moveType = ENEMY_MOVE_TYPE::SHOOTER;
+		break;
+	case enemy::ENEMY_TYPE::BOSS:
+		OBJECT::setImage(IMAGEMANAGER->findImage("bossEnemy"));
+		_moveType = ENEMY_MOVE_TYPE::SHOOTER;
+		break;
+	}
 }

@@ -52,9 +52,10 @@ private:
 	animation*	 _pAnimation;
 	vector<int*> _vAniFrame;
 	int			 _arAniFrameCount[int(ENEMY_STATE::MAX)];
-	string		 _arAniFrameStateKey[int(ENEMY_STATE::MAX)];
+	string		 _arAniFrameStrKey[int(ENEMY_STATE::MAX)];
 
 	int _hp;
+	string _typeName;
 
 public:
 	enemy();
@@ -70,9 +71,12 @@ public:
 	
 	virtual void moveLeft() override;
 	virtual void moveRight() override;
-	virtual void moveUp() override;
-	virtual void moveDown() override;
-	virtual void jump() override;
+
+	void moveUp();
+	void moveDown();
+	
+	void jump();
+	void fire();
 
 	float getSpeedX();
 	float getSpeedY();
