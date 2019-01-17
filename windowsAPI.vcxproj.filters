@@ -195,6 +195,9 @@
     <ClInclude Include="viking.h">
       <Filter>PlayGround\Object\player</Filter>
     </ClInclude>
+    <ClInclude Include="pixelCollision.h">
+      <Filter>2DFramework\pixelCollision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -286,6 +289,9 @@
     </ClCompile>
     <ClCompile Include="gameNode.cpp">
       <Filter>2DFramework\txtData</Filter>
+    </ClCompile>
+    <ClCompile Include="pixelCollision.cpp">
+      <Filter>2DFramework\pixelCollision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -165,6 +165,7 @@
     <ClInclude Include="map1.h" />
     <ClInclude Include="map2.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="pixelCollision.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="playGround.h" />
     <ClInclude Include="progressBar.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="map1.cpp" />
     <ClCompile Include="map2.cpp" />
     <ClCompile Include="object.cpp" />
+    <ClCompile Include="pixelCollision.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="playGround.cpp" />
     <ClCompile Include="progressBar.cpp" />
