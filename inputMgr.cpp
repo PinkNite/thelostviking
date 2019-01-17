@@ -86,7 +86,8 @@ void INPUTMANAGER::update()
 	}
 	else if (_pPlayer->getPosX() > _pCamera->getLeft() + _pCamera->getWidth() / 2 + 32)
 	{
-		_pCamera->moveRight(_pPlayer->getSpeedX());
+		float offset = _pPlayer->getPosX() - ( _pCamera->getLeft() + _pCamera->getWidth() / 2 + 32);
+		_pCamera->moveRight(offset);
 	}
 	if (_pPlayer->getPosY() > _pCamera->getTop() + _pCamera->getHeight() / 2 + 5)
 	{

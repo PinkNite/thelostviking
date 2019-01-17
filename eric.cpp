@@ -29,7 +29,7 @@ void ERIC::update()
 {
 
 	jump();
-
+	
 	KEYANIMANAGER->update();
 
 }
@@ -58,10 +58,10 @@ void ERIC::moveLeft()
 	_offsetX = (Mins::presentPowerX(_moveAngleX, _speed) * TIMEMANAGER->getElpasedTime());
 	OBJECT::setPosX(OBJECT::getPosX() - _offsetX);
 
-	//if (_speed < _maxSpeed)
-	//{
-	//	_speed += _upSpeed * TIMEMANAGER->getElpasedTime();
-	//}
+	if (_speed < _maxSpeed)
+	{
+		_speed += _upSpeed * TIMEMANAGER->getElpasedTime();
+	}
 }
 
 void ERIC::moveRight()
@@ -76,10 +76,10 @@ void ERIC::moveRight()
 	_offsetX = -(Mins::presentPowerX(_moveAngleX, _speed) * TIMEMANAGER->getElpasedTime());
 	OBJECT::setPosX(OBJECT::getPosX() + _offsetX);
 
-	//if (_speed < _maxSpeed)
-	//{
-	//	_speed += _upSpeed * TIMEMANAGER->getElpasedTime();
-	//}
+	if (_speed < _maxSpeed)
+	{
+		_speed += _upSpeed * TIMEMANAGER->getElpasedTime();
+	}
 }
 
 void ERIC::moveUp()
