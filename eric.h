@@ -92,6 +92,7 @@ public:
 	inline int getHeight() { return OBJECT::getHeight(); }
 	inline int getTop() { return OBJECT::getTop(); }
 	inline int getLeft() { return OBJECT::getLeft(); }
+	float	getSpeed();
 
 	void	initAnimation();
 	void	initAniFrame();

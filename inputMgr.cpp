@@ -22,7 +22,18 @@ void INPUTMANAGER::update()
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 		_pPlayer->moveLeft();
+		if (_pPlayer->getPosX() < _pCamera->getLeft() + _pCamera->getWidth() / 2 - 32)
+		{
+			_pCamera->moveLeft(_pPlayer->getSpeed());
+		}
 	}
+	//왼쪽 이동 해제
+	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
+	{
+		_pPlayer->setMoveStart(false);
+
+	}
+
 	//오른쪽 이동 시작
 	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
 	{
@@ -32,14 +43,33 @@ void INPUTMANAGER::update()
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
 		_pPlayer->moveRight();
+		if (_pPlayer->getPosX() > _pCamera->getLeft() + _pCamera->getWidth()/2 + 32)
+		{
+			_pCamera->moveRight(_pPlayer->getSpeed());
+		}
 	}
-	if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
+	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
+	{
+		_pPlayer->setMoveStart(false);
+	}
+
+	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		_pPlayer->moveDown();
+
+		if (_pPlayer->getPosY() > _pCamera->getTop() + _pCamera->getHeight() / 2 )
+		{
+			_pCamera->moveDown(_pPlayer->getSpeed());
+		}
 	}
-	if (KEYMANAGER->isOnceKeyDown(VK_UP))
+	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
 		_pPlayer->moveUp();
+
+		if (_pPlayer->getPosY() < _pCamera->getTop() + _pCamera->getHeight() / 2)
+		{
+			_pCamera->moveUp(_pPlayer->getSpeed());
+		}
 	}
 
 

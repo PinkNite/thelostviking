@@ -51,10 +51,10 @@ void ERIC::moveLeft()
 
 	OBJECT::setPosX((OBJECT::getPosX() - _speed));
 
-	if (_speed < _maxSpeed)
-	{
-		_speed += _upSpeed * TIMEMANAGER->getElpasedTime();
-	}
+	//if (_speed < _maxSpeed)
+	//{
+	//	_speed += _upSpeed * TIMEMANAGER->getElpasedTime();
+	//}
 }
 
 void ERIC::moveRight()
@@ -66,10 +66,10 @@ void ERIC::moveRight()
 	}
 	OBJECT::setPosX((OBJECT::getPosX() + _speed));
 
-	if (_speed < _maxSpeed)
-	{
-		_speed += _upSpeed * TIMEMANAGER->getElpasedTime();
-	}
+	//if (_speed < _maxSpeed)
+	//{
+	//	_speed += _upSpeed * TIMEMANAGER->getElpasedTime();
+	//}
 }
 
 void ERIC::moveUp()
@@ -84,6 +84,11 @@ void ERIC::moveDown()
 	_speed = _minSpeed;
 	OBJECT::setPosY((OBJECT::getPosY() + _speed));
 
+}
+
+float ERIC::getSpeed()
+{
+	return _speed;
 }
 
 void ERIC::initAnimation()

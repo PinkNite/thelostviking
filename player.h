@@ -40,4 +40,6 @@ public:
 	void moveUp();
 	void moveDown();
 	void setMoveStart(bool isMoveStart);
+
+	float getSpeed();
 };

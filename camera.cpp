@@ -104,3 +104,47 @@ void CAMERA::setLeftTop()
 	_left = _posX - _width / 2;
 	_top = _posY - _height / 2;
 }
+
+void CAMERA::moveRight(int offset)
+{
+	_posX += offset;
+	if (_posX + _width/2 >= MAPSIZEX)
+	{
+		_posX = MAPSIZEX - _width / 2;
+	}
+	setLeftTop();
+
+}
+
+void CAMERA::moveLeft(int offset)
+{
+	_posX -= offset;
+	if (_posX - _width / 2 <= 0)
+	{
+		_posX = _width / 2;
+	}
+	setLeftTop();
+
+}
+
+void CAMERA::moveUp(int offset)
+{
+	_posY -= offset;
+	if (_posY - _height / 2 <= 0)
+	{
+		_posY = _height / 2;
+	}
+	setLeftTop();
+
+}
+
+void CAMERA::moveDown(int offset)
+{
+	_posY += offset;
+	if (_posY + _height / 2 >= MAPSIZEY)
+	{
+		_posY = MAPSIZEY - _height / 2;
+	}
+	setLeftTop();
+
+}

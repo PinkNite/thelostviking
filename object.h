@@ -47,5 +47,7 @@ public:
 	virtual void moveDown()	;
 	virtual void setMoveStart(bool isMoveStart);
 	
+
+	virtual float getSpeed();
 };
 

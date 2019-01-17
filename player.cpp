@@ -93,3 +93,8 @@ void PLAYER::render(HDC hdc)
  {
 	 _pViking[_nCurrentViking]->setMoveStart(isMoveStart);
  }
+
+ float PLAYER::getSpeed()
+ {
+	 return _pViking[_nCurrentViking]->getSpeed();
+ }

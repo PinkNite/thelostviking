@@ -33,3 +33,9 @@ void OBJECT::moveDown()
 void OBJECT::setMoveStart(bool isMoveStart)
 {
 }
+
+float OBJECT::getSpeed()
+{
+	return 0.0f;
+}
+
