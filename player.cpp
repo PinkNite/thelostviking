@@ -124,3 +124,14 @@ void PLAYER::render(HDC hdc)
  {
 	 return _pViking[static_cast<int>(PLAYER::VIKING::ERIC)]->getEricState();
  }
+
+ void PLAYER::setEricJumpPower(float power)
+ {
+	 _pViking[static_cast<int>(PLAYER::VIKING::ERIC)]->setJumpPower(power);
+
+ }
+
+ void PLAYER::setLadderAni(int nLadderAni)
+ {
+	 _pViking[_nCurrentViking]->setLadderAni(nLadderAni);
+ }

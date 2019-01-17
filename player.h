@@ -50,4 +50,7 @@ public:
 
 	void setEricState(OBJECT::ERIC_STATE ericState);
 	OBJECT::ERIC_STATE getEricState();
+
+	void setEricJumpPower(float power);
+	void	setLadderAni(int nLadderAni);
 };

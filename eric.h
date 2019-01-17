@@ -8,7 +8,7 @@ public:
 	
 	const	float	_maxSpeed = 560.0f;
 	const	float	_minSpeed = 300.0f;
-	const	float	_upSpeed = 5.0f;
+	const	float	_upSpeed = 1.0f;
 
 	//이동 -> 단위벡터 * 속도 * 시간
 
@@ -32,7 +32,7 @@ private:
 
 	//임시변수들입니다.
 	int				_startPosY;
-	int				_endPosY;
+	int				_upPower;
 	int				_turn;
 	float			_jumpAngle;
 	float			_moveAngleX;
@@ -40,7 +40,7 @@ private:
 	float			_offsetX;
 	float			_offsetY;
 
-	
+	int				_ladderAniIndex;
 
 public:
 	ERIC();
@@ -73,6 +73,11 @@ public:
 	//상태 변화
 	virtual OBJECT::ERIC_STATE	getEricState();
 	virtual void				setEricState(OBJECT::ERIC_STATE ericState);
+
+	void	setJumpPower(float power);
+
+	virtual void	setLadderAni(int nLadderAni) override;
+
 public:
 	//인라인 함수
 	inline void	setMoveStart(bool isMoveStart) { _isMoveStart = isMoveStart; }
@@ -83,7 +88,6 @@ public:
 	inline int	getTop() { return OBJECT::getTop(); }
 	inline int	getLeft() { return OBJECT::getLeft(); }
 	inline void	setJumping(bool isJumping) { _isJumpimg = isJumping; }
-	inline void	setJumpPower(float jumpPower) { _jumpPower = jumpPower; }
 
 
 };

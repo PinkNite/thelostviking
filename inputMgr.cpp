@@ -8,6 +8,7 @@ void INPUTMANAGER::init(PLAYER * pPlayer, CAMERA * pCamera)
 {
 	_pPlayer = pPlayer;
 	_pCamera = pCamera;
+	_ericJumpPower = 0.0f;
 }
 
 void INPUTMANAGER::update()
@@ -64,21 +65,53 @@ void INPUTMANAGER::update()
 	}
 
 	//사다리는 플레이어 상태가 어떻든 하이제깅해야한다.
+	if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
+	{
+		_pPlayer->setEricState(OBJECT::ERIC_STATE::ON_LADDER);
+	}
+	
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		_pPlayer->moveDown();
+		_pPlayer->setLadderAni(-1);
+	}
+	if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
+	{
+		_pPlayer->setLadderAni(0);
+	}
 
+
+	if (KEYMANAGER->isOnceKeyDown(VK_UP))
+	{
+		_pPlayer->setEricState(OBJECT::ERIC_STATE::ON_LADDER);
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
 		_pPlayer->moveUp();
+		_pPlayer->setLadderAni(1);
+	}
+	if (KEYMANAGER->isOnceKeyUp(VK_UP))
+	{
+		_pPlayer->setLadderAni(0);
 
 	}
-
 	if (KEYMANAGER->isOnceKeyDown('D'))
 	{
 		_pPlayer->useSkillOne();
+		_ericJumpPower = 500.0f;
+		_jumpKeyPressTime = 0.0f;
 	}
+	if (KEYMANAGER->isStayKeyDown('D'))
+	{
+		_jumpKeyPressTime += TIMEMANAGER->getElpasedTime();
+
+		if (_jumpKeyPressTime >= 0.1f)
+		{
+			_pPlayer->setEricJumpPower(700.0f);
+		}
+	}
+
+
 
 	if (_pPlayer->getPosX() < _pCamera->getLeft() + _pCamera->getWidth() / 2 - 32)
 	{

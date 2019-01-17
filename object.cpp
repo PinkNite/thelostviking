@@ -66,3 +66,11 @@ void OBJECT::setEricState(OBJECT::ERIC_STATE ericState)
 {
 }
 
+void OBJECT::setJumpPower(float power)
+{
+}
+
+void OBJECT::setLadderAni(int nLadderAni)
+{
+}
+

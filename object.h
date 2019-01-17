@@ -24,6 +24,7 @@ public:
 		RIGHT_SIGN,
 		LEFT_SIGN,
 		ON_LADDER,
+		ON_LADDER_OVER,
 		RIGHT_PUSH,
 		LEFT_PUSH,
 		RIGHT_FOOT_ROLL,
@@ -106,5 +107,8 @@ public:
 
 	virtual OBJECT::ERIC_STATE getEricState();
 	virtual void	setEricState(OBJECT::ERIC_STATE ericState);
+	virtual void	setJumpPower(float power);
+
+	virtual void	setLadderAni(int nLadderAni);
 };
 

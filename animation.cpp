@@ -41,6 +41,8 @@ HRESULT animation::init(int totalW, int totalH, int frameW, int frameH)
 		}
 	}
 
+	_isClickRender = false;
+
 	return S_OK;
 }
 
@@ -652,6 +654,29 @@ void animation::frameUpdate(float elapsedTime)
 			}
 		}
 	}
+}
+
+void animation::frameClickUpdate()
+{
+	if (_play)
+	{
+		_elapsedSec += TIMEMANAGER->getElpasedTime();
+		if (_elapsedSec >= _frameUpdateSec)
+		{
+			_elapsedSec -= _frameUpdateSec;
+			_nowPlayIndex += _clickVariable;
+
+			if (_nowPlayIndex == _playList.size())//레더여서
+			{
+				_nowPlayIndex = 0;
+			}
+			else if (_nowPlayIndex < 0)
+			{
+				_nowPlayIndex = _playList.size() - 1;
+			}
+		}
+	}
+
 }
 
 void animation::start()
