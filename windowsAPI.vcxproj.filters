@@ -203,9 +203,6 @@
     <ClCompile Include="windowsAPI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="gameNode.cpp">
-      <Filter>2DFramework</Filter>
-    </ClCompile>
     <ClCompile Include="playGround.cpp">
       <Filter>PlayGround</Filter>
     </ClCompile>
@@ -286,6 +283,9 @@
     </ClCompile>
     <ClCompile Include="map2.cpp">
       <Filter>PlayGround\map</Filter>
+    </ClCompile>
+    <ClCompile Include="gameNode.cpp">
+      <Filter>2DFramework\txtData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -129,14 +129,26 @@ void ERIC::jump()
 		_posY = _startPosY;
 		_isJumpimg = false;
 
-		if (_state == OBJECT::ERIC_STATE::LEFT_JUMP)
+
+		if (_state == OBJECT::ERIC_STATE::LEFT_JUMP && _movingJump)
+		{
+			setEricState(OBJECT::ERIC_STATE::LEFT_RUN);
+		}
+		else if (_state == OBJECT::ERIC_STATE::LEFT_JUMP)
 		{
 			setEricState(OBJECT::ERIC_STATE::LEFT_IDLE);
+
+		}
+		else if (_state == OBJECT::ERIC_STATE::RIGHT_JUMP && _movingJump)
+		{
+			setEricState(OBJECT::ERIC_STATE::RIGHT_RUN);
 		}
 		else if (_state == OBJECT::ERIC_STATE::RIGHT_JUMP)
 		{
 			setEricState(OBJECT::ERIC_STATE::RIGHT_IDLE);
+
 		}
+
 		_movingJump = false;
 	}
 }

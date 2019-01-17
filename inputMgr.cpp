@@ -63,6 +63,7 @@ void INPUTMANAGER::update()
 		}
 	}
 
+	//사다리는 플레이어 상태가 어떻든 하이제깅해야한다.
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		_pPlayer->moveDown();
