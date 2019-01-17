@@ -37,12 +37,12 @@ void PLAYER::render(HDC hdc)
 	_pViking[_nCurrentViking]->render(hdc);
 }
 
- int PLAYER::getPosX()
+ float PLAYER::getPosX()
 {
 	return _pViking[_nCurrentViking]->getPosX();
 }
 
- int PLAYER::getPosY()
+ float PLAYER::getPosY()
 {
 	return _pViking[_nCurrentViking]->getPosY();
 }
@@ -94,10 +94,16 @@ void PLAYER::render(HDC hdc)
 	 _pViking[_nCurrentViking]->setMoveStart(isMoveStart);
  }
 
- float PLAYER::getSpeed()
+ float PLAYER::getSpeedX()
  {
-	 return _pViking[_nCurrentViking]->getSpeed();
+	 return _pViking[_nCurrentViking]->getSpeedX();
  }
+
+ float PLAYER::getSpeedY()
+ {
+	 return _pViking[_nCurrentViking]->getSpeedY();
+ }
+
 
  void PLAYER::useSkillOne()
  {

@@ -52,9 +52,11 @@ private:
 		MAX
 	};
 	
-	const	float	_maxSpeed = 7.0f;
-	const	float	_minSpeed = 3.0f;
-	const	float	_upSpeed = 0.2f;
+	const	float	_maxSpeed = 560.0f;
+	const	float	_minSpeed = 300.0f;
+	const	float	_upSpeed = 5.0f;
+
+	//이동 -> 단위벡터 * 속도 * 시간
 
 private:
 	int				_hp;
@@ -76,6 +78,10 @@ private:
 	int				_startPosY;
 	int				_endPosY;
 	int				_turn;
+	float			_jumpAngle;
+	float			_moveAngle;
+	float			_offsetX;
+	float			_offsetY;
 public:
 	ERIC();
 	~ERIC();
@@ -94,7 +100,8 @@ public:
 	virtual void jump() override;
 
 
-	float	getSpeed();
+	float	getSpeedX();
+	float	getSpeedY();
 
 	void	initAnimation();
 	void	initAniFrame();
@@ -105,8 +112,8 @@ public:
 public:
 	//인라인 함수
 	inline void	setMoveStart(bool isMoveStart) { _isMoveStart = isMoveStart; }
-	inline int	getPosX() { return OBJECT::getPosX(); }
-	inline int	getPosY() { return OBJECT::getPosY(); }
+	inline float getPosX() { return OBJECT::getPosX(); }
+	inline float getPosY() { return OBJECT::getPosY(); }
 	inline int	getWidth() { return OBJECT::getWidth(); }
 	inline int	getHeight() { return OBJECT::getHeight(); }
 	inline int	getTop() { return OBJECT::getTop(); }

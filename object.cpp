@@ -38,10 +38,16 @@ void OBJECT::jump()
 {
 }
 
-float OBJECT::getSpeed()
+float OBJECT::getSpeedX()
 {
 	return 0.0f;
 }
+
+float OBJECT::getSpeedY()
+{
+	return 0.0f;
+}
+
 
 void OBJECT::skillOne()
 {

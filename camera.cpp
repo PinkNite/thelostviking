@@ -105,7 +105,7 @@ void CAMERA::setLeftTop()
 	_top = _posY - _height / 2;
 }
 
-void CAMERA::moveRight(int offset)
+void CAMERA::moveRight(float offset)
 {
 	_posX += offset;
 	if (_posX + _width/2 >= MAPSIZEX)
@@ -116,7 +116,7 @@ void CAMERA::moveRight(int offset)
 
 }
 
-void CAMERA::moveLeft(int offset)
+void CAMERA::moveLeft(float offset)
 {
 	_posX -= offset;
 	if (_posX - _width / 2 <= 0)
@@ -127,7 +127,7 @@ void CAMERA::moveLeft(int offset)
 
 }
 
-void CAMERA::moveUp(int offset)
+void CAMERA::moveUp(float offset)
 {
 	_posY -= offset;
 	if (_posY - _height / 2 <= 0)
@@ -138,7 +138,7 @@ void CAMERA::moveUp(int offset)
 
 }
 
-void CAMERA::moveDown(int offset)
+void CAMERA::moveDown(float offset)
 {
 	_posY += offset;
 	if (_posY + _height / 2 >= MAPSIZEY)

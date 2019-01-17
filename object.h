@@ -5,8 +5,8 @@
 
 class OBJECT abstract{
 protected:
-	int			_posX;		//중심좌표 x
-	int			_posY;		//중심좌표 y
+	float		_posX;		//중심좌표 x
+	float		_posY;		//중심좌표 y
 	int			_width;		//가로길이
 	int			_height;	//세로길이
 	int			_left;		//사각형 왼쪽
@@ -26,8 +26,8 @@ public:
 
 public:
 	//get set 모음
-	inline int getPosX() { return _posX; }
-	inline int getPosY() { return _posY; }
+	inline float getPosX() { return _posX; }
+	inline float getPosY() { return _posY; }
 	inline int getWidth() { return _width; }
 	inline int getHeight() { return _height; }
 	inline int getLeft() { return _left; }
@@ -48,7 +48,8 @@ public:
 	virtual void setMoveStart(bool isMoveStart);
 	virtual void jump();
 
-	virtual float getSpeed();
+	virtual float getSpeedX();
+	virtual float getSpeedY();
 
 	//스킬 각자 받아서 공격이나 특이 행동을 쓸때 쓰는 오버라이딩 함수
 	virtual void skillOne();

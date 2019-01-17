@@ -28,8 +28,8 @@ public:
 	void release()			;
 	void render(HDC hdc)	;
 
-	int getPosX	();
-	int getPosY	();
+	float getPosX();
+	float getPosY();
 	int getWidth();
 	int getHeight();
 	int getTop	();
@@ -41,7 +41,8 @@ public:
 	void moveDown();
 	void setMoveStart(bool isMoveStart);
 
-	float getSpeed();
+	float getSpeedX();
+	float getSpeedY();
 
 	void useSkillOne();
 	void useSkillTwo();

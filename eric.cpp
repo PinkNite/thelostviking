@@ -15,10 +15,13 @@ void ERIC::init(int posX, int posY, int width, int height)
 	_hp = 3;
 	_itemCount = 0;
 	OBJECT::setImage(IMAGEMANAGER->findImage("eric"));
-	_speed = 3.0f;
+	_speed = 100.0f;
 	_state = ERIC_STATE::LEFT_IDLE;
 	initAnimation();
-	_jumpPower = 7.0f;
+	_jumpPower = 0.0f;
+	_moveAngle = 0.0f;
+	_offsetX = 0;
+	_offsetY = 0;
 }
 
 void ERIC::update()
@@ -47,9 +50,11 @@ void ERIC::moveLeft()
 	{
 		_speed = _minSpeed;
 		setMoveStart(false);
+		_moveAngle = 0.0f;
 	}
 
-	OBJECT::setPosX((OBJECT::getPosX() - _speed));
+	_offsetX = (Mins::presentPowerX(_moveAngle, _speed) * TIMEMANAGER->getElpasedTime());
+	OBJECT::setPosX(OBJECT::getPosX() - _offsetX);
 
 	//if (_speed < _maxSpeed)
 	//{
@@ -63,8 +68,11 @@ void ERIC::moveRight()
 	{
 		_speed = _minSpeed;
 		setMoveStart(false);
+		_moveAngle = PI;
 	}
-	OBJECT::setPosX((OBJECT::getPosX() + _speed));
+
+	_offsetX = -(Mins::presentPowerX(_moveAngle, _speed) * TIMEMANAGER->getElpasedTime());
+	OBJECT::setPosX(OBJECT::getPosX() + _offsetX);
 
 	//if (_speed < _maxSpeed)
 	//{
@@ -75,14 +83,18 @@ void ERIC::moveRight()
 void ERIC::moveUp()
 {
 	_speed = _minSpeed;
-	OBJECT::setPosY((OBJECT::getPosY() - _speed));
+	_moveAngle = PI / 2.0f;
+	_offsetY = -(Mins::presentPowerY(_moveAngle, _speed) * TIMEMANAGER->getElpasedTime());
+	OBJECT::setPosY((OBJECT::getPosY() - _offsetY));
 
 }
 
 void ERIC::moveDown()
 {
 	_speed = _minSpeed;
-	OBJECT::setPosY((OBJECT::getPosY() + _speed));
+	_moveAngle = PI2 - PI / 2.0f;
+	_offsetY = Mins::presentPowerY(_moveAngle, _speed) * TIMEMANAGER->getElpasedTime();
+	OBJECT::setPosY((OBJECT::getPosY() + _offsetY));
 
 }
 
@@ -90,12 +102,18 @@ void ERIC::jump()
 {
 	if (!_isJumpimg)return;
 
-	_posY += _turn * _jumpPower;
+	_posY += _jumpPower;// *_turn;
 	//_jumpPower -= _gravity + 0.7f;//현 그래비티값이 크다 시간을 곱해야하기에
-	if (_posY <= _endPosY)
+	//if (_posY <= _endPosY)
+	//{
+	//	_turn *= -1;
+	//}
+	if (_jumpAngle <= PI2 - PI/2.0f)
 	{
-		_turn *= -1;
+		_jumpAngle += PI2 / 90.0f;
 	}
+
+	_jumpPower = Mins::presentPowerY(_jumpAngle, 500.0f)*TIMEMANAGER->getElpasedTime();
 
 	//땅 착지하면 점핑을 false로 바꾸어야 하는데 지금 바닥이 없다 픽셀충돌 그렇기에 기존 위치를 받아서 임시로 처리하겠다.
 	if (_posY >= _startPosY)
@@ -105,10 +123,17 @@ void ERIC::jump()
 	}
 }
 
-float ERIC::getSpeed()
+float ERIC::getSpeedX()
 {
-	return _speed;
+	return _offsetX;
 }
+
+float ERIC::getSpeedY()
+{
+	return _offsetY;
+}
+
+
 
 void ERIC::initAnimation()
 {
@@ -299,7 +324,8 @@ void ERIC::skillOne()
 {
 	if (_isJumpimg) return;
 	_startPosY = _posY;
-	_jumpPower = 3.0f;
+	_jumpAngle = PI / 2.0f;
+	_jumpPower = Mins::presentPowerY(_jumpAngle, 300.0f)*TIMEMANAGER->getElpasedTime();
 	_endPosY = _posY - 100;
 	_turn = -1;
 	setJumping(true);

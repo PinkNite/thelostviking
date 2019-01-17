@@ -9,8 +9,8 @@ class PLAYER;
 
 class CAMERA {
 private:
-	int _posX;
-	int _posY;
+	float _posX;
+	float _posY;
 	int _width;
 	int _height;
 	int	_left;
@@ -43,16 +43,16 @@ private:
 public:
 	inline	void	setPlayer(PLAYER* pPlayer) { _pPlayer = pPlayer; }
 
-	void	moveRight(int offset);
-	void	moveLeft(int offset);
-	void	moveUp(int offset);
-	void	moveDown(int offset);
+	void	moveRight(float offset);
+	void	moveLeft(float offset);
+	void	moveUp(float offset);
+	void	moveDown(float offset);
 
 
 
 public:
-	inline	int	getLeft() { return _left; }
-	inline	int	getTop() { return _top; }
+	inline	float	getLeft() { return _left; }
+	inline	float	getTop() { return _top; }
 	inline	int	getRight() { return _left + _width; }
 	inline	int	getBotton() { return _top + _height; }
 	inline	int	getWidth() { return _width; }
