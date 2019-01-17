@@ -23,6 +23,7 @@ void ERIC::init(int posX, int posY, int width, int height)
 	_moveAngleX = 0.0f;
 	_offsetX = 0;
 	_offsetY = 0;
+	_movingJump = false;
 }
 
 void ERIC::update()
@@ -113,11 +114,30 @@ void ERIC::jump()
 	_jumpPower = Mins::presentPowerY(_jumpAngle, 500.0f)*TIMEMANAGER->getElpasedTime();
 	_offsetY = _jumpPower;
 
+	if (_state == OBJECT::ERIC_STATE::LEFT_JUMP && _movingJump)
+	{
+		moveLeft();
+	}
+	else if (_state == OBJECT::ERIC_STATE::RIGHT_JUMP&& _movingJump)
+	{
+		moveRight();
+	}
+
 	//땅 착지하면 점핑을 false로 바꾸어야 하는데 지금 바닥이 없다 픽셀충돌 그렇기에 기존 위치를 받아서 임시로 처리하겠다.
 	if (_posY >= _startPosY)
 	{
 		_posY = _startPosY;
 		_isJumpimg = false;
+
+		if (_state == OBJECT::ERIC_STATE::LEFT_JUMP)
+		{
+			setEricState(OBJECT::ERIC_STATE::LEFT_IDLE);
+		}
+		else if (_state == OBJECT::ERIC_STATE::RIGHT_JUMP)
+		{
+			setEricState(OBJECT::ERIC_STATE::RIGHT_IDLE);
+		}
+		_movingJump = false;
 	}
 }
 
@@ -139,7 +159,7 @@ void ERIC::initAnimation()
 	KEYANIMANAGER->addObject("eric");
 	for (int i = 0; i < static_cast<int>(OBJECT::ERIC_STATE::MAX); i++)
 	{
-		KEYANIMANAGER->addArrayFrameAnimation("eric", _arStrAniState[i], "eric", _vAniFrame[i], _arAniFrameCount[i], 1, _arIsLoop[i]);
+		KEYANIMANAGER->addArrayFrameAnimation("eric", _arStrAniState[i], "eric", _vAniFrame[i], _arAniFrameCount[i], 10, _arIsLoop[i]);
 	}
 
 	_pAnimation = KEYANIMANAGER->findAnimation("eric", _arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_IDLE)]);
@@ -325,12 +345,40 @@ void ERIC::skillOne()
 	_jumpPower = Mins::presentPowerY(_jumpAngle, 300.0f)*TIMEMANAGER->getElpasedTime();
 	_endPosY = _posY - 100;
 	_turn = -1;
+	if (_state == OBJECT::ERIC_STATE::LEFT_RUN )
+	{
+		_movingJump = true;
+		setEricState(OBJECT::ERIC_STATE::LEFT_JUMP);
+	}
+	else if (_state == OBJECT::ERIC_STATE::LEFT_IDLE)
+	{
+		setEricState(OBJECT::ERIC_STATE::LEFT_JUMP);
+
+	}
+	else if (_state == OBJECT::ERIC_STATE::RIGHT_RUN )
+	{
+		_movingJump = true;
+
+		setEricState(OBJECT::ERIC_STATE::RIGHT_JUMP);
+	}
+	else if (_state == OBJECT::ERIC_STATE::RIGHT_IDLE)
+	{
+		setEricState(OBJECT::ERIC_STATE::RIGHT_JUMP);
+
+	}
 	setJumping(true);
 }
 
 void ERIC::skillTwo()
 {
-
+	if (_state == OBJECT::ERIC_STATE::LEFT_RUN)
+	{
+		setEricState(OBJECT::ERIC_STATE::LEFT_HADING);
+	}
+	else if (_state == OBJECT::ERIC_STATE::RIGHT_RUN) 
+	{
+		setEricState(OBJECT::ERIC_STATE::RIGHT_HADING);
+	}
 }
 
 OBJECT::ERIC_STATE ERIC::getEricState()

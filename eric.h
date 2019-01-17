@@ -28,6 +28,8 @@ private:
 	float			_jumpPower;
 	bool			_isJumpimg;
 	
+	bool			_movingJump;
+
 	//임시변수들입니다.
 	int				_startPosY;
 	int				_endPosY;
