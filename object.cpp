@@ -34,8 +34,20 @@ void OBJECT::setMoveStart(bool isMoveStart)
 {
 }
 
+void OBJECT::jump()
+{
+}
+
 float OBJECT::getSpeed()
 {
 	return 0.0f;
+}
+
+void OBJECT::skillOne()
+{
+}
+
+void OBJECT::skillTwo()
+{
 }
 

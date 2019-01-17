@@ -70,7 +70,10 @@ private:
 	bool			_isMoveStart;
 
 	float			_jumpPower;
-
+	bool			_isJumpimg;
+	
+	//임시변수들입니다.
+	int				_startPosY;
 public:
 	ERIC();
 	~ERIC();
@@ -81,23 +84,31 @@ public:
 	virtual void release()			override;
 	virtual void render(HDC hdc)	override;
 
+	//이동 함수
+	virtual void moveLeft() override;
+	virtual void moveRight() override;
+	virtual void moveUp() override;
+	virtual void moveDown() override;
+	virtual void jump() override;
 
-	void moveLeft()	;
-	void moveRight();
-	void moveUp()	;
-	void moveDown()	;
-	void jump();
 
-	inline int getPosX() { return OBJECT::getPosX(); }
-	inline int getPosY() { return OBJECT::getPosY(); }
-	inline int getWidth() { return OBJECT::getWidth(); }
-	inline int getHeight() { return OBJECT::getHeight(); }
-	inline int getTop() { return OBJECT::getTop(); }
-	inline int getLeft() { return OBJECT::getLeft(); }
 	float	getSpeed();
 
 	void	initAnimation();
 	void	initAniFrame();
 
+	//스킬
+	virtual void skillOne() override;
+	virtual void skillTwo()	override;
+public:
+	//인라인 함수
 	inline void	setMoveStart(bool isMoveStart) { _isMoveStart = isMoveStart; }
+	inline int	getPosX() { return OBJECT::getPosX(); }
+	inline int	getPosY() { return OBJECT::getPosY(); }
+	inline int	getWidth() { return OBJECT::getWidth(); }
+	inline int	getHeight() { return OBJECT::getHeight(); }
+	inline int	getTop() { return OBJECT::getTop(); }
+	inline int	getLeft() { return OBJECT::getLeft(); }
+	inline void	setJumping(bool isJumping) { _isJumpimg = isJumping; }
+	inline void	setJumpPower(float jumpPower) { _jumpPower = jumpPower; }
 };

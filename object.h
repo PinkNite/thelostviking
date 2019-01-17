@@ -46,8 +46,12 @@ public:
 	virtual void moveUp()	;
 	virtual void moveDown()	;
 	virtual void setMoveStart(bool isMoveStart);
-	
+	virtual void jump();
 
 	virtual float getSpeed();
+
+	//스킬 각자 받아서 공격이나 특이 행동을 쓸때 쓰는 오버라이딩 함수
+	virtual void skillOne();
+	virtual void skillTwo();
 };
 

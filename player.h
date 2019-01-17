@@ -42,4 +42,7 @@ public:
 	void setMoveStart(bool isMoveStart);
 
 	float getSpeed();
+
+	void useSkillOne();
+	void useSkillTwo();
 };

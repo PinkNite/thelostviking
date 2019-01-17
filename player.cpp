@@ -98,3 +98,13 @@ void PLAYER::render(HDC hdc)
  {
 	 return _pViking[_nCurrentViking]->getSpeed();
  }
+
+ void PLAYER::useSkillOne()
+ {
+	 _pViking[_nCurrentViking]->skillOne();
+ }
+
+ void PLAYER::useSkillTwo()
+ {
+	 _pViking[_nCurrentViking]->skillTwo();
+ }

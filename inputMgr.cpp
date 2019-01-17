@@ -72,7 +72,10 @@ void INPUTMANAGER::update()
 		}
 	}
 
-
+	if (KEYMANAGER->isOnceKeyDown('D'))
+	{
+		_pPlayer->useSkillOne();
+	}
 }
 
 void INPUTMANAGER::release()

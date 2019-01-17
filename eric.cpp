@@ -18,13 +18,13 @@ void ERIC::init(int posX, int posY, int width, int height)
 	_speed = 3.0f;
 	_state = ERIC_STATE::LEFT_IDLE;
 	initAnimation();
-
+	_jumpPower = 7.0f;
 }
 
 void ERIC::update()
 {
 
-
+	jump();
 
 	KEYANIMANAGER->update();
 
@@ -88,8 +88,17 @@ void ERIC::moveDown()
 
 void ERIC::jump()
 {
+	if (!_isJumpimg)return;
 
+	_posY -= _jumpPower;
+	_jumpPower -= _gravity + 0.7f;//현 그래비티값이 크다 시간을 곱해야하기에
 
+	//땅 착지하면 점핑을 false로 바꾸어야 하는데 지금 바닥이 없다 픽셀충돌 그렇기에 기존 위치를 받아서 임시로 처리하겠다.
+	if (_posY >= _startPosY)
+	{
+		_posY = _startPosY;
+		_isJumpimg = false;
+	}
 }
 
 float ERIC::getSpeed()
@@ -280,4 +289,16 @@ void ERIC::initAniFrame()
 	_arIsLoop[30] = true;
 	_arIsLoop[35] = true;
 	_arIsLoop[36] = true;
+}
+
+void ERIC::skillOne()
+{
+	if (_isJumpimg) return;
+	_startPosY = _posY;
+	_jumpPower = 20.0f;
+	setJumping(true);
+}
+
+void ERIC::skillTwo()
+{
 }
