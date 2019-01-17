@@ -198,6 +198,18 @@
     <ClInclude Include="pixelCollision.h">
       <Filter>2DFramework\pixelCollision</Filter>
     </ClInclude>
+    <ClInclude Include="sceneIntro.h">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneMenu.h">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneOption.h">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="scenePassword.h">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -292,6 +304,18 @@
     </ClCompile>
     <ClCompile Include="pixelCollision.cpp">
       <Filter>2DFramework\pixelCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneIntro.cpp">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneMenu.cpp">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneOption.cpp">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="scenePassword.cpp">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

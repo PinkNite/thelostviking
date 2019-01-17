@@ -16,13 +16,34 @@ void playGround::load()
 	//이미지 넣는것은 여기서 하세요
 	IMAGEMANAGER->addFrameImage("eric", "resource/viking/ericSprites.bmp", 704, 1344, 11, 21, true, RGB(255, 0, 255));
 
-	//이승재 2019-01-16
-	IMAGEMANAGER->addImage("검은배경화면", "resource/intro/검은배경화면.bmp", 640, 480, false, RGB(0, 0, 0));
-	IMAGEMANAGER->addImage("핑크행님", "resource/intro/제외배경화면.bmp", 640, 480, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("인트로1", "resource/intro/인트로1.bmp", 640, 480, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("인트로2", "resource/intro/인트로2.bmp", 640, 480, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("인트로3", "resource/intro/인트로3.bmp", 640, 480, false, RGB(0, 0, 0));
-	IMAGEMANAGER->addImage("인트로행님", "resource/intro/인트로제목.bmp", 640, 204, true, RGB(255, 0, 255));
+	//이승재 2019-01-17
+	//인트로
+	IMAGEMANAGER->addImage("black", "resource/intro/blackBackground.bmp", 640, 480, false, RGB(0, 0, 0));
+	IMAGEMANAGER->addImage("pink", "resource/intro/pinkBackground.bmp", 640, 480, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("intro1", "resource/intro/intro1.bmp", 640, 480, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("intro2", "resource/intro/intro2.bmp", 640, 480, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("intro3", "resource/intro/intro3.bmp", 640, 480, false, RGB(0, 0, 0));
+	IMAGEMANAGER->addImage("introTitle", "resource/intro/introTitle.bmp", 640, 204, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("menu", "resource/intro/menu.bmp", 640, 240, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("select", "resource/intro/select.bmp", 640, 240, true, RGB(255, 0, 255));
+	//옵션
+	IMAGEMANAGER->addFrameImage("ONOFF", "resource/intro/ONOFF.bmp", 92, 14, 2, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("ONETWO", "resource/intro/ONETWO.bmp", 92, 14, 2, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("option", "resource/intro/option.bmp", 640, 267, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("password", "resource/intro/passwordBackground.bmp", 640, 480, false, RGB(0, 0, 0));
+
+
+	//맵
+
+
+	//아이템
+	IMAGEMANAGER->addImage("meat", "resource/item/meat.bmp", 32, 28, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("fruit1", "resource/item/fruit.bmp", 26, 32, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("fruit2", "resource/item/fruit2.bmp", 32, 28, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("questionMark", "resource/item/questionMark.bmp", 32, 32, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("boom", "resource/item/boom.bmp", 32, 30, true, RGB(255, 0, 255));
+
+
 
 	// enemy image resources
 	IMAGEMANAGER->addImage("redEnemy", "resource/enemies/red.bmp", 259, 128, true, RGB(255, 0, 255));
