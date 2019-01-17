@@ -2,6 +2,7 @@
 #include "inputMgr.h"
 #include "player.h"
 #include "camera.h"
+#include "object.h"
 
 void INPUTMANAGER::init(PLAYER * pPlayer, CAMERA * pCamera)
 {
@@ -16,18 +17,24 @@ void INPUTMANAGER::update()
 	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
 	{
 		_pPlayer->setMoveStart(true);
-
+		_pPlayer->setEricState(OBJECT::ERIC_STATE::LEFT_RUN);
 	}
 	//왼쪽 이동 중
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		_pPlayer->moveLeft();
-
+		if (_pPlayer->getEricState() == OBJECT::ERIC_STATE::LEFT_RUN)
+		{
+			_pPlayer->moveLeft();
+		}
 	}
 	//왼쪽 이동 해제
 	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{
 		_pPlayer->setMoveStart(false);
+		if (_pPlayer->getEricState() == OBJECT::ERIC_STATE::LEFT_RUN)
+		{
+			_pPlayer->setEricState(OBJECT::ERIC_STATE::LEFT_IDLE);
+		}
 
 	}
 
@@ -35,16 +42,25 @@ void INPUTMANAGER::update()
 	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
 	{
 		_pPlayer->setMoveStart(true);
+		_pPlayer->setEricState(OBJECT::ERIC_STATE::RIGHT_RUN);
+
 	}
 	//오른쪽 이동 중
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		_pPlayer->moveRight();
+		if (_pPlayer->getEricState() == OBJECT::ERIC_STATE::RIGHT_RUN)
+		{
+			_pPlayer->moveRight();
+		}
 
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 	{
 		_pPlayer->setMoveStart(false);
+		if (_pPlayer->getEricState() == OBJECT::ERIC_STATE::RIGHT_RUN)
+		{
+			_pPlayer->setEricState(OBJECT::ERIC_STATE::RIGHT_IDLE);
+		}
 	}
 
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
