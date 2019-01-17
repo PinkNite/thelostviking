@@ -18,7 +18,16 @@ void INPUTMANAGER::update()
 	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
 	{
 		_pPlayer->setMoveStart(true);
-		_pPlayer->setEricState(OBJECT::ERIC_STATE::LEFT_RUN);
+		if (_pPlayer->getJumping())
+		{
+			_pPlayer->setEricState(OBJECT::ERIC_STATE::LEFT_JUMP);
+
+		}
+		else
+		{
+			_pPlayer->setEricState(OBJECT::ERIC_STATE::LEFT_RUN);
+
+		}
 	}
 	//왼쪽 이동 중
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
@@ -43,7 +52,15 @@ void INPUTMANAGER::update()
 	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
 	{
 		_pPlayer->setMoveStart(true);
-		_pPlayer->setEricState(OBJECT::ERIC_STATE::RIGHT_RUN);
+		if (_pPlayer->getJumping())
+		{
+			_pPlayer->setEricState(OBJECT::ERIC_STATE::RIGHT_JUMP);
+
+		}
+		else {
+			_pPlayer->setEricState(OBJECT::ERIC_STATE::RIGHT_RUN);
+
+		}
 
 	}
 	//오른쪽 이동 중
@@ -69,7 +86,7 @@ void INPUTMANAGER::update()
 	{
 		_pPlayer->setEricState(OBJECT::ERIC_STATE::ON_LADDER);
 	}
-	
+
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		_pPlayer->moveDown();
@@ -116,18 +133,18 @@ void INPUTMANAGER::update()
 	if (_pPlayer->getPosX() < _pCamera->getLeft() + _pCamera->getWidth() / 2 - 32)
 	{
 		float offset = _pCamera->getLeft() + _pCamera->getWidth() / 2 - 32 - _pPlayer->getPosX();
-		_pCamera->moveLeft(offset);		
+		_pCamera->moveLeft(offset);
 	}
 	else if (_pPlayer->getPosX() > _pCamera->getLeft() + _pCamera->getWidth() / 2 + 32)
 	{
-		float offset = _pPlayer->getPosX() - ( _pCamera->getLeft() + _pCamera->getWidth() / 2 + 32);
+		float offset = _pPlayer->getPosX() - (_pCamera->getLeft() + _pCamera->getWidth() / 2 + 32);
 		_pCamera->moveRight(offset);
 	}
 	if (_pPlayer->getPosY() > _pCamera->getTop() + _pCamera->getHeight() / 2 + 5)
 	{
 		_pCamera->moveDown(_pPlayer->getSpeedY());
 	}
-	else if (_pPlayer->getPosY() < _pCamera->getTop() + _pCamera->getHeight() / 2 -5)
+	else if (_pPlayer->getPosY() < _pCamera->getTop() + _pCamera->getHeight() / 2 - 5)
 	{
 		float offset = _pCamera->getTop() + _pCamera->getHeight() / 2 - 5 - _pPlayer->getPosY();
 		_pCamera->moveUp(offset);

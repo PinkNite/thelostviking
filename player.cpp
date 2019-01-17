@@ -37,101 +37,106 @@ void PLAYER::render(HDC hdc)
 	_pViking[_nCurrentViking]->render(hdc);
 }
 
- float PLAYER::getPosX()
+float PLAYER::getPosX()
 {
 	return _pViking[_nCurrentViking]->getPosX();
 }
 
- float PLAYER::getPosY()
+float PLAYER::getPosY()
 {
 	return _pViking[_nCurrentViking]->getPosY();
 }
 
- int PLAYER::getWidth()
+int PLAYER::getWidth()
 {
 	return _pViking[_nCurrentViking]->getWidth();
 }
 
- int PLAYER::getHeight()
+int PLAYER::getHeight()
 {
 	return _pViking[_nCurrentViking]->getHeight();
 }
 
- int PLAYER::getTop()
+int PLAYER::getTop()
 {
 	return  _pViking[_nCurrentViking]->getTop();
 }
 
- int PLAYER::getLeft()
+int PLAYER::getLeft()
 {
 	return _pViking[_nCurrentViking]->getLeft();
 }
 
- void PLAYER::moveLeft()
- {
-	 _pViking[_nCurrentViking]->moveLeft();
- }
+void PLAYER::moveLeft()
+{
+	_pViking[_nCurrentViking]->moveLeft();
+}
 
- void PLAYER::moveRight()
- {
-	 _pViking[_nCurrentViking]->moveRight();
- }
+void PLAYER::moveRight()
+{
+	_pViking[_nCurrentViking]->moveRight();
+}
 
- void PLAYER::moveUp()
- {
-	 _pViking[_nCurrentViking]->moveUp();
+void PLAYER::moveUp()
+{
+	_pViking[_nCurrentViking]->moveUp();
 
- }
+}
 
- void PLAYER::moveDown()
- {
-	 _pViking[_nCurrentViking]->moveDown();
+void PLAYER::moveDown()
+{
+	_pViking[_nCurrentViking]->moveDown();
 
- }
+}
 
- void PLAYER::setMoveStart(bool isMoveStart)
- {
-	 _pViking[_nCurrentViking]->setMoveStart(isMoveStart);
- }
+void PLAYER::setMoveStart(bool isMoveStart)
+{
+	_pViking[_nCurrentViking]->setMoveStart(isMoveStart);
+}
 
- float PLAYER::getSpeedX()
- {
-	 return _pViking[_nCurrentViking]->getSpeedX();
- }
+float PLAYER::getSpeedX()
+{
+	return _pViking[_nCurrentViking]->getSpeedX();
+}
 
- float PLAYER::getSpeedY()
- {
-	 return _pViking[_nCurrentViking]->getSpeedY();
- }
+float PLAYER::getSpeedY()
+{
+	return _pViking[_nCurrentViking]->getSpeedY();
+}
 
 
- void PLAYER::useSkillOne()
- {
-	 _pViking[_nCurrentViking]->skillOne();
- }
+void PLAYER::useSkillOne()
+{
+	_pViking[_nCurrentViking]->skillOne();
+}
 
- void PLAYER::useSkillTwo()
- {
-	 _pViking[_nCurrentViking]->skillTwo();
- }
+void PLAYER::useSkillTwo()
+{
+	_pViking[_nCurrentViking]->skillTwo();
+}
 
- void PLAYER::setEricState(OBJECT::ERIC_STATE ericState)
- {
-	 _pViking[static_cast<int>(PLAYER::VIKING::ERIC)]->setEricState(ericState);
- }
+void PLAYER::setEricState(OBJECT::ERIC_STATE ericState)
+{
+	_pViking[static_cast<int>(PLAYER::VIKING::ERIC)]->setEricState(ericState);
+}
 
- OBJECT::ERIC_STATE PLAYER::getEricState()
- {
-	 return _pViking[static_cast<int>(PLAYER::VIKING::ERIC)]->getEricState();
- }
+OBJECT::ERIC_STATE PLAYER::getEricState()
+{
+	return _pViking[static_cast<int>(PLAYER::VIKING::ERIC)]->getEricState();
+}
 
- void PLAYER::setEricJumpPower(float power)
- {
-	 _pViking[static_cast<int>(PLAYER::VIKING::ERIC)]->setJumpPower(power);
+void PLAYER::setEricJumpPower(float power)
+{
+	_pViking[static_cast<int>(PLAYER::VIKING::ERIC)]->setJumpPower(power);
 
- }
+}
 
- void PLAYER::setLadderAni(int nLadderAni)
- {
-	 _pViking[_nCurrentViking]->setLadderAni(nLadderAni);
- }
+void PLAYER::setLadderAni(int nLadderAni)
+{
+	_pViking[_nCurrentViking]->setLadderAni(nLadderAni);
+}
+
+bool PLAYER::getJumping()
+{
+	return _pViking[_nCurrentViking]->getJump();
+}

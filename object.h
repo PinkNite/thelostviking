@@ -3,7 +3,7 @@
 #include "stdafx.h"
 
 
-class OBJECT abstract{
+class OBJECT abstract {
 public:
 	enum class ERIC_STATE
 	{
@@ -65,7 +65,7 @@ protected:
 
 public:
 	//x,y가로길이 세로길이 초기화
-	virtual void init(int posX,int posY,int width, int height);
+	virtual void init(int posX, int posY, int width, int height);
 
 	//자식들에서 재정의 필수
 	virtual void update()			abstract;
@@ -89,12 +89,12 @@ public:
 	inline void setPosY(int posY) { _posY = posY; }
 	inline void setWidth(int width) { _width = width; }
 	inline void setHeight(int height) { _height = height; }
-	
+
 	//이동함수
-	virtual void moveLeft()	;
+	virtual void moveLeft();
 	virtual void moveRight();
-	virtual void moveUp()	;
-	virtual void moveDown()	;
+	virtual void moveUp();
+	virtual void moveDown();
 	virtual void setMoveStart(bool isMoveStart);
 	virtual void jump();
 
@@ -110,5 +110,7 @@ public:
 	virtual void	setJumpPower(float power);
 
 	virtual void	setLadderAni(int nLadderAni);
+	virtual bool	getJump();
+
 };
 

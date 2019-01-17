@@ -16,7 +16,7 @@ private:
 	};
 
 private:
-	OBJECT* _pViking[static_cast<const int>(VIKING::MAX)];
+	OBJECT * _pViking[static_cast<const int>(VIKING::MAX)];
 	int		_nCurrentViking;
 
 public:
@@ -25,16 +25,16 @@ public:
 
 public:
 	void	init();
-	void update()			;
-	void release()			;
-	void render(HDC hdc)	;
+	void update();
+	void release();
+	void render(HDC hdc);
 
 	float getPosX();
 	float getPosY();
 	int getWidth();
 	int getHeight();
-	int getTop	();
-	int getLeft	();
+	int getTop();
+	int getLeft();
 
 	void moveLeft();
 	void moveRight();
@@ -53,4 +53,5 @@ public:
 
 	void setEricJumpPower(float power);
 	void	setLadderAni(int nLadderAni);
+	bool	getJumping();
 };

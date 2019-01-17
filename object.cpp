@@ -74,3 +74,8 @@ void OBJECT::setLadderAni(int nLadderAni)
 {
 }
 
+bool OBJECT::getJump()
+{
+	return false;
+}
+

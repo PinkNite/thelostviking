@@ -2,10 +2,10 @@
 
 #include "object.h"
 
-class ERIC : public OBJECT{
+class ERIC : public OBJECT {
 public:
 
-	
+
 	const	float	_maxSpeed = 560.0f;
 	const	float	_minSpeed = 300.0f;
 	const	float	_upSpeed = 1.0f;
@@ -27,7 +27,7 @@ private:
 
 	float			_jumpPower;
 	bool			_isJumpimg;
-	
+
 	bool			_movingJump;
 
 	//임시변수들입니다.
@@ -47,7 +47,7 @@ public:
 	~ERIC();
 
 public:
-	void	init(int posX,int posY, int width, int height);
+	void	init(int posX, int posY, int width, int height);
 	virtual void update()			override;
 	virtual void release()			override;
 	virtual void render(HDC hdc)	override;
@@ -89,5 +89,5 @@ public:
 	inline int	getLeft() { return OBJECT::getLeft(); }
 	inline void	setJumping(bool isJumping) { _isJumpimg = isJumping; }
 
-
+	virtual bool	getJump();
 };

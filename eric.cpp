@@ -30,7 +30,7 @@ void ERIC::update()
 {
 
 	jump();
-	
+
 	KEYANIMANAGER->update();
 
 }
@@ -43,7 +43,7 @@ void ERIC::render(HDC hdc)
 {
 
 
-	OBJECT::getIamge()->aniRender(hdc, OBJECT::getPosX()- OBJECT::getWidth()/2, OBJECT::getPosY() - OBJECT::getHeight() / 2, _pAnimation);
+	OBJECT::getIamge()->aniRender(hdc, OBJECT::getPosX() - OBJECT::getWidth() / 2, OBJECT::getPosY() - OBJECT::getHeight() / 2, _pAnimation);
 }
 
 void ERIC::moveLeft()
@@ -53,7 +53,7 @@ void ERIC::moveLeft()
 	{
 		_speed = _minSpeed;
 		setMoveStart(false);
-		_moveAngleX = 0.0f;		
+		_moveAngleX = 0.0f;
 	}
 
 	_offsetX = (Mins::presentPowerX(_moveAngleX, _speed) * TIMEMANAGER->getElpasedTime());
@@ -108,7 +108,7 @@ void ERIC::jump()
 	if (!_isJumpimg)return;
 
 	_posY += _jumpPower;
-	if (_jumpAngle <= PI2 - PI/2.0f)
+	if (_jumpAngle <= PI2 - PI / 2.0f)
 	{
 		_jumpAngle += PI2 / 90.0f;
 	}
@@ -177,7 +177,7 @@ void ERIC::initAnimation()
 	}
 	KEYANIMANAGER->findAnimation("eric", _arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::ON_LADDER_OVER)])->setClickRender(TRUE);
 	KEYANIMANAGER->findAnimation("eric", _arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::ON_LADDER)])->setClickRender(TRUE);
-	
+
 	_pAnimation = KEYANIMANAGER->findAnimation("eric", _arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_IDLE)]);
 	_pAnimation->start();
 }
@@ -187,7 +187,7 @@ void ERIC::initAniFrame()
 	//아이들 순간이동 공포
 	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_IDLE)] = "RIGHT_IDLE";
 	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_IDLE)] = 2;
-	
+
 	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_IDLE)] = "LEFT_IDLE";
 	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_IDLE)] = 2;
 
@@ -326,7 +326,7 @@ void ERIC::initAniFrame()
 
 	int nTmp = 0;
 
-	
+
 	for (int i = 0; i < static_cast<int>(OBJECT::ERIC_STATE::MAX); i++)
 	{
 		_vAniFrame.push_back(new int[_arAniFrameCount[i]]);
@@ -334,7 +334,7 @@ void ERIC::initAniFrame()
 		{
 			_vAniFrame[i][j] = nTmp;
 			nTmp++;
-		}	
+		}
 	}
 
 
@@ -364,8 +364,8 @@ void ERIC::skillOne()
 	_upPower = 500.0f;
 	_jumpPower = Mins::presentPowerY(_jumpAngle, _upPower)*TIMEMANAGER->getElpasedTime();
 	_turn = -1;
-	
-	if (_state == OBJECT::ERIC_STATE::LEFT_RUN )
+
+	if (_state == OBJECT::ERIC_STATE::LEFT_RUN)
 	{
 		_movingJump = true;
 		setEricState(OBJECT::ERIC_STATE::LEFT_JUMP);
@@ -375,7 +375,7 @@ void ERIC::skillOne()
 		setEricState(OBJECT::ERIC_STATE::LEFT_JUMP);
 
 	}
-	else if (_state == OBJECT::ERIC_STATE::RIGHT_RUN )
+	else if (_state == OBJECT::ERIC_STATE::RIGHT_RUN)
 	{
 		_movingJump = true;
 
@@ -395,7 +395,7 @@ void ERIC::skillTwo()
 	{
 		setEricState(OBJECT::ERIC_STATE::LEFT_HADING);
 	}
-	else if (_state == OBJECT::ERIC_STATE::RIGHT_RUN) 
+	else if (_state == OBJECT::ERIC_STATE::RIGHT_RUN)
 	{
 		setEricState(OBJECT::ERIC_STATE::RIGHT_HADING);
 	}
@@ -421,4 +421,9 @@ void ERIC::setJumpPower(float power)
 void ERIC::setLadderAni(int nLadderAni)
 {
 	_pAnimation->setClickVariable(nLadderAni);
+}
+
+bool ERIC::getJump()
+{
+	return _isJumpimg;
 }
