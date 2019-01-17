@@ -114,3 +114,13 @@ void PLAYER::render(HDC hdc)
  {
 	 _pViking[_nCurrentViking]->skillTwo();
  }
+
+ void PLAYER::setEricState(OBJECT::ERIC_STATE ericState)
+ {
+	 _pViking[static_cast<int>(PLAYER::VIKING::ERIC)]->setEricState(ericState);
+ }
+
+ OBJECT::ERIC_STATE PLAYER::getEricState()
+ {
+	 return _pViking[static_cast<int>(PLAYER::VIKING::ERIC)]->getEricState();
+ }

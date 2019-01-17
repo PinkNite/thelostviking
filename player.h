@@ -1,5 +1,6 @@
 #pragma once
 #include "stdafx.h"
+#include "object.h"
 
 class ERIC;
 class OBJECT;
@@ -46,4 +47,7 @@ public:
 
 	void useSkillOne();
 	void useSkillTwo();
+
+	void setEricState(OBJECT::ERIC_STATE ericState);
+	OBJECT::ERIC_STATE getEricState();
 };

@@ -4,6 +4,55 @@
 
 
 class OBJECT abstract{
+public:
+	enum class ERIC_STATE
+	{
+		RIGHT_IDLE = 0,
+		LEFT_IDLE,
+		RIGHT_TELEPORT,
+		LEFT_TELEPORT,
+		RIGHT_AFFRIGHT,
+		LEFT_AFFRIGHT,
+		RIGHT_RUN,
+		LEFT_RUN,
+		RIGHT_HADING,
+		LEFT_HADING,
+		RIGHT_HADING_STUN,
+		LEFT_HADING_STUN,
+		RIGHT_JUMP,
+		LEFT_JUMP,
+		RIGHT_SIGN,
+		LEFT_SIGN,
+		ON_LADDER,
+		RIGHT_PUSH,
+		LEFT_PUSH,
+		RIGHT_FOOT_ROLL,
+		LEFT_FOOT_ROLL,
+		RIGHT_BOOLEAN,
+		LEFT_BOOLEAN,
+		RIGHT_GUITAR,
+		LEFT_GUITAR,
+		RIGHT_SKELETON_DEATH,
+		LEFT_SKELETON_DEATH,
+		RIGHT_WATER_DEATH,
+		LEFT_WATER_DEATH,
+		RIGHT_ELECTRIC_DEATH,
+		LEFT_ELECTRIC_DEATH,
+		RIGHT_FIRE_DEATH,
+		LEFT_FIRE_DEATH,
+		RIGHT_PRESS_DEATH,
+		LEFT_PRESS_DEATH,
+		RIGHT_FALLDOWN,
+		LEFT_FALLDOWN,
+		RIGHT_FALLIN_DEATH,
+		LEFT_FALLIN_DEATH,
+		RIGHT_FALLDOWN_DEATH,
+		LEFT_FALLDOWN_DEATH,
+		RIGHT_LAZER_DEATH,
+		LEFT_LAZER_DEATH,
+		MAX
+	};
+
 protected:
 	float		_posX;		//중심좌표 x
 	float		_posY;		//중심좌표 y
@@ -54,5 +103,8 @@ public:
 	//스킬 각자 받아서 공격이나 특이 행동을 쓸때 쓰는 오버라이딩 함수
 	virtual void skillOne();
 	virtual void skillTwo();
+
+	virtual OBJECT::ERIC_STATE getEricState();
+	virtual void	setEricState(OBJECT::ERIC_STATE ericState);
 };
 

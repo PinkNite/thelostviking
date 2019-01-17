@@ -57,3 +57,12 @@ void OBJECT::skillTwo()
 {
 }
 
+OBJECT::ERIC_STATE OBJECT::getEricState()
+{
+	return OBJECT::ERIC_STATE();
+}
+
+void OBJECT::setEricState(OBJECT::ERIC_STATE ericState)
+{
+}
+
