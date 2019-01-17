@@ -34,7 +34,7 @@ public:
 	HDC getHDC() { return _hdc; }
 
 	void	setting();
-
+	void	setMap(image* background);
 private:
 	void	setLeftTop();
 

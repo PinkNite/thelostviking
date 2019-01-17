@@ -94,6 +94,11 @@ void CAMERA::setting()
 	setLeftTop();
 }
 
+void CAMERA::setMap(image * background)
+{
+	_pBac = background;
+}
+
 void CAMERA::setLeftTop()
 {
 	_left = _posX - _width / 2;
