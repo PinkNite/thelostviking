@@ -59,6 +59,13 @@ private:
 	RECT _rcHelp6;
 	RECT _rcElevator;
 
+private:
+	int _frameCount;
+	int _indexElectric3;
+	int _indexElectric4;
+	int _indexUpeffect;
+	int _frameSpeed;
+
 public:
 	MAP2();
 	~MAP2();

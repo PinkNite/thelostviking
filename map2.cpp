@@ -14,26 +14,26 @@ MAP2::~MAP2()
 HRESULT MAP2::init()
 {
 	_imgMap2bg = IMAGEMANAGER->addImage("맵2배경", "resource/map/map1-2.bmp", 2048, 1630, true, RGB(255, 0, 255));
-	_imgElectric3 = IMAGEMANAGER->addFrameImage("전기3", "resource/effect/electric_Shock3.bmp", 448, 32, 7, 1, true, RGB(255, 0, 255));
-	_imgElectric4_1 = IMAGEMANAGER->addFrameImage("전기4_1", "resource/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
-	_imgElectric4_2 = IMAGEMANAGER->addFrameImage("전기4_2", "resource/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
-	_imgElectric4_3 = IMAGEMANAGER->addFrameImage("전기4_3", "resource/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
-	_imgElectric4_4 = IMAGEMANAGER->addFrameImage("전기4_4", "resource/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
-	_imgElectric4_5 = IMAGEMANAGER->addFrameImage("전기4_5", "resource/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
-	_imgElectric4_6 = IMAGEMANAGER->addFrameImage("전기4_6", "resource/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
-	_imgElectric4_7 = IMAGEMANAGER->addFrameImage("전기4_7", "resource/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
-	_imgHandle = IMAGEMANAGER->addFrameImage("손잡이", "resource/effect/handle.bmp", 56, 30, 2, 1, true, RGB(255, 0, 255));
-	_imgDoor1 = IMAGEMANAGER->addFrameImage("1문", "resource/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgDoor2 = IMAGEMANAGER->addFrameImage("2문", "resource/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgDoor3 = IMAGEMANAGER->addFrameImage("3문", "resource/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgDoor4 = IMAGEMANAGER->addFrameImage("4문", "resource/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgButton1 = IMAGEMANAGER->addFrameImage("버튼1", "resource/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
-	_imgButton2 = IMAGEMANAGER->addFrameImage("버튼2", "resource/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
-	_imgButton3 = IMAGEMANAGER->addFrameImage("버튼3", "resource/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
-	_imgBrokenblock = IMAGEMANAGER->addFrameImage("부러진블록", "resource/effect/broken_Block.bmp", 96, 32, 3, 1, true, RGB(255, 0, 255));
-	_imgBrokencomputer = IMAGEMANAGER->addImage("부러진컴퓨터", "resource/map/broken_computer.bmp", 64, 80, true, RGB(255, 0, 255));
-	_imgUpeffect = IMAGEMANAGER->addFrameImage("업효과", "resource/effect/up_Effect2.bmp", 512, 512, 4, 1, true, RGB(255, 0, 255));
-	_imgElevator = IMAGEMANAGER->addImage("엘레베이터", "resource/effect/elevator.bmp", 64, 64, true, RGB(255, 0, 255));
+	_imgElectric3 = IMAGEMANAGER->addFrameImage("전기3", "resource/map/effect/electric_Shock3.bmp", 448, 32, 7, 1, true, RGB(255, 0, 255));
+	_imgElectric4_1 = IMAGEMANAGER->addFrameImage("전기4_1", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
+	_imgElectric4_2 = IMAGEMANAGER->addFrameImage("전기4_2", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
+	_imgElectric4_3 = IMAGEMANAGER->addFrameImage("전기4_3", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
+	_imgElectric4_4 = IMAGEMANAGER->addFrameImage("전기4_4", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
+	_imgElectric4_5 = IMAGEMANAGER->addFrameImage("전기4_5", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
+	_imgElectric4_6 = IMAGEMANAGER->addFrameImage("전기4_6", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
+	_imgElectric4_7 = IMAGEMANAGER->addFrameImage("전기4_7", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
+	_imgHandle = IMAGEMANAGER->addFrameImage("손잡이", "resource/map/effect/handle.bmp", 56, 30, 2, 1, true, RGB(255, 0, 255));
+	_imgDoor1 = IMAGEMANAGER->addFrameImage("1문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	_imgDoor2 = IMAGEMANAGER->addFrameImage("2문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	_imgDoor3 = IMAGEMANAGER->addFrameImage("3문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	_imgDoor4 = IMAGEMANAGER->addFrameImage("4문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	_imgButton1 = IMAGEMANAGER->addFrameImage("버튼1", "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
+	_imgButton2 = IMAGEMANAGER->addFrameImage("버튼2", "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
+	_imgButton3 = IMAGEMANAGER->addFrameImage("버튼3", "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
+	_imgBrokenblock = IMAGEMANAGER->addFrameImage("부러진블록", "resource/map/effect/broken_Block.bmp", 96, 32, 3, 1, true, RGB(255, 0, 255));
+	_imgBrokencomputer = IMAGEMANAGER->addImage("부러진컴퓨터", "resource/map/effect/broken_computer.bmp", 64, 80, true, RGB(255, 0, 255));
+	_imgUpeffect = IMAGEMANAGER->addFrameImage("업효과", "resource/map/effect/up_Effect2.bmp", 512, 512, 4, 1, true, RGB(255, 0, 255));
+	_imgElevator = IMAGEMANAGER->addImage("엘레베이터", "resource/map/effect/elevator.bmp", 64, 64, true, RGB(255, 0, 255));
 
 	_rcElectric3 = RectMake(1889, 1504, 64, 32);
 	_rcElectric4_1 = RectMake(577, 32, 32, 128);
@@ -68,6 +68,12 @@ HRESULT MAP2::init()
 	_rcHelp6 = RectMake(1393, 1384, 32, 32);
 	_rcElevator = RectMake(1889, 416, 64, 64);
 
+	_frameCount = 0;
+	_indexElectric3 = 0;
+	_indexElectric4 = 0;
+	_indexUpeffect = 0;
+	_frameSpeed = 3;
+
 	return S_OK;
 }
 
@@ -77,9 +83,22 @@ void MAP2::release()
 
 void MAP2::update()
 {
+	if(_frameCount % _frameSpeed == 0)
+	{
+		_imgElectric3->SetFrameX(_indexElectric3);
+		_indexElectric3++;
+		if (_indexElectric3 > _imgElectric3->getMaxFrameX())
+		{
+			_indexElectric3 = 0;
+		}
+
+		_frameCount = 0;
+	}
+	_frameCount++;
 }
 
 void MAP2::render(HDC hdc)
 {
-	_imgMap2bg->render(hdc);
+	_imgElevator->render(hdc, _rcElevator.left, _rcElevator.top);
+	_imgElectric3->frameRender(hdc, _rcElectric3.left, _rcElectric3.top);
 }
