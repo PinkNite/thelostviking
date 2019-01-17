@@ -182,6 +182,7 @@
     <ClInclude Include="txtData.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="inputMgr.h" />
+    <ClInclude Include="viking.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="action.cpp" />

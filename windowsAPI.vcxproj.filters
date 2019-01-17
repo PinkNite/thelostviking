@@ -192,6 +192,9 @@
     <ClInclude Include="map2.h">
       <Filter>PlayGround\map</Filter>
     </ClInclude>
+    <ClInclude Include="viking.h">
+      <Filter>PlayGround\Object\player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

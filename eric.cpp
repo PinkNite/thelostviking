@@ -341,4 +341,6 @@ OBJECT::ERIC_STATE ERIC::getEricState()
 void ERIC::setEricState(OBJECT::ERIC_STATE ericState)
 {
 	_state = ericState;
+	_pAnimation = KEYANIMANAGER->findAnimation("eric", _arStrAniState[static_cast<int>(_state)]);
+	_pAnimation->start();
 }
