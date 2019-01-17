@@ -30,7 +30,7 @@ void ITEMFRAME::update()
 
 void ITEMFRAME::render()
 {
-	_pImage->render(getMemDC(), _x, _y);
+	//_pImage->render(getMemDC(), _x, _y);
 }
 
 void ITEMFRAME::setImage(image * image)

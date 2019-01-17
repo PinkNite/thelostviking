@@ -26,5 +26,5 @@ void ITEMBOOM::update()
 
 void ITEMBOOM::render()
 {
-	ITEMFRAME::getImage()->getMemDC;
+	ITEMFRAME::getImage()->getMemDC();
 }
