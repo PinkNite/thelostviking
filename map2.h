@@ -1,5 +1,3 @@
-#include "camera.h"
-
 #pragma once
 class MAP2
 {
@@ -58,6 +56,7 @@ private:
 	RECT _rcHelp5;
 	RECT _rcHelp6;
 	RECT _rcElevator;
+	RECT _rcExit;
 
 private:
 	int _frameCount;

@@ -23,10 +23,10 @@ HRESULT MAP2::init()
 	_imgElectric4_6 = IMAGEMANAGER->addFrameImage("전기4_6", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
 	_imgElectric4_7 = IMAGEMANAGER->addFrameImage("전기4_7", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
 	_imgHandle = IMAGEMANAGER->addFrameImage("손잡이", "resource/map/effect/handle.bmp", 56, 30, 2, 1, true, RGB(255, 0, 255));
-	_imgDoor1 = IMAGEMANAGER->addFrameImage("1문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgDoor2 = IMAGEMANAGER->addFrameImage("2문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgDoor3 = IMAGEMANAGER->addFrameImage("3문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgDoor4 = IMAGEMANAGER->addFrameImage("4문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	_imgDoor1 = IMAGEMANAGER->addFrameImage("2-1문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	_imgDoor2 = IMAGEMANAGER->addFrameImage("2-2문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	_imgDoor3 = IMAGEMANAGER->addFrameImage("2-3문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	_imgDoor4 = IMAGEMANAGER->addFrameImage("2-4문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
 	_imgButton1 = IMAGEMANAGER->addFrameImage("버튼1", "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
 	_imgButton2 = IMAGEMANAGER->addFrameImage("버튼2", "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
 	_imgButton3 = IMAGEMANAGER->addFrameImage("버튼3", "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
@@ -67,6 +67,7 @@ HRESULT MAP2::init()
 	_rcHelp5 = RectMake(1777, 1384, 32, 32);
 	_rcHelp6 = RectMake(1393, 1384, 32, 32);
 	_rcElevator = RectMake(1889, 416, 64, 64);
+	_rcExit = RectMake(609, 1472, 64, 96);
 
 	_frameCount = 0;
 	_indexElectric3 = 0;
