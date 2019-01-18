@@ -196,6 +196,7 @@
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="txtData.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="inputMgr.h" />
     <ClInclude Include="viking.h" />
@@ -250,6 +251,7 @@
     <ClCompile Include="timeManager.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="txtData.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="windowsAPI.cpp" />
   </ItemGroup>
