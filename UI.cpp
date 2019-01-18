@@ -45,31 +45,58 @@ void UI::render()
 		switch (i)
 		{
 		case 0:
-			_life[i].pImage->render(getMemDC(), 40, 466);
+			if (!_life[i].isAllive)
+			{
+				_life[i].pImage->render(getMemDC(), 40, 466);
+			}
 			break;
 		case 1:
-			_life[i].pImage->render(getMemDC(), 40 + 20, 466);
+			if (!_life[i].isAllive)
+			{
+				_life[i].pImage->render(getMemDC(), 40 + 20, 466);
+			}
 			break;
 		case 2:
-			_life[i].pImage->render(getMemDC(), 60 + 20, 466);
+			if (!_life[i].isAllive)
+			{
+				_life[i].pImage->render(getMemDC(), 60 + 20, 466);
+			}
 			break;
 		case 3:
-			_life[i].pImage->render(getMemDC(), 220, 466);
+			if (!_life[i].isAllive)
+			{
+				_life[i].pImage->render(getMemDC(), 220, 466);
+			}
 			break;
 		case 4:
-			_life[i].pImage->render(getMemDC(), 220 + 20, 466);
+			if (!_life[i].isAllive)
+			{
+				_life[i].pImage->render(getMemDC(), 220 + 20, 466);
+			}
 			break;
 		case 5:
-			_life[i].pImage->render(getMemDC(), 240 + 20, 466);
+			if (!_life[i].isAllive)
+			{
+				_life[i].pImage->render(getMemDC(), 240 + 20, 466);
+			}
 			break;
 		case 6:
-			_life[i].pImage->render(getMemDC(), 400, 466);
+			if (!_life[i].isAllive)
+			{
+				_life[i].pImage->render(getMemDC(), 400, 466);
+			}
 			break;
 		case 7:
-			_life[i].pImage->render(getMemDC(), 400 + 20, 466);
+			if (!_life[i].isAllive)
+			{
+				_life[i].pImage->render(getMemDC(), 400 + 20, 466);
+			}
 			break;
 		case 8:
-			_life[i].pImage->render(getMemDC(), 420 + 20, 466);
+			if (!_life[i].isAllive)
+			{
+				_life[i].pImage->render(getMemDC(), 420 + 20, 466);
+			}
 			break;
 		}
 	}
