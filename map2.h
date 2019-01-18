@@ -18,13 +18,14 @@ private:
 
 	RECT _rcElectric3;
 	RECT _rcHandle;
-	RECT _rcBrokenblock;
+	RECT _rcBrokenblocks;
 	RECT _rcBrokencomputer;
 	RECT _rcUpeffect;
 	RECT _rcLadder[6];
 	RECT _rcHelp[6];
 	RECT _rcElevator;
 	RECT _rcExit;
+	RECT _rcBrokenblock[4][3];
 
 private:
 	typedef vector<setELECTRIC*>					_vElectric4;
@@ -47,7 +48,8 @@ private:
 	bool _isElevatorMove;
 	bool _checkElevatorUpdown;
 	bool _isHandle;
-
+	bool _isBrokenComputer;
+	bool _isBrokenblocks;
 public:
 	MAP2();
 	~MAP2();
@@ -72,8 +74,12 @@ public:
 	RECT							getRCElevator() { return _rcElevator; }
 	RECT							getRCExit() { return _rcExit; }
 	RECT							getRCHandle() { return _rcHandle; }
-
+	RECT							getRCBrokencomputer() { return _rcBrokencomputer; }
+	RECT							getRCBrokenblocks() { return _rcBrokenblocks; }
 	// isMove(true = active elevator, false = unactive elevator), checkUpdown(true = Up, false = down)
 	void							setElevatorFloor(bool isMove, bool checkUpdown) { _isElevatorMove = isMove; _checkElevatorUpdown = checkUpdown; }
 	void							setHandle(bool isHandle) { _isHandle = isHandle; }
+	void							setBrokencomputer(bool isBrokenComputer) { _isBrokenComputer = isBrokenComputer; }
+	void							setBrokenblocks(bool isBrokenblocks) { _isBrokenblocks = isBrokenblocks; }
+
 };

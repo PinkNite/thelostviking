@@ -21,10 +21,10 @@ HRESULT MAP2::init()
 	_imgBrokencomputer = IMAGEMANAGER->addImage("brokenComputer", "resource/map/effect/broken_computer.bmp", 64, 80, true, RGB(255, 0, 255));
 	_imgUpeffect = IMAGEMANAGER->addFrameImage("upEffect", "resource/map/effect/up_Effect2.bmp", 512, 512, 4, 1, true, RGB(255, 0, 255));
 	_imgElevator = IMAGEMANAGER->addImage("elevator", "resource/map/effect/elevator.bmp", 64, 64, true, RGB(255, 0, 255));
-
+	
 	_rcElectric3 = RectMake(1889, 1504, 64, 32);
 	_rcHandle = RectMake(1233, 976, 28, 30);
-	_rcBrokenblock;
+	_rcBrokenblocks = RectMake(673, 960, 96, 128);
 	_rcBrokencomputer = RectMake(1249, 1360, 64, 80);
 	_rcUpeffect = RectMake(1089, 512, 128, 512);
 	_rcLadder[0] = RectMake(609, 160, 64, 288);
@@ -41,6 +41,17 @@ HRESULT MAP2::init()
 	_rcHelp[5] = RectMake(1393, 1384, 32, 32);
 	_rcElevator = RectMake(1889, 416, 64, 64);
 	_rcExit = RectMake(609, 1472, 64, 96);
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 3; j += 2)
+		{
+			_rcBrokenblock[i][j] = RectMake(673 + 32 * j, 1056 - 32 * i, 32, 32);
+		}
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		_rcBrokenblock[i][1] = RectMake(673 + 32 * 1, 960 + 32 * i, 32, 32);
+	}
 
 	_indexElectric3 = 0;
 	_indexElectric4 = 0;
@@ -51,6 +62,7 @@ HRESULT MAP2::init()
 	_isElevatorMove = false;
 	_checkElevatorUpdown = false;
 	_isHandle = false;
+	_isBrokenblocks = false;
 
 	electricInit();
 	doorInit();
@@ -61,7 +73,6 @@ HRESULT MAP2::init()
 
 void MAP2::release()
 {
-
 }
 
 void MAP2::update()
@@ -163,6 +174,13 @@ void MAP2::update()
 	}
 
 	/*테스트용*/
+	/*
+	if (KEYMANAGER->isOnceKeyDown('1'))
+	{
+		_isBrokenblocks = true;
+	}
+	*/
+	/*
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		_isHandle = true;
@@ -171,7 +189,6 @@ void MAP2::update()
 	{
 		_isHandle = false;
 	}
-	/*
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		_isMove = true;
@@ -289,6 +306,11 @@ void MAP2::render(HDC hdc)
 {
 	_imgElevator->render(hdc, _rcElevator.left, _rcElevator.top);
 	_imgElectric3->frameRender(hdc, _rcElectric3.left, _rcElectric3.top);
+
+	if (_isBrokenComputer == true)
+	{
+		_imgBrokencomputer->render(hdc, _rcBrokencomputer.left, _rcBrokencomputer.top);
+	}
 	if (_isHandle == false)
 	{
 		_imgHandleOff->render(hdc, _rcHandle.left, _rcHandle.top);
@@ -315,6 +337,18 @@ void MAP2::render(HDC hdc)
 	{
 		_vButton[i]->render(hdc);
 	}
+	/*
+	if (_isBrokenblocks == true)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				_imgBrokenblock->frameRender(hdc, _rcBrokenblock[i][j].left, _rcBrokenblock[i][j].top);
+			}
+		}
+	}
+	*/
 }
 
 void MAP2::electricInit()
