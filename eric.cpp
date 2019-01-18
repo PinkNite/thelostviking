@@ -25,12 +25,23 @@ void ERIC::init(int posX, int posY, int width, int height)
 	_offsetY = 0;
 	_movingJump = false;
 	_isDeath = false;
+	_isOnGround = true;
+	_isPreviousLeft = false;
+	_isStartFalldown = false;
+	_falldownTimer = 0;
+	_isJumpimg = false;
 }
 
 void ERIC::update()
 {
 
 	jump();
+	
+	affectGravity();
+	notOut();
+	fallDown();
+
+
 
 	KEYANIMANAGER->update();
 
@@ -64,6 +75,7 @@ void ERIC::moveLeft()
 	{
 		_speed += _upSpeed;
 	}
+	_isPreviousLeft = true;
 }
 
 void ERIC::moveRight()
@@ -82,6 +94,8 @@ void ERIC::moveRight()
 	{
 		_speed += _upSpeed;
 	}
+
+	_isPreviousLeft = false;
 }
 
 void ERIC::moveUp()
@@ -119,11 +133,11 @@ void ERIC::jump()
 
 	if (_state == OBJECT::ERIC_STATE::LEFT_JUMP && _movingJump)
 	{
-		moveLeft();
+		//moveLeft();
 	}
 	else if (_state == OBJECT::ERIC_STATE::RIGHT_JUMP&& _movingJump)
 	{
-		moveRight();
+		//moveRight();
 	}
 
 	//땅 착지하면 점핑을 false로 바꾸어야 하는데 지금 바닥이 없다 픽셀충돌 그렇기에 기존 위치를 받아서 임시로 처리하겠다.
@@ -133,16 +147,15 @@ void ERIC::jump()
 		_isJumpimg = false;
 
 
-		if (_state == OBJECT::ERIC_STATE::LEFT_JUMP && _movingJump && KEYMANAGER->isStayKeyDown(VK_LEFT))
+		if (_state == OBJECT::ERIC_STATE::LEFT_JUMP  && KEYMANAGER->isStayKeyDown(VK_LEFT))
 		{
 			setEricState(OBJECT::ERIC_STATE::LEFT_RUN);
 		}
 		else if (_state == OBJECT::ERIC_STATE::LEFT_JUMP)
 		{
 			setEricState(OBJECT::ERIC_STATE::LEFT_IDLE);
-
 		}
-		else if (_state == OBJECT::ERIC_STATE::RIGHT_JUMP && _movingJump&& KEYMANAGER->isStayKeyDown(VK_RIGHT))
+		else if (_state == OBJECT::ERIC_STATE::RIGHT_JUMP && KEYMANAGER->isStayKeyDown(VK_RIGHT))
 		{
 			setEricState(OBJECT::ERIC_STATE::RIGHT_RUN);
 		}
@@ -174,12 +187,21 @@ void ERIC::initAnimation()
 	KEYANIMANAGER->addObject("eric");
 	for (int i = 0; i < static_cast<int>(OBJECT::ERIC_STATE::MAX); i++)
 	{
-		KEYANIMANAGER->addArrayFrameAnimation("eric", _arStrAniState[i], "eric", _vAniFrame[i], _arAniFrameCount[i], 10, _arIsLoop[i]);
+		if (static_cast<int>(OBJECT::ERIC_STATE::LEFT_FALLDOWN) == i ||
+			static_cast<int>(OBJECT::ERIC_STATE::RIGHT_FALLDOWN) == i)
+		{
+			KEYANIMANAGER->addArrayFrameAnimation("eric", _arStrAniState[i], "eric", _vAniFrame[i], 1, 1, _arIsLoop[i]);
+
+		}
+		else {
+			KEYANIMANAGER->addArrayFrameAnimation("eric", _arStrAniState[i], "eric", _vAniFrame[i], _arAniFrameCount[i], 10, _arIsLoop[i]);
+
+		}
 	}
 	KEYANIMANAGER->findAnimation("eric", _arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::ON_LADDER_OVER)])->setClickRender(TRUE);
 	KEYANIMANAGER->findAnimation("eric", _arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::ON_LADDER)])->setClickRender(TRUE);
 
-	_pAnimation = KEYANIMANAGER->findAnimation("eric", _arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_IDLE)]);
+	_pAnimation = KEYANIMANAGER->findAnimation("eric", _arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_IDLE)]);
 	_pAnimation->start();
 }
 
@@ -387,6 +409,17 @@ void ERIC::skillOne()
 		setEricState(OBJECT::ERIC_STATE::RIGHT_JUMP);
 
 	}
+	else if (_state == OBJECT::ERIC_STATE::ON_LADDER || _state == OBJECT::ERIC_STATE::ON_LADDER_OVER)
+	{
+		if (_isPreviousLeft)
+		{
+			setEricState(OBJECT::ERIC_STATE::LEFT_JUMP);
+		}
+		else
+		{
+			setEricState(OBJECT::ERIC_STATE::RIGHT_JUMP);
+		}
+	}
 	setJumping(true);
 }
 
@@ -427,23 +460,81 @@ void ERIC::setLadderAni(int nLadderAni)
 void ERIC::notOut()
 {
 	//여기는 임시 코드입니다. 픽셀 충돌이 없기에 넣어진 코드입니다.
-	if (_posY > MAPSIZEY- 100)
+	if (_posY >= MAPSIZEY- 100)
 	{
 		_posY = MAPSIZEY - 100;
+
+		if (!_isOnGround)
+		{
+			if (_isPreviousLeft && _state == OBJECT::ERIC_STATE::LEFT_FALLDOWN)
+			{
+				setEricState(OBJECT::ERIC_STATE::LEFT_HADING_STUN);
+			}
+			else if (!_isPreviousLeft && _state == OBJECT::ERIC_STATE::RIGHT_FALLDOWN) {
+				setEricState(OBJECT::ERIC_STATE::RIGHT_HADING_STUN);
+			}
+			else if (_isPreviousLeft) {
+				setEricState(OBJECT::ERIC_STATE::LEFT_IDLE);
+			}
+			else if (!_isPreviousLeft) {
+				setEricState(OBJECT::ERIC_STATE::RIGHT_IDLE);
+			}
+		}
+
+
+		_isOnGround = true;
+
+	}
+	else {
+		_isOnGround = false;
 	}
 
 }
 
 void ERIC::affectGravity()
 {
-	if (_state != OBJECT::ERIC_STATE::ON_LADDER ||
-		_state != OBJECT::ERIC_STATE::ON_LADDER_OVER || 
-		_isDeath)
+	if (_state != OBJECT::ERIC_STATE::ON_LADDER &&
+		_state != OBJECT::ERIC_STATE::ON_LADDER_OVER && 
+		!_isDeath &&
+		!_isOnGround)
 	{
-		_posY -= _gravity * TIMEMANAGER->getElpasedTime();
+		_falldownTimer += TIMEMANAGER->getElpasedTime();
 
+		_posY += _gravity * TIMEMANAGER->getElpasedTime();
+
+		if (_isStartFalldown)
+		{
+			_isStartFalldown = false;
+			if (_isPreviousLeft)
+			{
+				setEricState(OBJECT::ERIC_STATE::LEFT_JUMP);
+			}
+			else {
+				setEricState(OBJECT::ERIC_STATE::RIGHT_JUMP);
+			}
+		}
 	}
+	else {
+		_falldownTimer = 0;
 
+		_isStartFalldown = true;
+	}
+}
+
+void ERIC::fallDown()
+{
+	if (_falldownTimer > 2 &&
+		_state != OBJECT::ERIC_STATE::LEFT_JUMP &&
+		_state != OBJECT::ERIC_STATE::RIGHT_JUMP)
+	{
+		if(_isPreviousLeft)
+		{
+			setEricState(OBJECT::ERIC_STATE::LEFT_FALLDOWN);
+		}
+		else {
+			setEricState(OBJECT::ERIC_STATE::RIGHT_FALLDOWN);
+		}
+	}
 }
 
 bool ERIC::getJump()

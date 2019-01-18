@@ -45,6 +45,12 @@ private:
 
 	//죽음
 	bool			_isDeath;
+	bool			_isOnGround;
+	
+	bool			_isPreviousLeft;
+
+	float			_falldownTimer;
+	bool			_isStartFalldown;
 public:
 	ERIC();
 	~ERIC();
@@ -83,6 +89,7 @@ public:
 
 	void	notOut();
 	void	affectGravity();
+	void	fallDown();
 public:
 	//인라인 함수
 	inline void	setMoveStart(bool isMoveStart) { _isMoveStart = isMoveStart; }

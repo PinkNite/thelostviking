@@ -66,7 +66,9 @@ void INPUTMANAGER::update()
 	//오른쪽 이동 중
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		if (_pPlayer->getEricState() == OBJECT::ERIC_STATE::RIGHT_RUN)
+		if (_pPlayer->getEricState() == OBJECT::ERIC_STATE::RIGHT_RUN ||
+			_pPlayer->getEricState() == OBJECT::ERIC_STATE::RIGHT_JUMP ||
+			_pPlayer->getEricState() == OBJECT::ERIC_STATE::RIGHT_FALLDOWN)
 		{
 			_pPlayer->moveRight();
 		}
@@ -112,13 +114,13 @@ void INPUTMANAGER::update()
 		_pPlayer->setLadderAni(0);
 
 	}
-	if (KEYMANAGER->isOnceKeyDown('D'))
+	if (KEYMANAGER->isOnceKeyDown('F'))
 	{
 		_pPlayer->useSkillOne();
 		_ericJumpPower = 500.0f;
 		_jumpKeyPressTime = 0.0f;
 	}
-	if (KEYMANAGER->isStayKeyDown('D'))
+	if (KEYMANAGER->isStayKeyDown('F'))
 	{
 		_jumpKeyPressTime += TIMEMANAGER->getElpasedTime();
 
@@ -142,7 +144,8 @@ void INPUTMANAGER::update()
 	}
 	if (_pPlayer->getPosY() > _pCamera->getTop() + _pCamera->getHeight() / 2 + 5)
 	{
-		_pCamera->moveDown(_pPlayer->getSpeedY());
+		float offset = _pPlayer->getPosY() - (_pCamera->getTop() + _pCamera->getHeight() / 2 + 5);
+		_pCamera->moveDown(offset);
 	}
 	else if (_pPlayer->getPosY() < _pCamera->getTop() + _pCamera->getHeight() / 2 - 5)
 	{
