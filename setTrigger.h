@@ -89,7 +89,7 @@ public:
 	setBUTTON();
 	~setBUTTON();
 
-	HRESULT init(string strKey, int x, int y, int width, int height, int frameSpeed = 10);
+	HRESULT init(string strKey, int x, int y, int width, int height, int frameSpeed = 3);
 	void release();
 	void update();
 	void render(HDC hdc);

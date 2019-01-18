@@ -133,7 +133,7 @@ setBUTTON::~setBUTTON()
 HRESULT setBUTTON::init(string strKey, int x, int y, int width, int height, int frameSpeed)
 {
 	Button.isOff = false;
-	Button.imgTrigger = IMAGEMANAGER->addFrameImage(strKey, "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
+	Button.imgTrigger = IMAGEMANAGER->addFrameImage(strKey, "resource/map/effect/toggle_Button.bmp", 140, 28, 5, 1, true, RGB(255, 0, 255));
 	Button.rcTrigger = RectMake(x, y, width, height);
 
 	_currentFrameX = _currentFrameY = 0;

@@ -26,24 +26,26 @@ HRESULT MAP2::init()
 	_rcBrokenblock;
 	_rcBrokencomputer = RectMake(1249, 1360, 64, 80);
 	_rcUpeffect = RectMake(1089, 512, 128, 512);
-	_rcLadder1 = RectMake(609, 160, 64, 288);
-	_rcLadder2 = RectMake(1153, 160, 64, 288);
-	_rcLadder3 = RectMake(1505, 800, 64, 224);
-	_rcLadder4 = RectMake(129, 640, 64, 448);
-	_rcLadder5 = RectMake(481, 1088, 64, 320);
-	_rcLadder6 = RectMake(97, 1408, 64, 160);
-	_rcHelp1 = RectMake(305, 398, 32, 32);
-	_rcHelp2 = RectMake(369, 398, 32, 32);
-	_rcHelp3 = RectMake(625, 104, 32, 32);
-	_rcHelp4 = RectMake(1841, 392, 32, 32);
-	_rcHelp5 = RectMake(1777, 1384, 32, 32);
-	_rcHelp6 = RectMake(1393, 1384, 32, 32);
+	_rcLadder[0] = RectMake(609, 160, 64, 288);
+	_rcLadder[1] = RectMake(1153, 160, 64, 288);
+	_rcLadder[2] = RectMake(1505, 800, 64, 224);
+	_rcLadder[3] = RectMake(129, 640, 64, 448);
+	_rcLadder[4] = RectMake(481, 1088, 64, 320);
+	_rcLadder[5] = RectMake(97, 1408, 64, 160);
+	_rcHelp[0] = RectMake(305, 398, 32, 32);
+	_rcHelp[1] = RectMake(369, 398, 32, 32);
+	_rcHelp[2] = RectMake(625, 104, 32, 32);
+	_rcHelp[3] = RectMake(1841, 392, 32, 32);
+	_rcHelp[4] = RectMake(1777, 1384, 32, 32);
+	_rcHelp[5] = RectMake(1393, 1384, 32, 32);
 	_rcElevator = RectMake(1889, 416, 64, 64);
 	_rcExit = RectMake(609, 1472, 64, 96);
 
 	_indexElectric3 = 0;
 	_indexElectric4 = 0;
 	_indexUpeffect = 0;
+	_isMove = false;
+	_checkUpdown = false;
 
 	electricInit();
 	doorInit();
@@ -70,8 +72,87 @@ void MAP2::update()
 	{
 		_vButton[i]->update();
 	}
+
+	// moving Elevator start
+	if (_isMove == true && _checkUpdown == true)
+	{
+		if (_rcElevator.top > 416 && _rcElevator.top <= 768)
+		{	
+			if (_rcElevator.top == 418)
+			{
+				_rcElevator.top -= 2;
+				_rcElevator.bottom -= 2;
+				_isMove = false;
+			}
+			else
+			{
+				_rcElevator.top -= 2;
+				_rcElevator.bottom -= 2;
+			}
+		}
+
+		else if (_rcElevator.top > 768 && _rcElevator.top <= 1408)
+		{
+			if (_rcElevator.top == 770)
+			{
+				_rcElevator.top -= 2;
+				_rcElevator.bottom -= 2;
+				_isMove = false;
+			}
+			else
+			{
+				_rcElevator.top -= 2;
+				_rcElevator.bottom -= 2;
+			}
+		}
+	}
+
+	if (_isMove == true && _checkUpdown == false)
+	{
+		if (_rcElevator.top >= 416 && _rcElevator.top < 768)
+		{
+			if (_rcElevator.top == 766)
+			{
+				_rcElevator.top += 2;
+				_rcElevator.bottom += 2;
+				_isMove = false;
+			}
+			else
+			{
+				_rcElevator.top += 2;
+				_rcElevator.bottom += 2;
+			}
+		}
+		
+		else if (_rcElevator.top >= 768 && _rcElevator.top < 1408)
+		{
+			if (_rcElevator.top == 1406)
+			{
+				_rcElevator.top += 2;
+				_rcElevator.bottom += 2;
+				_isMove = false;
+			}
+			else
+			{
+				_rcElevator.top += 2;
+				_rcElevator.bottom += 2;
+			}
+		}
+	}
+	// moving Elevator end
+
 	/*테스트용*/
 	/*
+	if (KEYMANAGER->isOnceKeyDown('1'))
+	{
+		_isMove = true;
+		_checkUpdown = false;
+	}
+	if (KEYMANAGER->isOnceKeyDown('2'))
+	{
+		_isMove = true;
+		_checkUpdown = true;
+	}
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		_vElectric[0]->setIsoff(true);
@@ -128,8 +209,6 @@ void MAP2::update()
 	{
 		_vElectric[6]->setIsoff(false);
 	}
-	*/
-	/*
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		_vDoor[0]->setIsoff(true);
@@ -162,31 +241,19 @@ void MAP2::update()
 	{
 		_vDoor[3]->setIsoff(false);
 	}
-	*/
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		_vButton[0]->setIsoff(true);
 	}
-	/*else if (KEYMANAGER->isOnceKeyUp('1'))
-	{
-		_vButton[0]->setIsoff(false);
-	}*/
 	if (KEYMANAGER->isOnceKeyDown('2'))
 	{
 		_vButton[1]->setIsoff(true);
 	}
-	/*else if (KEYMANAGER->isOnceKeyUp('2'))
-	{
-		_vButton[1]->setIsoff(false);
-	}*/
 	if (KEYMANAGER->isOnceKeyDown('3'))
 	{
 		_vButton[2]->setIsoff(true);
 	}
-	/*else if (KEYMANAGER->isOnceKeyUp('3'))
-	{
-		_vButton[2]->setIsoff(false);
-	}*/
+	*/
 }
 
 void MAP2::render(HDC hdc)

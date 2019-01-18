@@ -10,9 +10,6 @@ private:
 	image* _imgMap2bg;
 	image* _imgElectric3;
 	image* _imgHandle;
-	image* _imgButton1;
-	image* _imgButton2;
-	image* _imgButton3;
 	image* _imgBrokenblock;
 	image* _imgBrokencomputer;
 	image* _imgUpeffect;
@@ -20,24 +17,11 @@ private:
 
 	RECT _rcElectric3;
 	RECT _rcHandle;
-	RECT _rcButton1;
-	RECT _rcButton2;
-	RECT _rcButton3;
 	RECT _rcBrokenblock;
 	RECT _rcBrokencomputer;
 	RECT _rcUpeffect;
-	RECT _rcLadder1;
-	RECT _rcLadder2;
-	RECT _rcLadder3;
-	RECT _rcLadder4;
-	RECT _rcLadder5;
-	RECT _rcLadder6;
-	RECT _rcHelp1;
-	RECT _rcHelp2;
-	RECT _rcHelp3;
-	RECT _rcHelp4;
-	RECT _rcHelp5;
-	RECT _rcHelp6;
+	RECT _rcLadder[6];
+	RECT _rcHelp[6];
 	RECT _rcElevator;
 	RECT _rcExit;
 
@@ -56,6 +40,8 @@ private:
 	int _indexElectric3;
 	int _indexElectric4;
 	int _indexUpeffect;
+	bool _isMove;
+	bool _checkUpdown;
 
 public:
 	MAP2();
@@ -69,5 +55,17 @@ public:
 	void electricInit();
 	void doorInit();
 	void buttonInit();
-};
 
+	vector<setELECTRIC*>			getVElectric() { return _vElectric; }
+	vector<setELECTRIC*>::iterator	getVIElectric() { return _viElectric; }
+	vector<setDOOR*>				getVDoor() { return _vDoor; }
+	vector<setDOOR*>::iterator		getVIDoor() { return _viDoor; }
+	vector<setBUTTON*>				getVButton() { return _vButton; }
+	vector<setBUTTON*>::iterator	getVIButton() { return _viButton; }
+	RECT							getRCLadder(int arrNum) { return _rcLadder[arrNum]; }
+	RECT							getRCHelp(int arrNum) { return _rcHelp[arrNum]; }
+	RECT							getRCElevator() { return _rcElevator; }
+	RECT							getRCExit() { return _rcExit; }
+	// isMove(true = active elevator, false = unactive elevator), checkUpdown(true = Up, false = down)
+	void							setElevatorFloor(bool isMove, bool checkUpdown) { _isMove = isMove; _checkUpdown = checkUpdown; }
+};
