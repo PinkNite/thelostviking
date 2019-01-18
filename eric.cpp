@@ -55,7 +55,7 @@ void ERIC::render(HDC hdc)
 {
 
 
-	OBJECT::getIamge()->aniRender(hdc, OBJECT::getPosX() - OBJECT::getWidth() / 2, OBJECT::getPosY() - OBJECT::getHeight() / 2, _pAnimation);
+	OBJECT::getImage()->aniRender(hdc, OBJECT::getPosX() - OBJECT::getWidth() / 2, OBJECT::getPosY() - OBJECT::getHeight() / 2, _pAnimation);
 }
 
 void ERIC::moveLeft()

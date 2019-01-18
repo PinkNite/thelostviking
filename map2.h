@@ -40,8 +40,8 @@ private:
 	int _indexElectric3;
 	int _indexElectric4;
 	int _indexUpeffect;
-	bool _isMove;
-	bool _checkUpdown;
+	bool _isElevatorMove;
+	bool _checkElevatorUpdown;
 
 public:
 	MAP2();
@@ -67,5 +67,5 @@ public:
 	RECT							getRCElevator() { return _rcElevator; }
 	RECT							getRCExit() { return _rcExit; }
 	// isMove(true = active elevator, false = unactive elevator), checkUpdown(true = Up, false = down)
-	void							setElevatorFloor(bool isMove, bool checkUpdown) { _isMove = isMove; _checkUpdown = checkUpdown; }
+	void							setElevatorFloor(bool isMove, bool checkUpdown) { _isElevatorMove = isMove; _checkElevatorUpdown = checkUpdown; }
 };

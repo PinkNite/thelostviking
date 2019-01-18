@@ -82,7 +82,7 @@ public:
 	inline int getHeight() { return _height; }
 	inline int getLeft() { return _left; }
 	inline int getTop() { return _top; }
-	inline image* getIamge() { return _pImg; }
+	inline image* getImage() { return _pImg; }
 
 
 	inline void setPosX(int posX) { _posX = posX; }

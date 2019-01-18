@@ -44,8 +44,8 @@ HRESULT MAP2::init()
 	_indexElectric3 = 0;
 	_indexElectric4 = 0;
 	_indexUpeffect = 0;
-	_isMove = false;
-	_checkUpdown = false;
+	_isElevatorMove = false;
+	_checkElevatorUpdown = false;
 
 	electricInit();
 	doorInit();
@@ -74,7 +74,7 @@ void MAP2::update()
 	}
 
 	// moving Elevator start
-	if (_isMove == true && _checkUpdown == true)
+	if (_isElevatorMove == true && _checkElevatorUpdown == true)
 	{
 		if (_rcElevator.top > 416 && _rcElevator.top <= 768)
 		{	
@@ -82,7 +82,7 @@ void MAP2::update()
 			{
 				_rcElevator.top -= 2;
 				_rcElevator.bottom -= 2;
-				_isMove = false;
+				_isElevatorMove = false;
 			}
 			else
 			{
@@ -97,7 +97,7 @@ void MAP2::update()
 			{
 				_rcElevator.top -= 2;
 				_rcElevator.bottom -= 2;
-				_isMove = false;
+				_isElevatorMove = false;
 			}
 			else
 			{
@@ -107,7 +107,7 @@ void MAP2::update()
 		}
 	}
 
-	if (_isMove == true && _checkUpdown == false)
+	if (_isElevatorMove == true && _checkElevatorUpdown == false)
 	{
 		if (_rcElevator.top >= 416 && _rcElevator.top < 768)
 		{
@@ -115,7 +115,7 @@ void MAP2::update()
 			{
 				_rcElevator.top += 2;
 				_rcElevator.bottom += 2;
-				_isMove = false;
+				_isElevatorMove = false;
 			}
 			else
 			{
@@ -130,7 +130,7 @@ void MAP2::update()
 			{
 				_rcElevator.top += 2;
 				_rcElevator.bottom += 2;
-				_isMove = false;
+				_isElevatorMove = false;
 			}
 			else
 			{
