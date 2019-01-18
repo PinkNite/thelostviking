@@ -10,6 +10,6 @@ public:
 	virtual HRESULT init(int x, int y, int width, int height);
 	virtual void release();
 	virtual void update();
-	virtual void render();
+	virtual void render(HDC hdc);
 };
 

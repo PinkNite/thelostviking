@@ -91,6 +91,9 @@
     <Filter Include="PlayGround\map\map2">
       <UniqueIdentifier>{8a925eb3-c8eb-4367-8644-7c80da7a4d31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlayGround\Object\item\itemManager">
+      <UniqueIdentifier>{be9a5cd4-f8a0-4cab-9b57-de4a38e16877}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -246,6 +249,9 @@
     <ClInclude Include="buttons.h">
       <Filter>PlayGround\map</Filter>
     </ClInclude>
+    <ClInclude Include="itemManager.h">
+      <Filter>PlayGround\Object\item\itemManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -382,6 +388,9 @@
     </ClCompile>
     <ClCompile Include="buttons.cpp">
       <Filter>PlayGround\map</Filter>
+    </ClCompile>
+    <ClCompile Include="itemManager.cpp">
+      <Filter>PlayGround\Object\item\itemManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
