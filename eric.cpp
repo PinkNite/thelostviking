@@ -522,6 +522,8 @@ void ERIC::affectGravity()
 
 void ERIC::fallDown()
 {
+
+
 	if (_falldownTimer > 2 &&
 		_state != OBJECT::ERIC_STATE::LEFT_JUMP &&
 		_state != OBJECT::ERIC_STATE::RIGHT_JUMP)
