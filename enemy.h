@@ -2,9 +2,9 @@
 #include "object.h"
 
 
-class enemy : public OBJECT
+class ENEMY : public OBJECT
 {
-private: 
+public:
 	enum class ENEMY_STATE
 	{
 		IDLE_RIGHT,
@@ -13,7 +13,7 @@ private:
 		MOVE_LEFT,
 		ATTACK_RIGHT,
 		ATTACK_LEFT,
-		AIR_JUMP, // boss
+		//AIR_JUMP, // boss
 		DEATH,
 		MAX
 	};
@@ -29,7 +29,7 @@ private:
 
 		// 탄발사 공격
 		CANNON,
-		sNAIL,
+		SNAIL,
 		GOLIATH,
 		BOSS
 	};
@@ -41,8 +41,6 @@ private:
 		SHOOTER
 	};
 
-	const float _speed = 3.0f;
-
 private:
 	ENEMY_TYPE	_type;
 	ENEMY_STATE _state;
@@ -53,33 +51,35 @@ private:
 	vector<int*> _vAniFrame;
 	int			 _arAniFrameCount[int(ENEMY_STATE::MAX)];
 	string		 _arAniFrameStrKey[int(ENEMY_STATE::MAX)];
+	int			 _maxAniFrame;
 
 	int _hp;
+	int _startTime;
+	int _moveTime;
+	float _speed;
+
 	string _typeName;
 
 public:
-	enemy();
-	~enemy();
+	ENEMY();
+	~ENEMY();
 
-	void init(int posX, int posY, int width, int height);
+	//void init(int posX, int posY, int width, int height);
+	void init(int posX, int posY, int width, int height, float _speed);
 	virtual void update()		 override;
 	virtual void release()		 override;
 	virtual void render(HDC hdc) override;
 
 	// 적 종류 설정
 	void setEnemyType(ENEMY_TYPE type);
-	
+
 	virtual void moveLeft() override;
 	virtual void moveRight() override;
 
 	void moveUp();
 	void moveDown();
-	
-	void jump();
-	void fire();
 
-	float getSpeedX();
-	float getSpeedY();
+	void fire();
 
 	void initAnimation();
 	void initAniFrame();
