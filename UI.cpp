@@ -65,7 +65,43 @@ void UI::release()
 
 void UI::update()
 {
-	
+	//스테이트 바꿔서 테스트
+	if (KEYMANAGER->isOnceKeyDown('1'))
+	{
+		_baleogState = BALEOG_ON;
+	}
+	if (KEYMANAGER->isOnceKeyDown('2'))
+	{
+		_baleogState = BALEOG_OFF;
+	}
+	if (KEYMANAGER->isOnceKeyDown('3'))
+	{
+		_baleogState = BALEOG_DEAD;
+	}
+	if (KEYMANAGER->isOnceKeyDown('4'))
+	{
+		_erikState = ERIK_ON;
+	}
+	if (KEYMANAGER->isOnceKeyDown('5'))
+	{
+		_erikState = ERIK_OFF;
+	}
+	if (KEYMANAGER->isOnceKeyDown('6'))
+	{
+		_erikState = ERIK_DEAD;
+	}
+	if (KEYMANAGER->isOnceKeyDown('7'))
+	{
+		_olafState = OLAF_ON;
+	}
+	if (KEYMANAGER->isOnceKeyDown('8'))
+	{
+		_olafState = OLAF_OFF;
+	}
+	if (KEYMANAGER->isOnceKeyDown('9'))
+	{
+		_olafState = OLAF_DEAD;
+	}
 }
 
 void UI::render()
@@ -138,45 +174,45 @@ void UI::render()
 		switch (i)
 		{
 		case 0:
-			if (_baleogState == BALEOG_ON)
-			{
-				_baleog[i].pImage->render(getMemDC(), 40, 404);
-			}
 			if (_erikState == ERIK_ON)
 			{
-				_erik[i].pImage->render(getMemDC(), 220, 404);
+				_erik[i].pImage->render(getMemDC(), 40, 405);
+			}
+			if (_baleogState == BALEOG_ON)
+			{
+				_baleog[i].pImage->render(getMemDC(), 220, 405);
 			}
 			if (_olafState == OLAF_ON)
 			{
-				_olaf[i].pImage->render(getMemDC(), 400, 404);
+				_olaf[i].pImage->render(getMemDC(), 400, 405);
 			}
 			break;
 		case 1:
-			if (_baleogState == BALEOG_OFF)
-			{
-				_baleog[i].pImage->render(getMemDC(), 40, 404);
-			}
 			if (_erikState == ERIK_OFF)
 			{
-				_erik[i].pImage->render(getMemDC(), 40, 404);
+				_erik[i].pImage->render(getMemDC(), 40, 405);
+			}
+			if (_baleogState == BALEOG_OFF)
+			{
+				_baleog[i].pImage->render(getMemDC(), 220, 405);
 			}
 			if (_olafState == OLAF_OFF)
 			{
-				_olaf[i].pImage->render(getMemDC(), 40, 404);
+				_olaf[i].pImage->render(getMemDC(), 400, 405);
 			}
 			break;
 		case 2:
-			if (_baleogState == BALEOG_DEAD)
-			{
-				_baleog[i].pImage->render(getMemDC(), 40, 404);
-			}
 			if (_erikState == ERIK_DEAD)
 			{
-				_erik[i].pImage->render(getMemDC(), 40, 404);
+				_erik[i].pImage->render(getMemDC(), 40, 405);
+			}
+			if (_baleogState == BALEOG_DEAD)
+			{
+				_baleog[i].pImage->render(getMemDC(), 220, 405);
 			}
 			if (_olafState == OLAF_DEAD)
 			{
-				_olaf[i].pImage->render(getMemDC(), 40, 404);
+				_olaf[i].pImage->render(getMemDC(), 400, 405);
 			}
 			break;
 

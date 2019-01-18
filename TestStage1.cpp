@@ -143,6 +143,8 @@ void TestStage1::update()
 	_pInputMgr->update();
 
 	_pItemManager->update();
+
+	_pUI->update();
 }
 
 void TestStage1::render()
