@@ -5,6 +5,8 @@
 #include "inputMgr.h"
 #include "map1.h"
 #include "map2.h"
+#include "itemManager.h"
+#include "UI.h"
 
 class TestStage1 : public gameNode
 {
@@ -14,6 +16,8 @@ private:
 	INPUTMANAGER*	_pInputMgr;
 	MAP1*           _pMap1;
 	MAP2*           _pMap2;
+	ITEMMANAGER*    _pItemManager;
+	UI*				_pUI;
 
 public:
 	virtual HRESULT init();

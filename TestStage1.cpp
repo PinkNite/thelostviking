@@ -35,7 +35,7 @@ void TestStage1::load()
 
 
 	//¸Ê
-
+	
 
 	//¾ÆÀÌÅÛ
 	IMAGEMANAGER->addImage("meat", "resource/item/meat.bmp", 32, 28, true, RGB(255, 0, 255));
@@ -44,7 +44,19 @@ void TestStage1::load()
 	IMAGEMANAGER->addImage("questionMark", "resource/item/questionMark.bmp", 32, 32, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("boom", "resource/item/boom.bmp", 32, 30, true, RGB(255, 0, 255));
 
+	//UI
+	IMAGEMANAGER->addImage("UI", "resource/UI/UI.bmp", 640, 118, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("life", "resource/UI/life.bmp", 14, 12, true, RGB(255, 0, 255));
 
+	IMAGEMANAGER->addImage("baleogOn", "resource/UI/baleogOn.bmp", 80, 60, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("baleogOff", "resource/UI/baleogOff.bmp", 80, 60, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("baleogDead", "resource/UI/baleogDead.bmp", 80, 60, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("erikOn", "resource/UI/erikOn.bmp", 80, 60, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("erikOff", "resource/UI/erikOff.bmp", 80, 60, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("erikDead", "resource/UI/erikDead.bmp", 80, 60, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("olafOn", "resource/UI/olafOn.bmp", 80, 60, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("olafOff", "resource/UI/olafOff.bmp", 80, 60, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("olafDead", "resource/UI/olafDead.bmp", 80, 60, true, RGB(255, 0, 255));
 
 	// enemy image resources
 	IMAGEMANAGER->addFrameImage("redEnemy", "resource/enemies/red.bmp", 259, 128, 7, 4, true, RGB(255, 0, 255));
@@ -96,6 +108,12 @@ HRESULT TestStage1::init()
 	_pInputMgr = new INPUTMANAGER();
 	_pInputMgr->init(_pPlayer, _pCamera);
 
+	_pItemManager = new ITEMMANAGER;
+	_pItemManager->init();
+
+	_pUI = new UI;
+	_pUI->init();
+
 	return S_OK;
 }
 
@@ -109,6 +127,7 @@ void TestStage1::release()
 	_pCamera = nullptr;
 	delete _pPlayer;
 	_pPlayer = nullptr;
+
 }
 
 void TestStage1::update()
@@ -122,6 +141,8 @@ void TestStage1::update()
 	_pPlayer->update();
 
 	_pInputMgr->update();
+
+	_pItemManager->update();
 }
 
 void TestStage1::render()
@@ -132,9 +153,13 @@ void TestStage1::render()
 	_pMap2->render(_pCamera->getMemDC());
 	_pPlayer->render(_pCamera->getMemDC());
 
+	
+	_pItemManager->render(_pCamera->getMemDC());
+
 
 	TIMEMANAGER->render(getMemDC());
 	_pCamera->render(getMemDC());
+	_pUI->render();
 
 	//===========================================================
 	this->getBackBuffer()->render(getHDC(), 0, 0);
