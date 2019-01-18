@@ -173,7 +173,10 @@
     <ClInclude Include="object.h" />
     <ClInclude Include="pixelCollision.h" />
     <ClInclude Include="player.h" />
-    <ClInclude Include="playGround.h" />
+    <ClInclude Include="playGround.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="playGround2.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
@@ -191,6 +194,7 @@
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="txtData.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="inputMgr.h" />
     <ClInclude Include="viking.h" />
@@ -222,7 +226,10 @@
     <ClCompile Include="object.cpp" />
     <ClCompile Include="pixelCollision.cpp" />
     <ClCompile Include="player.cpp" />
-    <ClCompile Include="playGround.cpp" />
+    <ClCompile Include="playGround.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="playGround2.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="sceneIntro.cpp" />
     <ClCompile Include="sceneManager.cpp" />
@@ -240,6 +247,7 @@
     <ClCompile Include="timeManager.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="txtData.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="windowsAPI.cpp" />
   </ItemGroup>

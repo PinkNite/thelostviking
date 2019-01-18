@@ -11,7 +11,8 @@ ITEMBOOM::~ITEMBOOM()
 
 HRESULT ITEMBOOM::init(int x, int y, int width, int height)
 {
-	ITEMFRAME::init(x, y, width, height);
+	//ITEMFRAME::init(x, y, width, height);
+	ITEMFRAME::setItem(x, y, width, height);
 	ITEMFRAME::setImage(IMAGEMANAGER->findImage("boom"));
 	return S_OK;
 }
@@ -24,7 +25,7 @@ void ITEMBOOM::update()
 {
 }
 
-void ITEMBOOM::render()
+void ITEMBOOM::render(HDC hdc)
 {
-	ITEMFRAME::getImage()->getMemDC();
+	ITEMFRAME::getImage()->render(hdc,ITEMFRAME::getX(),ITEMFRAME::getY());
 }

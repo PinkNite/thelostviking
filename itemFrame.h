@@ -1,9 +1,11 @@
 #pragma once
 #include "stdafx.h"
+
+
 class ITEMFRAME
 {
 protected:
-
+	
 	int _x;
 	int _y;
 	int _centerX;//¡ﬂΩ…ø¢Ω∫
@@ -13,6 +15,7 @@ protected:
 	int _width;//≥–¿Ã
 	int _height;//≥Ù¿Ã
 	image* _pImage;
+	
 
 
 public:
@@ -21,10 +24,16 @@ public:
 	virtual HRESULT init(int x, int y, int width, int height);
 	virtual void release();
 	virtual void update();
-	virtual void render();
+	virtual void render(HDC hdc);
+
 
 	void setImage(image* image);
-	inline image* getImage() { return _pImage; }
+	void setItem(int x, int y, int width, int height);
 
+public:
+
+	inline image* getImage() { return _pImage; }
+	inline int getX() { return _x; }
+	inline int getY() { return _y; }
 };
 

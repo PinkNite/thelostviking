@@ -43,6 +43,20 @@ void playGround::load()
 	IMAGEMANAGER->addImage("questionMark", "resource/item/questionMark.bmp", 32, 32, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("boom", "resource/item/boom.bmp", 32, 30, true, RGB(255, 0, 255));
 
+	//UI
+	IMAGEMANAGER->addImage("baleogDead", "resource/UI/baleogDead.bmp", 64, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("baleogOff", "resource/UI/baleogOff.bmp", 64,48 , true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("baleogOn", "resource/UI/baleogOn.bmp", 64, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("erikDead", "resource/UI/erikDead.bmp", 64, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("erikOff", "resource/UI/erikOff.bmp", 64, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("erikOn", "resource/UI/erikOn.bmp", 64, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("life", "resource/UI/life.bmp", 14, 12, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("olafDead", "resource/UI/olafDead.bmp", 64, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("olafOff", "resource/UI/olafOff.bmp", 64, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("olafOn", "resource/UI/olafOn.bmp", 64, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("select", "resource/UI/select.bmp", 32, 32, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("UI", "resource/UI/UI.bmp", 640, 110, true, RGB(255, 0, 255));
+
 
 
 	// enemy image resources
@@ -79,7 +93,9 @@ HRESULT playGround::init()
 
 	// working on: Test Enemies Scene 
 	SCENEMANAGER->addScene("TestStage1", new TestStage1);
-	SCENEMANAGER->changeScene("TestStage1");
+	//SCENEMANAGER->changeScene("TestStage1");
+	SCENEMANAGER->addScene("sceneIntro", new SCENEINTRO);
+	SCENEMANAGER->addScene("2", new playGround2);
 
 	_pPlayer = new PLAYER;
 	_pPlayer->init();
@@ -123,6 +139,18 @@ void playGround::update()
 	_pPlayer->update();
 
 	_pInputMgr->update();
+	if (KEYMANAGER->isOnceKeyDown(VK_F5))
+	{
+		SCENEMANAGER->changeScene("2");
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_F1))
+	{
+		SCENEMANAGER->changeScene("sceneIntro");
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_F2))
+	{
+		SCENEMANAGER->changeScene("TestStage1");
+	}
 
 	SCENEMANAGER->update();
 }
@@ -140,17 +168,17 @@ void playGround::render()
 	//pCamera->getCameraBuffer()->render(getMemDC(), 0, 0, 200, 200, 800, 600);
 	////getMemDc 대신 뭐 넣을때는 pCamera->getMemDc()를 쓰세요.
 
-	//SCENEMANAGER->render();
 
-	//pCamera->getMemDC();
+	_pCamera->getMemDC();
 	
 	//UI
 
 	//Scene
-	//_pSceneStart->render();//이승재 2019-01-16
+	
 	
 	TIMEMANAGER->render(getMemDC());
 	_pCamera->render(getMemDC()); 
+	SCENEMANAGER->render();
 
 	//===========================================================
 	this->getBackBuffer()->render(getHDC(), 0, 0);

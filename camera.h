@@ -55,4 +55,6 @@ public:
 	inline	int	getBotton() { return _top + _height; }
 	inline	int	getWidth() { return _width; }
 	inline	int	getHeight() { return _height; }
+	inline float posX() { return _posX; }
+	inline float posY() { return _posY; }
 };
