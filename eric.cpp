@@ -517,7 +517,6 @@ void ERIC::affectGravity()
 	else {
 		_falldownTimer = 0;
 
-		_isStartFalldown = true;
 	}
 }
 
