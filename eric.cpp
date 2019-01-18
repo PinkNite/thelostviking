@@ -24,6 +24,7 @@ void ERIC::init(int posX, int posY, int width, int height)
 	_offsetX = 0;
 	_offsetY = 0;
 	_movingJump = false;
+	_isDeath = false;
 }
 
 void ERIC::update()
@@ -421,6 +422,28 @@ void ERIC::setJumpPower(float power)
 void ERIC::setLadderAni(int nLadderAni)
 {
 	_pAnimation->setClickVariable(nLadderAni);
+}
+
+void ERIC::notOut()
+{
+	//여기는 임시 코드입니다. 픽셀 충돌이 없기에 넣어진 코드입니다.
+	if (_posY > MAPSIZEY- 100)
+	{
+		_posY = MAPSIZEY - 100;
+	}
+
+}
+
+void ERIC::affectGravity()
+{
+	if (_state != OBJECT::ERIC_STATE::ON_LADDER ||
+		_state != OBJECT::ERIC_STATE::ON_LADDER_OVER || 
+		_isDeath)
+	{
+		_posY -= _gravity * TIMEMANAGER->getElpasedTime();
+
+	}
+
 }
 
 bool ERIC::getJump()

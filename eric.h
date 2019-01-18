@@ -42,6 +42,9 @@ private:
 
 	int				_ladderAniIndex;
 
+
+	//죽음
+	bool			_isDeath;
 public:
 	ERIC();
 	~ERIC();
@@ -78,6 +81,8 @@ public:
 
 	virtual void	setLadderAni(int nLadderAni) override;
 
+	void	notOut();
+	void	affectGravity();
 public:
 	//인라인 함수
 	inline void	setMoveStart(bool isMoveStart) { _isMoveStart = isMoveStart; }
@@ -90,4 +95,6 @@ public:
 	inline void	setJumping(bool isJumping) { _isJumpimg = isJumping; }
 
 	virtual bool	getJump();
+
+	
 };
