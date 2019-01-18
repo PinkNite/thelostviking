@@ -38,15 +38,16 @@ void TestStage1::load()
 	
 
 	//¾ÆÀÌÅÛ
-	IMAGEMANAGER->addImage("meat", "resource/item/meat.bmp", 32, 28, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("fruit1", "resource/item/fruit.bmp", 26, 32, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("fruit2", "resource/item/fruit2.bmp", 32, 28, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("questionMark", "resource/item/questionMark.bmp", 32, 32, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("boom", "resource/item/boom.bmp", 32, 30, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("meat", "resource/item/meat.bmp", 40, 35, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("fruit1", "resource/item/fruit.bmp", 33, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("fruit2", "resource/item/fruit2.bmp", 40, 35, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("questionMark", "resource/item/questionMark.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("boom", "resource/item/boom.bmp", 40, 38, true, RGB(255, 0, 255));
 
 	//UI
 	IMAGEMANAGER->addImage("UI", "resource/UI/UI.bmp", 640, 118, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("life", "resource/UI/life.bmp", 14, 12, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("trashCan", "resource/UI/remove.bmp",37, 40, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addImage("baleogOn", "resource/UI/baleogOn.bmp", 80, 60, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("baleogOff", "resource/UI/baleogOff.bmp", 80, 60, true, RGB(255, 0, 255));

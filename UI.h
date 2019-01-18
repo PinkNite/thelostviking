@@ -20,7 +20,12 @@ enum olafState
 	OLAF_OFF,
 	OLAF_DEAD,
 };
-
+enum trashCanState
+{
+	TRASHCAN_ON,
+	TRASHCAN_OFF,
+	
+};
 
 struct tagUI
 {
@@ -37,6 +42,8 @@ private:
 	tagUI _erik[3];
 	tagUI _olaf[3];
 	tagUI _select;
+	tagUI _trashCan;
+	trashCanState _trashCanState;
 	baleogState _baleogState;
 	olafState _olafState;
 	erikState _erikState;

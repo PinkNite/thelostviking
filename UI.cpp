@@ -53,6 +53,10 @@ HRESULT UI::init()
 	_olafState=OLAF_ON;
 	_baleogState = BALEOG_ON;
 	_erikState = ERIK_ON;
+
+	_trashCan.pImage = new image;
+	_trashCan.pImage = IMAGEMANAGER->findImage("trashCan");
+
 	return S_OK;
 }
 
@@ -107,6 +111,7 @@ void UI::update()
 void UI::render()
 {
 	_ui.pImage->render(getMemDC(), 0, 362);
+	_trashCan.pImage->render(getMemDC(), 564, 402);//이좌표로 아이템이 들어감?
 	for (int i = 0; i < 9; i++)
 	{
 		switch (i)
