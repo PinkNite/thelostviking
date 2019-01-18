@@ -9,7 +9,8 @@ class MAP2
 private:
 	image* _imgMap2bg;
 	image* _imgElectric3;
-	image* _imgHandle;
+	image* _imgHandleOn;
+	image* _imgHandleOff;
 	image* _imgBrokenblock;
 	image* _imgBrokencomputer;
 	image* _imgUpeffect;
@@ -40,8 +41,12 @@ private:
 	int _indexElectric3;
 	int _indexElectric4;
 	int _indexUpeffect;
+	int _countUpeffect;
+	int _speedUpeffect;
+
 	bool _isElevatorMove;
 	bool _checkElevatorUpdown;
+	bool _isHandle;
 
 public:
 	MAP2();
@@ -66,6 +71,9 @@ public:
 	RECT							getRCHelp(int arrNum) { return _rcHelp[arrNum]; }
 	RECT							getRCElevator() { return _rcElevator; }
 	RECT							getRCExit() { return _rcExit; }
+	RECT							getRCHandle() { return _rcHandle; }
+
 	// isMove(true = active elevator, false = unactive elevator), checkUpdown(true = Up, false = down)
 	void							setElevatorFloor(bool isMove, bool checkUpdown) { _isElevatorMove = isMove; _checkElevatorUpdown = checkUpdown; }
+	void							setHandle(bool isHandle) { _isHandle = isHandle; }
 };

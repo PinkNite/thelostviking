@@ -15,7 +15,8 @@ HRESULT MAP2::init()
 {
 	_imgMap2bg = IMAGEMANAGER->addImage("Map2bg", "resource/map/map1-2.bmp", 2048, 1630, true, RGB(255, 0, 255));
 	_imgElectric3 = IMAGEMANAGER->addFrameImage("electric3", "resource/map/effect/electric_Shock3.bmp", 448, 32, 7, 1, true, RGB(255, 0, 255));
-	_imgHandle = IMAGEMANAGER->addFrameImage("handle", "resource/map/effect/handle.bmp", 56, 30, 2, 1, true, RGB(255, 0, 255));
+	_imgHandleOff = IMAGEMANAGER->addImage("handleOff", "resource/map/effect/handleOff.bmp", 28, 30, true, RGB(255, 0, 255));
+	_imgHandleOn = IMAGEMANAGER->addImage("handleOn", "resource/map/effect/handleOn.bmp", 28, 30, true, RGB(255, 0, 255));
 	_imgBrokenblock = IMAGEMANAGER->addFrameImage("brokenBlock", "resource/map/effect/broken_Block.bmp", 96, 32, 3, 1, true, RGB(255, 0, 255));
 	_imgBrokencomputer = IMAGEMANAGER->addImage("brokenComputer", "resource/map/effect/broken_computer.bmp", 64, 80, true, RGB(255, 0, 255));
 	_imgUpeffect = IMAGEMANAGER->addFrameImage("upEffect", "resource/map/effect/up_Effect2.bmp", 512, 512, 4, 1, true, RGB(255, 0, 255));
@@ -44,12 +45,17 @@ HRESULT MAP2::init()
 	_indexElectric3 = 0;
 	_indexElectric4 = 0;
 	_indexUpeffect = 0;
+	_countUpeffect = 0;
+	_speedUpeffect = 5;
+
 	_isElevatorMove = false;
 	_checkElevatorUpdown = false;
+	_isHandle = false;
 
 	electricInit();
 	doorInit();
 	buttonInit();
+
 	return S_OK;
 }
 
@@ -141,7 +147,30 @@ void MAP2::update()
 	}
 	// moving Elevator end
 
+	if (_isHandle == true)
+	{
+		if (_countUpeffect % _speedUpeffect == 0)
+		{
+			_imgUpeffect->SetFrameX(_indexUpeffect);
+			_indexUpeffect++;
+			if (_indexUpeffect > _imgUpeffect->getMaxFrameX())
+			{
+				_indexUpeffect = 0;
+			}
+			_countUpeffect = 0;
+		}
+		_countUpeffect++;
+	}
+
 	/*테스트용*/
+	if (KEYMANAGER->isOnceKeyDown('1'))
+	{
+		_isHandle = true;
+	}
+	if (KEYMANAGER->isOnceKeyDown('2'))
+	{
+		_isHandle = false;
+	}
 	/*
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
@@ -260,6 +289,16 @@ void MAP2::render(HDC hdc)
 {
 	_imgElevator->render(hdc, _rcElevator.left, _rcElevator.top);
 	_imgElectric3->frameRender(hdc, _rcElectric3.left, _rcElectric3.top);
+	if (_isHandle == false)
+	{
+		_imgHandleOff->render(hdc, _rcHandle.left, _rcHandle.top);
+		_imgUpeffect->frameRender(hdc, _rcUpeffect.left, _rcUpeffect.top);
+	}
+	else if (_isHandle == true)
+	{
+		_imgHandleOn->render(hdc, _rcHandle.left, _rcHandle.top);
+		_imgUpeffect->frameRender(hdc, _rcUpeffect.left, _rcUpeffect.top);
+	}
 
 	for (int i = 0; i < _vElectric.size(); i++)
 	{
