@@ -1,16 +1,12 @@
+#include "Electrics.h"
+#include <vector>
+
 #pragma once
 class MAP2
 {
 private:
 	image* _imgMap2bg;
 	image* _imgElectric3;
-	image* _imgElectric4_1;
-	image* _imgElectric4_2;
-	image* _imgElectric4_3;
-	image* _imgElectric4_4;
-	image* _imgElectric4_5;
-	image* _imgElectric4_6;
-	image* _imgElectric4_7;
 	image* _imgHandle;
 	image* _imgDoor1;
 	image* _imgDoor2;
@@ -25,13 +21,6 @@ private:
 	image* _imgElevator;
 
 	RECT _rcElectric3;
-	RECT _rcElectric4_1;
-	RECT _rcElectric4_2;
-	RECT _rcElectric4_3;
-	RECT _rcElectric4_4;
-	RECT _rcElectric4_5;
-	RECT _rcElectric4_6;
-	RECT _rcElectric4_7;
 	RECT _rcHandle;
 	RECT _rcDoor1;
 	RECT _rcDoor2;
@@ -59,6 +48,12 @@ private:
 	RECT _rcExit;
 
 private:
+	typedef vector<SETELECTRIC*>			    _vElectric4;
+	typedef vector<SETELECTRIC*>::iterator		_viElectric4;
+
+	_vElectric4   _vElectric;
+	_viElectric4  _viElectric;
+
 	int _frameCount;
 	int _indexElectric3;
 	int _indexElectric4;
@@ -73,5 +68,7 @@ public:
 	void release();
 	void update();
 	void render(HDC hdc);
+
+	void electricInit();
 };
 

@@ -85,6 +85,12 @@
     <Filter Include="PlayGround\inputMgr">
       <UniqueIdentifier>{0fc96cf9-1364-42ff-adf7-d09d4d01d054}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlayGround\map\map1">
+      <UniqueIdentifier>{44f10767-e30e-4798-bd0b-4734d9ad6a1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayGround\map\map2">
+      <UniqueIdentifier>{8a925eb3-c8eb-4367-8644-7c80da7a4d31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -186,12 +192,6 @@
     <ClInclude Include="inputMgr.h">
       <Filter>PlayGround\inputMgr</Filter>
     </ClInclude>
-    <ClInclude Include="map1.h">
-      <Filter>PlayGround\map</Filter>
-    </ClInclude>
-    <ClInclude Include="map2.h">
-      <Filter>PlayGround\map</Filter>
-    </ClInclude>
     <ClInclude Include="viking.h">
       <Filter>PlayGround\Object\player</Filter>
     </ClInclude>
@@ -227,6 +227,18 @@
     </ClInclude>
     <ClInclude Include="itemQuestionMark.h">
       <Filter>PlayGround\Object\item</Filter>
+    </ClInclude>
+    <ClInclude Include="map1.h">
+      <Filter>PlayGround\map\map1</Filter>
+    </ClInclude>
+    <ClInclude Include="map2.h">
+      <Filter>PlayGround\map\map2</Filter>
+    </ClInclude>
+    <ClInclude Include="electrics.h">
+      <Filter>PlayGround\map</Filter>
+    </ClInclude>
+    <ClInclude Include="setElectric.h">
+      <Filter>PlayGround\map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -311,12 +323,6 @@
     <ClCompile Include="inputMgr.cpp">
       <Filter>PlayGround\inputMgr</Filter>
     </ClCompile>
-    <ClCompile Include="map1.cpp">
-      <Filter>PlayGround\map</Filter>
-    </ClCompile>
-    <ClCompile Include="map2.cpp">
-      <Filter>PlayGround\map</Filter>
-    </ClCompile>
     <ClCompile Include="gameNode.cpp">
       <Filter>2DFramework\txtData</Filter>
     </ClCompile>
@@ -352,6 +358,18 @@
     </ClCompile>
     <ClCompile Include="itemBoom.cpp">
       <Filter>PlayGround\Object\item</Filter>
+    </ClCompile>
+    <ClCompile Include="map1.cpp">
+      <Filter>PlayGround\map\map1</Filter>
+    </ClCompile>
+    <ClCompile Include="map2.cpp">
+      <Filter>PlayGround\map\map2</Filter>
+    </ClCompile>
+    <ClCompile Include="electrics.cpp">
+      <Filter>PlayGround\map</Filter>
+    </ClCompile>
+    <ClCompile Include="setElectric.cpp">
+      <Filter>PlayGround\map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

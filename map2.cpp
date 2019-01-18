@@ -13,36 +13,22 @@ MAP2::~MAP2()
 
 HRESULT MAP2::init()
 {
-	_imgMap2bg = IMAGEMANAGER->addImage("맵2배경", "resource/map/map1-2.bmp", 2048, 1630, true, RGB(255, 0, 255));
-	_imgElectric3 = IMAGEMANAGER->addFrameImage("전기3", "resource/map/effect/electric_Shock3.bmp", 448, 32, 7, 1, true, RGB(255, 0, 255));
-	_imgElectric4_1 = IMAGEMANAGER->addFrameImage("전기4_1", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
-	_imgElectric4_2 = IMAGEMANAGER->addFrameImage("전기4_2", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
-	_imgElectric4_3 = IMAGEMANAGER->addFrameImage("전기4_3", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
-	_imgElectric4_4 = IMAGEMANAGER->addFrameImage("전기4_4", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
-	_imgElectric4_5 = IMAGEMANAGER->addFrameImage("전기4_5", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
-	_imgElectric4_6 = IMAGEMANAGER->addFrameImage("전기4_6", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
-	_imgElectric4_7 = IMAGEMANAGER->addFrameImage("전기4_7", "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
-	_imgHandle = IMAGEMANAGER->addFrameImage("손잡이", "resource/map/effect/handle.bmp", 56, 30, 2, 1, true, RGB(255, 0, 255));
-	_imgDoor1 = IMAGEMANAGER->addFrameImage("2-1문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgDoor2 = IMAGEMANAGER->addFrameImage("2-2문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgDoor3 = IMAGEMANAGER->addFrameImage("2-3문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgDoor4 = IMAGEMANAGER->addFrameImage("2-4문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgButton1 = IMAGEMANAGER->addFrameImage("버튼1", "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
-	_imgButton2 = IMAGEMANAGER->addFrameImage("버튼2", "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
-	_imgButton3 = IMAGEMANAGER->addFrameImage("버튼3", "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
-	_imgBrokenblock = IMAGEMANAGER->addFrameImage("부러진블록", "resource/map/effect/broken_Block.bmp", 96, 32, 3, 1, true, RGB(255, 0, 255));
-	_imgBrokencomputer = IMAGEMANAGER->addImage("부러진컴퓨터", "resource/map/effect/broken_computer.bmp", 64, 80, true, RGB(255, 0, 255));
-	_imgUpeffect = IMAGEMANAGER->addFrameImage("업효과", "resource/map/effect/up_Effect2.bmp", 512, 512, 4, 1, true, RGB(255, 0, 255));
-	_imgElevator = IMAGEMANAGER->addImage("엘레베이터", "resource/map/effect/elevator.bmp", 64, 64, true, RGB(255, 0, 255));
+	_imgMap2bg = IMAGEMANAGER->addImage("Map2bg", "resource/map/map1-2.bmp", 2048, 1630, true, RGB(255, 0, 255));
+	_imgElectric3 = IMAGEMANAGER->addFrameImage("electric3", "resource/map/effect/electric_Shock3.bmp", 448, 32, 7, 1, true, RGB(255, 0, 255));
+	_imgHandle = IMAGEMANAGER->addFrameImage("handle", "resource/map/effect/handle.bmp", 56, 30, 2, 1, true, RGB(255, 0, 255));
+	_imgDoor1 = IMAGEMANAGER->addFrameImage("2-1Door", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	_imgDoor2 = IMAGEMANAGER->addFrameImage("2-2Door", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	_imgDoor3 = IMAGEMANAGER->addFrameImage("2-3Door", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	_imgDoor4 = IMAGEMANAGER->addFrameImage("2-4Door", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	_imgButton1 = IMAGEMANAGER->addFrameImage("button1", "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
+	_imgButton2 = IMAGEMANAGER->addFrameImage("button2", "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
+	_imgButton3 = IMAGEMANAGER->addFrameImage("button3", "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
+	_imgBrokenblock = IMAGEMANAGER->addFrameImage("brokenBlock", "resource/map/effect/broken_Block.bmp", 96, 32, 3, 1, true, RGB(255, 0, 255));
+	_imgBrokencomputer = IMAGEMANAGER->addImage("brokenComputer", "resource/map/effect/broken_computer.bmp", 64, 80, true, RGB(255, 0, 255));
+	_imgUpeffect = IMAGEMANAGER->addFrameImage("upEffect", "resource/map/effect/up_Effect2.bmp", 512, 512, 4, 1, true, RGB(255, 0, 255));
+	_imgElevator = IMAGEMANAGER->addImage("elevator", "resource/map/effect/elevator.bmp", 64, 64, true, RGB(255, 0, 255));
 
 	_rcElectric3 = RectMake(1889, 1504, 64, 32);
-	_rcElectric4_1 = RectMake(577, 32, 32, 128);
-	_rcElectric4_2 = RectMake(769, 32, 32, 128);
-	_rcElectric4_3 = RectMake(1345, 32, 32, 128);
-	_rcElectric4_4 = RectMake(1761, 672, 32, 128);
-	_rcElectric4_5 = RectMake(1793, 672, 32, 128);
-	_rcElectric4_6 = RectMake(1665, 1312, 32, 128);
-	_rcElectric4_7 = RectMake(1121, 1312, 32, 128);
 	_rcHandle = RectMake(1233, 976, 28, 30);
 	_rcDoor1 = RectMake(449, 352, 32, 96);
 	_rcDoor2 = RectMake(865, 352, 32, 96);
@@ -75,16 +61,18 @@ HRESULT MAP2::init()
 	_indexUpeffect = 0;
 	_frameSpeed = 3;
 
+	electricInit();
 	return S_OK;
 }
 
 void MAP2::release()
 {
+
 }
 
 void MAP2::update()
 {
-	if(_frameCount % _frameSpeed == 0)
+	if (_frameCount % _frameSpeed == 0)
 	{
 		_imgElectric3->SetFrameX(_indexElectric3);
 		_indexElectric3++;
@@ -96,10 +84,121 @@ void MAP2::update()
 		_frameCount = 0;
 	}
 	_frameCount++;
+
+	for (int i = 0; i < _vElectric.size(); i++)
+	{
+		_vElectric[i]->update();
+	}
+
+	/*테스트용*/
+	if (KEYMANAGER->isOnceKeyDown('1'))
+	{
+		_vElectric[0]->setIsoff(true);
+	}
+	else if (KEYMANAGER->isOnceKeyUp('1'))
+	{
+		_vElectric[0]->setIsoff(false);
+	}
+	if (KEYMANAGER->isOnceKeyDown('2'))
+	{
+		_vElectric[1]->setIsoff(true);
+	}
+	else if (KEYMANAGER->isOnceKeyUp('2'))
+	{
+		_vElectric[1]->setIsoff(false);
+	}
+	if (KEYMANAGER->isOnceKeyDown('3'))
+	{
+		_vElectric[2]->setIsoff(true);
+	}
+	else if (KEYMANAGER->isOnceKeyUp('3'))
+	{
+		_vElectric[2]->setIsoff(false);
+	}
+	if (KEYMANAGER->isOnceKeyDown('4'))
+	{
+		_vElectric[3]->setIsoff(true);
+	}
+	else if (KEYMANAGER->isOnceKeyUp('4'))
+	{
+		_vElectric[3]->setIsoff(false);
+	}
+	if (KEYMANAGER->isOnceKeyDown('5'))
+	{
+		_vElectric[4]->setIsoff(true);
+	}
+	else if (KEYMANAGER->isOnceKeyUp('5'))
+	{
+		_vElectric[4]->setIsoff(false);
+	}
+	if (KEYMANAGER->isOnceKeyDown('6'))
+	{
+		_vElectric[5]->setIsoff(true);
+	}
+	else if (KEYMANAGER->isOnceKeyUp('6'))
+	{
+		_vElectric[5]->setIsoff(false);
+	}
+	if (KEYMANAGER->isOnceKeyDown('7'))
+	{
+		_vElectric[6]->setIsoff(true);
+	}
+	else if (KEYMANAGER->isOnceKeyUp('7'))
+	{
+		_vElectric[6]->setIsoff(false);
+	}
 }
 
 void MAP2::render(HDC hdc)
 {
 	_imgElevator->render(hdc, _rcElevator.left, _rcElevator.top);
 	_imgElectric3->frameRender(hdc, _rcElectric3.left, _rcElectric3.top);
+
+	for (int i = 0; i < _vElectric.size(); i++)
+	{
+		if (_vElectric[i]->getIsoff() == false)
+		{
+			_vElectric[i]->render(hdc);
+		}
+	}
+}
+
+void MAP2::electricInit()
+{
+	/*
+	_rcElectric4_1 = RectMake(577, 32, 32, 128);
+	_rcElectric4_2 = RectMake(769, 32, 32, 128);
+	_rcElectric4_3 = RectMake(1345, 32, 32, 128);
+	_rcElectric4_4 = RectMake(1761, 672, 32, 128);
+	_rcElectric4_5 = RectMake(1793, 672, 32, 128);
+	_rcElectric4_6 = RectMake(1665, 1312, 32, 128);
+	_rcElectric4_7 = RectMake(1121, 1312, 32, 128);
+	*/
+	SETELECTRIC* electricObtacle = new ELECTRICS;
+	electricObtacle->init("electricObc1", 577, 32, 32, 128);
+	_vElectric.push_back(electricObtacle);
+
+	electricObtacle = new ELECTRICS;
+	electricObtacle->init("electricObc2", 769, 32, 32, 128);
+	_vElectric.push_back(electricObtacle);
+
+	electricObtacle = new ELECTRICS;
+	electricObtacle->init("electricObc3", 1345, 32, 32, 128);
+	_vElectric.push_back(electricObtacle);
+
+	electricObtacle = new ELECTRICS;
+	electricObtacle->init("electricObc4", 1761, 672, 32, 128);
+	_vElectric.push_back(electricObtacle);
+
+	electricObtacle = new ELECTRICS;
+	electricObtacle->init("electricObc5", 1793, 672, 32, 128);
+	_vElectric.push_back(electricObtacle);
+
+	electricObtacle = new ELECTRICS;
+	electricObtacle->init("electricObc6", 1665, 1312, 32, 128);
+	_vElectric.push_back(electricObtacle);
+
+	electricObtacle = new ELECTRICS;
+	electricObtacle->init("electricObc7", 1121, 1312, 32, 128);
+	_vElectric.push_back(electricObtacle);
 }

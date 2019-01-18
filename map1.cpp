@@ -13,10 +13,10 @@ MAP1::~MAP1()
 
 HRESULT MAP1::init()
 {
-	_imgMap1bg = IMAGEMANAGER->addImage("맵1배경", "resource/map/map1-1.bmp", 960, 960, true, RGB(255, 0, 255));
-	_imgDoor1 = IMAGEMANAGER->addFrameImage("1-1문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgDoor2 = IMAGEMANAGER->addFrameImage("1-2문", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgElectric1 = IMAGEMANAGER->addFrameImage("전기1", "resource/map/effect/electric_Shock.bmp", 384, 32, 3, 1, true, RGB(255, 0, 255));
+	_imgMap1bg = IMAGEMANAGER->addImage("Map1bg", "resource/map/map1-1.bmp", 960, 960, true, RGB(255, 0, 255));
+	_imgDoor1 = IMAGEMANAGER->addFrameImage("1-1Door", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	_imgDoor2 = IMAGEMANAGER->addFrameImage("1-2Door", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	_imgElectric1 = IMAGEMANAGER->addFrameImage("electric1", "resource/map/effect/electric_Shock.bmp", 384, 32, 3, 1, true, RGB(255, 0, 255));
 
 	_rcDoor1 = RectMake(320, 448, 32, 96);
 	_rcDoor2 = RectMake(672, 256, 32, 96);

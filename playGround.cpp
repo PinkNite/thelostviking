@@ -88,7 +88,7 @@ HRESULT playGround::init()
 
 	_pMap2 = new MAP2;
 	_pMap2->init();
-	_pCamera->setMap(IMAGEMANAGER->findImage("¸Ê2¹è°æ"));
+	_pCamera->setMap(IMAGEMANAGER->findImage("Map2bg"));
 
 	_pCamera->setting();
 
