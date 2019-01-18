@@ -3,7 +3,8 @@
 class UI:public gameNode
 {
 private:
-	image* _image;
+	image* _pUI;
+	image* _pLife[9];
 public:
 	UI();
 	~UI();

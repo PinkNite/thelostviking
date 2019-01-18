@@ -228,9 +228,6 @@
     <ClInclude Include="itemQuestionMark.h">
       <Filter>PlayGround\Object\item</Filter>
     </ClInclude>
-    <ClInclude Include="playGround2.h">
-      <Filter>PlayGround\scene</Filter>
-    </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>PlayGround\UI</Filter>
     </ClInclude>
@@ -358,9 +355,6 @@
     </ClCompile>
     <ClCompile Include="itemBoom.cpp">
       <Filter>PlayGround\Object\item</Filter>
-    </ClCompile>
-    <ClCompile Include="playGround2.cpp">
-      <Filter>PlayGround\scene</Filter>
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>PlayGround\UI</Filter>

@@ -95,7 +95,7 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("TestStage1", new TestStage1);
 	//SCENEMANAGER->changeScene("TestStage1");
 	SCENEMANAGER->addScene("sceneIntro", new SCENEINTRO);
-	SCENEMANAGER->addScene("2", new playGround2);
+	
 
 	_pPlayer = new PLAYER;
 	_pPlayer->init();
