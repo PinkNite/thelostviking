@@ -15,8 +15,8 @@ HRESULT TestStage1::init()
 {
 	gameNode::init();
 	_pCamera = new CAMERA;
-	_pItem = new ITEMBOOM;
-	_pItem->init(512, 520, 30, 30);
+	_pItemManager = new ITEMMANAGER;
+	_pItemManager->init();
 
 	load();
 	_pCamera = new CAMERA();
@@ -69,7 +69,7 @@ void TestStage1::update()
 	_pInputMgr->update();
 	
 
-	
+	_pUI->update();
 }
 
 void TestStage1::render()
@@ -90,7 +90,7 @@ void TestStage1::render()
 	//UI
 
 	//Scene
-	_pItem->render(_pCamera->getMemDC());
+	_pItemManager->render(_pCamera->getMemDC());
 
 
 	TIMEMANAGER->render(getMemDC());

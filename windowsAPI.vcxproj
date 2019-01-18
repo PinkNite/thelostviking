@@ -164,6 +164,7 @@
     <ClInclude Include="itemFrame.h" />
     <ClInclude Include="itemFruit1.h" />
     <ClInclude Include="itemFruit2.h" />
+    <ClInclude Include="itemManager.h" />
     <ClInclude Include="itemMeat.h" />
     <ClInclude Include="itemQuestionMark.h" />
     <ClInclude Include="keyAniManager.h" />
@@ -216,6 +217,7 @@
     <ClCompile Include="itemFrame.cpp" />
     <ClCompile Include="itemFruit1.cpp" />
     <ClCompile Include="itemFruit2.cpp" />
+    <ClCompile Include="itemManager.cpp" />
     <ClCompile Include="itemMeat.cpp" />
     <ClCompile Include="itemQuestionMark.cpp" />
     <ClCompile Include="keyAniManager.cpp" />

@@ -1,10 +1,15 @@
 #pragma once
 #include "gameNode.h"
+struct tagUI
+{
+	bool isAllive;
+	image* pImage;
+};
 class UI:public gameNode
 {
 private:
-	image* _pUI;
-	image* _pLife[9];
+	tagUI _ui;
+	tagUI _life[9];
 public:
 	UI();
 	~UI();

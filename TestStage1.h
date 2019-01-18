@@ -1,6 +1,5 @@
 #pragma once
 #include "gameNode.h"
-#include "itemBoom.h"
 #include "camera.h"
 #include "player.h"
 #include "inputMgr.h"
@@ -8,12 +7,13 @@
 #include "map2.h"
 #include "sceneIntro.h"
 #include "UI.h"
+#include "itemManager.h"
 
 
 class TestStage1 : public gameNode
 {
 private:
-	ITEMBOOM* _pItem;
+	ITEMMANAGER* _pItemManager;
 	CAMERA *		_pCamera;
 	PLAYER*			_pPlayer;
 	INPUTMANAGER*	_pInputMgr;
