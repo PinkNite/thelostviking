@@ -234,10 +234,16 @@
     <ClInclude Include="map2.h">
       <Filter>PlayGround\map\map2</Filter>
     </ClInclude>
+    <ClInclude Include="setTrigger.h">
+      <Filter>PlayGround\map</Filter>
+    </ClInclude>
     <ClInclude Include="electrics.h">
       <Filter>PlayGround\map</Filter>
     </ClInclude>
-    <ClInclude Include="setElectric.h">
+    <ClInclude Include="doors.h">
+      <Filter>PlayGround\map</Filter>
+    </ClInclude>
+    <ClInclude Include="buttons.h">
       <Filter>PlayGround\map</Filter>
     </ClInclude>
   </ItemGroup>
@@ -365,10 +371,16 @@
     <ClCompile Include="map2.cpp">
       <Filter>PlayGround\map\map2</Filter>
     </ClCompile>
+    <ClCompile Include="setTrigger.cpp">
+      <Filter>PlayGround\map</Filter>
+    </ClCompile>
     <ClCompile Include="electrics.cpp">
       <Filter>PlayGround\map</Filter>
     </ClCompile>
-    <ClCompile Include="setElectric.cpp">
+    <ClCompile Include="doors.cpp">
+      <Filter>PlayGround\map</Filter>
+    </ClCompile>
+    <ClCompile Include="buttons.cpp">
       <Filter>PlayGround\map</Filter>
     </ClCompile>
   </ItemGroup>

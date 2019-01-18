@@ -150,7 +150,9 @@
     <ClInclude Include="action.h" />
     <ClInclude Include="animation.h" />
     <ClInclude Include="button.h" />
+    <ClInclude Include="buttons.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="doors.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="electrics.h" />
@@ -183,7 +185,7 @@
     <ClInclude Include="sceneMenu.h" />
     <ClInclude Include="sceneOption.h" />
     <ClInclude Include="scenePassword.h" />
-    <ClInclude Include="setElectric.h" />
+    <ClInclude Include="setTrigger.h" />
     <ClInclude Include="singletonBase.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="stdafx.h" />
@@ -201,7 +203,9 @@
     <ClCompile Include="action.cpp" />
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="button.cpp" />
+    <ClCompile Include="buttons.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="doors.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="electrics.cpp" />
@@ -232,7 +236,7 @@
     <ClCompile Include="sceneMenu.cpp" />
     <ClCompile Include="sceneOption.cpp" />
     <ClCompile Include="scenePassword.cpp" />
-    <ClCompile Include="setElectric.cpp" />
+    <ClCompile Include="setTrigger.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

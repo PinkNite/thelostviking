@@ -1,4 +1,6 @@
-#include "Electrics.h"
+#include "electrics.h"
+#include "doors.h"
+#include "buttons.h"
 #include <vector>
 
 #pragma once
@@ -8,10 +10,6 @@ private:
 	image* _imgMap2bg;
 	image* _imgElectric3;
 	image* _imgHandle;
-	image* _imgDoor1;
-	image* _imgDoor2;
-	image* _imgDoor3;
-	image* _imgDoor4;
 	image* _imgButton1;
 	image* _imgButton2;
 	image* _imgButton3;
@@ -22,10 +20,6 @@ private:
 
 	RECT _rcElectric3;
 	RECT _rcHandle;
-	RECT _rcDoor1;
-	RECT _rcDoor2;
-	RECT _rcDoor3;
-	RECT _rcDoor4;
 	RECT _rcButton1;
 	RECT _rcButton2;
 	RECT _rcButton3;
@@ -48,17 +42,20 @@ private:
 	RECT _rcExit;
 
 private:
-	typedef vector<SETELECTRIC*>			    _vElectric4;
-	typedef vector<SETELECTRIC*>::iterator		_viElectric4;
-
+	typedef vector<setELECTRIC*>					_vElectric4;
+	typedef vector<setELECTRIC*>::iterator			_viElectric4;
 	_vElectric4   _vElectric;
 	_viElectric4  _viElectric;
 
-	int _frameCount;
+	vector<setDOOR*>								_vDoor;
+	vector<setDOOR*>::iterator						_viDoor;
+
+	vector<setBUTTON*>								_vButton;
+	vector<setBUTTON*>::iterator					_viButton;
+
 	int _indexElectric3;
 	int _indexElectric4;
 	int _indexUpeffect;
-	int _frameSpeed;
 
 public:
 	MAP2();
@@ -70,5 +67,7 @@ public:
 	void render(HDC hdc);
 
 	void electricInit();
+	void doorInit();
+	void buttonInit();
 };
 

@@ -16,13 +16,6 @@ HRESULT MAP2::init()
 	_imgMap2bg = IMAGEMANAGER->addImage("Map2bg", "resource/map/map1-2.bmp", 2048, 1630, true, RGB(255, 0, 255));
 	_imgElectric3 = IMAGEMANAGER->addFrameImage("electric3", "resource/map/effect/electric_Shock3.bmp", 448, 32, 7, 1, true, RGB(255, 0, 255));
 	_imgHandle = IMAGEMANAGER->addFrameImage("handle", "resource/map/effect/handle.bmp", 56, 30, 2, 1, true, RGB(255, 0, 255));
-	_imgDoor1 = IMAGEMANAGER->addFrameImage("2-1Door", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgDoor2 = IMAGEMANAGER->addFrameImage("2-2Door", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgDoor3 = IMAGEMANAGER->addFrameImage("2-3Door", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgDoor4 = IMAGEMANAGER->addFrameImage("2-4Door", "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
-	_imgButton1 = IMAGEMANAGER->addFrameImage("button1", "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
-	_imgButton2 = IMAGEMANAGER->addFrameImage("button2", "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
-	_imgButton3 = IMAGEMANAGER->addFrameImage("button3", "resource/map/effect/toggle_Button.bmp", 56, 28, 2, 1, true, RGB(255, 0, 255));
 	_imgBrokenblock = IMAGEMANAGER->addFrameImage("brokenBlock", "resource/map/effect/broken_Block.bmp", 96, 32, 3, 1, true, RGB(255, 0, 255));
 	_imgBrokencomputer = IMAGEMANAGER->addImage("brokenComputer", "resource/map/effect/broken_computer.bmp", 64, 80, true, RGB(255, 0, 255));
 	_imgUpeffect = IMAGEMANAGER->addFrameImage("upEffect", "resource/map/effect/up_Effect2.bmp", 512, 512, 4, 1, true, RGB(255, 0, 255));
@@ -30,13 +23,6 @@ HRESULT MAP2::init()
 
 	_rcElectric3 = RectMake(1889, 1504, 64, 32);
 	_rcHandle = RectMake(1233, 976, 28, 30);
-	_rcDoor1 = RectMake(449, 352, 32, 96);
-	_rcDoor2 = RectMake(865, 352, 32, 96);
-	_rcDoor3 = RectMake(193, 131, 32, 96);
-	_rcDoor4 = RectMake(449, 1472, 32, 96);
-	_rcButton1 = RectMake(689, 96, 28, 28);
-	_rcButton2 = RectMake(1313, 96, 28, 28);
-	_rcButton3 = RectMake(1617, 1376, 28, 28);
 	_rcBrokenblock;
 	_rcBrokencomputer = RectMake(1249, 1360, 64, 80);
 	_rcUpeffect = RectMake(1089, 512, 128, 512);
@@ -55,13 +41,13 @@ HRESULT MAP2::init()
 	_rcElevator = RectMake(1889, 416, 64, 64);
 	_rcExit = RectMake(609, 1472, 64, 96);
 
-	_frameCount = 0;
 	_indexElectric3 = 0;
 	_indexElectric4 = 0;
 	_indexUpeffect = 0;
-	_frameSpeed = 3;
 
 	electricInit();
+	doorInit();
+	buttonInit();
 	return S_OK;
 }
 
@@ -72,25 +58,20 @@ void MAP2::release()
 
 void MAP2::update()
 {
-	if (_frameCount % _frameSpeed == 0)
-	{
-		_imgElectric3->SetFrameX(_indexElectric3);
-		_indexElectric3++;
-		if (_indexElectric3 > _imgElectric3->getMaxFrameX())
-		{
-			_indexElectric3 = 0;
-		}
-
-		_frameCount = 0;
-	}
-	_frameCount++;
-
 	for (int i = 0; i < _vElectric.size(); i++)
 	{
 		_vElectric[i]->update();
 	}
-
+	for (int i = 0; i < _vDoor.size(); i++)
+	{
+		_vDoor[i]->update();
+	}
+	for (int i = 0; i < _vButton.size(); i++)
+	{
+		_vButton[i]->update();
+	}
 	/*테스트용*/
+	/*
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		_vElectric[0]->setIsoff(true);
@@ -147,6 +128,65 @@ void MAP2::update()
 	{
 		_vElectric[6]->setIsoff(false);
 	}
+	*/
+	/*
+	if (KEYMANAGER->isOnceKeyDown('1'))
+	{
+		_vDoor[0]->setIsoff(true);
+	}
+	else if (KEYMANAGER->isOnceKeyUp('1'))
+	{
+		_vDoor[0]->setIsoff(false);
+	}
+	if (KEYMANAGER->isOnceKeyDown('2'))
+	{
+		_vDoor[1]->setIsoff(true);
+	}
+	else if (KEYMANAGER->isOnceKeyUp('2'))
+	{
+		_vDoor[1]->setIsoff(false);
+	}
+	if (KEYMANAGER->isOnceKeyDown('3'))
+	{
+		_vDoor[2]->setIsoff(true);
+	}
+	else if (KEYMANAGER->isOnceKeyUp('3'))
+	{
+		_vDoor[2]->setIsoff(false);
+	}
+	if (KEYMANAGER->isOnceKeyDown('4'))
+	{
+		_vDoor[3]->setIsoff(true);
+	}
+	else if (KEYMANAGER->isOnceKeyUp('4'))
+	{
+		_vDoor[3]->setIsoff(false);
+	}
+	*/
+	if (KEYMANAGER->isOnceKeyDown('1'))
+	{
+		_vButton[0]->setIsoff(true);
+	}
+	/*else if (KEYMANAGER->isOnceKeyUp('1'))
+	{
+		_vButton[0]->setIsoff(false);
+	}*/
+	if (KEYMANAGER->isOnceKeyDown('2'))
+	{
+		_vButton[1]->setIsoff(true);
+	}
+	/*else if (KEYMANAGER->isOnceKeyUp('2'))
+	{
+		_vButton[1]->setIsoff(false);
+	}*/
+	if (KEYMANAGER->isOnceKeyDown('3'))
+	{
+		_vButton[2]->setIsoff(true);
+	}
+	/*else if (KEYMANAGER->isOnceKeyUp('3'))
+	{
+		_vButton[2]->setIsoff(false);
+	}*/
 }
 
 void MAP2::render(HDC hdc)
@@ -161,6 +201,14 @@ void MAP2::render(HDC hdc)
 			_vElectric[i]->render(hdc);
 		}
 	}
+	for (int i = 0; i < _vDoor.size(); i++)
+	{
+		_vDoor[i]->render(hdc);
+	}
+	for (int i = 0; i < _vButton.size(); i++)
+	{
+		_vButton[i]->render(hdc);
+	}
 }
 
 void MAP2::electricInit()
@@ -174,7 +222,7 @@ void MAP2::electricInit()
 	_rcElectric4_6 = RectMake(1665, 1312, 32, 128);
 	_rcElectric4_7 = RectMake(1121, 1312, 32, 128);
 	*/
-	SETELECTRIC* electricObtacle = new ELECTRICS;
+	setELECTRIC* electricObtacle = new ELECTRICS;
 	electricObtacle->init("electricObc1", 577, 32, 32, 128);
 	_vElectric.push_back(electricObtacle);
 
@@ -201,4 +249,38 @@ void MAP2::electricInit()
 	electricObtacle = new ELECTRICS;
 	electricObtacle->init("electricObc7", 1121, 1312, 32, 128);
 	_vElectric.push_back(electricObtacle);
+}
+
+void MAP2::doorInit()
+{
+	setDOOR* doorObtacle = new DOORS;
+	doorObtacle->init("doorObc1", 449, 352, 32, 96);
+	_vDoor.push_back(doorObtacle);
+
+	doorObtacle = new DOORS;
+	doorObtacle->init("doorObc2", 865, 352, 32, 96);
+	_vDoor.push_back(doorObtacle);
+
+	doorObtacle = new DOORS;
+	doorObtacle->init("doorObc3", 193, 1312, 32, 96);
+	_vDoor.push_back(doorObtacle);
+
+	doorObtacle = new DOORS;
+	doorObtacle->init("doorObc4", 449, 1472, 32, 96);
+	_vDoor.push_back(doorObtacle);
+}
+
+void MAP2::buttonInit()
+{
+	setBUTTON* buttonTrigger = new BUTTONS;
+	buttonTrigger->init("buttonTri1", 689, 96, 28, 28);
+	_vButton.push_back(buttonTrigger);
+
+	buttonTrigger = new BUTTONS;
+	buttonTrigger->init("buttonTri2", 1313, 96, 28, 28);
+	_vButton.push_back(buttonTrigger);
+
+	buttonTrigger = new BUTTONS;
+	buttonTrigger->init("buttonTri3", 1617, 1376, 28, 28);
+	_vButton.push_back(buttonTrigger);
 }

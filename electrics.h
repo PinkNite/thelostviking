@@ -1,7 +1,7 @@
 #pragma once
-#include "setElectric.h"
+#include "setTRIGGER.h"
 
-class ELECTRICS : public SETELECTRIC
+class ELECTRICS : public setELECTRIC
 {
 public:
 	ELECTRICS();
