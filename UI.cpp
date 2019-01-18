@@ -28,23 +28,13 @@ HRESULT UI::init()
 void UI::release()
 {
 
-	for (int i = 0; i < 9; i++)
-	{
-		if (!_life[i].isAllive)
-		{
-			delete _life[i].pImage;
-			_life[i].pImage = nullptr;
-		}
-	}
+	
 
 }
 
 void UI::update()
 {
-	if (KEYMANAGER->isOnceKeyDown('T'))
-	{
-		_life[0].isAllive = false;
-	}
+	
 }
 
 void UI::render()

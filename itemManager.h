@@ -1,14 +1,14 @@
 #pragma once
 #include "ITEMBOOM.h"
-class ITEMMANAGER :public ITEMBOOM
+class ITEMMANAGER 
 {
 	ITEMBOOM* _pItemBoom[2];
 public:
 	ITEMMANAGER();
 	~ITEMMANAGER();
-	virtual HRESULT init();
-	virtual void release();
-	virtual void update();
-	virtual void render(HDC hdc);
+	 HRESULT init();
+	 void release();
+	 void update();
+	 void render(HDC hdc);
 };
 
