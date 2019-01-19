@@ -17,7 +17,13 @@ HRESULT MAP2::init()
 	_imgElectric3 = IMAGEMANAGER->addFrameImage("electric3", "resource/map/effect/electric_Shock3.bmp", 448, 32, 7, 1, true, RGB(255, 0, 255));
 	_imgHandleOff = IMAGEMANAGER->addImage("handleOff", "resource/map/effect/handleOff.bmp", 28, 30, true, RGB(255, 0, 255));
 	_imgHandleOn = IMAGEMANAGER->addImage("handleOn", "resource/map/effect/handleOn.bmp", 28, 30, true, RGB(255, 0, 255));
-	_imgBrokenblock = IMAGEMANAGER->addFrameImage("brokenBlock", "resource/map/effect/broken_Block.bmp", 96, 32, 3, 1, true, RGB(255, 0, 255));
+    for (int i = 0; i < MAXBROKENBLOCK; i++)
+	{
+		sprintf_s(str, "brokenBlock%d", i);
+		_imgBrokenblock[i] = IMAGEMANAGER->addFrameImage(str, "resource/map/effect/broken_Block.bmp", 96, 32, 3, 1, true, RGB(255, 0, 255));
+		_arrBool[i] = false;
+	}
+
 	_imgBrokencomputer = IMAGEMANAGER->addImage("brokenComputer", "resource/map/effect/broken_computer.bmp", 64, 80, true, RGB(255, 0, 255));
 	_imgUpeffect = IMAGEMANAGER->addFrameImage("upEffect", "resource/map/effect/up_Effect2.bmp", 512, 512, 4, 1, true, RGB(255, 0, 255));
 	_imgElevator = IMAGEMANAGER->addImage("elevator", "resource/map/effect/elevator.bmp", 64, 64, true, RGB(255, 0, 255));
@@ -41,23 +47,30 @@ HRESULT MAP2::init()
 	_rcHelp[5] = RectMake(1393, 1384, 32, 32);
 	_rcElevator = RectMake(1889, 416, 64, 64);
 	_rcExit = RectMake(609, 1472, 64, 96);
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 3; i++)
 	{
-		for (int j = 0; j < 3; j += 2)
-		{
-			_rcBrokenblock[i][j] = RectMake(673 + 32 * j, 1056 - 32 * i, 32, 32);
-		}
+		_rcBrokenblock[i] = RectMake(673, 1055 - i * 32, 32, 32);
 	}
-	for (int i = 0; i < 4; i++)
+	for (int i = 3; i < 6; i++)
 	{
-		_rcBrokenblock[i][1] = RectMake(673 + 32 * 1, 960 + 32 * i, 32, 32);
+		_rcBrokenblock[i] = RectMake(673 + 32, 992 + (i-3) * 32, 32, 32);
 	}
-
+	for (int i = 6; i < 9; i++)
+	{
+		_rcBrokenblock[i] = RectMake(673 + 64, 1055 - (i-6) * 32, 32, 32);
+	}
+	
 	_indexElectric3 = 0;
 	_indexElectric4 = 0;
 	_indexUpeffect = 0;
+	_indexBrokenblock = 0;
 	_countUpeffect = 0;
+	_countBrokenblock = 0;
 	_speedUpeffect = 5;
+	_speedBrokenblock = 20;
+	_arrBlocki = 0;
+	_arrBlockj = 0;
+	_arrNum = 0;
 
 	_isElevatorMove = false;
 	_checkElevatorUpdown = false;
@@ -97,14 +110,14 @@ void MAP2::update()
 		{	
 			if (_rcElevator.top == 418)
 			{
-				_rcElevator.top -= 2;
-				_rcElevator.bottom -= 2;
+				_rcElevator.top -= _speedElevator;
+				_rcElevator.bottom -= _speedElevator;
 				_isElevatorMove = false;
 			}
 			else
 			{
-				_rcElevator.top -= 2;
-				_rcElevator.bottom -= 2;
+				_rcElevator.top -= _speedElevator;
+				_rcElevator.bottom -= _speedElevator;
 			}
 		}
 
@@ -112,14 +125,14 @@ void MAP2::update()
 		{
 			if (_rcElevator.top == 770)
 			{
-				_rcElevator.top -= 2;
-				_rcElevator.bottom -= 2;
+				_rcElevator.top -= _speedElevator;
+				_rcElevator.bottom -= _speedElevator;
 				_isElevatorMove = false;
 			}
 			else
 			{
-				_rcElevator.top -= 2;
-				_rcElevator.bottom -= 2;
+				_rcElevator.top -= _speedElevator;
+				_rcElevator.bottom -= _speedElevator;
 			}
 		}
 	}
@@ -130,14 +143,14 @@ void MAP2::update()
 		{
 			if (_rcElevator.top == 766)
 			{
-				_rcElevator.top += 2;
-				_rcElevator.bottom += 2;
+				_rcElevator.top += _speedElevator;
+				_rcElevator.bottom += _speedElevator;
 				_isElevatorMove = false;
 			}
 			else
 			{
-				_rcElevator.top += 2;
-				_rcElevator.bottom += 2;
+				_rcElevator.top += _speedElevator;
+				_rcElevator.bottom += _speedElevator;
 			}
 		}
 		
@@ -145,14 +158,14 @@ void MAP2::update()
 		{
 			if (_rcElevator.top == 1406)
 			{
-				_rcElevator.top += 2;
-				_rcElevator.bottom += 2;
+				_rcElevator.top += _speedElevator;
+				_rcElevator.bottom += _speedElevator;
 				_isElevatorMove = false;
 			}
 			else
 			{
-				_rcElevator.top += 2;
-				_rcElevator.bottom += 2;
+				_rcElevator.top += _speedElevator;
+				_rcElevator.bottom += _speedElevator;
 			}
 		}
 	}
@@ -173,13 +186,38 @@ void MAP2::update()
 		_countUpeffect++;
 	}
 
+	if (_isBrokenblocks == true)
+	{
+		if (_arrNum < MAXBROKENBLOCK)
+		{
+			_arrBool[_arrNum] = true;
+			if (_countBrokenblock % _speedBrokenblock == 0)
+			{
+				_imgBrokenblock[_arrNum]->SetFrameX(_indexBrokenblock);
+				_indexBrokenblock++;
+				if (_indexBrokenblock > _imgBrokenblock[_arrNum]->getMaxFrameX())
+				{
+					_imgBrokenblock[_arrNum]->SetFrameX(_imgBrokenblock[_arrNum]->getMaxFrameX());
+					_indexBrokenblock = 0;
+					_arrNum++;
+				}
+				_countBrokenblock = 0;
+			}
+			_countBrokenblock++;
+		}
+	}
+	for (int i = 0; i < 12; i++)
+	{
+		//printf("_arrBool[%d] : %d \n", i, _arrBool[i]);
+		printf("_imgBrokenblock[%d]->getFrameX(%d) \n", i, _imgBrokenblock[i]->getFrameX());
+	}
 	/*테스트용*/
-	/*
+	
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		_isBrokenblocks = true;
 	}
-	*/
+	
 	/*
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
@@ -337,18 +375,18 @@ void MAP2::render(HDC hdc)
 	{
 		_vButton[i]->render(hdc);
 	}
-	/*
+	
 	if (_isBrokenblocks == true)
 	{
-		for (int j = 0; j < 3; j++)
+		for (int i = 0; i < MAXBROKENBLOCK; i++)
 		{
-			for (int i = 0; i < 4; i++)
+			if (_arrBool[i] == true)
 			{
-				_imgBrokenblock->frameRender(hdc, _rcBrokenblock[i][j].left, _rcBrokenblock[i][j].top);
+				_imgBrokenblock[i]->frameRender(hdc, _rcBrokenblock[i].left, _rcBrokenblock[i].top);
 			}
 		}
 	}
-	*/
+	
 }
 
 void MAP2::electricInit()

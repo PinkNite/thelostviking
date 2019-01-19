@@ -2,6 +2,7 @@
 #include "doors.h"
 #include "buttons.h"
 #include <vector>
+#define MAXBROKENBLOCK 9
 
 #pragma once
 class MAP2
@@ -11,7 +12,7 @@ private:
 	image* _imgElectric3;
 	image* _imgHandleOn;
 	image* _imgHandleOff;
-	image* _imgBrokenblock;
+	image* _imgBrokenblock[MAXBROKENBLOCK];
 	image* _imgBrokencomputer;
 	image* _imgUpeffect;
 	image* _imgElevator;
@@ -25,7 +26,7 @@ private:
 	RECT _rcHelp[6];
 	RECT _rcElevator;
 	RECT _rcExit;
-	RECT _rcBrokenblock[4][3];
+	RECT _rcBrokenblock[MAXBROKENBLOCK];
 
 private:
 	typedef vector<setELECTRIC*>					_vElectric4;
@@ -42,8 +43,17 @@ private:
 	int _indexElectric3;
 	int _indexElectric4;
 	int _indexUpeffect;
+	int _indexBrokenblock;
 	int _countUpeffect;
+	int _countBrokenblock;
 	int _speedUpeffect;
+	int _speedBrokenblock;
+	int _speedElevator;
+	int _arrBlocki;
+	int _arrBlockj;
+	int _arrNum;
+	bool _arrBool[12];
+	char str[128];
 
 	bool _isElevatorMove;
 	bool _checkElevatorUpdown;
@@ -76,8 +86,11 @@ public:
 	RECT							getRCHandle() { return _rcHandle; }
 	RECT							getRCBrokencomputer() { return _rcBrokencomputer; }
 	RECT							getRCBrokenblocks() { return _rcBrokenblocks; }
-	// isMove(true = active elevator, false = unactive elevator), checkUpdown(true = Up, false = down)
-	void							setElevatorFloor(bool isMove, bool checkUpdown) { _isElevatorMove = isMove; _checkElevatorUpdown = checkUpdown; }
+	// isMove(true = active elevator, false = unactive elevator), checkUpdown(true = Up, false = down), speedElevator(1, 2, 4)
+	void							setElevatorFloor(bool isMove, bool checkUpdown, int speedElevator = 2)
+	{
+		_isElevatorMove = isMove; _checkElevatorUpdown = checkUpdown; _speedElevator = speedElevator;
+	}
 	void							setHandle(bool isHandle) { _isHandle = isHandle; }
 	void							setBrokencomputer(bool isBrokenComputer) { _isBrokenComputer = isBrokenComputer; }
 	void							setBrokenblocks(bool isBrokenblocks) { _isBrokenblocks = isBrokenblocks; }
