@@ -68,6 +68,21 @@ HRESULT UI::init()
 		_selectState[i] = SELECT_LEFT_TOP;//왼쪽위로 초기화함
 
 	}
+
+	//충돌 할때 아이템들
+	_pItemMeat = new ITEMMEAT;
+	for (int i = 0; i < 2; i++)
+	{
+		_pItemBoom[i] = new ITEMBOOM;
+		_pItemFruit1[i] = new ITEMFRUIT1;
+		_pItemFruit2[i] = new ITEMFRUIT2;
+	}
+
+	//캐릭마다 아이템 공간의 이넘값
+	_erikItem = ITEM_0;
+	_baleogItem = ITEM_0;
+	_olafItem = ITEM_0;  //현재 갯수 0
+
 	return S_OK;
 }
 
@@ -118,14 +133,18 @@ void UI::update()
 		_olafState = OLAF_DEAD;
 	}
 
-	selectMove();//얘는 특정 조건에서만 되어야함
 	//_life[0].isAllive = false;//이럼 사라짐
+	selectMove();//얘는 특정 조건에서만 되어야함
+	getItem();
 }
 
 void UI::render()
 {
 	_ui.pImage->render(getMemDC(), 0, 362);
 	_trashCan.pImage->alphaRender(getMemDC(), 564, 402, _trashCan.alphaCount);//이좌표로 아이템이 들어감?
+
+	
+
 	for (int i = 0; i< 3; i++)
 	{
 		switch (i)
@@ -143,7 +162,6 @@ void UI::render()
 		}
 	
 	}
-
 	for (int i = 0; i < 9; i++)
 	{
 		switch (i)
@@ -204,8 +222,6 @@ void UI::render()
 			break;
 		}
 	}
-
-
 	for (int i = 0; i < 3; i++)
 	{
 		switch (i)
@@ -259,11 +275,34 @@ void UI::render()
 
 		}
 	}
+
+
+
+	//아이템
+	for (int i = 0; i < 2; i++)
+	{
+		if (_erikItem != ITEM_0 && _pItemBoom[i]->getIsAllive())
+		{
+			_pItemBoom[i]->render(getMemDC());//고정이니까 겟멤
+		}
+		if (_erikItem != ITEM_0 && _pItemFruit1[i]->getIsAllive())
+		{
+			_pItemFruit1[i]->render(getMemDC());
+		}
+		if (_erikItem != ITEM_0 && _pItemFruit2[i]->getIsAllive())
+		{
+			_pItemFruit2[i]->render(getMemDC());
+		}
+		if (_erikItem != ITEM_0 && _pItemMeat->getIsAllive())
+		{
+			_pItemMeat->render(getMemDC());
+		}
+	}
+	
 }
 
 void UI::selectMove()
 {
-	
 	if (_erikState == ERIK_ON)
 	{
 		_select[0].alphaCount += 10;//온이면 알파값 변함
@@ -277,8 +316,7 @@ void UI::selectMove()
 			case SELECT_RIGHT_BOTTOM:
 				_selectState[0] = SELECT_LEFT_BOTTOM;
 				break;
-			}
-			
+			}	
 		}
 		if (KEYMANAGER->isOnceKeyDown('D'))
 		{
@@ -331,7 +369,6 @@ void UI::selectMove()
 				_selectState[1] = SELECT_LEFT_BOTTOM;
 				break;
 			}
-
 		}
 		if (KEYMANAGER->isOnceKeyDown('D'))
 		{
@@ -494,4 +531,74 @@ void UI::selectMove()
 			break;
 		}
 	}
+}
+
+void UI::getItem()
+{
+	//특정조건이 되었다 그럼 좌표를 정해주고
+	//if()erik이 먹엇다 그럼 에릭에서 좌표세팅
+	//에릭
+	/*switch (_selectState[i])
+	{
+	case  SELECT_LEFT_TOP:
+		_select[i].x = 120;
+		_select[i].y = 402;
+		break;
+	case  SELECT_LEFT_BOTTOM:
+		_select[i].x = 120;
+		_select[i].y = 442;
+		break;
+	case  SELECT_RIGHT_TOP:
+		_select[i].x = 160;
+		_select[i].y = 402;
+		break;
+	case  SELECT_RIGHT_BOTTOM:
+		_select[i].x = 160;
+		_select[i].y = 442;
+		break;
+	}*/
+	if (_erikItem == ITEM_0)
+	{
+		//폭탄과충돌햇다 아이템공간이 영이다
+		if (KEYMANAGER->isOnceKeyDown('Z'))//예시조건
+		{
+			itemBoom(120, 402, 40, 38,&_erikItem, ITEM_1, 0);	
+		}
+		if (KEYMANAGER->isOnceKeyDown('X'))//예시조건
+		{
+			itemFruit1(120, 402, 40, 38, &_erikItem, ITEM_1, 1);
+		}
+		if (KEYMANAGER->isOnceKeyDown('C'))//예시조건
+		{
+			itemFruit2(120, 402, 40, 38, &_erikItem, ITEM_1, 0);
+		}
+		if (KEYMANAGER->isOnceKeyDown('V'))//예시조건
+		{
+			itemMeat(120, 402, 40, 38, &_erikItem, ITEM_1);
+		}
+	}
+}
+
+void UI::itemBoom(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i)
+{
+	_pItemBoom[i]->init(x, y, width, height);
+	*name = item;
+}
+
+void UI::itemFruit1(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i)
+{
+	_pItemFruit1[i]->init(x, y, width, height);
+	*name = item;
+}
+
+void UI::itemFruit2(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i)
+{
+	_pItemFruit2[i]->init(x, y, width, height);
+	*name = item;
+}
+
+void UI::itemMeat(int x, int y, int width, int height, itemMemory* name, itemMemory item)
+{
+	_pItemMeat->init(x, y, width, height);
+	*name = item;
 }

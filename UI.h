@@ -37,6 +37,16 @@ enum selectState
 	SELECT_RIGHT_TOP,
 	SELECT_RIGHT_BOTTOM
 };
+enum itemMemory
+{
+	ITEM_0,
+	ITEM_1,
+	ITEM_2,
+	ITEM_3,
+	ITEM_4,
+	ITEM_MAX
+};
+
 
 struct tagUI
 {
@@ -61,13 +71,16 @@ private:
 	ITEMBOOM* _pItemBoom[2];
 	ITEMFRUIT1* _pItemFruit1[2];
 	ITEMFRUIT2* _pItemFruit2[2];
-
+	ITEMMEAT* _pItemMeat;
 	
 	trashCanState _trashCanState;
 	baleogState _baleogState;
 	olafState _olafState;
 	erikState _erikState;
 	selectState _selectState[3];
+	itemMemory _erikItem;
+	itemMemory _baleogItem;
+	itemMemory _olafItem;
 public:
 	UI();
 	~UI();
@@ -76,6 +89,12 @@ public:
 	 void update();
 	 void render();
 	 void selectMove();
+	 void getItem();
+	 //           아이템X , 아이템Y, 아이템 넓이, 아이템 높이 , 아이템이넘문의 주소, 이넘문 변화값, 해당 폭탄의 배열번호 
+	 void itemBoom(int x, int y, int width, int height, itemMemory* name, itemMemory item,int i); //폭탄 좌표
+	 void itemFruit1(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i);
+	 void itemFruit2(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i);
+	 void itemMeat(int x, int y, int width, int height, itemMemory* name, itemMemory item);
 public :
 	
 };
