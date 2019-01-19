@@ -57,10 +57,17 @@ HRESULT UI::init()
 	_trashCan.pImage = new image;
 	_trashCan.pImage = IMAGEMANAGER->findImage("trashCan");
 	_trashCan.alphaCount = 255;
+	for (int i = 0; i < 3; i++)
+	{
+		_select[i].pImage = new image;
+		_select[i].pImage = IMAGEMANAGER->findImage("selectYellow");
+		_select[i].alphaCount = 255;		
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		_selectState[i] = SELECT_LEFT_TOP;//왼쪽위로 초기화함
 
-	_select.pImage = new image;
-	_select.pImage = IMAGEMANAGER->findImage("selectYellow");
-	_select.alphaCount = 255;
+	}
 	return S_OK;
 }
 
@@ -110,19 +117,33 @@ void UI::update()
 	{
 		_olafState = OLAF_DEAD;
 	}
+
+	selectMove();//얘는 특정 조건에서만 되어야함
+	//_life[0].isAllive = false;//이럼 사라짐
 }
 
 void UI::render()
 {
 	_ui.pImage->render(getMemDC(), 0, 362);
-	_trashCan.pImage->render(getMemDC(), 564, 402);//이좌표로 아이템이 들어감?
+	_trashCan.pImage->alphaRender(getMemDC(), 564, 402, _trashCan.alphaCount);//이좌표로 아이템이 들어감?
+	for (int i = 0; i< 3; i++)
+	{
+		switch (i)
+		{
+		case 0:
+			_select[i].pImage->alphaRender(getMemDC(), _select[i].x, _select[i].y, _select[i].alphaCount);
+			break;
+		case 1:
+			_select[i].pImage->alphaRender(getMemDC(), _select[i].x, _select[i].y, _select[i].alphaCount);
+			break;
+		case 2:
+			_select[i].pImage->alphaRender(getMemDC(), _select[i].x, _select[i].y, _select[i].alphaCount);
+			break;
 
-	_select.pImage->render(getMemDC(), 120, 402);
-	_select.pImage->render(getMemDC(), 302, 402);
-	_select.pImage->render(getMemDC(), 482, 402);
-
-
+		}
 	
+	}
+
 	for (int i = 0; i < 9; i++)
 	{
 		switch (i)
@@ -236,6 +257,241 @@ void UI::render()
 			}
 			break;
 
+		}
+	}
+}
+
+void UI::selectMove()
+{
+	
+	if (_erikState == ERIK_ON)
+	{
+		_select[0].alphaCount += 10;//온이면 알파값 변함
+		if (KEYMANAGER->isOnceKeyDown('A'))
+		{
+			switch (_selectState[0])
+			{
+			case SELECT_RIGHT_TOP:
+				_selectState[0] = SELECT_LEFT_TOP;
+				break;
+			case SELECT_RIGHT_BOTTOM:
+				_selectState[0] = SELECT_LEFT_BOTTOM;
+				break;
+			}
+			
+		}
+		if (KEYMANAGER->isOnceKeyDown('D'))
+		{
+			switch (_selectState[0])
+			{
+			case SELECT_LEFT_TOP:
+				_selectState[0] = SELECT_RIGHT_TOP;
+				break;
+			case SELECT_LEFT_BOTTOM:
+				_selectState[0] = SELECT_RIGHT_BOTTOM;
+				break;
+			}
+		}
+		if (KEYMANAGER->isOnceKeyDown('W'))
+		{
+			switch (_selectState[0])
+			{
+			case SELECT_LEFT_BOTTOM:
+				_selectState[0] = SELECT_LEFT_TOP;
+				break;
+			case SELECT_RIGHT_BOTTOM:
+				_selectState[0] = SELECT_RIGHT_TOP;
+				break;
+			}
+		}
+		if (KEYMANAGER->isOnceKeyDown('S'))
+		{
+			switch (_selectState[0])
+			{
+			case SELECT_LEFT_TOP:
+				_selectState[0] = SELECT_LEFT_BOTTOM;
+				break;
+			case SELECT_RIGHT_TOP:
+				_selectState[0] = SELECT_RIGHT_BOTTOM;
+				break;
+			}
+		}
+	}
+	else if (_baleogState == BALEOG_ON)
+	{	
+		_select[1].alphaCount += 10;
+		if (KEYMANAGER->isOnceKeyDown('A'))
+		{
+			switch (_selectState[1])
+			{
+			case SELECT_RIGHT_TOP:
+				_selectState[1] = SELECT_LEFT_TOP;
+				break;
+			case SELECT_RIGHT_BOTTOM:
+				_selectState[1] = SELECT_LEFT_BOTTOM;
+				break;
+			}
+
+		}
+		if (KEYMANAGER->isOnceKeyDown('D'))
+		{
+			switch (_selectState[1])
+			{
+			case SELECT_LEFT_TOP:
+				_selectState[1] = SELECT_RIGHT_TOP;
+				break;
+			case SELECT_LEFT_BOTTOM:
+				_selectState[1] = SELECT_RIGHT_BOTTOM;
+				break;
+			}
+		}
+		if (KEYMANAGER->isOnceKeyDown('W'))
+		{
+			switch (_selectState[1])
+			{
+			case SELECT_LEFT_BOTTOM:
+				_selectState[1] = SELECT_LEFT_TOP;
+				break;
+			case SELECT_RIGHT_BOTTOM:
+				_selectState[1] = SELECT_RIGHT_TOP;
+				break;
+			}
+		}
+		if (KEYMANAGER->isOnceKeyDown('S'))
+		{
+			switch (_selectState[1])
+			{
+			case SELECT_LEFT_TOP:
+				_selectState[1] = SELECT_LEFT_BOTTOM;
+				break;
+			case SELECT_RIGHT_TOP:
+				_selectState[1] = SELECT_RIGHT_BOTTOM;
+				break;
+			}
+		}
+	}
+	else if (_olafState == OLAF_ON)
+	{
+		_select[2].alphaCount += 10;
+		if (KEYMANAGER->isOnceKeyDown('A'))
+		{
+			switch (_selectState[2])
+			{
+			case SELECT_RIGHT_TOP:
+				_selectState[2] = SELECT_LEFT_TOP;
+				break;
+			case SELECT_RIGHT_BOTTOM:
+				_selectState[2] = SELECT_LEFT_BOTTOM;
+				break;
+			}
+
+		}
+		if (KEYMANAGER->isOnceKeyDown('D'))
+		{
+			switch (_selectState[2])
+			{
+			case SELECT_LEFT_TOP:
+				_selectState[2] = SELECT_RIGHT_TOP;
+				break;
+			case SELECT_LEFT_BOTTOM:
+				_selectState[2] = SELECT_RIGHT_BOTTOM;
+				break;
+			}
+		}
+		if (KEYMANAGER->isOnceKeyDown('W'))
+		{
+			switch (_selectState[2])
+			{
+			case SELECT_LEFT_BOTTOM:
+				_selectState[2] = SELECT_LEFT_TOP;
+				break;
+			case SELECT_RIGHT_BOTTOM:
+				_selectState[2] = SELECT_RIGHT_TOP;
+				break;
+			}
+		}
+		if (KEYMANAGER->isOnceKeyDown('S'))
+		{
+			switch (_selectState[2])
+			{
+			case SELECT_LEFT_TOP:
+				_selectState[2] = SELECT_LEFT_BOTTOM;
+				break;
+			case SELECT_RIGHT_TOP:
+				_selectState[2] = SELECT_RIGHT_BOTTOM;
+				break;
+			}
+		}
+
+	}
+		/////////////////이동부분
+	for (int i = 0; i < 3; i++)
+	{
+		switch (i)//3종류 다다르게 해야함
+		{
+		case 0:
+			switch (_selectState[i])
+			{
+			case  SELECT_LEFT_TOP:
+				_select[i].x = 120;
+				_select[i].y = 402;
+				break;
+			case  SELECT_LEFT_BOTTOM:
+				_select[i].x = 120;
+				_select[i].y = 442;
+				break;
+			case  SELECT_RIGHT_TOP:
+				_select[i].x = 160;
+				_select[i].y = 402;
+				break;
+			case  SELECT_RIGHT_BOTTOM:
+				_select[i].x = 160;
+				_select[i].y = 442;
+				break;
+			}
+			break;
+		case 1:
+			switch (_selectState[i])
+			{
+			case  SELECT_LEFT_TOP:
+				_select[i].x = 302;
+				_select[i].y = 402;
+				break;
+			case  SELECT_LEFT_BOTTOM:
+				_select[i].x = 302;
+				_select[i].y = 442;
+				break;
+			case  SELECT_RIGHT_TOP:
+				_select[i].x = 342;
+				_select[i].y = 402;
+				break;
+			case  SELECT_RIGHT_BOTTOM:
+				_select[i].x = 342;
+				_select[i].y = 442;
+				break;
+			}
+			break;
+		case 2:
+			switch (_selectState[i])
+			{
+			case  SELECT_LEFT_TOP:
+				_select[i].x = 482;
+				_select[i].y = 402;
+				break;
+			case  SELECT_LEFT_BOTTOM:
+				_select[i].x = 482;
+				_select[i].y = 442;
+				break;
+			case  SELECT_RIGHT_TOP:
+				_select[i].x = 522;
+				_select[i].y = 402;
+				break;
+			case  SELECT_RIGHT_BOTTOM:
+				_select[i].x = 522;
+				_select[i].y = 442;
+				break;
+			}
+			break;
 		}
 	}
 }
