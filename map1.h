@@ -37,6 +37,5 @@ public:
 	RECT							getRCHelp() { return _rcHelp; }
 	RECT							getRCExit() { return _rcExit; }
 	RECT							getElectric() { return _rcElectric1; }
-
 };
 
