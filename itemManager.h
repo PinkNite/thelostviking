@@ -9,7 +9,7 @@ class ITEMMANAGER
 	ITEMBOOM* _pItemBoom[2];
 	ITEMFRUIT1* _pItemFruit1[2];
 	ITEMFRUIT2* _pItemFruit2[2];
-	ITEMMEAT* _pItemMeat;
+//	ITEMMEAT* _pItemMeat;
 public:
 	ITEMMANAGER();
 	~ITEMMANAGER();

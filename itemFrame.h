@@ -13,6 +13,7 @@ protected:
 	int _width;//넓이
 	int _height;//높이
 	image* _pImage;
+	bool _isAllive;//살아있냐
 
 
 public:
@@ -31,5 +32,9 @@ public:
 	inline image* getImage() { return _pImage; }
 	inline int getX() { return _x; }
 	inline int getY() { return _y; }
+	inline int setX(int x) { _x = x; }//위치 변할값
+	inline int setY(int y) { _y = y; }
+	inline bool getIsAllive() { return _isAllive; }
+	inline void SetIsAlliveFalse() { _isAllive = false; }
 };
 

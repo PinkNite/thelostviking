@@ -24,6 +24,7 @@ void ITEMFRUIT1::release()
 
 void ITEMFRUIT1::update()
 {
+	
 }
 
 void ITEMFRUIT1::render(HDC hdc)

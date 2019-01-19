@@ -29,10 +29,10 @@ HRESULT ITEMMANAGER::init()
 	{
 		_pItemFruit2[i] = new ITEMFRUIT2;
 	}
-		_pItemFruit2[0]->init(20, 20, 40, 35);
-		_pItemFruit2[1]->init(40, 40, 40, 35);
-	_pItemMeat = new ITEMMEAT;
-	_pItemMeat->init(50, 50, 40, 35);
+		_pItemFruit2[0]->init(1970, 410, 40, 35);
+		_pItemFruit2[1]->init(995, 1380, 40, 35);
+	//_pItemMeat = new ITEMMEAT;
+	//_pItemMeat->init(50, 50, 40, 35);
 	return S_OK;
 }
 
@@ -42,6 +42,7 @@ void ITEMMANAGER::release()
 
 void ITEMMANAGER::update()
 {
+	//_pItemBoom[0]->SetIsAlliveFalse();
 }
 
 void ITEMMANAGER::render(HDC hdc)
@@ -61,5 +62,5 @@ void ITEMMANAGER::render(HDC hdc)
 		_pItemFruit2[i]->render(hdc);
 
 	}
-	_pItemMeat->render(hdc);
+	//_pItemMeat->render(hdc);
 }

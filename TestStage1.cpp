@@ -33,7 +33,8 @@ void TestStage1::load()
 	IMAGEMANAGER->addImage("option", "resource/intro/option.bmp", 640, 267, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("password", "resource/intro/passwordBackground.bmp", 640, 480, false, RGB(0, 0, 0));
 
-
+	//npc·¹µå
+	IMAGEMANAGER->addFrameImage("npc", "resource/NPC_red.bmp", 140, 64,4,2, true, RGB(255, 0, 255));
 	//¸Ê
 	
 
@@ -48,6 +49,7 @@ void TestStage1::load()
 	IMAGEMANAGER->addImage("UI", "resource/UI/UI.bmp", 640, 118, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("life", "resource/UI/life.bmp", 14, 12, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("trashCan", "resource/UI/remove.bmp",37, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("selectYellow", "resource/UI/selectYellow.bmp", 40, 40, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addImage("baleogOn", "resource/UI/baleogOn.bmp", 80, 60, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("baleogOff", "resource/UI/baleogOff.bmp", 80, 60, true, RGB(255, 0, 255));
@@ -115,6 +117,9 @@ HRESULT TestStage1::init()
 	_pUI = new UI;
 	_pUI->init();
 
+	_pItemMeat = new ITEMMEAT;
+	_pItemMeat->init(1700, 520, 40, 35);
+
 	return S_OK;
 }
 
@@ -151,15 +156,17 @@ void TestStage1::update()
 void TestStage1::render()
 {
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
+	_pItemMeat->render(_pCamera->getMemDC());//¿©±â¿¡ ³ö¾ß ¾Èº¸ÀÓ
 	_pCamera->renderinit();
 
+	//ÀÌÂÊ¿¡ °í±â Ãß°¡µÊ
 	_pMap2->render(_pCamera->getMemDC());
 	_pPlayer->render(_pCamera->getMemDC());
 
 	
+
+
 	_pItemManager->render(_pCamera->getMemDC());
-
-
 	TIMEMANAGER->render(getMemDC());
 	_pCamera->render(getMemDC());
 	_pUI->render();

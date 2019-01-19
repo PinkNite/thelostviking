@@ -18,10 +18,12 @@ HRESULT ITEMMEAT::init(int x, int y, int width, int height)
 
 void ITEMMEAT::release()
 {
+
 }
 
 void ITEMMEAT::update()
 {
+	
 }
 
 void ITEMMEAT::render(HDC hdc)

@@ -22,9 +22,14 @@ void ITEMBOOM::release()
 
 void ITEMBOOM::update()
 {
+	
+
 }
 
 void ITEMBOOM::render(HDC hdc)
 {
-	ITEMFRAME::getImage()->render(hdc, ITEMFRAME::getX(), ITEMFRAME::getY());
+	if (ITEMFRAME::getIsAllive())//트루면 //렌더하시고
+	{
+		ITEMFRAME::getImage()->render(hdc, ITEMFRAME::getX(), ITEMFRAME::getY());
+	}
 }

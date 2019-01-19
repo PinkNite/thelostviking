@@ -43,7 +43,7 @@ void playGround::load()
 	IMAGEMANAGER->addImage("questionMark", "resource/item/questionMark.bmp", 32, 32, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("boom", "resource/item/boom.bmp", 32, 30, true, RGB(255, 0, 255));
 
-
+	
 
 	// enemy image resources
 	IMAGEMANAGER->addFrameImage("redEnemy", "resource/enemies/red.bmp", 259, 128, 7, 4, true, RGB(255, 0, 255));

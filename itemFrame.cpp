@@ -17,6 +17,7 @@ HRESULT ITEMFRAME::init(int x, int y, int width, int height)
 	_y = y;
 	_width = width;
 	_height = height;
+	
 	return S_OK;
 }
 
@@ -44,4 +45,5 @@ void ITEMFRAME::setItem(int x, int y, int width, int height)
 	_y = y;
 	_width = width;
 	_height = height;
+	_isAllive = true;
 }

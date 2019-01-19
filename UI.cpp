@@ -50,13 +50,17 @@ HRESULT UI::init()
 		}
 		
 	}
-	_olafState=OLAF_ON;
-	_baleogState = BALEOG_ON;
+	_olafState=OLAF_OFF;
+	_baleogState = BALEOG_OFF;
 	_erikState = ERIK_ON;
 
 	_trashCan.pImage = new image;
 	_trashCan.pImage = IMAGEMANAGER->findImage("trashCan");
+	_trashCan.alphaCount = 255;
 
+	_select.pImage = new image;
+	_select.pImage = IMAGEMANAGER->findImage("selectYellow");
+	_select.alphaCount = 255;
 	return S_OK;
 }
 
@@ -70,11 +74,11 @@ void UI::release()
 void UI::update()
 {
 	//스테이트 바꿔서 테스트
-	if (KEYMANAGER->isOnceKeyDown('1'))
+	if (KEYMANAGER->isOnceKeyDown('Y'))
 	{
 		_baleogState = BALEOG_ON;
 	}
-	if (KEYMANAGER->isOnceKeyDown('2'))
+	if (KEYMANAGER->isOnceKeyDown('U'))
 	{
 		_baleogState = BALEOG_OFF;
 	}
@@ -112,6 +116,13 @@ void UI::render()
 {
 	_ui.pImage->render(getMemDC(), 0, 362);
 	_trashCan.pImage->render(getMemDC(), 564, 402);//이좌표로 아이템이 들어감?
+
+	_select.pImage->render(getMemDC(), 120, 402);
+	_select.pImage->render(getMemDC(), 302, 402);
+	_select.pImage->render(getMemDC(), 482, 402);
+
+
+	
 	for (int i = 0; i < 9; i++)
 	{
 		switch (i)
@@ -182,14 +193,18 @@ void UI::render()
 			if (_erikState == ERIK_ON)
 			{
 				_erik[i].pImage->render(getMemDC(), 40, 405);
+				
 			}
 			if (_baleogState == BALEOG_ON)
 			{
+				
 				_baleog[i].pImage->render(getMemDC(), 220, 405);
+				
 			}
 			if (_olafState == OLAF_ON)
 			{
 				_olaf[i].pImage->render(getMemDC(), 400, 405);
+				
 			}
 			break;
 		case 1:

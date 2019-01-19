@@ -31,6 +31,7 @@ struct tagUI
 {
 	bool isAllive;
 	image* pImage;
+	int alphaCount;
 
 };
 class UI :public gameNode
@@ -43,6 +44,7 @@ private:
 	tagUI _olaf[3];
 	tagUI _select;
 	tagUI _trashCan;
+	
 	trashCanState _trashCanState;
 	baleogState _baleogState;
 	olafState _olafState;
@@ -54,5 +56,7 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
+public :
+
 };
 

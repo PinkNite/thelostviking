@@ -7,6 +7,8 @@
 #include "map2.h"
 #include "itemManager.h"
 #include "UI.h"
+#include "itemMeat.h"
+
 
 class TestStage1 : public gameNode
 {
@@ -17,7 +19,9 @@ private:
 	MAP1*           _pMap1;
 	MAP2*           _pMap2;
 	ITEMMANAGER*    _pItemManager;
+	ITEMMEAT*       _pItemMeat;
 	UI*				_pUI;
+
 
 public:
 	virtual HRESULT init();
