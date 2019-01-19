@@ -14,7 +14,7 @@ protected:
 	int _height;//높이
 	image* _pImage;
 	bool _isAllive;//살아있냐
-
+	int _alphaCount;//알파값
 
 public:
 	ITEMFRAME();
@@ -36,5 +36,7 @@ public:
 	inline int setY(int y) { _y = y; }
 	inline bool getIsAllive() { return _isAllive; }
 	inline void SetIsAlliveFalse() { _isAllive = false; }
+	inline int getAlphaCount() { return _alphaCount; }
+	inline void setAlphaCount(int num) { _alphaCount += num; }//값을넣으면 그만큼 알파카운트가 증가한다.
 };
 

@@ -28,7 +28,10 @@ void ITEMMEAT::update()
 
 void ITEMMEAT::render(HDC hdc)
 {
-	ITEMFRAME::getImage()->render(hdc, ITEMFRAME::getX(), ITEMFRAME::getY());
+	if (ITEMFRAME::getIsAllive())//트루면 //렌더하시고
+	{
+		ITEMFRAME::getImage()->alphaRender(hdc, ITEMFRAME::getX(), ITEMFRAME::getY(), ITEMFRAME::getAlphaCount());
+	}
 }
 
 

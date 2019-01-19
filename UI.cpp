@@ -83,6 +83,7 @@ HRESULT UI::init()
 	_baleogItem = ITEM_0;
 	_olafItem = ITEM_0;  //현재 갯수 0
 
+	_isCollision = false;
 	return S_OK;
 }
 
@@ -135,7 +136,12 @@ void UI::update()
 
 	//_life[0].isAllive = false;//이럼 사라짐
 	selectMove();//얘는 특정 조건에서만 되어야함
-	getItem();
+
+	getItem(&_erikItem,120,402,160,442);//에릭인벤토리세팅
+	getItem(&_baleogItem, 302, 402, 342, 442);
+	getItem(&_olafItem, 482, 402, 522, 442);
+	
+	itemUpdate();
 }
 
 void UI::render()
@@ -279,26 +285,12 @@ void UI::render()
 
 
 	//아이템
-	for (int i = 0; i < 2; i++)
-	{
-		if (_erikItem != ITEM_0 && _pItemBoom[i]->getIsAllive())
-		{
-			_pItemBoom[i]->render(getMemDC());//고정이니까 겟멤
-		}
-		if (_erikItem != ITEM_0 && _pItemFruit1[i]->getIsAllive())
-		{
-			_pItemFruit1[i]->render(getMemDC());
-		}
-		if (_erikItem != ITEM_0 && _pItemFruit2[i]->getIsAllive())
-		{
-			_pItemFruit2[i]->render(getMemDC());
-		}
-		if (_erikItem != ITEM_0 && _pItemMeat->getIsAllive())
-		{
-			_pItemMeat->render(getMemDC());
-		}
-	}
+	//인벤토리 렌더
+	itemRender(&_erikItem,&_baleogItem,&_olafItem);
 	
+	char str[128];
+	sprintf_s(str, "%d", _iii);
+	TextOut(getMemDC(), 500, 300, str, strlen(str));
 }
 
 void UI::selectMove()
@@ -533,49 +525,145 @@ void UI::selectMove()
 	}
 }
 
-void UI::getItem()
+void UI::getItem(itemMemory* name, int x, int y, int x1, int y1)
 {
 	//특정조건이 되었다 그럼 좌표를 정해주고
 	//if()erik이 먹엇다 그럼 에릭에서 좌표세팅
 	//에릭
-	/*switch (_selectState[i])
-	{
-	case  SELECT_LEFT_TOP:
-		_select[i].x = 120;
-		_select[i].y = 402;
-		break;
-	case  SELECT_LEFT_BOTTOM:
-		_select[i].x = 120;
-		_select[i].y = 442;
-		break;
-	case  SELECT_RIGHT_TOP:
-		_select[i].x = 160;
-		_select[i].y = 402;
-		break;
-	case  SELECT_RIGHT_BOTTOM:
-		_select[i].x = 160;
-		_select[i].y = 442;
-		break;
-	}*/
-	if (_erikItem == ITEM_0)
+	
+	if (*name == ITEM_0)
 	{
 		//폭탄과충돌햇다 아이템공간이 영이다
-		if (KEYMANAGER->isOnceKeyDown('Z'))//예시조건
+		if (KEYMANAGER->isOnceKeyDown('Z'))//예시조건//나중에 고쳐야함
 		{
-			itemBoom(120, 402, 40, 38,&_erikItem, ITEM_1, 0);	
+			
+			itemBoom(x, y, 40, 38,name, ITEM_1, 0);	
+			
+		}
+		if (KEYMANAGER->isOnceKeyDown('Q'))//예시조건
+		{
+			itemBoom(x, y, 40, 38, name, ITEM_1, 1);
 		}
 		if (KEYMANAGER->isOnceKeyDown('X'))//예시조건
 		{
-			itemFruit1(120, 402, 40, 38, &_erikItem, ITEM_1, 1);
+			itemFruit1(x, y, 40, 38, name, ITEM_1, 0);
+		}
+		if (KEYMANAGER->isOnceKeyDown('X'))//예시조건
+		{
+			itemFruit1(x, y, 40, 38, name, ITEM_1, 1);
 		}
 		if (KEYMANAGER->isOnceKeyDown('C'))//예시조건
 		{
-			itemFruit2(120, 402, 40, 38, &_erikItem, ITEM_1, 0);
+			itemFruit2(x, y, 40, 38, name, ITEM_1, 0);
+		}
+		if (KEYMANAGER->isOnceKeyDown('C'))//예시조건
+		{
+			itemFruit2(x, y, 40, 38, name, ITEM_1, 1);
 		}
 		if (KEYMANAGER->isOnceKeyDown('V'))//예시조건
 		{
-			itemMeat(120, 402, 40, 38, &_erikItem, ITEM_1);
+			itemMeat(x, y, 40, 38, name, ITEM_1);
 		}
+	}
+	if (*name == ITEM_1)
+	{
+		//폭탄과충돌햇다 아이템공간이 1이다
+		if (KEYMANAGER->isOnceKeyDown('B'))//예시조건
+		{
+			itemBoom(x1, y, 40, 38, name, ITEM_2, 0);
+		}
+		if (KEYMANAGER->isOnceKeyDown('B'))//예시조건
+		{
+			itemBoom(x1, y, 40, 38, name, ITEM_2, 1);
+		}
+		if (KEYMANAGER->isOnceKeyDown('N'))//예시조건
+		{
+			itemFruit1(x1, y, 40, 38, name, ITEM_2, 0);
+		}
+		if (KEYMANAGER->isOnceKeyDown('N'))//예시조건
+		{
+			itemFruit1(x1, y, 40, 38, name, ITEM_2, 1);
+		}
+		if (KEYMANAGER->isOnceKeyDown('M'))//예시조건
+		{
+			itemFruit2(x1, y, 40, 38, name, ITEM_2, 0);
+		}
+		if (KEYMANAGER->isOnceKeyDown('M'))//예시조건
+		{
+			itemFruit2(x1, y, 40, 38, name, ITEM_2, 1);
+		}
+		if (KEYMANAGER->isOnceKeyDown('F'))//예시조건
+		{
+			itemMeat(x1, y, 40, 38, name, ITEM_2);
+		}
+	}
+	if (*name == ITEM_2)
+	{
+		//폭탄과충돌햇다 아이템공간이 2이다
+		if (KEYMANAGER->isOnceKeyDown('G'))//예시조건
+		{
+			itemBoom(x, y1, 40, 38, name, ITEM_3, 0);
+		}
+		if (KEYMANAGER->isOnceKeyDown('G'))//예시조건
+		{
+			itemBoom(x, y1, 40, 38, name, ITEM_3, 1);
+		}
+		if (KEYMANAGER->isOnceKeyDown('H'))//예시조건
+		{
+			itemFruit1(x, y1, 40, 38, name, ITEM_3, 0);
+		}
+		if (KEYMANAGER->isOnceKeyDown('H'))//예시조건
+		{
+			itemFruit1(x, y1, 40, 38, name, ITEM_3, 1);
+		}
+		if (KEYMANAGER->isOnceKeyDown('J'))//예시조건
+		{
+			itemFruit2(x, y1, 40, 38, name, ITEM_3, 0);
+		}
+		if (KEYMANAGER->isOnceKeyDown('J'))//예시조건
+		{
+			itemFruit2(x, y1, 40, 38, name, ITEM_3, 1);
+		}
+		if (KEYMANAGER->isOnceKeyDown('K'))//예시조건
+		{
+			itemMeat(x, y1, 40, 38, name, ITEM_3);
+		}
+	}
+	if (*name == ITEM_3)
+	{
+		//폭탄과충돌햇다 아이템공간이 3이다
+		if (KEYMANAGER->isOnceKeyDown('L'))//예시조건
+		{
+			itemBoom(x1, y1, 40, 38, name, ITEM_4, 0);
+		}
+		if (KEYMANAGER->isOnceKeyDown('L'))//예시조건
+		{
+			itemBoom(x1, y1, 40, 38, name, ITEM_4, 1);
+		}
+		if (KEYMANAGER->isOnceKeyDown('P'))//예시조건
+		{
+			itemFruit1(x1, y1, 40, 38, name, ITEM_4, 0);
+		}
+		if (KEYMANAGER->isOnceKeyDown('P'))//예시조건
+		{
+			itemFruit1(x1, y1, 40, 38, name, ITEM_4, 1);
+		}
+		if (KEYMANAGER->isOnceKeyDown('O'))//예시조건
+		{
+			itemFruit2(x1, y1, 40, 38, name, ITEM_4, 0);
+		}
+		if (KEYMANAGER->isOnceKeyDown('O'))//예시조건
+		{
+			itemFruit2(x1, y1, 40, 38, name, ITEM_4, 1);
+		}
+		if (KEYMANAGER->isOnceKeyDown('I'))//예시조건
+		{
+			itemMeat(x1, y1, 40, 38, name, ITEM_4);
+		}
+	}
+	if( *name==ITEM_4)
+	{
+		*name = ITEM_MAX;
 	}
 }
 
@@ -583,22 +671,101 @@ void UI::itemBoom(int x, int y, int width, int height, itemMemory* name, itemMem
 {
 	_pItemBoom[i]->init(x, y, width, height);
 	*name = item;
+	
 }
 
 void UI::itemFruit1(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i)
 {
 	_pItemFruit1[i]->init(x, y, width, height);
 	*name = item;
+	
 }
 
 void UI::itemFruit2(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i)
 {
 	_pItemFruit2[i]->init(x, y, width, height);
 	*name = item;
+	
 }
 
 void UI::itemMeat(int x, int y, int width, int height, itemMemory* name, itemMemory item)
 {
 	_pItemMeat->init(x, y, width, height);
 	*name = item;
+	
+}
+
+void UI::itemRender(itemMemory* name, itemMemory* name1, itemMemory* name2)
+{
+	for (int i = 0; i < 2; i++)
+	{
+		if (*name != ITEM_0&& *name1 != ITEM_0&& *name2 != ITEM_0 && _pItemBoom[i]->getIsAllive())
+		{
+			if (_isCollision)
+			{
+				
+				_pItemBoom[i]->setAlphaCount(15);
+			}
+			_pItemBoom[i]->render(getMemDC());//고정이니까 겟멤
+		}
+		if (*name != ITEM_0 && *name1 != ITEM_0 && *name2 != ITEM_0 && _pItemFruit1[i]->getIsAllive())
+		{
+			if (_isCollision)
+			{
+				_pItemFruit1[i]->setAlphaCount(15);
+			}
+			_pItemFruit1[i]->render(getMemDC());
+		}
+		if (*name != ITEM_0 && *name1 != ITEM_0 && *name2 != ITEM_0 && _pItemFruit2[i]->getIsAllive())
+		{
+			if (_isCollision)
+			{
+				_pItemFruit2[i]->setAlphaCount(15);
+			}
+			_pItemFruit2[i]->render(getMemDC());
+		}
+	}
+	if (*name != ITEM_0 && *name1 != ITEM_0 && *name2 != ITEM_0 && _pItemMeat->getIsAllive())
+	{
+		if (_isCollision)
+		{
+			_pItemMeat->setAlphaCount(15);
+		}
+		_pItemMeat->render(getMemDC());
+	}
+}
+
+void UI::selectCollision(int i, int x, int y)
+{
+	 _iii= getDistance(_select[i].x, _select[i].y, x, y);
+	
+	if (getDistance(_select[i].x, _select[i].y, x, y) <= 1)
+	{
+		
+		_isCollision = true;
+	}
+	else
+	{
+		_isCollision = false;
+	}
+}
+
+void UI::itemUpdate()
+{
+	/*_pItemBoom[2];
+	_pItemFruit1[2];
+	 _pItemFruit2[2];
+	_pItemMeat;*/
+	
+	for (int j = 0; j < 3; j++)
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			if (_pItemBoom[i]->getIsAllive() )
+			{
+				selectCollision(j, _pItemBoom[i]->getX(), _pItemBoom[i]->getY());
+			}
+		}
+		
+	}
 }

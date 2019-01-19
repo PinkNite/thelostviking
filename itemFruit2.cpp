@@ -29,5 +29,8 @@ void ITEMFRUIT2::update()
 
 void ITEMFRUIT2::render(HDC hdc)
 {
-	ITEMFRAME::getImage()->render(hdc, ITEMFRAME::getX(), ITEMFRAME::getY());
+	if (ITEMFRAME::getIsAllive())//트루면 //렌더하시고
+	{
+		ITEMFRAME::getImage()->alphaRender(hdc, ITEMFRAME::getX(), ITEMFRAME::getY(), ITEMFRAME::getAlphaCount());
+	}
 }

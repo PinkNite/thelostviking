@@ -30,6 +30,6 @@ void ITEMBOOM::render(HDC hdc)
 {
 	if (ITEMFRAME::getIsAllive())//트루면 //렌더하시고
 	{
-		ITEMFRAME::getImage()->render(hdc, ITEMFRAME::getX(), ITEMFRAME::getY());
+		ITEMFRAME::getImage()->alphaRender(hdc, ITEMFRAME::getX(), ITEMFRAME::getY(),ITEMFRAME::getAlphaCount());
 	}
 }

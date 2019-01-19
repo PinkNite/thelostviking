@@ -46,4 +46,5 @@ void ITEMFRAME::setItem(int x, int y, int width, int height)
 	_width = width;
 	_height = height;
 	_isAllive = true;
+	_alphaCount = 255;
 }
