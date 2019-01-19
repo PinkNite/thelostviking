@@ -46,20 +46,20 @@ void playGround::load()
 
 
 	// enemy image resources
-	IMAGEMANAGER->addFrameImage("redEnemy", "resource/enemies/red.bmp", 259, 128, 7, 4, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("blueEnemy", "resource/enemies/blue.bmp", 259, 128, 7, 4, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("greenEnemy", "resource/enemies/green.bmp", 105, 64, 3, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("blueBallEnemy", "resource/enemies/blueBall.bmp", 210, 128, 6, 4, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("yellowBallEnemy", "resource/enemies/yellowBall.bmp", 74, 64, 2, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("miraEnemy", "resource/enemies/mira.bmp", 222, 128, 6, 4, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("cannonEnemy", "resource/enemies/cannon.bmp", 78, 64, 2, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("snailEnemy", "resource/enemies/snail.bmp", 175, 128, 5, 4, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("goliathEnemy", "resource/enemies/goliath.bmp", 175, 128, 5, 4, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("goliatBullet", "resource/enemies/goliatBullet.bmp", 175, 128, 5, 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("redEnemy", "resource/enemies/red.bmp", 518, 256, 7, 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("blueEnemy", "resource/enemies/blue.bmp", 518, 256, 7, 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("greenEnemy", "resource/enemies/green.bmp", 210, 128, 3, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("blueBallEnemy", "resource/enemies/blueBall.bmp", 420, 256, 6, 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("yellowBallEnemy", "resource/enemies/yellowBall.bmp", 148, 128, 2, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("miraEnemy", "resource/enemies/mira.bmp", 444, 256, 6, 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("cannonEnemy", "resource/enemies/cannon.bmp", 156, 128, 2, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("snailEnemy", "resource/enemies/snail.bmp", 350, 256, 5, 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("goliathEnemy", "resource/enemies/goliath.bmp", 350, 256, 5, 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("goliatBullet", "resource/enemies/goliatBullet.bmp", 16, 24, 1, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("bossEnemy", "resource/enemies/bossTomator.bmp", 300, 300, 4, 4, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("bossBullet", "resource/enemies/bossBullet.bmp", 51, 16, 3, 1, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addImage("laser", "resource/enemies/laser.bmp", 16, 3, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("laser", "resource/enemies/laser.bmp", 32, 6, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("enemyDeath", "resource/enemies/death.bmp", 51, 16, 3, 1, true, RGB(255, 0, 255));
 }
 
@@ -95,6 +95,9 @@ HRESULT playGround::init()
 	_pInputMgr = new INPUTMANAGER();
 	_pInputMgr->init(_pPlayer, _pCamera);
 
+	_enemy = new ENEMY();
+	_enemy->init(800, 600, 40, 32, 2.0f, ENEMY::ENEMY_TYPE::BLUE);
+
 	return S_OK;
 }
 
@@ -124,6 +127,8 @@ void playGround::update()
 
 	_pInputMgr->update();
 
+	//_enemy->update();
+
 	SCENEMANAGER->update();
 }
 
@@ -136,6 +141,8 @@ void playGround::render()
 
 	_pMap2->render(_pCamera->getMemDC());
 	_pPlayer->render(_pCamera->getMemDC());
+
+	//_enemy->render(_pCamera->getMemDC());
 
 	//pCamera->getCameraBuffer()->render(getMemDC(), 0, 0, 200, 200, 800, 600);
 	////getMemDc 대신 뭐 넣을때는 pCamera->getMemDc()를 쓰세요.

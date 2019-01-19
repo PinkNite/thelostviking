@@ -11,41 +11,97 @@ ENEMY::~ENEMY()
 {
 }
 
-void ENEMY::init(int posX, int posY, int width, int height, float speed)
+void ENEMY::init(int posX, int posY, int width, int height, float speed, ENEMY_TYPE type)
 {
 	OBJECT::init(posX, posY, width, height);
 	_hp = 1;
 	_speed = speed;
-	_moveTime = RND->getFromIntTo(10, 30);
-	_startTime = TIMEMANAGER->getElpasedTime();
+	_startX = posX;
+	_endX = _startX + 150.0f;
 	_maxAniFrame = 0;
 	_state = (ENEMY_STATE)RND->getInt(6);
+
+	setEnemyType(type);
 }
 
 void ENEMY::update()
 {
 	if (_moveType != ENEMY_MOVE_TYPE::STAND)
 	{
-		if (_startTime < _moveTime)
+		float _deltaX = abs(_startX - OBJECT::_posX);
+		if (_startX > OBJECT::_posX)
 		{
-			if (_state == ENEMY_STATE::IDLE_LEFT || _state == ENEMY_STATE::MOVE_LEFT)
-			{
-				moveLeft();
-			}
-
-			if (_state == ENEMY_STATE::IDLE_RIGHT || _state == ENEMY_STATE::MOVE_RIGHT)
-			{
-				moveRight();
-			}
+			stateUpdate(ENEMY_STATE::MOVE_RIGHT);
 		}
-		else
+		else if (OBJECT::_posX > _endX )
 		{
-			_moveTime = RND->getFromIntTo(5, 20);
-			_startTime = TIMEMANAGER->getElpasedTime();
+			stateUpdate(ENEMY_STATE::MOVE_LEFT);
 		}
 	}
+	else
+	{
+		//fire();
+	}
+
+	moveUpdate();
 
 	KEYANIMANAGER->update();
+}
+
+void ENEMY::stateUpdate(ENEMY_STATE state)
+{
+	_state = state;
+	switch (_state)
+	{
+	case ENEMY::ENEMY_STATE::IDLE_RIGHT:
+		_pAnimation = KEYANIMANAGER->findAnimation(_typeName, _arAniFrameStrKey[int(_state)]);
+		_pAnimation->start();
+		break;
+	case ENEMY::ENEMY_STATE::IDLE_LEFT:
+		_pAnimation = KEYANIMANAGER->findAnimation(_typeName, _arAniFrameStrKey[int(_state)]);
+		_pAnimation->start();
+		break;
+	case ENEMY::ENEMY_STATE::MOVE_RIGHT:
+		_pAnimation = KEYANIMANAGER->findAnimation(_typeName, _arAniFrameStrKey[int(_state)]);
+		_pAnimation->start();
+		break;
+	case ENEMY::ENEMY_STATE::MOVE_LEFT:
+		_pAnimation = KEYANIMANAGER->findAnimation(_typeName, _arAniFrameStrKey[int(_state)]);
+		_pAnimation->start();
+		break;
+	case ENEMY::ENEMY_STATE::ATTACK_RIGHT:
+		_pAnimation = KEYANIMANAGER->findAnimation(_typeName, _arAniFrameStrKey[int(_state)]);
+		_pAnimation->start();
+		break;
+	case ENEMY::ENEMY_STATE::ATTACK_LEFT:
+		_pAnimation = KEYANIMANAGER->findAnimation(_typeName, _arAniFrameStrKey[int(_state)]);
+		_pAnimation->start();
+		break;
+	case ENEMY::ENEMY_STATE::DEATH:
+		//OBJECT::setImage(IMAGEMANAGER->findImage("enemyDeath"));
+		//_pAnimation = KEYANIMANAGER->findAnimation("enemyDeath", "enemyDeath");
+		//_pAnimation->start();
+		break;
+	}
+}
+
+void ENEMY::moveUpdate()
+{
+	switch (_state)
+	{
+	case ENEMY::ENEMY_STATE::MOVE_RIGHT:
+		OBJECT::_posX += _speed;
+		break;
+	case ENEMY::ENEMY_STATE::MOVE_LEFT:
+		OBJECT::_posX -= _speed;
+		break;
+	case ENEMY::ENEMY_STATE::ATTACK_RIGHT:
+
+		break;
+	case ENEMY::ENEMY_STATE::ATTACK_LEFT:
+
+		break;
+	}
 }
 
 void ENEMY::release()
@@ -61,6 +117,7 @@ void ENEMY::render(HDC hdc)
 
 void ENEMY::setEnemyType(ENEMY_TYPE type)
 {
+	_type = type;
 	switch (_type)
 	{
 	case ENEMY::ENEMY_TYPE::RED:
@@ -113,19 +170,9 @@ void ENEMY::setEnemyType(ENEMY_TYPE type)
 
 void ENEMY::moveLeft()
 {
-	OBJECT::_posX -= _speed;
 }
 
 void ENEMY::moveRight()
-{
-	OBJECT::_posX += _speed;
-}
-
-void ENEMY::moveUp()
-{
-}
-
-void ENEMY::moveDown()
 {
 }
 
@@ -136,10 +183,15 @@ void ENEMY::fire()
 void ENEMY::initAnimation()
 {
 	KEYANIMANAGER->addObject(_typeName);
-
+	/*
+	if (KEYANIMANAGER->findAnimation("enemyDeath", "enemyDeath") == nullptr)
+	{
+		KEYANIMANAGER->addObject("enemyDeath");
+		KEYANIMANAGER->addArrayFrameAnimation("enemyDeath", "death", "enemyDeath", new int[5]{0,1,2,3,4}, 5, 10, false);
+	}*/
 	initAniFrame();
 
-	_pAnimation = KEYANIMANAGER->findAnimation(_typeName, _arAniFrameStrKey[int(ENEMY_STATE::IDLE_RIGHT)]);
+	_pAnimation = KEYANIMANAGER->findAnimation(_typeName, _arAniFrameStrKey[int(ENEMY_STATE::IDLE_LEFT)]);
 	_pAnimation->start();
 }
 

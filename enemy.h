@@ -54,9 +54,9 @@ private:
 	int			 _maxAniFrame;
 
 	int _hp;
-	int _startTime;
-	int _moveTime;
 	float _speed;
+	float _startX;
+	float _endX;
 
 	string _typeName;
 
@@ -65,7 +65,7 @@ public:
 	~ENEMY();
 
 	//void init(int posX, int posY, int width, int height);
-	void init(int posX, int posY, int width, int height, float _speed);
+	void init(int posX, int posY, int width, int height, float speed, ENEMY_TYPE type);
 	virtual void update()		 override;
 	virtual void release()		 override;
 	virtual void render(HDC hdc) override;
@@ -76,8 +76,8 @@ public:
 	virtual void moveLeft() override;
 	virtual void moveRight() override;
 
-	void moveUp();
-	void moveDown();
+	void stateUpdate(ENEMY_STATE state);
+	void moveUpdate();
 
 	void fire();
 

@@ -6,6 +6,7 @@
 #include "inputMgr.h"
 #include "map1.h"
 #include "map2.h"
+#include "enemy.h"
 
 class playGround : public gameNode
 {
@@ -15,6 +16,9 @@ private:
 	INPUTMANAGER*	_pInputMgr;
 	MAP1*           _pMap1;
 	MAP2*           _pMap2;
+
+	ENEMY*			_enemy;
+
 
 public:
 	virtual HRESULT init();
