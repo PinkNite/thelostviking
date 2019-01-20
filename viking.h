@@ -143,4 +143,6 @@ public:
 
 	virtual void	setMovingAnimation(int direction)	;
 	virtual	void	setStopAnimation()					;
+
+	virtual	void	setSkillAnimation();
 };

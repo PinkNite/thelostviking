@@ -19,6 +19,9 @@ void ERIC::init(int posX, int posY, int width, int height)
 
 	initKeyAnimation();
 	_jumpingTime = 0.0f;
+	_saveY = 0;
+	_jumpPower = 0.0f;
+	_isUsingSkillTwo = false;
 }
 
 void ERIC::update()
@@ -28,10 +31,13 @@ void ERIC::update()
 		_jumpingTime += TIMEMANAGER->getElpasedTime();
 	}
 
-	if (_jumpingTime >= 2.0f)
+	if (_jumpingTime >= 2.0f && VIKING::_behavior == static_cast<int>(VIKING::ACTION::SKILL_TWO))
 	{
-
+		setFallOut();
 	}
+	
+	jump();
+
 
 	KEYANIMANAGER->update();
 }
@@ -49,11 +55,33 @@ void ERIC::render(HDC hdc)
 
 void ERIC::skillOne()
 {
+
 }
 
 void ERIC::skillTwo()
 {
 	_jumpingTime = 0.0f;
+	_jumpSpeed = 2000.0f;
+	_jumpPower = Mins::presentPowerY(PI / 2.0f, _jumpSpeed);
+	_isUsingSkillTwo = true;
+
+	_saveY = VIKING::OBJECT::getPosY();
+	setSkillAnimation();
+}
+
+void ERIC::jump()
+{
+	if (!_isUsingSkillTwo) return;
+	
+	_jumpPower += _gravity;
+	VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY() + _jumpPower * TIMEMANAGER->getElpasedTime());
+
+	if (_saveY <=  VIKING::OBJECT::getPosY())
+	{
+		VIKING::OBJECT::setPosY(_saveY);
+		_isUsingSkillTwo = false;
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+	}
 }
 
 void ERIC::initKeyAnimation()
@@ -129,10 +157,10 @@ void ERIC::initKeyAnimation()
 	addLeftAliveAnimation(VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::FAT),
 		115, 3, 5, true);
 
+	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN),
+		178, 1, 1, true);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN),
-		178, 1, 100, true);
-	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN),
-		180, 1, 100, true);
+		180, 1, 1, true);
 
 
 	//KEYANIMANAGER->findAnimation("eric",
@@ -441,16 +469,18 @@ void ERIC::setFallOut()
 
 void ERIC::setAnimation(VIKING::DIRECTION direction, VIKING::LIFE life, VIKING::STATE state, int behavior)
 {
-	VIKING::_pAnimation = KEYANIMANAGER->findAnimation("eric",
-		addString(VIKING::_arDirection[static_cast<int>(direction)],
-			VIKING::_arLive[static_cast<int>(life)],
-			VIKING::_vBehavior[static_cast<int>(state)][behavior]));
+	string tmp = addString(VIKING::_arDirection[static_cast<int>(direction)],
+		VIKING::_arLive[static_cast<int>(life)],
+		VIKING::_vBehavior[static_cast<int>(state)][behavior]);
+	VIKING::_pAnimation = KEYANIMANAGER->findAnimation("eric",tmp);
 
-	VIKING::_pAnimation->start();
 	VIKING::_direction = static_cast<int>(direction);
 	VIKING::_life = static_cast<int>(life);
 	VIKING::_state = static_cast<int>(state);
 	VIKING::_behavior = behavior;
+
+	VIKING::_pAnimation->start();
+
 }
 
 void ERIC::setMovingAnimation(int direction)
@@ -459,14 +489,33 @@ void ERIC::setMovingAnimation(int direction)
 	{
 		setAnimation(static_cast<VIKING::DIRECTION>(direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::RUN));
 	}
-	else if (direction != VIKING::_direction && static_cast<int>(VIKING::ACTION::RUN) != _behavior) {
+	else if (direction != VIKING::_direction && static_cast<int>(VIKING::ACTION::RUN) == _behavior && VIKING::STATE::ACTION == static_cast<VIKING::STATE>(_state)) {
 		if (direction == static_cast<int>(VIKING::DIRECTION::LEFT))
 		{
 			setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::RUN));
-
 		}
 		else {
 			setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::RUN));
+		}
+	}
+	else if (direction != VIKING::_direction && static_cast<int>(VIKING::ACTION::FALLDOWN) == _behavior && VIKING::STATE::ACTION == static_cast<VIKING::STATE>(_state)) 
+	{
+		if (direction == static_cast<int>(VIKING::DIRECTION::LEFT))
+		{
+			setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN));
+		}
+		else {
+			setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN));
+		}
+	}
+	else if (direction != VIKING::_direction && static_cast<int>(VIKING::ACTION::SKILL_TWO) == _behavior && VIKING::STATE::ACTION == static_cast<VIKING::STATE>(_state))
+	{
+		if (direction == static_cast<int>(VIKING::DIRECTION::LEFT))
+		{
+			setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO));
+		}
+		else {
+			setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO));
 		}
 	}
 }
@@ -476,8 +525,14 @@ void ERIC::setStopAnimation()
 	if (static_cast<int>(VIKING::ACTION::RUN) == _behavior) {
 		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::SPECIAL));
 	}
-
+	
 }
+
+void ERIC::setSkillAnimation()
+{
+	setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO));
+}
+
 
 void ERIC::callbackRun(void *obj)
 {

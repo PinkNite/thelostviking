@@ -30,14 +30,15 @@ void VIKING::init(int posX, int posY, int width, int height)
 	//액션 + 행동
 	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("TELEPORT");
 	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("RUN");
-	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("SKILL_ONE");
 	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("FALLDOWN");
-	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("SKILL_TWO");
 	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("STUN");
 	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("PUSH");
 	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("ON_LADDER");
 	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("ON_LADDER_OVER");
 	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("DAMAGE");
+	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("SKILL_ONE");
+	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("SKILL_TWO");
+
 
 	//죽음 + 상태
 	_vBehavior[static_cast<int>(VIKING::STATE::DEATH_MOTION)].push_back("ELECTIRC");
@@ -138,4 +139,8 @@ void VIKING::setMovingAnimation(int direction)
 void VIKING::setStopAnimation()
 {
 	
+}
+
+void VIKING::setSkillAnimation()
+{
 }

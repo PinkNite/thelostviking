@@ -71,7 +71,7 @@ void INPUTMANAGER::update()
 	}
 	if (KEYMANAGER->isOnceKeyDown('F'))
 	{
-		_pPlayer->useSkillOne();
+		_pPlayer->useSkillTwo();
 		_ericJumpPower = 500.0f;
 		_jumpKeyPressTime = 0.0f;
 	}

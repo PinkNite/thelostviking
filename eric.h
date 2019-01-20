@@ -10,6 +10,12 @@ private:
 	int _arTmpFrame[11];
 
 	float		_jumpingTime;
+	float		_jumpPower;
+	float		_jumpSpeed;
+
+	//임시변수 점프에 대한
+	float		_saveY;
+	bool		_isUsingSkillTwo;
 public:
 	ERIC();
 	~ERIC();
@@ -59,9 +65,10 @@ private:
 	void	setAnimation(VIKING::DIRECTION direction, VIKING::LIFE life, VIKING::STATE state, int behavior);
 	virtual void	setMovingAnimation(int direction) override;
 	virtual	void	setStopAnimation() override;
+	virtual	void	setSkillAnimation() override;
 
-
-
+	
+	void jump();
 public:
 	//여러가지 상태로 변하는 애들은 여기서 처리한다.
 	static void	callbackRun(void *obj);	//달리는 상태 종류후 나오는 것들
@@ -76,6 +83,7 @@ public:
 	void	callbackEricHading();//해딩후 나올수 있는 것들
 	void	callbackEricStun();//스턴후
 	void	callbackEricBreath();
+
 
 
 
