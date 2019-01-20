@@ -255,6 +255,9 @@
     <ClInclude Include="UI.h">
       <Filter>PlayGround\UI</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>PlayGround\Object\enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -400,6 +403,9 @@
     </ClCompile>
     <ClCompile Include="viking.cpp">
       <Filter>PlayGround\Object\player</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>PlayGround\Object\enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
