@@ -16,10 +16,19 @@ void ENEMY::init(int posX, int posY, int width, int height, float speed, ENEMY_T
 	OBJECT::init(posX, posY, width, height);
 	_hp = 1;
 	_speed = speed;
+	
+	// 생성 위치
 	_startX = posX;
-	_endX = _startX + 150.0f;
+	// 이동 영역 거리
+	_moveRange = 200.0f;
+	// 이동 영역 끝 좌표
+	_endX = _startX + _moveRange;
+
+	// 공격 인식 거리
+	_attackRange = 200.0f;
+
+	// 키애니메이션 배열 최대값
 	_maxAniFrame = 0;
-	_state = (ENEMY_STATE)RND->getInt(6);
 
 	setEnemyType(type);
 }
@@ -28,19 +37,34 @@ void ENEMY::update()
 {
 	if (_moveType != ENEMY_MOVE_TYPE::STAND)
 	{
-		float _deltaX = abs(_startX - OBJECT::_posX);
-		if (_startX > OBJECT::_posX)
+		if (_startX >= OBJECT::_posX)
 		{
 			stateUpdate(ENEMY_STATE::MOVE_RIGHT);
 		}
-		else if (OBJECT::_posX > _endX )
+		
+		if (OBJECT::_posX >= _endX )
 		{
 			stateUpdate(ENEMY_STATE::MOVE_LEFT);
 		}
+
 	}
 	else
 	{
-		//fire();
+		// 플레이어가 근접한경우 
+		float _deltaX = abs(_startX - OBJECT::_posX);
+		if (OBJECT::_posX - _deltaX >= -_attackRange)
+		{
+			//stateUpdate(ENEMY_STATE::ATTACK_LEFT);
+		}
+
+		if (OBJECT::_posX - _deltaX <= _attackRange)
+		{
+			stateUpdate(ENEMY_STATE::ATTACK_RIGHT);
+		}
+
+		stateUpdate(ENEMY_STATE::ATTACK_RIGHT);
+
+		fire();
 	}
 
 	moveUpdate();
@@ -48,6 +72,7 @@ void ENEMY::update()
 	KEYANIMANAGER->update();
 }
 
+// 상태에 맞는 애니메이션 설정
 void ENEMY::stateUpdate(ENEMY_STATE state)
 {
 	_state = state;
@@ -85,21 +110,31 @@ void ENEMY::stateUpdate(ENEMY_STATE state)
 	}
 }
 
+
 void ENEMY::moveUpdate()
 {
+	
 	switch (_state)
 	{
 	case ENEMY::ENEMY_STATE::MOVE_RIGHT:
-		OBJECT::_posX += _speed;
+		if (_moveType != ENEMY_MOVE_TYPE::STAND)
+		{
+			OBJECT::_posX += _speed;
+		}
 		break;
 	case ENEMY::ENEMY_STATE::MOVE_LEFT:
-		OBJECT::_posX -= _speed;
+		if (_moveType != ENEMY_MOVE_TYPE::STAND)
+		{
+			OBJECT::_posX -= _speed;
+		}
 		break;
 	case ENEMY::ENEMY_STATE::ATTACK_RIGHT:
-
+		//OBJECT::_posX += _speed;
+		_bulletX += _speed;
 		break;
 	case ENEMY::ENEMY_STATE::ATTACK_LEFT:
-
+		//OBJECT::_posX -= _speed;
+		_bulletX -= _speed;
 		break;
 	}
 }
@@ -112,9 +147,11 @@ void ENEMY::release()
 
 void ENEMY::render(HDC hdc)
 {
+	_bullet->render(hdc, _bulletX, OBJECT::_posY);
 	OBJECT::getImage()->aniRender(hdc, OBJECT::getPosX() - OBJECT::getWidth() / 2, OBJECT::getPosY() - OBJECT::getHeight() / 2, _pAnimation);
 }
 
+// 적의 종류 설정
 void ENEMY::setEnemyType(ENEMY_TYPE type)
 {
 	_type = type;
@@ -123,43 +160,53 @@ void ENEMY::setEnemyType(ENEMY_TYPE type)
 	case ENEMY::ENEMY_TYPE::RED:
 		_typeName = "redEnemy";
 		_moveType = ENEMY_MOVE_TYPE::MOVER;
+		_state = (ENEMY_STATE)RND->getInt(6);
 		break;
 	case ENEMY::ENEMY_TYPE::BLUE:
 		_typeName = "blueEnemy";
 		_moveType = ENEMY_MOVE_TYPE::MOVER;
+		_state = (ENEMY_STATE)RND->getInt(6);
 		break;
 	case ENEMY::ENEMY_TYPE::GREEN:
 		_typeName = "greenEnemy";
 		_moveType = ENEMY_MOVE_TYPE::MOVER;
+		_state = (ENEMY_STATE)RND->getInt(4);
 		break;
 	case ENEMY::ENEMY_TYPE::BLUE_BALL:
 		_typeName = "blueBallEnemy";
 		_moveType = ENEMY_MOVE_TYPE::MOVER;
+		_state = (ENEMY_STATE)RND->getInt(6);
 		break;
 	case ENEMY::ENEMY_TYPE::YELLOW_BALL:
 		_typeName = "yellowBallEnemy";
 		_moveType = ENEMY_MOVE_TYPE::MOVER;
+		_state = (ENEMY_STATE)RND->getInt(4);
 		break;
 	case ENEMY::ENEMY_TYPE::MIRA:
 		_typeName = "miraEnemy";
 		_moveType = ENEMY_MOVE_TYPE::MOVER;
+		_state = (ENEMY_STATE)RND->getInt(6);
 		break;
 	case ENEMY::ENEMY_TYPE::CANNON:
 		_typeName = "cannonEnemy";
 		_moveType = ENEMY_MOVE_TYPE::STAND;
+		_state = (ENEMY_STATE)RND->getInt(6);
 		break;
 	case ENEMY::ENEMY_TYPE::SNAIL:
 		_typeName = "snailEnemy";
 		_moveType = ENEMY_MOVE_TYPE::SHOOTER;
+		_state = (ENEMY_STATE)RND->getInt(6);
 		break;
 	case ENEMY::ENEMY_TYPE::GOLIATH:
 		_typeName = "goliathEnemy";
 		_moveType = ENEMY_MOVE_TYPE::SHOOTER;
+		_state = (ENEMY_STATE)RND->getInt(6);
 		break;
 	case ENEMY::ENEMY_TYPE::BOSS:
 		_hp = 3;
 		_typeName = "bossEnemy";
 		_moveType = ENEMY_MOVE_TYPE::SHOOTER;
+		_state = (ENEMY_STATE)RND->getInt(6);
 		break;
 	}
 
@@ -177,6 +224,16 @@ void ENEMY::moveRight()
 }
 
 void ENEMY::fire()
+{
+	if (_isFire == false)
+	{
+		_bullet = IMAGEMANAGER->findImage("laser");
+		_bulletX = OBJECT::_posX;
+		_isFire = true;
+	}
+}
+
+void ENEMY::setDeath()
 {
 }
 
@@ -235,6 +292,12 @@ void ENEMY::initAniFrame()
 
 		_maxAniFrame = 6;
 
+		// 키프레임 animation 등록
+		for (int i = 0; i < _maxAniFrame; i++)
+		{
+			KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], 4, true);
+		}
+
 		break;
 
 	case ENEMY::ENEMY_TYPE::GREEN:
@@ -260,6 +323,12 @@ void ENEMY::initAniFrame()
 		_vAniFrame.push_back(frameNum);
 
 		_maxAniFrame = 4;
+
+		// 키프레임 animation 등록
+		for (int i = 0; i < _maxAniFrame; i++)
+		{
+			KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], 3, true);
+		}
 
 		break;
 
@@ -297,6 +366,13 @@ void ENEMY::initAniFrame()
 
 		_maxAniFrame = 6;
 
+		// 키프레임 animation 등록
+		for (int i = 0; i < _maxAniFrame; i++)
+		{
+			KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], 4, true);
+		}
+
+
 		break;
 	case ENEMY::ENEMY_TYPE::YELLOW_BALL:
 
@@ -321,6 +397,13 @@ void ENEMY::initAniFrame()
 		_vAniFrame.push_back(frameNum);
 
 		_maxAniFrame = 4;
+
+		// 키프레임 animation 등록
+		for (int i = 0; i < _maxAniFrame; i++)
+		{
+			KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], 4, true);
+		}
+
 
 		break;
 
@@ -358,6 +441,12 @@ void ENEMY::initAniFrame()
 
 		_maxAniFrame = 6;
 
+		// 키프레임 animation 등록
+		for (int i = 0; i < _maxAniFrame; i++)
+		{
+			KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], 4, true);
+		}
+
 		break;
 
 	case ENEMY::ENEMY_TYPE::CANNON:
@@ -372,17 +461,33 @@ void ENEMY::initAniFrame()
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_LEFT)] = 1;
 		_vAniFrame.push_back(frameNum);
 
+		frameNum = new int[2]{ 2, 3 };
+		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_RIGHT)] = "MOVE_RIGHT";
+		_arAniFrameCount[int(ENEMY_STATE::MOVE_RIGHT)] = 2;
+		_vAniFrame.push_back(frameNum);
+
 		frameNum = new int[2]{ 0, 1 };
+		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_LEFT)] = "MOVE_LEFT";
+		_arAniFrameCount[int(ENEMY_STATE::MOVE_LEFT)] = 2;
+		_vAniFrame.push_back(frameNum);
+
+		frameNum = new int[2]{ 2, 3 };
 		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_RIGHT)] = "ATTACK_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::ATTACK_RIGHT)] = 2;
 		_vAniFrame.push_back(frameNum);
 
-		frameNum = new int[2]{ 2, 3 };
+		frameNum = new int[2]{ 0, 1 };
 		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_LEFT)] = "ATTACK_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::ATTACK_LEFT)] = 2;
 		_vAniFrame.push_back(frameNum);
 
-		_maxAniFrame = 4;
+		_maxAniFrame = 6;
+
+		// 키프레임 animation 등록
+		for (int i = 0; i < _maxAniFrame; i++)
+		{
+			KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], 2, true);
+		}
 
 		break;
 
@@ -419,6 +524,12 @@ void ENEMY::initAniFrame()
 		_vAniFrame.push_back(frameNum);
 
 		_maxAniFrame = 6;
+
+		// 키프레임 animation 등록
+		for (int i = 0; i < _maxAniFrame; i++)
+		{
+			KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], 4, true);
+		}
 
 		break;
 		/*
@@ -459,10 +570,5 @@ void ENEMY::initAniFrame()
 
 	}
 
-	// 키프레임 animation 등록
-	for (int i = 0; i < _maxAniFrame; i++)
-	{
-		KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], 10, true);
-	}
 
 }

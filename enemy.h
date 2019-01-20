@@ -58,7 +58,14 @@ private:
 	float _startX;
 	float _endX;
 
+	float  _moveRange;
+	float  _attackRange;
+
 	string _typeName;
+
+	image* _bullet;
+	float _bulletX;
+	bool _isFire;
 
 public:
 	ENEMY();
@@ -70,19 +77,26 @@ public:
 	virtual void release()		 override;
 	virtual void render(HDC hdc) override;
 
-	// 적 종류 설정
-	void setEnemyType(ENEMY_TYPE type);
-
 	virtual void moveLeft() override;
 	virtual void moveRight() override;
 
+	// 키애니메이션 설정
+	void initAnimation();
+	void initAniFrame();
+
+	// 적 종류 설정
+	void setEnemyType(ENEMY_TYPE type);
 	void stateUpdate(ENEMY_STATE state);
 	void moveUpdate();
 
+	void setDeath();
 	void fire();
 
-	void initAnimation();
-	void initAniFrame();
+	void setMoveRange(float range) {
+		_moveRange = range;
+		_endX = _startX + _moveRange;
+	};
+
 
 };
 

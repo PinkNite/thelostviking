@@ -96,7 +96,7 @@ HRESULT playGround::init()
 	_pInputMgr->init(_pPlayer, _pCamera);
 
 	_enemy = new ENEMY();
-	_enemy->init(800, 600, 40, 32, 2.0f, ENEMY::ENEMY_TYPE::BLUE);
+	_enemy->init(800, 600, 40, 64, 2.0f, ENEMY::ENEMY_TYPE::CANNON);
 
 	return S_OK;
 }
@@ -127,7 +127,7 @@ void playGround::update()
 
 	_pInputMgr->update();
 
-	//_enemy->update();
+	_enemy->update();
 
 	SCENEMANAGER->update();
 }
@@ -142,7 +142,7 @@ void playGround::render()
 	_pMap2->render(_pCamera->getMemDC());
 	_pPlayer->render(_pCamera->getMemDC());
 
-	//_enemy->render(_pCamera->getMemDC());
+	_enemy->render(_pCamera->getMemDC());
 
 	//pCamera->getCameraBuffer()->render(getMemDC(), 0, 0, 200, 200, 800, 600);
 	////getMemDc 대신 뭐 넣을때는 pCamera->getMemDc()를 쓰세요.
