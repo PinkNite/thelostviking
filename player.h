@@ -42,6 +42,7 @@ public:
 	void moveUp();
 	void moveDown();
 
+	void resetSpeed();
 
 	void useSkillOne();
 	void useSkillTwo();

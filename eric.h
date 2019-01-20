@@ -71,4 +71,7 @@ public:
 	void	callbackEricHading();//해딩후 나올수 있는 것들
 	void	callbackEricStun();//스턴후
 	void	callbackEricBreath();
+
+
+
 };

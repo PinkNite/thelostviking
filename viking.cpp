@@ -65,12 +65,24 @@ void VIKING::setImage(image * pImage)
 
 void VIKING::moveLeft(float acceleration)
 {
+
+	if (_speed + acceleration <= _maxSpeed)
+	{
+		_speed += acceleration;
+	}
+
 	float fDistance = Mins::presentPowerX(0.0f, _speed) * TIMEMANAGER->getElpasedTime();
 	OBJECT::setPosX(OBJECT::getPosX() - fDistance);
 }
 
 void VIKING::moveRight(float acceleration)
 {
+	
+	if (_speed + acceleration <= _maxSpeed)
+	{
+		_speed += acceleration;
+	}
+
 	float fDistance = -(Mins::presentPowerX(PI, _speed) * TIMEMANAGER->getElpasedTime());
 	OBJECT::setPosX(OBJECT::getPosX() + fDistance);
 }
@@ -85,6 +97,11 @@ void VIKING::moveDown(float acceleration)
 {
 	float fDistance = Mins::presentPowerY(PI2 - PI / 2.0f, _speed) * TIMEMANAGER->getElpasedTime();
 	OBJECT::setPosY(OBJECT::getPosY() + fDistance);
+}
+
+void VIKING::resetSpeed()
+{
+	_speed = _minSpeed;
 }
 
 //점프는 에릭에서해야한다!!!!

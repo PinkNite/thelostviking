@@ -68,12 +68,28 @@ int PLAYER::getLeft()
 
 void PLAYER::moveLeft()
 {
-	_pViking[_nCurrentViking]->moveLeft(0.0f);
+	float	acceleration = 0.0f;
+	if (_nCurrentViking == static_cast<int>(VIKINGNAME::ERIC))
+	{
+		acceleration = 500.0f * TIMEMANAGER->getElpasedTime();
+	}
+	else {
+		acceleration = 0.0f;
+	}
+	_pViking[_nCurrentViking]->moveLeft(acceleration);
 }
 
 void PLAYER::moveRight()
 {
-	_pViking[_nCurrentViking]->moveRight(0.0f);
+	float	acceleration = 0.0f;
+	if (_nCurrentViking == static_cast<int>(VIKINGNAME::ERIC))
+	{
+		acceleration = 500.0f * TIMEMANAGER->getElpasedTime();
+	}
+	else {
+		acceleration = 0.0f;
+	}
+	_pViking[_nCurrentViking]->moveRight(acceleration);
 }
 
 void PLAYER::moveUp()
@@ -86,6 +102,11 @@ void PLAYER::moveDown()
 {
 	_pViking[_nCurrentViking]->moveDown(0.0f);
 
+}
+
+void PLAYER::resetSpeed()
+{
+	_pViking[_nCurrentViking]->resetSpeed();
 }
 
 
