@@ -23,7 +23,7 @@ public:
 	virtual void skillOne() override;
 	virtual void skillTwo() override;
 
-
+	
 private:
 	void	initKeyAnimation();
 	string	addString(string direction, string live, string action);
@@ -53,9 +53,14 @@ private:
 
 	void	settingAniArray(int startFrame, int length);
 
+
 private:
 	void	setFallOut();
 	void	setAnimation(VIKING::DIRECTION direction, VIKING::LIFE life, VIKING::STATE state, int behavior);
+	virtual void	setMovingAnimation(int direction) override;
+	virtual	void	setStopAnimation() override;
+
+
 
 public:
 	//여러가지 상태로 변하는 애들은 여기서 처리한다.

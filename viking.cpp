@@ -65,26 +65,31 @@ void VIKING::setImage(image * pImage)
 
 void VIKING::moveLeft(float acceleration)
 {
+	if (DIRECTION::LEFT == static_cast<DIRECTION>(_direction)) {
 
-	if (_speed + acceleration <= _maxSpeed)
-	{
-		_speed += acceleration;
+		if (_speed + acceleration <= _maxSpeed)
+		{
+			_speed += acceleration;
+		}
+
+		float fDistance = Mins::presentPowerX(0.0f, _speed) * TIMEMANAGER->getElpasedTime();
+		OBJECT::setPosX(OBJECT::getPosX() - fDistance);
 	}
 
-	float fDistance = Mins::presentPowerX(0.0f, _speed) * TIMEMANAGER->getElpasedTime();
-	OBJECT::setPosX(OBJECT::getPosX() - fDistance);
 }
 
 void VIKING::moveRight(float acceleration)
 {
-	
-	if (_speed + acceleration <= _maxSpeed)
+	if (DIRECTION::RIGHT == static_cast<DIRECTION>(_direction))
 	{
-		_speed += acceleration;
+		if (_speed + acceleration <= _maxSpeed)
+		{
+			_speed += acceleration;
+		}
+		float fDistance = -(Mins::presentPowerX(PI, _speed) * TIMEMANAGER->getElpasedTime());
+		OBJECT::setPosX(OBJECT::getPosX() + fDistance);
 	}
 
-	float fDistance = -(Mins::presentPowerX(PI, _speed) * TIMEMANAGER->getElpasedTime());
-	OBJECT::setPosX(OBJECT::getPosX() + fDistance);
 }
 
 void VIKING::moveUp(float acceleration)
@@ -122,3 +127,15 @@ void VIKING::skillTwo()
 }
 
 //애니메이션은 체크는 안에서 어떻게든 처리하자!!!!!!!!!!!!!!!!!!
+void VIKING::setMovingAnimation(int direction)
+{
+	//아이들 상태라면 걸으라고 하고
+	//
+
+	
+}
+
+void VIKING::setStopAnimation()
+{
+	
+}

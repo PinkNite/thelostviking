@@ -75,3 +75,4 @@ bool keyManager::isToggleKey(int key)
 
 	return false;
 }
+

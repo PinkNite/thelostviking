@@ -20,14 +20,13 @@ void INPUTMANAGER::update()
 	//왼쪽 이동 중
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		{
-			_pPlayer->moveLeft();
-		}
+		
+		_pPlayer->moveLeft();
 	}
 	//왼쪽 이동 해제
 	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{
-
+		_pPlayer->setStopAnimation();
 	}
 
 	//오른쪽 이동 시작
@@ -38,14 +37,11 @@ void INPUTMANAGER::update()
 	//오른쪽 이동 중
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
-
 		_pPlayer->moveRight();
-
-
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 	{
-
+		_pPlayer->setStopAnimation();
 	}
 
 	//사다리는 플레이어 상태가 어떻든 하이제깅해야한다.

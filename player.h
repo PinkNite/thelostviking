@@ -47,4 +47,6 @@ public:
 	void useSkillOne();
 	void useSkillTwo();
 
+	void setMovingAnimation(int direction);
+	void setStopAnimation();
 };

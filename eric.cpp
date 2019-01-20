@@ -426,6 +426,8 @@ void ERIC::settingAniArray(int startFrame, int length)
 	}
 }
 
+
+
 void ERIC::setFallOut()
 {
 	if (VIKING::_direction == static_cast<int>(VIKING::DIRECTION::LEFT))
@@ -449,6 +451,32 @@ void ERIC::setAnimation(VIKING::DIRECTION direction, VIKING::LIFE life, VIKING::
 	VIKING::_life = static_cast<int>(life);
 	VIKING::_state = static_cast<int>(state);
 	VIKING::_behavior = behavior;
+}
+
+void ERIC::setMovingAnimation(int direction)
+{
+	if (VIKING::STATE::IDLE == static_cast<VIKING::STATE>(_state))
+	{
+		setAnimation(static_cast<VIKING::DIRECTION>(direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::RUN));
+	}
+	else if (direction != VIKING::_direction && static_cast<int>(VIKING::ACTION::RUN) != _behavior) {
+		if (direction == static_cast<int>(VIKING::DIRECTION::LEFT))
+		{
+			setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::RUN));
+
+		}
+		else {
+			setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::RUN));
+		}
+	}
+}
+
+void ERIC::setStopAnimation()
+{
+	if (static_cast<int>(VIKING::ACTION::RUN) == _behavior) {
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::SPECIAL));
+	}
+
 }
 
 void ERIC::callbackRun(void *obj)

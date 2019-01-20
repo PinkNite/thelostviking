@@ -77,10 +77,13 @@ void PLAYER::moveLeft()
 		acceleration = 0.0f;
 	}
 	_pViking[_nCurrentViking]->moveLeft(acceleration);
+	setMovingAnimation(static_cast<int>(VIKING::DIRECTION::LEFT));
+
 }
 
 void PLAYER::moveRight()
 {
+
 	float	acceleration = 0.0f;
 	if (_nCurrentViking == static_cast<int>(VIKINGNAME::ERIC))
 	{
@@ -90,6 +93,8 @@ void PLAYER::moveRight()
 		acceleration = 0.0f;
 	}
 	_pViking[_nCurrentViking]->moveRight(acceleration);
+	setMovingAnimation(static_cast<int>(VIKING::DIRECTION::RIGHT));
+
 }
 
 void PLAYER::moveUp()
@@ -118,4 +123,14 @@ void PLAYER::useSkillOne()
 void PLAYER::useSkillTwo()
 {
 	_pViking[_nCurrentViking]->skillTwo();
+}
+
+void PLAYER::setMovingAnimation(int direction)
+{
+	_pViking[_nCurrentViking]->setMovingAnimation(direction);
+}
+
+void PLAYER::setStopAnimation()
+{
+	_pViking[_nCurrentViking]->setStopAnimation();
 }

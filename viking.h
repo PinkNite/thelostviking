@@ -141,4 +141,6 @@ public:
 	virtual void skillOne();
 	virtual void skillTwo();
 
+	virtual void	setMovingAnimation(int direction)	;
+	virtual	void	setStopAnimation()					;
 };
