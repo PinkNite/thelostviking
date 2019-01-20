@@ -13,13 +13,12 @@ PLAYER::~PLAYER()
 void PLAYER::init()
 {
 	//바이킹들 초기화
-	_pViking[static_cast<const int>(VIKING::ERIC)] = new ERIC();
-	_pViking[static_cast<const int>(VIKING::ERIC)]->init(610, 610, 64, 64);
-
+	_pViking[static_cast<const int>(VIKINGNAME::ERIC)] = new ERIC();
+	_pViking[static_cast<const int>(VIKINGNAME::ERIC)]->init(610, 610, 64, 64);
 
 
 	//처음 시작 바이킹 설정
-	_nCurrentViking = static_cast<int>(VIKING::ERIC);
+	_nCurrentViking = static_cast<int>(VIKINGNAME::ERIC);
 }
 
 void PLAYER::update()
@@ -69,39 +68,24 @@ int PLAYER::getLeft()
 
 void PLAYER::moveLeft()
 {
-	_pViking[_nCurrentViking]->moveLeft();
+	_pViking[_nCurrentViking]->moveLeft(0.0f);
 }
 
 void PLAYER::moveRight()
 {
-	_pViking[_nCurrentViking]->moveRight();
+	_pViking[_nCurrentViking]->moveRight(0.0f);
 }
 
 void PLAYER::moveUp()
 {
-	_pViking[_nCurrentViking]->moveUp();
+	_pViking[_nCurrentViking]->moveUp(0.0f);
 
 }
 
 void PLAYER::moveDown()
 {
-	_pViking[_nCurrentViking]->moveDown();
+	_pViking[_nCurrentViking]->moveDown(0.0f);
 
-}
-
-void PLAYER::setMoveStart(bool isMoveStart)
-{
-	_pViking[_nCurrentViking]->setMoveStart(isMoveStart);
-}
-
-float PLAYER::getSpeedX()
-{
-	return _pViking[_nCurrentViking]->getSpeedX();
-}
-
-float PLAYER::getSpeedY()
-{
-	return _pViking[_nCurrentViking]->getSpeedY();
 }
 
 
@@ -113,30 +97,4 @@ void PLAYER::useSkillOne()
 void PLAYER::useSkillTwo()
 {
 	_pViking[_nCurrentViking]->skillTwo();
-}
-
-void PLAYER::setEricState(OBJECT::ERIC_STATE ericState)
-{
-	_pViking[static_cast<int>(PLAYER::VIKING::ERIC)]->setEricState(ericState);
-}
-
-OBJECT::ERIC_STATE PLAYER::getEricState()
-{
-	return _pViking[static_cast<int>(PLAYER::VIKING::ERIC)]->getEricState();
-}
-
-void PLAYER::setEricJumpPower(float power)
-{
-	_pViking[static_cast<int>(PLAYER::VIKING::ERIC)]->setJumpPower(power);
-
-}
-
-void PLAYER::setLadderAni(int nLadderAni)
-{
-	_pViking[_nCurrentViking]->setLadderAni(nLadderAni);
-}
-
-bool PLAYER::getJumping()
-{
-	return _pViking[_nCurrentViking]->getJump();
 }

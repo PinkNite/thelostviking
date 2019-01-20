@@ -11,40 +11,29 @@ ERIC::~ERIC()
 
 void ERIC::init(int posX, int posY, int width, int height)
 {
-	OBJECT::init(posX, posY, width, height);
-	_hp = 3;
-	_itemCount = 0;
-	OBJECT::setImage(IMAGEMANAGER->findImage("eric"));
-	_speed = 100.0f;
-	_state = OBJECT::ERIC_STATE::LEFT_IDLE;
-	initAnimation();
-	_jumpPower = 0.0f;
-	_moveAngleY = 0.0f;
-	_moveAngleX = 0.0f;
-	_offsetX = 0;
-	_offsetY = 0;
-	_movingJump = false;
-	_isDeath = false;
-	_isOnGround = true;
-	_isPreviousLeft = false;
-	_isStartFalldown = false;
-	_falldownTimer = 0;
-	_isJumpimg = false;
+	VIKING::init(posX, posY, static_cast<int>(VIKING_WIDTH), static_cast<int>(VIKING_HEIGHT));
+	for (int i = 0; i < 11; i++)
+	{
+		_arTmpFrame[i] = 0;
+	}
+
+	initKeyAnimation();
+	_jumpingTime = 0.0f;
 }
 
 void ERIC::update()
 {
+	if (VIKING::_behavior == static_cast<int>(VIKING::ACTION::SKILL_TWO))
+	{
+		_jumpingTime += TIMEMANAGER->getElpasedTime();
+	}
 
-	jump();
-	
-	affectGravity();
-	notOut();
-	fallDown();
+	if (_jumpingTime >= 2.0f)
+	{
 
-
+	}
 
 	KEYANIMANAGER->update();
-
 }
 
 void ERIC::release()
@@ -53,492 +42,491 @@ void ERIC::release()
 
 void ERIC::render(HDC hdc)
 {
+	VIKING::getImage()->aniRender(hdc, VIKING::getPosX() - VIKING::getWidth() / 2, VIKING::getPosY() - VIKING::getHeight() / 2, _pAnimation);
 
 
-	OBJECT::getImage()->aniRender(hdc, OBJECT::getPosX() - OBJECT::getWidth() / 2, OBJECT::getPosY() - OBJECT::getHeight() / 2, _pAnimation);
-}
-
-void ERIC::moveLeft()
-{
-
-	if (_isMoveStart)
-	{
-		_speed = _minSpeed;
-		setMoveStart(false);
-		_moveAngleX = 0.0f;
-	}
-
-	_offsetX = (Mins::presentPowerX(_moveAngleX, _speed) * TIMEMANAGER->getElpasedTime());
-	OBJECT::setPosX(OBJECT::getPosX() - _offsetX);
-
-	if (_speed < _maxSpeed)
-	{
-		_speed += _upSpeed;
-	}
-	_isPreviousLeft = true;
-}
-
-void ERIC::moveRight()
-{
-	if (_isMoveStart)
-	{
-		_speed = _minSpeed;
-		setMoveStart(false);
-		_moveAngleX = PI;
-	}
-
-	_offsetX = -(Mins::presentPowerX(_moveAngleX, _speed) * TIMEMANAGER->getElpasedTime());
-	OBJECT::setPosX(OBJECT::getPosX() + _offsetX);
-
-	if (_speed < _maxSpeed)
-	{
-		_speed += _upSpeed;
-	}
-
-	_isPreviousLeft = false;
-}
-
-void ERIC::moveUp()
-{
-	_speed = _minSpeed;
-	_moveAngleY = PI / 2.0f;
-	_offsetY = -(Mins::presentPowerY(_moveAngleY, _speed) * TIMEMANAGER->getElpasedTime());
-	OBJECT::setPosY((OBJECT::getPosY() - _offsetY));
-
-	_pAnimation->setClickVariable(1);
-}
-
-void ERIC::moveDown()
-{
-	_speed = _minSpeed;
-	_moveAngleY = PI2 - PI / 2.0f;
-	_offsetY = Mins::presentPowerY(_moveAngleY, _speed) * TIMEMANAGER->getElpasedTime();
-	OBJECT::setPosY((OBJECT::getPosY() + _offsetY));
-
-	_pAnimation->setClickVariable(-1);
-}
-
-void ERIC::jump()
-{
-	if (!_isJumpimg)return;
-
-	_posY += _jumpPower;
-	if (_jumpAngle <= PI2 - PI / 2.0f)
-	{
-		_jumpAngle += PI2 / 90.0f;
-	}
-
-	_jumpPower = Mins::presentPowerY(_jumpAngle, _upPower)*TIMEMANAGER->getElpasedTime();
-	_offsetY = _jumpPower;
-
-	if (_state == OBJECT::ERIC_STATE::LEFT_JUMP && _movingJump)
-	{
-		//moveLeft();
-	}
-	else if (_state == OBJECT::ERIC_STATE::RIGHT_JUMP&& _movingJump)
-	{
-		//moveRight();
-	}
-
-	//땅 착지하면 점핑을 false로 바꾸어야 하는데 지금 바닥이 없다 픽셀충돌 그렇기에 기존 위치를 받아서 임시로 처리하겠다.
-	if (_posY >= _startPosY)
-	{
-		_posY = _startPosY;
-		_isJumpimg = false;
-
-
-		if (_state == OBJECT::ERIC_STATE::LEFT_JUMP  && KEYMANAGER->isStayKeyDown(VK_LEFT))
-		{
-			setEricState(OBJECT::ERIC_STATE::LEFT_RUN);
-		}
-		else if (_state == OBJECT::ERIC_STATE::LEFT_JUMP)
-		{
-			setEricState(OBJECT::ERIC_STATE::LEFT_IDLE);
-		}
-		else if (_state == OBJECT::ERIC_STATE::RIGHT_JUMP && KEYMANAGER->isStayKeyDown(VK_RIGHT))
-		{
-			setEricState(OBJECT::ERIC_STATE::RIGHT_RUN);
-		}
-		else if (_state == OBJECT::ERIC_STATE::RIGHT_JUMP)
-		{
-			setEricState(OBJECT::ERIC_STATE::RIGHT_IDLE);
-
-		}
-
-		_movingJump = false;
-	}
-}
-
-float ERIC::getSpeedX()
-{
-	return _offsetX;
-}
-
-float ERIC::getSpeedY()
-{
-	return _offsetY;
-}
-
-
-
-void ERIC::initAnimation()
-{
-	initAniFrame();
-	KEYANIMANAGER->addObject("eric");
-	for (int i = 0; i < static_cast<int>(OBJECT::ERIC_STATE::MAX); i++)
-	{
-		if (static_cast<int>(OBJECT::ERIC_STATE::LEFT_FALLDOWN) == i ||
-			static_cast<int>(OBJECT::ERIC_STATE::RIGHT_FALLDOWN) == i)
-		{
-			KEYANIMANAGER->addArrayFrameAnimation("eric", _arStrAniState[i], "eric", _vAniFrame[i], 1, 1, _arIsLoop[i]);
-
-		}
-		else {
-			KEYANIMANAGER->addArrayFrameAnimation("eric", _arStrAniState[i], "eric", _vAniFrame[i], _arAniFrameCount[i], 10, _arIsLoop[i]);
-
-		}
-	}
-	KEYANIMANAGER->findAnimation("eric", _arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::ON_LADDER_OVER)])->setClickRender(TRUE);
-	KEYANIMANAGER->findAnimation("eric", _arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::ON_LADDER)])->setClickRender(TRUE);
-
-	_pAnimation = KEYANIMANAGER->findAnimation("eric", _arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_IDLE)]);
-	_pAnimation->start();
-}
-
-void ERIC::initAniFrame()
-{
-	//아이들 순간이동 공포
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_IDLE)] = "RIGHT_IDLE";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_IDLE)] = 2;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_IDLE)] = "LEFT_IDLE";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_IDLE)] = 2;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_TELEPORT)] = "RIGHT_TELEPORT";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_TELEPORT)] = 7;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_TELEPORT)] = "LEFT_TELEPORT";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_TELEPORT)] = 7;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_AFFRIGHT)] = "RIGHT_AFFRIGHT";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_AFFRIGHT)] = 3;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_AFFRIGHT)] = "LEFT_AFFRIGHT";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_AFFRIGHT)] = 3;
-
-	//달리기 해딩 해딩스턴
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_RUN)] = "RIGHT_RUN";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_RUN)] = 8;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_RUN)] = "LEFT_RUN";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_RUN)] = 8;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_HADING)] = "RIGHT_HADING";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_HADING)] = 8;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_HADING)] = "LEFT_HADING";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_HADING)] = 8;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_HADING_STUN)] = "RIGHT_HADING_STUN";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_HADING_STUN)] = 11;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_HADING_STUN)] = "LEFT_HADING_STUN";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_HADING_STUN)] = 11;
-
-	//점프 한숨 사다리 밀기
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_JUMP)] = "RIGHT_JUMP";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_JUMP)] = 4;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_JUMP)] = "LEFT_JUMP";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_JUMP)] = 4;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_SIGN)] = "RIGHT_SIGN";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_SIGN)] = 3;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_SIGN)] = "LEFT_SIGN";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_SIGN)] = 3;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::ON_LADDER)] = "ON_LADDER";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::ON_LADDER)] = 4;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::ON_LADDER_OVER)] = "ON_LADDER_OVER";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::ON_LADDER_OVER)] = 2;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_PUSH)] = "RIGHT_PUSH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_PUSH)] = 4;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_PUSH)] = "LEFT_PUSH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_PUSH)] = 4;
-
-	//땅구르기 아이들 풍선아이들 기타아이들
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_FOOT_ROLL)] = "RIGHT_FOOT_ROLL";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_FOOT_ROLL)] = 3;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_FOOT_ROLL)] = "LEFT_FOOT_ROLL";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_FOOT_ROLL)] = 3;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_BOOLEAN)] = "RIGHT_BOOLEAN";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_BOOLEAN)] = 3;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_BOOLEAN)] = "LEFT_BOOLEAN";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_BOOLEAN)] = 3;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_GUITAR)] = "RIGHT_GUITAR";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_GUITAR)] = 3;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_GUITAR)] = "LEFT_GUITAR";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_GUITAR)] = 3;
-
-	//떨어지다
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_FALLDOWN)] = "RIGHT_FALLDOWN";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_FALLDOWN)] = 2;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_FALLDOWN)] = "LEFT_FALLDOWN";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_FALLDOWN)] = 2;
-
-	//죽음 고민중 다같으니 한번에 처리?
-	//스켈 물 전기
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_SKELETON_DEATH)] = "RIGHT_SKELETON_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_SKELETON_DEATH)] = 8;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_SKELETON_DEATH)] = "LEFT_SKELETON_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_SKELETON_DEATH)] = 8;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_WATER_DEATH)] = "RIGHT_WATER_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_WATER_DEATH)] = 5;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_WATER_DEATH)] = "LEFT_WATER_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_WATER_DEATH)] = 5;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_ELECTRIC_DEATH)] = "RIGHT_ELECTRIC_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_ELECTRIC_DEATH)] = 2;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_ELECTRIC_DEATH)] = "LEFT_ELECTRIC_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_ELECTRIC_DEATH)] = 2;
-
-	//불 프레스 빠짐 떨어짐 레이저
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_FIRE_DEATH)] = "RIGHT_FIRE_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_FIRE_DEATH)] = 8;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_FIRE_DEATH)] = "LEFT_FIRE_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_FIRE_DEATH)] = 8;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_PRESS_DEATH)] = "RIGHT_PRESS_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_PRESS_DEATH)] = 4;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_PRESS_DEATH)] = "LEFT_PRESS_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_PRESS_DEATH)] = 4;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_FALLIN_DEATH)] = "RIGHT_FALLIN_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_FALLIN_DEATH)] = 7;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_FALLIN_DEATH)] = "LEFT_FALLIN_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_FALLIN_DEATH)] = 7;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_FALLDOWN_DEATH)] = "RIGHT_FALLDOWN_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_FALLDOWN_DEATH)] = 6;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_FALLDOWN_DEATH)] = "LEFT_FALLDOWN_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_FALLDOWN_DEATH)] = 6;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_LAZER_DEATH)] = "RIGHT_LAZER_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::RIGHT_LAZER_DEATH)] = 7;
-
-	_arStrAniState[static_cast<int>(OBJECT::ERIC_STATE::LEFT_LAZER_DEATH)] = "LEFT_LAZER_DEATH";
-	_arAniFrameCount[static_cast<int>(OBJECT::ERIC_STATE::LEFT_LAZER_DEATH)] = 7;
-
-	int nTmp = 0;
-
-
-	for (int i = 0; i < static_cast<int>(OBJECT::ERIC_STATE::MAX); i++)
-	{
-		_vAniFrame.push_back(new int[_arAniFrameCount[i]]);
-		for (int j = 0; j < _arAniFrameCount[i]; j++)
-		{
-			_vAniFrame[i][j] = nTmp;
-			nTmp++;
-		}
-	}
-
-
-	for (int i = 0; i < static_cast<int>(OBJECT::ERIC_STATE::MAX); i++)
-	{
-		_arIsLoop[i] = false;
-	}
-	_arIsLoop[0] = true;
-	_arIsLoop[1] = true;
-	_arIsLoop[6] = true;
-	_arIsLoop[7] = true;
-	_arIsLoop[14] = true;
-	_arIsLoop[15] = true;
-	_arIsLoop[17] = true;
-	_arIsLoop[18] = true;
-	_arIsLoop[29] = true;
-	_arIsLoop[30] = true;
-	_arIsLoop[35] = true;
-	_arIsLoop[36] = true;
 }
 
 void ERIC::skillOne()
 {
-	if (_isJumpimg) return;
-	_startPosY = _posY;
-	_jumpAngle = PI / 2.0f;
-	_upPower = 500.0f;
-	_jumpPower = Mins::presentPowerY(_jumpAngle, _upPower)*TIMEMANAGER->getElpasedTime();
-	_turn = -1;
-
-	if (_state == OBJECT::ERIC_STATE::LEFT_RUN)
-	{
-		_movingJump = true;
-		setEricState(OBJECT::ERIC_STATE::LEFT_JUMP);
-	}
-	else if (_state == OBJECT::ERIC_STATE::LEFT_IDLE)
-	{
-		setEricState(OBJECT::ERIC_STATE::LEFT_JUMP);
-
-	}
-	else if (_state == OBJECT::ERIC_STATE::RIGHT_RUN)
-	{
-		_movingJump = true;
-
-		setEricState(OBJECT::ERIC_STATE::RIGHT_JUMP);
-	}
-	else if (_state == OBJECT::ERIC_STATE::RIGHT_IDLE)
-	{
-		setEricState(OBJECT::ERIC_STATE::RIGHT_JUMP);
-
-	}
-	else if (_state == OBJECT::ERIC_STATE::ON_LADDER || _state == OBJECT::ERIC_STATE::ON_LADDER_OVER)
-	{
-		if (_isPreviousLeft)
-		{
-			setEricState(OBJECT::ERIC_STATE::LEFT_JUMP);
-		}
-		else
-		{
-			setEricState(OBJECT::ERIC_STATE::RIGHT_JUMP);
-		}
-	}
-	setJumping(true);
 }
 
 void ERIC::skillTwo()
 {
-	if (_state == OBJECT::ERIC_STATE::LEFT_RUN)
+	_jumpingTime = 0.0f;
+}
+
+void ERIC::initKeyAnimation()
+{
+	VIKING::setImage(IMAGEMANAGER->findImage("eric"));
+	KEYANIMANAGER->addObject("eric");
+	VIKING::_pAnimation;
+
+
+	//애니메이션 삽입
+	addRightAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::IDLE)][static_cast<int>(VIKING::IDLE::NORMAL)],
+		0, 2, 1, true);
+	addLeftAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::IDLE)][static_cast<int>(VIKING::IDLE::NORMAL)],
+		2, 2, 1, true);
+
+	addRightAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::TELEPORT)],
+		4, 7, 3, false);
+	addLeftAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::TELEPORT)],
+		11, 7, 3, false);
+
+	addRightAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::DAMEGE)],
+		18, 3, 1, false);
+	addLeftAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::DAMEGE)],
+		21, 3, 1, false);
+
+	addRightAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::DAMEGE)],
+		18, 3, 1, false);
+	addLeftAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::DAMEGE)],
+		21, 3, 1, false);
+
+	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::RUN),
+		24, 8, 10, true);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::RUN),
+		32, 8, 10, true);
+
+	addRightAliveAnimationCoordinate(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE),
+		40, 8, 10, true, false, callbackHading);
+	addLeftAliveAnimationCoordinate(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE),
+		48, 8, 10, true, false, callbackHading);
+
+	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::STUN),
+		56, 11, 10, false, callbackStun);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::STUN),
+		67, 11, 10, false, callbackStun);
+
+	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO),
+		78, 4, 10, false, callbackJump);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO),
+		82, 4, 10, false, callbackJump);
+
+	addRightAliveAnimation(VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::SPECIAL),
+		86, 3, 2, false, 3, callbackBreath);
+	addLeftAliveAnimation(VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::SPECIAL),
+		89, 3, 2, false, 3, callbackBreath);
+
+	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER),
+		92, 4, 1, true);
+	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER_OVER),
+		96, 2, 1, true);
+
+	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER),
+		92, 4, 1, true);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER_OVER),
+		96, 2, 1, true);
+
+	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::PUSH),
+		98, 4, 5, true);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::PUSH),
+		102, 4, 5, true);
+
+	addLeftAliveAnimation(VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::FAT),
+		112, 3, 5, true);
+	addLeftAliveAnimation(VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::FAT),
+		115, 3, 5, true);
+
+	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN),
+		178, 1, 100, true);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN),
+		180, 1, 100, true);
+
+
+	//KEYANIMANAGER->findAnimation("eric",
+	//	addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+	//		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+	//		VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER)]))->setClickRender(true);
+
+	//KEYANIMANAGER->findAnimation("eric",
+	//	addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+	//		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+	//		VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER)]))->setClickRender(true);
+	//
+	//KEYANIMANAGER->findAnimation("eric",
+	//	addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+	//		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+	//		VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)]))->setClickRender(true);
+
+	//KEYANIMANAGER->findAnimation("eric",
+	//	addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+	//		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+	//		VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)]))->setClickRender(true);
+
+
+
+
+	//애니메이션이 끝나고 아니고로 결정되는 것들과
+	//키입력으로 변하는것을 생각해야한다.
+
+
+	setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+
+
+	//좌우 이동 놓을때 아이들상태였으면 아이들?
+	//하지만 액션이었을때는 아이들이나 액션으로
+	//해딩 -> 스턴 -> 아이들
+	//달리기 -> 한숨 or 해딩
+	//점프 -> 아이들 or 달리기 or 떨어지기
+	//떨어지기 -> 스턴 -> 아이들
+
+}
+
+string ERIC::addString(string direction, string live, string action)
+{
+	string strTmp = "";
+
+	strTmp += direction;
+	strTmp += "_";
+	strTmp += live;
+	strTmp += "_";
+	strTmp += action;
+	return strTmp;
+}
+
+void ERIC::addKeyAnimation(VIKING::DIRECTION direction, VIKING::LIFE life, string action, int startFrame, int length, int fps, bool isLoop)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(direction)], VIKING::_arLive[static_cast<int>(life)], action);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop);
+
+}
+
+void ERIC::addLeftAliveAnimation(string action, int startFrame, int length, int fps, bool isLoop)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)], action);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+	KEYANIMANAGER->addArrayFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop);
+}
+void ERIC::addRightAliveAnimation(string action, int startFrame, int length, int fps, bool isLoop)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)], action);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop);
+}
+void ERIC::addLeftDeathAnimation(string action, int startFrame, int length, int fps, bool isLoop)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::DEATH)], action);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop);
+}
+void ERIC::addRightDeathAnimation(string action, int startFrame, int length, int fps, bool isLoop)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::DEATH)], action);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop);
+}
+void ERIC::addLeftAliveAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop);
+}
+void ERIC::addRightAliveAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop);
+}
+void ERIC::addLeftDeathAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::DEATH)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop);
+}
+void ERIC::addRightDeathAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::DEATH)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop);
+}
+
+void ERIC::addLeftAliveAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, void * pCallBack)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop, pCallBack, this);
+
+}
+void ERIC::addRightAliveAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, void * pCallBack)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop, pCallBack, this);
+}
+void ERIC::addLeftDeathAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, void * pCallBack)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::DEATH)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop, pCallBack, this);
+}
+void ERIC::addRightDeathAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, void * pCallBack)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::DEATH)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop, pCallBack, this);
+}
+void ERIC::addLeftAliveAnimationCoordinate(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isReverse, bool isLoop, void * pCallBack)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addCoordinateFrameAnimation("eric", strTmp, "eric", _arTmpFrame[0], _arTmpFrame[length - 1], fps, isReverse, isLoop, pCallBack, this);
+}
+void ERIC::addRightAliveAnimationCoordinate(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isReverse, bool isLoop, void * pCallBack)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addCoordinateFrameAnimation("eric", strTmp, "eric", _arTmpFrame[0], _arTmpFrame[length - 1], fps, isReverse, isLoop, pCallBack, this);
+}
+
+void ERIC::addLeftAliveAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, int loopCount, void * pCallBack)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayCoordinateFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop, loopCount, pCallBack, this);
+}
+
+void ERIC::addRightAliveAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, int loopCount, void * pCallBack)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayCoordinateFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop, loopCount, pCallBack, this);
+}
+
+void ERIC::addLeftDeathAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, int loopCount, void * pCallBack)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::DEATH)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayCoordinateFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop, loopCount, pCallBack, this);
+}
+
+void ERIC::addRightDeathAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, int loopCount, void * pCallBack)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::DEATH)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addArrayCoordinateFrameAnimation("eric", strTmp, "eric", _arTmpFrame, length, fps, isLoop, loopCount, pCallBack, this);
+}
+
+void ERIC::settingAniArray(int startFrame, int length)
+{
+	int frame = startFrame;
+	for (int i = 0; i < length; i++)
 	{
-		setEricState(OBJECT::ERIC_STATE::LEFT_HADING);
+		_arTmpFrame[i] = frame;
+		frame++;
 	}
-	else if (_state == OBJECT::ERIC_STATE::RIGHT_RUN)
+}
+
+void ERIC::setFallOut()
+{
+	if (VIKING::_direction == static_cast<int>(VIKING::DIRECTION::LEFT))
 	{
-		setEricState(OBJECT::ERIC_STATE::RIGHT_HADING);
-	}
-}
-
-OBJECT::ERIC_STATE ERIC::getEricState()
-{
-	return _state;
-}
-
-void ERIC::setEricState(OBJECT::ERIC_STATE ericState)
-{
-	_state = ericState;
-	_pAnimation = KEYANIMANAGER->findAnimation("eric", _arStrAniState[static_cast<int>(_state)]);
-	_pAnimation->start();
-}
-
-void ERIC::setJumpPower(float power)
-{
-	_upPower = power;
-}
-
-void ERIC::setLadderAni(int nLadderAni)
-{
-	_pAnimation->setClickVariable(nLadderAni);
-}
-
-void ERIC::notOut()
-{
-	//여기는 임시 코드입니다. 픽셀 충돌이 없기에 넣어진 코드입니다.
-	if (_posY >= MAPSIZEY- 100)
-	{
-		_posY = MAPSIZEY - 100;
-
-		if (!_isOnGround)
-		{
-			if (_isPreviousLeft && _state == OBJECT::ERIC_STATE::LEFT_FALLDOWN)
-			{
-				setEricState(OBJECT::ERIC_STATE::LEFT_HADING_STUN);
-			}
-			else if (!_isPreviousLeft && _state == OBJECT::ERIC_STATE::RIGHT_FALLDOWN) {
-				setEricState(OBJECT::ERIC_STATE::RIGHT_HADING_STUN);
-			}
-			else if (_isPreviousLeft) {
-				setEricState(OBJECT::ERIC_STATE::LEFT_IDLE);
-			}
-			else if (!_isPreviousLeft) {
-				setEricState(OBJECT::ERIC_STATE::RIGHT_IDLE);
-			}
-		}
-
-
-		_isOnGround = true;
-
+		setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN));
 	}
 	else {
-		_isOnGround = false;
+		setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN));
 	}
+}
+
+void ERIC::setAnimation(VIKING::DIRECTION direction, VIKING::LIFE life, VIKING::STATE state, int behavior)
+{
+	VIKING::_pAnimation = KEYANIMANAGER->findAnimation("eric",
+		addString(VIKING::_arDirection[static_cast<int>(direction)],
+			VIKING::_arLive[static_cast<int>(life)],
+			VIKING::_vBehavior[static_cast<int>(state)][behavior]));
+
+	VIKING::_pAnimation->start();
+	VIKING::_direction = static_cast<int>(direction);
+	VIKING::_life = static_cast<int>(life);
+	VIKING::_state = static_cast<int>(state);
+	VIKING::_behavior = behavior;
+}
+
+void ERIC::callbackRun(void *obj)
+{
+	//해딩
+	//아이들
+	//점프
+	//한숨
+}
+
+void ERIC::callbackJump(void *obj)
+{
+
+	ERIC* pEric = (ERIC*)obj;
+	pEric->callbackEricJump();
 
 }
 
-void ERIC::affectGravity()
+void ERIC::callbackHading(void *obj)
 {
-	if (_state != OBJECT::ERIC_STATE::ON_LADDER &&
-		_state != OBJECT::ERIC_STATE::ON_LADDER_OVER && 
-		!_isDeath &&
-		!_isOnGround)
+	//스턴
+	//달리기
+	//한숨아이들
+}
+
+void ERIC::callbackStun(void * obj)
+{
+	ERIC* pEric = (ERIC*)obj;
+	pEric->callbackEricStun();
+}
+
+void ERIC::callbackBreath(void * obj)
+{
+	//한숨쉰후 아이들 복귀
+	ERIC* pEric = (ERIC*)obj;
+	pEric->callbackEricBreath();
+}
+
+void ERIC::callbackEricRun()
+{
+}
+
+void ERIC::callbackEricJump()
+{
+	//달리기
+	//아이들
+	//떨어지기
+	//아이들로 바꾸고 달리게 한다?
+
+
+
+}
+
+void ERIC::callbackEricHading()
+{
+}
+
+void ERIC::callbackEricStun()
+{
+	//스턴후 아이들
+	if (VIKING::_direction == static_cast<int>(VIKING::DIRECTION::LEFT))
 	{
-		_falldownTimer += TIMEMANAGER->getElpasedTime();
-
-		_posY += _gravity * TIMEMANAGER->getElpasedTime();
-
-		if (_isStartFalldown)
-		{
-			_isStartFalldown = false;
-			if (_isPreviousLeft)
-			{
-				setEricState(OBJECT::ERIC_STATE::LEFT_JUMP);
-			}
-			else {
-				setEricState(OBJECT::ERIC_STATE::RIGHT_JUMP);
-			}
-		}
+		setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
 	else {
-		_falldownTimer = 0;
-
+		setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
 }
 
-void ERIC::fallDown()
+void ERIC::callbackEricBreath()
 {
-
-
-	if (_falldownTimer > 2 &&
-		_state != OBJECT::ERIC_STATE::LEFT_JUMP &&
-		_state != OBJECT::ERIC_STATE::RIGHT_JUMP)
+	//스턴후 아이들
+	if (VIKING::_direction == static_cast<int>(VIKING::DIRECTION::LEFT))
 	{
-		if(_isPreviousLeft)
-		{
-			setEricState(OBJECT::ERIC_STATE::LEFT_FALLDOWN);
-		}
-		else {
-			setEricState(OBJECT::ERIC_STATE::RIGHT_FALLDOWN);
-		}
+		setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
-}
+	else {
+		setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+	}
 
-bool ERIC::getJump()
-{
-	return _isJumpimg;
 }

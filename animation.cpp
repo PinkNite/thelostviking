@@ -10,7 +10,7 @@ animation::animation()
 	_elapsedSec(0),
 	_nowPlayIndex(0),
 	_play(FALSE)
-	
+
 {
 }
 
@@ -69,7 +69,7 @@ void animation::setDefPlayFrame(BOOL reverse, BOOL loop)
 				_playList.push_back(i);
 			}
 
-			for (int i = _frameNum - 1; i >= 0 ; --i)
+			for (int i = _frameNum - 1; i >= 0; --i)
 			{
 				_playList.push_back(i);
 			}
@@ -617,6 +617,61 @@ void animation::setPlayFrame(int start, int end, BOOL reverse, BOOL loop, CALLBA
 	}
 }
 
+void animation::setPlayFrame(int * playArr, int arrLen, BOOL loop, int loopCount)
+{
+	_obj = NULL;
+	_callbackFunction = NULL;
+	_callbackFunctionParameter = NULL;
+
+	_loop = loop;
+
+	_playList.clear();
+	for (int j = 0; j < loopCount; j++)
+	{
+		for (int i = 0; i < arrLen; i++)
+		{
+			_playList.push_back(playArr[i]);
+		}
+	}
+}
+
+void animation::setPlayFrame(int * playArr, int arrLen, BOOL loop, int loopCount, CALLBACK_FUNCTION cbFunction)
+{
+	_obj = NULL;
+	_callbackFunction = cbFunction;
+	_callbackFunctionParameter = NULL;
+
+	_loop = loop;
+
+	_playList.clear();
+	for (int j = 0; j < loopCount; j++)
+	{
+		for (int i = 0; i < arrLen; i++)
+		{
+			_playList.push_back(playArr[i]);
+		}
+	}
+
+}
+
+void animation::setPlayFrame(int * playArr, int arrLen, BOOL loop, int loopCount, CALLBACK_FUNCTION_PARAMETER cbFunction, void * obj)
+{
+	_obj = obj;
+	_callbackFunction = NULL;
+	_callbackFunctionParameter = cbFunction;
+
+	_loop = loop;
+
+	_playList.clear();
+	for (int j = 0; j < loopCount; j++)
+	{
+		for (int i = 0; i < arrLen; i++)
+		{
+			_playList.push_back(playArr[i]);
+		}
+	}
+}
+
 void animation::setFPS(int framePerSec)
 {
 	_frameUpdateSec = 1.0f / framePerSec;
@@ -694,7 +749,7 @@ void animation::stop()
 void animation::pause()
 {
 	_play = FALSE;
-	
+
 }
 
 void animation::resume()

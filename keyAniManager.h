@@ -44,6 +44,13 @@ public:
 	void addArrayFrameAnimation(string strObjectKey, string animationKeyName, const char* imageKeyName, int* arr, int arrLen, int fps, bool loop, void* cbFunction);
 	void addArrayFrameAnimation(string strObjectKey, string animationKeyName, const char* imageKeyName, int* arr, int arrLen, int fps, bool loop, void* cbFunction, void* obj);
 
+	//배열 구간 애니메이션
+	void addArrayCoordinateFrameAnimation(string strObjectKey, string animationKeyName, const char* imageKeyName, int* arr, int arrLen, int fps, bool loop, int loopCount);
+	void addArrayCoordinateFrameAnimation(string strObjectKey, string animationKeyName, const char* imageKeyName, int* arr, int arrLen, int fps, bool loop, int loopCount, void* cbFunction);
+	void addArrayCoordinateFrameAnimation(string strObjectKey, string animationKeyName, const char* imageKeyName, int* arr, int arrLen, int fps, bool loop, int loopCount, void* cbFunction, void* obj);
+
+
+
 	//구간 애니메이션
 	void addCoordinateFrameAnimation(string strObjectKey, string animationKeyName, const char* imageKeyName, int start, int end, int fps, bool reverse, bool loop);
 	void addCoordinateFrameAnimation(string strObjectKey, string animationKeyName, const char* imageKeyName, int start, int end, int fps, bool reverse, bool loop, void* cbFunction);

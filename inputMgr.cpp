@@ -13,26 +13,13 @@ void INPUTMANAGER::init(PLAYER * pPlayer, CAMERA * pCamera)
 
 void INPUTMANAGER::update()
 {
-	//키입력 관련은 여기서 전부 처리해주세요
-	//왼쪽이동 시작
 	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
 	{
-		_pPlayer->setMoveStart(true);
-		if (_pPlayer->getJumping())
-		{
-			_pPlayer->setEricState(OBJECT::ERIC_STATE::LEFT_JUMP);
 
-		}
-		else
-		{
-			_pPlayer->setEricState(OBJECT::ERIC_STATE::LEFT_RUN);
-
-		}
 	}
 	//왼쪽 이동 중
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		if (_pPlayer->getEricState() == OBJECT::ERIC_STATE::LEFT_RUN)
 		{
 			_pPlayer->moveLeft();
 		}
@@ -40,78 +27,50 @@ void INPUTMANAGER::update()
 	//왼쪽 이동 해제
 	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{
-		_pPlayer->setMoveStart(false);
-		if (_pPlayer->getEricState() == OBJECT::ERIC_STATE::LEFT_RUN)
-		{
-			_pPlayer->setEricState(OBJECT::ERIC_STATE::LEFT_IDLE);
-		}
 
 	}
 
 	//오른쪽 이동 시작
 	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
 	{
-		_pPlayer->setMoveStart(true);
-		if (_pPlayer->getJumping())
-		{
-			_pPlayer->setEricState(OBJECT::ERIC_STATE::RIGHT_JUMP);
-
-		}
-		else {
-			_pPlayer->setEricState(OBJECT::ERIC_STATE::RIGHT_RUN);
-
-		}
 
 	}
 	//오른쪽 이동 중
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		if (_pPlayer->getEricState() == OBJECT::ERIC_STATE::RIGHT_RUN ||
-			_pPlayer->getEricState() == OBJECT::ERIC_STATE::RIGHT_JUMP ||
-			_pPlayer->getEricState() == OBJECT::ERIC_STATE::RIGHT_FALLDOWN)
-		{
-			_pPlayer->moveRight();
-		}
+
+		_pPlayer->moveRight();
+
 
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 	{
-		_pPlayer->setMoveStart(false);
-		if (_pPlayer->getEricState() == OBJECT::ERIC_STATE::RIGHT_RUN)
-		{
-			_pPlayer->setEricState(OBJECT::ERIC_STATE::RIGHT_IDLE);
-		}
+
 	}
 
 	//사다리는 플레이어 상태가 어떻든 하이제깅해야한다.
 	if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
 	{
-		_pPlayer->setEricState(OBJECT::ERIC_STATE::ON_LADDER);
 	}
 
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		_pPlayer->moveDown();
-		_pPlayer->setLadderAni(-1);
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
 	{
-		_pPlayer->setLadderAni(0);
 	}
 
 
 	if (KEYMANAGER->isOnceKeyDown(VK_UP))
 	{
-		_pPlayer->setEricState(OBJECT::ERIC_STATE::ON_LADDER);
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
 		_pPlayer->moveUp();
-		_pPlayer->setLadderAni(1);
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_UP))
 	{
-		_pPlayer->setLadderAni(0);
 
 	}
 	if (KEYMANAGER->isOnceKeyDown('F'))
@@ -126,7 +85,6 @@ void INPUTMANAGER::update()
 
 		if (_jumpKeyPressTime >= 0.1f)
 		{
-			_pPlayer->setEricJumpPower(700.0f);
 		}
 	}
 

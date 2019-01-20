@@ -59,6 +59,10 @@ public:
 	void setPlayFrame(int start, int end, BOOL reverse, BOOL loop, CALLBACK_FUNCTION cbFunction);
 	void setPlayFrame(int start, int end, BOOL reverse, BOOL loop, CALLBACK_FUNCTION_PARAMETER cbFunction, void* obj);
 
+	//배열 몇번 루프
+	void setPlayFrame(int* playArr, int arrLen, BOOL loop, int loopCount);
+	void setPlayFrame(int* playArr, int arrLen, BOOL loop, int loopCount, CALLBACK_FUNCTION cbFunction);
+	void setPlayFrame(int* playArr, int arrLen, BOOL loop, int loopCount, CALLBACK_FUNCTION_PARAMETER cbFunction, void* obj);
 
 	//애니메이션 프레임 재생속도 셋팅
 	void setFPS(int framePerSec);
@@ -81,6 +85,6 @@ public:
 	inline BOOL	getIsClickRender() { return _isClickRender; }
 
 	inline void setClickVariable(int variable) { _clickVariable = variable; }
-	
+
 };
 

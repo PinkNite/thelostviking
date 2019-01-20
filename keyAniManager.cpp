@@ -220,6 +220,55 @@ void keyAniManager::addArrayFrameAnimation(string strObjectKey, string animation
 	//_mTotalAnimation.insert(pair<string, animation*>(animationKeyName, ani));
 }
 
+void keyAniManager::addArrayCoordinateFrameAnimation(string strObjectKey, string animationKeyName, const char * imageKeyName, int * arr, int arrLen, int fps, bool loop, int loopCount)
+{
+	image* img = IMAGEMANAGER->findImage(imageKeyName);
+
+	animation* ani = new animation;
+
+	ani->init(img->GetWidth(), img->GetHeight(), img->getFrameWidth(), img->getFrameHeight());
+	ani->setPlayFrame(arr, arrLen, loop, loopCount);
+	ani->setFPS(fps);
+
+	if (_mmTotalAnimation.find(strObjectKey) != _mmTotalAnimation.end())
+	{
+		_mmTotalAnimation[strObjectKey]->insert(pair<string, animation*>(animationKeyName, ani));
+	}
+}
+
+void keyAniManager::addArrayCoordinateFrameAnimation(string strObjectKey, string animationKeyName, const char * imageKeyName, int * arr, int arrLen, int fps, bool loop, int loopCount, void * cbFunction)
+{
+	image* img = IMAGEMANAGER->findImage(imageKeyName);
+
+	animation* ani = new animation;
+
+	ani->init(img->GetWidth(), img->GetHeight(), img->getFrameWidth(), img->getFrameHeight());
+	ani->setPlayFrame(arr, arrLen, loop, loopCount, CALLBACK_FUNCTION(cbFunction));
+	ani->setFPS(fps);
+
+	if (_mmTotalAnimation.find(strObjectKey) != _mmTotalAnimation.end())
+	{
+		_mmTotalAnimation[strObjectKey]->insert(pair<string, animation*>(animationKeyName, ani));
+	}
+}
+
+void keyAniManager::addArrayCoordinateFrameAnimation(string strObjectKey, string animationKeyName, const char * imageKeyName, int * arr, int arrLen, int fps, bool loop, int loopCount, void * cbFunction, void * obj)
+{
+	image* img = IMAGEMANAGER->findImage(imageKeyName);
+
+	animation* ani = new animation;
+
+	ani->init(img->GetWidth(), img->GetHeight(), img->getFrameWidth(), img->getFrameHeight());
+	ani->setPlayFrame(arr, arrLen, loop, loopCount, (CALLBACK_FUNCTION_PARAMETER)cbFunction, obj);
+	ani->setFPS(fps);
+
+	if (_mmTotalAnimation.find(strObjectKey) != _mmTotalAnimation.end())
+	{
+		_mmTotalAnimation[strObjectKey]->insert(pair<string, animation*>(animationKeyName, ani));
+	}
+}
+
+
 
 void keyAniManager::addCoordinateFrameAnimation(string strObjectKey, string animationKeyName, const char * imageKeyName, int start, int end, int fps, bool reverse, bool loop)
 {

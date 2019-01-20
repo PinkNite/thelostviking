@@ -1,56 +1,15 @@
 #pragma once
 
-#include "object.h"
-
-class ERIC : public OBJECT {
-public:
+#include "viking.h"
 
 
-	const	float	_maxSpeed = 560.0f;
-	const	float	_minSpeed = 300.0f;
-	const	float	_upSpeed = 1.0f;
 
-	//이동 -> 단위벡터 * 속도 * 시간
+class ERIC :public VIKING {
 
 private:
-	int				_hp;
-	int				_itemCount;
-	float			_speed;
-	OBJECT::ERIC_STATE		_state;
-	vector<int*>	_vAniFrame;
-	int				_arAniFrameCount[static_cast<const int>(ERIC_STATE::MAX)];
-	string			_arStrAniState[static_cast<const int>(ERIC_STATE::MAX)];
-	bool			_arIsLoop[static_cast<const int>(ERIC_STATE::MAX)];
-	animation*		_pAnimation;
+	int _arTmpFrame[11];
 
-	bool			_isMoveStart;
-
-	float			_jumpPower;
-	bool			_isJumpimg;
-
-	bool			_movingJump;
-
-	//임시변수들입니다.
-	int				_startPosY;
-	int				_upPower;
-	int				_turn;
-	float			_jumpAngle;
-	float			_moveAngleX;
-	float			_moveAngleY;
-	float			_offsetX;
-	float			_offsetY;
-
-	int				_ladderAniIndex;
-
-
-	//죽음
-	bool			_isDeath;
-	bool			_isOnGround;
-	
-	bool			_isPreviousLeft;
-
-	float			_falldownTimer;
-	bool			_isStartFalldown;
+	float		_jumpingTime;
 public:
 	ERIC();
 	~ERIC();
@@ -61,47 +20,55 @@ public:
 	virtual void release()			override;
 	virtual void render(HDC hdc)	override;
 
-	//이동 함수
-	virtual void moveLeft() override;
-	virtual void moveRight() override;
-	virtual void moveUp() override;
-	virtual void moveDown() override;
-	virtual void jump() override;
-
-
-	float	getSpeedX();
-	float	getSpeedY();
-
-	void	initAnimation();
-	void	initAniFrame();
-
-	//스킬
 	virtual void skillOne() override;
-	virtual void skillTwo()	override;
+	virtual void skillTwo() override;
 
-	//상태 변화
-	virtual OBJECT::ERIC_STATE	getEricState();
-	virtual void				setEricState(OBJECT::ERIC_STATE ericState);
 
-	void	setJumpPower(float power);
+private:
+	void	initKeyAnimation();
+	string	addString(string direction, string live, string action);
+	void	addKeyAnimation(VIKING::DIRECTION direction, VIKING::LIFE life, string action, int startFrame, int length, int fps, bool isLoop);
+	void	addLeftAliveAnimation(string action, int startFrame, int length, int fps, bool isLoop);
+	void	addRightAliveAnimation(string action, int startFrame, int length, int fps, bool isLoop);
+	void	addLeftDeathAnimation(string action, int startFrame, int length, int fps, bool isLoop);
+	void	addRightDeathAnimation(string action, int startFrame, int length, int fps, bool isLoop);
 
-	virtual void	setLadderAni(int nLadderAni) override;
+	void	addLeftAliveAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop);
+	void	addRightAliveAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop);
+	void	addLeftDeathAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop);
+	void	addRightDeathAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop);
 
-	void	notOut();
-	void	affectGravity();
-	void	fallDown();
+	void	addLeftAliveAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, void * pCallBack);
+	void	addRightAliveAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, void * pCallBack);
+	void	addLeftDeathAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, void * pCallBack);
+	void	addRightDeathAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, void * pCallBack);
+
+	void	addLeftAliveAnimationCoordinate(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isReverse, bool isLoop, void * pCallBack);
+	void	addRightAliveAnimationCoordinate(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isReverse, bool isLoop, void * pCallBack);
+
+	void	addLeftAliveAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, int loopCount, void * pCallBack);
+	void	addRightAliveAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, int loopCount, void * pCallBack);
+	void	addLeftDeathAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, int loopCount, void * pCallBack);
+	void	addRightDeathAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, int loopCount, void * pCallBack);
+
+	void	settingAniArray(int startFrame, int length);
+
+private:
+	void	setFallOut();
+	void	setAnimation(VIKING::DIRECTION direction, VIKING::LIFE life, VIKING::STATE state, int behavior);
+
 public:
-	//인라인 함수
-	inline void	setMoveStart(bool isMoveStart) { _isMoveStart = isMoveStart; }
-	inline float getPosX() { return OBJECT::getPosX(); }
-	inline float getPosY() { return OBJECT::getPosY(); }
-	inline int	getWidth() { return OBJECT::getWidth(); }
-	inline int	getHeight() { return OBJECT::getHeight(); }
-	inline int	getTop() { return OBJECT::getTop(); }
-	inline int	getLeft() { return OBJECT::getLeft(); }
-	inline void	setJumping(bool isJumping) { _isJumpimg = isJumping; }
+	//여러가지 상태로 변하는 애들은 여기서 처리한다.
+	static void	callbackRun(void *obj);	//달리는 상태 종류후 나오는 것들
+	static void	callbackJump(void *obj);	//점프후 나오는 상태 종류
+	static void	callbackHading(void *obj);//해딩후 나올수 있는 것들
+	static void	callbackStun(void* obj);//스턴후
+	static void callbackBreath(void* obj);
 
-	virtual bool	getJump();
 
-	
+	void	callbackEricRun();	//달리는 상태 종류후 나오는 것들
+	void	callbackEricJump();	//점프후 나오는 상태 종류
+	void	callbackEricHading();//해딩후 나올수 있는 것들
+	void	callbackEricStun();//스턴후
+	void	callbackEricBreath();
 };

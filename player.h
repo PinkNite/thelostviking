@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "object.h"
+#include "viking.h"
 
 class ERIC;
 class OBJECT;
@@ -8,7 +9,7 @@ class OBJECT;
 class PLAYER
 {
 private:
-	enum class VIKING {
+	enum class VIKINGNAME {
 		ERIC = 0,
 		BALEOG,
 		OLAF,
@@ -16,7 +17,7 @@ private:
 	};
 
 private:
-	OBJECT * _pViking[static_cast<const int>(VIKING::MAX)];
+	VIKING * _pViking[3];
 	int		_nCurrentViking;
 
 public:
@@ -40,18 +41,9 @@ public:
 	void moveRight();
 	void moveUp();
 	void moveDown();
-	void setMoveStart(bool isMoveStart);
 
-	float getSpeedX();
-	float getSpeedY();
 
 	void useSkillOne();
 	void useSkillTwo();
 
-	void setEricState(OBJECT::ERIC_STATE ericState);
-	OBJECT::ERIC_STATE getEricState();
-
-	void setEricJumpPower(float power);
-	void	setLadderAni(int nLadderAni);
-	bool	getJumping();
 };
