@@ -398,6 +398,9 @@
     <ClCompile Include="UI.cpp">
       <Filter>PlayGround\UI</Filter>
     </ClCompile>
+    <ClCompile Include="viking.cpp">
+      <Filter>PlayGround\Object\player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="windowsAPI.rc">

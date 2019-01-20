@@ -253,6 +253,7 @@
     <ClCompile Include="txtData.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="utils.cpp" />
+    <ClCompile Include="viking.cpp" />
     <ClCompile Include="windowsAPI.cpp" />
   </ItemGroup>
   <ItemGroup>
