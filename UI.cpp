@@ -287,7 +287,7 @@ void UI::selectMove()
 	if (_erikState == ERIK_ON)
 	{
 		_select[0].alphaCount += 10;//온이면 알파값 변함
-		if (KEYMANAGER->isOnceKeyDown('A'))
+		if (_pInputMG->getLeft()==true)
 		{
 			switch (_selectState[0])
 			{
@@ -299,7 +299,7 @@ void UI::selectMove()
 				break;
 			}
 		}
-		if (KEYMANAGER->isOnceKeyDown('D'))
+		if (_pInputMG->getRight()==true)
 		{
 			switch (_selectState[0])
 			{
@@ -311,7 +311,7 @@ void UI::selectMove()
 				break;
 			}
 		}
-		if (KEYMANAGER->isOnceKeyDown('W'))
+		if (_pInputMG->getTop() == true)
 		{
 			switch (_selectState[0])
 			{
@@ -323,7 +323,7 @@ void UI::selectMove()
 				break;
 			}
 		}
-		if (KEYMANAGER->isOnceKeyDown('S'))
+		if (_pInputMG->getBottom() == true)
 		{
 			switch (_selectState[0])
 			{

@@ -89,7 +89,9 @@ void playGround::link()
 
 	_pUI->linkItemManger(_pItemManager);
 	_pUI->linkPlayer(_pPlayer);
+	_pUI->linkInputManager(_pInputMgr);
 	_pItemManager->setLinkUI(_pUI);
+	
 	
 }
 
@@ -109,7 +111,8 @@ HRESULT playGround::init()
 	_pItemManager->init();
 	_pUI = new UI;
 	_pUI->init();
-
+	_pInputMgr = new INPUTMANAGER();
+	_pInputMgr->init(_pPlayer, _pCamera);
 	link();
 
 	_pMap2 = new MAP2;
@@ -123,8 +126,7 @@ HRESULT playGround::init()
 
 	_pCamera->setting();
 
-	_pInputMgr = new INPUTMANAGER();
-	_pInputMgr->init(_pPlayer, _pCamera);
+	
 
 	_enemy = new ENEMY();
 	_enemy->init(100, 610, 40, 64, 2.0f, ENEMY::ENEMY_TYPE::CANNON);

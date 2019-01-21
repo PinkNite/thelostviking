@@ -124,5 +124,6 @@ public:
 
 	void linkItemManger(ITEMMANAGER* _item) { _pItemMG = _item; }
 	void linkPlayer(PLAYER* _player) { _pPlayer = _player; }
+	void linkInputManager(INPUTMANAGER* _mg) { _pInputMG = _mg; }
 };
 
