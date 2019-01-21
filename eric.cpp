@@ -215,14 +215,14 @@ void ERIC::initKeyAnimation()
 		89, 3, 2, false, 3, callbackBreath);
 
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER),
-		92, 4, 10, false);
+		92, 4, 2, false);
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER_OVER),
-		96, 2, 10, false);
+		96, 2, 2, false);
 
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER),
-		92, 4, 10, false);
+		92, 4, 2, false);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER_OVER),
-		96, 2, 10, false);
+		96, 2, 2, false);
 
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::PUSH),
 		98, 4, 5, true);

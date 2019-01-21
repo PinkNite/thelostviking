@@ -139,9 +139,13 @@ void PLAYER::moveUp()
 void PLAYER::moveDown()
 {
 
-	if (isCollisionLadder())
+	if (isCollisionLadder() )
 	{
-		_pViking[_nCurrentViking]->moveDown(0.0f);
+		if (_rcTmpBottom != _pViking[_nCurrentViking]->getPosY() +32)
+		{
+			_pViking[_nCurrentViking]->moveDown(0.0f);
+		}
+
 	}
 }
 
@@ -207,6 +211,8 @@ bool PLAYER::isCollisionLadder()
 				bIsCollisionLadder = true;
 				_pViking[_nCurrentViking]->setPosX(_pMap2->getRCLadder(nLadder).left + (_pMap2->getRCLadder(nLadder).right - _pMap2->getRCLadder(nLadder).left) / 2);
 				_rcTmpHeight = rcTmp.bottom - rcTmp.top;
+				_rcTmpTop = rcTmp.top;
+				_rcTmpBottom = rcTmp.bottom;
 			}
 			else {
 				nLadder++;

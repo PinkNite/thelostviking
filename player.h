@@ -26,6 +26,10 @@ private:
 
 	int		_rcTmpHeight;
 	pixelCollision*		_pPixelCollision;
+
+	int		_rcTmpTop;
+	int		_rcTmpBottom;
+
 public:
 	PLAYER();
 	~PLAYER();
