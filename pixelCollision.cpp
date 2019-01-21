@@ -125,7 +125,7 @@ void pixelCollision::update()
 	}
 	*/
 	// 천장충돌
-	for (int i = _probeTopY + 10; i >= _probeTopY; --i)
+	for (int i = _probeTopY + _pPlayer->getWidth(); i >= _probeTopY; --i)
 	{
 		//PlayerRect 왼쪽 범위
 		COLORREF color = GetPixel(IMAGEMANAGER->findImage("map2Collision")->getMemDC(),
