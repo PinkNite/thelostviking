@@ -127,9 +127,13 @@ void INPUTMANAGER::update()
 	{
 		_isUse = false;
 	}
-	if (KEYMANAGER->isToggleKey(VK_F8))//아이템사용
+	if (KEYMANAGER->isToggleKey(VK_F8)&&!_isOpen)//아이템사용
 	{
 		_isOpen = true;
+	}
+	else
+	{
+		_isOpen = false;
 	}
 	
 
