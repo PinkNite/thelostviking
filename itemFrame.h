@@ -29,7 +29,7 @@ public:
 	void setItem(int x, int y, int width, int height);
 
 public:
-
+	
 	inline image* getImage() { return _pImage; }
 	inline int getX() { return _x; }
 	inline int getY() { return _y; }
@@ -42,6 +42,7 @@ public:
 	inline void setAlphaCount(int num) { _alphaCount = num; }//값을넣으면 그만큼 알파카운트가 증가한다.
 	inline bool getUse() { return _isUse; }
 	inline void setUse(bool _bool) { _isUse = _bool; }
+
 
 
 };

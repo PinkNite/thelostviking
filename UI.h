@@ -1,5 +1,4 @@
 #pragma once
-#include "gameNode.h"
 #include "itemBoom.h"
 #include "itemFruit1.h"
 #include "itemFruit2.h"
@@ -61,7 +60,7 @@ struct tagUI
 	int y;
 
 };
-class UI :public gameNode
+class UI 
 {
 private:
 	/*vector<itemMemory>          _vItem;
@@ -93,14 +92,14 @@ private:
 	//플레이어
 	PLAYER* _pPlayer;
 	INPUTMANAGER* _pInputMG;
-
+	
 public:
 	UI();
 	~UI();
 	HRESULT init();
 	void release();
 	void update();
-	void render();
+	void render(HDC hdc);
 	void selectMove();
 	//캐릭 네임 주소를 넣으면 그 해당 인벤토리 설정됨
 	void getItem(itemMemory* name, int x, int y, int x1, int y1);
@@ -110,7 +109,7 @@ public:
 	void itemFruit2(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i);
 	void itemMeat(int x, int y, int width, int height, itemMemory* name, itemMemory item);
 
-	void itemRender();
+	void itemRender(HDC hdc);
 	void selectCollision();
 	//플레이어 변화할때 초상화값
 	void changePlayer();

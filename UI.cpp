@@ -183,9 +183,10 @@ void UI::update()
 
 	//_life[0].isAllive = false;//이럼 사라짐
 
-	
+	if (_pInputMG->getOpen() == true)
+	{
 		selectMove();//얘는 특정 조건에서만 되어야함
-	
+	}
 	////////////////캐릭 선택필 수 조건
 	
 	if (_pPlayer->getCurrentViking() ==PLAYER::VIKINGNAME::ERIC )
@@ -205,10 +206,10 @@ void UI::update()
 
 }
 
-void UI::render()
+void UI::render(HDC hdc)
 {
-	_ui.pImage->render(getMemDC(), 0, 362);
-	_trashCan.pImage->alphaRender(getMemDC(), 564, 402, _trashCan.alphaCount);//이좌표로 아이템이 들어감?
+	_ui.pImage->render(hdc, 0, WINSIZEY);
+	_trashCan.pImage->alphaRender(hdc, 564, 402, _trashCan.alphaCount);//이좌표로 아이템이 들어감?
 
 
 
@@ -217,13 +218,13 @@ void UI::render()
 		switch (i)
 		{
 		case 0:
-			_select[i].pImage->alphaRender(getMemDC(), _select[i].x, _select[i].y, _select[i].alphaCount);
+			_select[i].pImage->alphaRender(hdc, _select[i].x, _select[i].y, _select[i].alphaCount);
 			break;
 		case 1:
-			_select[i].pImage->alphaRender(getMemDC(), _select[i].x, _select[i].y, _select[i].alphaCount);
+			_select[i].pImage->alphaRender(hdc, _select[i].x, _select[i].y, _select[i].alphaCount);
 			break;
 		case 2:
-			_select[i].pImage->alphaRender(getMemDC(), _select[i].x, _select[i].y, _select[i].alphaCount);
+			_select[i].pImage->alphaRender(hdc, _select[i].x, _select[i].y, _select[i].alphaCount);
 			break;
 
 		}
@@ -236,55 +237,55 @@ void UI::render()
 		case 0:
 			if (_life[i].isAllive)
 			{
-				_life[i].pImage->render(getMemDC(), 40, 466);
+				_life[i].pImage->render(hdc, 40, 466);
 			}
 			break;
 		case 1:
 			if (_life[i].isAllive)
 			{
-				_life[i].pImage->render(getMemDC(), 40 + 20, 466);
+				_life[i].pImage->render(hdc, 40 + 20, 466);
 			}
 			break;
 		case 2:
 			if (_life[i].isAllive)
 			{
-				_life[i].pImage->render(getMemDC(), 60 + 20, 466);
+				_life[i].pImage->render(hdc, 60 + 20, 466);
 			}
 			break;
 		case 3:
 			if (_life[i].isAllive)
 			{
-				_life[i].pImage->render(getMemDC(), 220, 466);
+				_life[i].pImage->render(hdc, 220, 466);
 			}
 			break;
 		case 4:
 			if (_life[i].isAllive)
 			{
-				_life[i].pImage->render(getMemDC(), 220 + 20, 466);
+				_life[i].pImage->render(hdc, 220 + 20, 466);
 			}
 			break;
 		case 5:
 			if (_life[i].isAllive)
 			{
-				_life[i].pImage->render(getMemDC(), 240 + 20, 466);
+				_life[i].pImage->render(hdc, 240 + 20, 466);
 			}
 			break;
 		case 6:
 			if (_life[i].isAllive)
 			{
-				_life[i].pImage->render(getMemDC(), 400, 466);
+				_life[i].pImage->render(hdc, 400, 466);
 			}
 			break;
 		case 7:
 			if (_life[i].isAllive)
 			{
-				_life[i].pImage->render(getMemDC(), 400 + 20, 466);
+				_life[i].pImage->render(hdc, 400 + 20, 466);
 			}
 			break;
 		case 8:
 			if (_life[i].isAllive)
 			{
-				_life[i].pImage->render(getMemDC(), 420 + 20, 466);
+				_life[i].pImage->render(hdc, 420 + 20, 466);
 			}
 			break;
 		}
@@ -296,47 +297,47 @@ void UI::render()
 		case 0:
 			if (_erikState == ERIK_ON)
 			{
-				_erik[i].pImage->render(getMemDC(), 40, 405);
+				_erik[i].pImage->render(hdc, 40, 405);
 
 			}
 			if (_baleogState == BALEOG_ON)
 			{
 
-				_baleog[i].pImage->render(getMemDC(), 220, 405);
+				_baleog[i].pImage->render(hdc, 220, 405);
 
 			}
 			if (_olafState == OLAF_ON)
 			{
-				_olaf[i].pImage->render(getMemDC(), 400, 405);
+				_olaf[i].pImage->render(hdc, 400, 405);
 
 			}
 			break;
 		case 1:
 			if (_erikState == ERIK_OFF)
 			{
-				_erik[i].pImage->render(getMemDC(), 40, 405);
+				_erik[i].pImage->render(hdc, 40, 405);
 			}
 			if (_baleogState == BALEOG_OFF)
 			{
-				_baleog[i].pImage->render(getMemDC(), 220, 405);
+				_baleog[i].pImage->render(hdc, 220, 405);
 			}
 			if (_olafState == OLAF_OFF)
 			{
-				_olaf[i].pImage->render(getMemDC(), 400, 405);
+				_olaf[i].pImage->render(hdc, 400, 405);
 			}
 			break;
 		case 2:
 			if (_erikState == ERIK_DEAD)
 			{
-				_erik[i].pImage->render(getMemDC(), 40, 405);
+				_erik[i].pImage->render(hdc, 40, 405);
 			}
 			if (_baleogState == BALEOG_DEAD)
 			{
-				_baleog[i].pImage->render(getMemDC(), 220, 405);
+				_baleog[i].pImage->render(hdc, 220, 405);
 			}
 			if (_olafState == OLAF_DEAD)
 			{
-				_olaf[i].pImage->render(getMemDC(), 400, 405);
+				_olaf[i].pImage->render(hdc, 400, 405);
 			}
 			break;
 
@@ -347,7 +348,7 @@ void UI::render()
 
 	//아이템
 	//인벤토리 렌더
-	itemRender();
+	itemRender(hdc);
 /*
 	char str[128];
 	sprintf_s(str, "%d", _erikItem);
@@ -760,48 +761,51 @@ void UI::itemMeat(int x, int y, int width, int height, itemMemory* name, itemMem
 
 }
 
-void UI::itemRender()
+void UI::itemRender(HDC hdc)
 {
 	for (int i = 0; i < 2; i++)
 	{
 		if (_pItemBoom[i]->getIsAllive())
 		{
-			_pItemBoom[i]->render(getMemDC());//고정이니까 겟멤
+			_pItemBoom[i]->render(hdc);//고정이니까 겟멤
 		}
 		if (_pItemFruit1[i]->getIsAllive())
 		{
 
-			_pItemFruit1[i]->render(getMemDC());
+			_pItemFruit1[i]->render(hdc);
 		}
 		if (_pItemFruit2[i]->getIsAllive())
 		{
 
-			_pItemFruit2[i]->render(getMemDC());
+			_pItemFruit2[i]->render(hdc);
 		}
 	}
 	if (_pItemMeat->getIsAllive())
 	{
 
-		_pItemMeat->render(getMemDC());
+		_pItemMeat->render(hdc);
 	}
+
+	/*char str[128];
+	sprintf_s(str, "%d", ss);
+	TextOut(getMemDC(), 300, 300, str, strlen(str));*/
 }
 
 void UI::selectCollision()//알파값 변하는 함수와 선택조건
 {
 	for (int i = 0; i < 3; i++)
 	{
-		switch (i)//3종류 다다르게 해야함
-		{
-		case 0:
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[0]->getX(), _pItemBoom[0]->getY(), 40, 40))
+		
+			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[0]->getX(), _pItemBoom[0]->getY(), 40, 40)&& _pInputMG->getUse())
 			{
-				//system("pause");
+				
 				_pItemBoom[0]->setAlphaCountPlus(15);
 				//들어왔따 그리고 키값이 있냐.
-				if (0)
+				if (_pInputMG->getUse())
 				{
 					_pItemBoom[0]->setUse(true);//사용으로 바꿔줌
 				}
+				break;
 			}
 			else
 			{
@@ -814,6 +818,7 @@ void UI::selectCollision()//알파값 변하는 함수와 선택조건
 				{
 					_pItemBoom[1]->setUse(true);//사용으로 바꿔줌
 				}
+				break;
 			}
 			else
 			{
@@ -828,6 +833,7 @@ void UI::selectCollision()//알파값 변하는 함수와 선택조건
 				{
 					_pItemFruit1[0]->setUse(true);
 				}
+				break;
 			}
 			else
 			{
@@ -840,6 +846,7 @@ void UI::selectCollision()//알파값 변하는 함수와 선택조건
 				{
 					_pItemFruit1[1]->setUse(true);
 				}
+				break;
 			}
 			else
 			{
@@ -855,6 +862,7 @@ void UI::selectCollision()//알파값 변하는 함수와 선택조건
 				{
 					_pItemFruit2[0]->setUse(true);
 				}
+				break;
 
 			}
 			else
@@ -868,6 +876,7 @@ void UI::selectCollision()//알파값 변하는 함수와 선택조건
 				{
 					_pItemFruit2[1]->setUse(true);
 				}
+				break;
 			}
 			else
 			{
@@ -881,203 +890,14 @@ void UI::selectCollision()//알파값 변하는 함수와 선택조건
 				{
 					_pItemMeat->setUse(0);
 				}
+				break;
 			}
 			else
 			{
 				_pItemMeat->setAlphaCount(255);
 			}
-			break;
-		case 1:
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[0]->getX(), _pItemBoom[0]->getY(), 40, 40))
-			{
-				//system("pause");
-				_pItemBoom[0]->setAlphaCountPlus(15);
-				//들어왔따 그리고 키값이 있냐.
-				if (0)
-				{
-					_pItemBoom[0]->setUse(true);//사용으로 바꿔줌
-				}
-			}
-			else
-			{
-				_pItemBoom[0]->setAlphaCount(255);
-			}
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[1]->getX(), _pItemBoom[1]->getY(), 40, 40))
-			{
-				_pItemBoom[1]->setAlphaCountPlus(15);
-				if (0)
-				{
-					_pItemBoom[1]->setUse(true);//사용으로 바꿔줌
-				}
-			}
-			else
-			{
-				_pItemBoom[1]->setAlphaCount(255);
-			}
-			//////////////////과일
-
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[0]->getX(), _pItemFruit1[0]->getY(), 40, 40))
-			{
-				_pItemFruit1[0]->setAlphaCountPlus(15);
-				if (0)
-				{
-					_pItemFruit1[0]->setUse(true);
-				}
-			}
-			else
-			{
-				_pItemFruit1[0]->setAlphaCount(255);
-			}
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[1]->getX(), _pItemFruit1[1]->getY(), 40, 40))
-			{
-				_pItemFruit1[1]->setAlphaCountPlus(15);
-				if (0)
-				{
-					_pItemFruit1[1]->setUse(true);
-				}
-			}
-			else
-			{
-				_pItemFruit1[1]->setAlphaCount(255);
-			}
-			/////////////////////////////과일
-
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[0]->getX(), _pItemFruit2[0]->getY(), 40, 40))
-			{
-
-				_pItemFruit2[0]->setAlphaCountPlus(15);
-				if (0)
-				{
-					_pItemFruit2[0]->setUse(true);
-				}
-
-			}
-			else
-			{
-				_pItemFruit2[0]->setAlphaCount(255);
-			}
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[1]->getX(), _pItemFruit2[1]->getY(), 40, 40))
-			{
-				_pItemFruit2[1]->setAlphaCountPlus(15);
-				if (0)
-				{
-					_pItemFruit2[1]->setUse(true);
-				}
-			}
-			else
-			{
-				_pItemFruit2[1]->setAlphaCount(255);
-			}
-			//고기
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat->getX(), _pItemMeat->getY(), 40, 40))
-			{
-				_pItemMeat->setAlphaCountPlus(15);
-				if (0)
-				{
-					_pItemMeat->setUse(0);
-				}
-			}
-			else
-			{
-				_pItemMeat->setAlphaCount(255);
-			}
-			break;
-		case 2:
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[0]->getX(), _pItemBoom[0]->getY(), 40, 40))
-			{
-				//system("pause");
-				_pItemBoom[0]->setAlphaCountPlus(15);
-				//들어왔따 그리고 키값이 있냐.
-				if (0)
-				{
-					_pItemBoom[0]->setUse(true);//사용으로 바꿔줌
-				}
-			}
-			else
-			{
-				_pItemBoom[0]->setAlphaCount(255);
-			}
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[1]->getX(), _pItemBoom[1]->getY(), 40, 40))
-			{
-				_pItemBoom[1]->setAlphaCountPlus(15);
-				if (0)
-				{
-					_pItemBoom[1]->setUse(true);//사용으로 바꿔줌
-				}
-			}
-			else
-			{
-				_pItemBoom[1]->setAlphaCount(255);
-			}
-			//////////////////과일
-
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[0]->getX(), _pItemFruit1[0]->getY(), 40, 40))
-			{
-				_pItemFruit1[0]->setAlphaCountPlus(15);
-				if (0)
-				{
-					_pItemFruit1[0]->setUse(true);
-				}
-			}
-			else
-			{
-				_pItemFruit1[0]->setAlphaCount(255);
-			}
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[1]->getX(), _pItemFruit1[1]->getY(), 40, 40))
-			{
-				_pItemFruit1[1]->setAlphaCountPlus(15);
-				if (0)
-				{
-					_pItemFruit1[1]->setUse(true);
-				}
-			}
-			else
-			{
-				_pItemFruit1[1]->setAlphaCount(255);
-			}
-			/////////////////////////////과일
-
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[0]->getX(), _pItemFruit2[0]->getY(), 40, 40))
-			{
-
-				_pItemFruit2[0]->setAlphaCountPlus(15);
-				if (0)
-				{
-					_pItemFruit2[0]->setUse(true);
-				}
-
-			}
-			else
-			{
-				_pItemFruit2[0]->setAlphaCount(255);
-			}
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[1]->getX(), _pItemFruit2[1]->getY(), 40, 40))
-			{
-				_pItemFruit2[1]->setAlphaCountPlus(15);
-				if (0)
-				{
-					_pItemFruit2[1]->setUse(true);
-				}
-			}
-			else
-			{
-				_pItemFruit2[1]->setAlphaCount(255);
-			}
-			//고기
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat->getX(), _pItemMeat->getY(), 40, 40))
-			{
-				_pItemMeat->setAlphaCountPlus(15);
-				if (0)
-				{
-					_pItemMeat->setUse(0);
-				}
-			}
-			else
-			{
-				_pItemMeat->setAlphaCount(255);
-			}
-			break;
-		}
+			
+		
 	}
 
 }

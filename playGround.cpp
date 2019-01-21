@@ -204,7 +204,7 @@ void playGround::render()
 	_pItemManager->render(_pCamera->getMemDC());
 	TIMEMANAGER->render(getMemDC());
 	_pCamera->render(getMemDC()); 
-	_pUI->render();
+	_pUI->render(getMemDC());
 
 	//===========================================================
 	this->getBackBuffer()->render(getHDC(), 0, 0);
