@@ -2,7 +2,7 @@
 #include "image.h"
 
 //백버퍼 전역 선언
-static image* _backBuffer = IMAGEMANAGER->addImage("backBuffer", WINSIZEX, WINSIZEY+200);
+static image* _backBuffer = IMAGEMANAGER->addImage("backBuffer", WINSIZEX, WINSIZEY+118);
 
 class gameNode
 {

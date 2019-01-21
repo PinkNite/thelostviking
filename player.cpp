@@ -53,11 +53,11 @@ void PLAYER::render(HDC hdc)
 {
 	_pViking[_nCurrentViking]->render(hdc);
 
-	for (int i = 0; i < 6; i++)
-	{
-		Rectangle(hdc, _pMap2->getRCLadder(i).left, _pMap2->getRCLadder(i).top, _pMap2->getRCLadder(i).right, _pMap2->getRCLadder(i).bottom);
+	//for (int i = 0; i < 6; i++)
+	//{
+	//	Rectangle(hdc, _pMap2->getRCLadder(i).left, _pMap2->getRCLadder(i).top, _pMap2->getRCLadder(i).right, _pMap2->getRCLadder(i).bottom);
 
-	}
+	//}
 
 }
 
@@ -182,7 +182,7 @@ void PLAYER::setLadderAnimation(int offset)
 bool PLAYER::isCollisionLadder()
 {
 	RECT rcPlayer = RectMakeCenter(_pViking[_nCurrentViking]->getPosX(), _pViking[_nCurrentViking]->getPosY(),
-		_pViking[_nCurrentViking]->getWidth(), _pViking[_nCurrentViking]->getHeight());
+		_pViking[_nCurrentViking]->getWidth(), _pViking[_nCurrentViking]->getHeight()+5);
 	_pMap2->getRCLadder(0);
 	bool bIsCollisionLadder = false;
 	int	 nLadder = 0;

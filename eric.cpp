@@ -57,7 +57,7 @@ void ERIC::release()
 
 void ERIC::render(HDC hdc)
 {
-	RectangleMake(hdc,VIKING::getPosX() - VIKING::getWidth() / 2, VIKING::getPosY() - VIKING::getHeight() / 2, 64, 64);
+	RectangleMake(hdc,VIKING::getPosX() - VIKING::getWidth() / 2, VIKING::getPosY() - VIKING::getHeight() / 2, 64, 69);
 
 
 	
@@ -78,6 +78,9 @@ void ERIC::skillTwo()
 {
 	if (_isUsingSkillTwo) return;
 	if (static_cast<VIKING::ACTION>(VIKING::_behavior) == VIKING::ACTION::SKILL_ONE)return;
+	if (static_cast<VIKING::ACTION>(VIKING::_behavior) == VIKING::ACTION::FALLDOWN)return;
+	if (static_cast<VIKING::ACTION>(VIKING::_behavior) == VIKING::ACTION::SKILL_TWO)return;
+	
 	_jumpingTime = 0.0f;
 	_jumpSpeed = 1500.0f;
 	_jumpPower = Mins::presentPowerY(PI / 2.0f, _jumpSpeed);
@@ -108,6 +111,7 @@ void ERIC::setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight)
 	{
 		if (rcTmpHeight < 5) {
 			setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+			VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY() - 5);
 		}
 		else if (rcTmpHeight <= 36)
 		{
@@ -127,7 +131,11 @@ void ERIC::jump()
 {
 	if (!_isUsingSkillTwo) return;
 	
-	_jumpPower += _gravity;
+	if (_jumpPower < 1500.0f)
+	{
+		_jumpPower += _gravity;
+
+	}
 	VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY() + _jumpPower * TIMEMANAGER->getElpasedTime());
 
 	if (getIsOnGround())
