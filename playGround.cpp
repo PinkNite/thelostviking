@@ -90,6 +90,10 @@ HRESULT playGround::init()
 	_pMap2->init();
 	_pCamera->setMap(IMAGEMANAGER->findImage("Map2bg"));
 
+	_pixel = new pixelCollision;
+	_pixel->init();
+	_pCamera->setMap(IMAGEMANAGER->findImage("map2Collision"));
+
 	_pCamera->setting();
 
 	_pInputMgr = new INPUTMANAGER();
@@ -128,6 +132,8 @@ void playGround::update()
 	_pInputMgr->update();
 
 	_enemy->update();
+	
+	_pixel->update();
 
 	SCENEMANAGER->update();
 }
@@ -140,6 +146,7 @@ void playGround::render()
 	_pCamera->renderinit();
 
 	_pMap2->render(_pCamera->getMemDC());
+	_pixel->render(_pCamera->getMemDC());
 	_pPlayer->render(_pCamera->getMemDC());
 
 	_enemy->render(_pCamera->getMemDC());

@@ -7,6 +7,7 @@
 #include "map1.h"
 #include "map2.h"
 #include "enemy.h"
+#include "pixelCollision.h"
 
 class playGround : public gameNode
 {
@@ -18,7 +19,7 @@ private:
 	MAP2*           _pMap2;
 
 	ENEMY*			_enemy;
-
+	pixelCollision* _pixel;
 
 public:
 	virtual HRESULT init();

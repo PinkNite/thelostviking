@@ -19,7 +19,7 @@ HRESULT MAP2::init()
 	_imgHandleOn = IMAGEMANAGER->addImage("handleOn", "resource/map/effect/handleOn.bmp", 28, 30, true, RGB(255, 0, 255));
     for (int i = 0; i < MAXBROKENBLOCK; i++)
 	{
-		sprintf_s(str, "brokenBlock%d", i);
+		//sprintf_s(str, "brokenBlock%d", i);
 		_imgBrokenblock[i] = IMAGEMANAGER->addFrameImage(str, "resource/map/effect/broken_Block.bmp", 96, 32, 3, 1, true, RGB(255, 0, 255));
 		_arrBool[i] = false;
 	}
@@ -209,7 +209,7 @@ void MAP2::update()
 	for (int i = 0; i < 12; i++)
 	{
 		//printf("_arrBool[%d] : %d \n", i, _arrBool[i]);
-		printf("_imgBrokenblock[%d]->getFrameX(%d) \n", i, _imgBrokenblock[i]->getFrameX());
+		//printf("_imgBrokenblock[%d]->getFrameX(%d) \n", i, _imgBrokenblock[i]->getFrameX());
 	}
 	/*테스트용*/
 	

@@ -1,8 +1,9 @@
+#pragma once
+
 #include "player.h"
 #include "map1.h"
 #include "map2.h"
 #include "player.h"
-#pragma once
 
 class pixelCollision
 {
@@ -14,6 +15,7 @@ private:
 	PLAYER* _pPlayer;
 	MAP1* _pMap1;
 	MAP2* _pMap2;
+	float x;
 
 public:
 	pixelCollision();
@@ -22,6 +24,6 @@ public:
 	HRESULT init();
 	void release(); 
 	void update();
-	void render();
+	void render(HDC hdc);
 };
 
