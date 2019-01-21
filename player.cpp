@@ -27,7 +27,11 @@ void PLAYER::update()
 {
 	if (!_pPixelCollision->getCollisionbot())
 	{
-		_pViking[_nCurrentViking]->pressGravity();
+		if (!isCollisionLadder())
+		{
+			_pViking[_nCurrentViking]->pressGravity();
+
+		}
 		_pViking[_nCurrentViking]->setIsOnGround(false);
 		_pViking[_nCurrentViking]->setSkillAnimation();
 
@@ -48,6 +52,13 @@ void PLAYER::release()
 void PLAYER::render(HDC hdc)
 {
 	_pViking[_nCurrentViking]->render(hdc);
+
+	for (int i = 0; i < 6; i++)
+	{
+		Rectangle(hdc, _pMap2->getRCLadder(i).left, _pMap2->getRCLadder(i).top, _pMap2->getRCLadder(i).right, _pMap2->getRCLadder(i).bottom);
+
+	}
+
 }
 
 float PLAYER::getPosX()
@@ -161,10 +172,11 @@ void PLAYER::setLadderAnimation(int offset)
 	{
 		_pViking[_nCurrentViking]->setLadderAnimation(1, true,_rcTmpHeight);
 	}
-	else {
+	else if(_rcTmpHeight > 32) {
 		_pViking[_nCurrentViking]->setLadderAnimation(offset, false, _rcTmpHeight);
-
 	}
+
+
 }
 
 bool PLAYER::isCollisionLadder()
@@ -195,6 +207,8 @@ bool PLAYER::isCollisionLadder()
 			nLadder++;
 		}
 	}
+
+	
 
 	return bIsCollisionLadder;
 }

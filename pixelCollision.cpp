@@ -12,7 +12,7 @@ pixelCollision::~pixelCollision()
 
 HRESULT pixelCollision::init()
 {
-	_imgMap2Cbg = IMAGEMANAGER->addImage("map2Collision", "resource/map/map1-2_collision2.bmp", 2048, 1630, false, RGB(255, 0, 255));
+	_imgMap2Cbg = IMAGEMANAGER->addImage("map2Collision", "resource/map/map1-2_collision.bmp", 2048, 1630, false, RGB(255, 0, 255));
 	_probeY = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
 	_isCollision = false;
 	return S_OK;

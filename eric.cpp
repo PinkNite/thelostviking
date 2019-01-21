@@ -33,7 +33,7 @@ void ERIC::update()
 		_jumpingTime += TIMEMANAGER->getElpasedTime();
 	}
 
-	if (_jumpingTime >= 4.0f && VIKING::_behavior == static_cast<int>(VIKING::ACTION::SKILL_TWO))
+	if (_jumpingTime >= 2.0f && VIKING::_behavior == static_cast<int>(VIKING::ACTION::SKILL_TWO))
 	{
 		setFallOut();
 	}
@@ -57,9 +57,14 @@ void ERIC::release()
 
 void ERIC::render(HDC hdc)
 {
+	RectangleMake(hdc,VIKING::getPosX() - VIKING::getWidth() / 2, VIKING::getPosY() - VIKING::getHeight() / 2, 64, 64);
+
+
+	
+
 	VIKING::getImage()->aniRender(hdc, VIKING::getPosX() - VIKING::getWidth() / 2, VIKING::getPosY() - VIKING::getHeight() / 2, _pAnimation);
 
-
+	
 }
 
 void ERIC::skillOne()
@@ -101,20 +106,20 @@ void ERIC::setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight)
 	}
 	if (static_cast<VIKING::ACTION>(VIKING::_behavior) == VIKING::ACTION::ON_LADDER_OVER)
 	{
-		if (rcTmpHeight <= 16)
+		if (rcTmpHeight < 5) {
+			setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+		}
+		else if (rcTmpHeight <= 36)
 		{
 			VIKING::_pAnimation->setFixedFrame(1);
 		}
-		else if (rcTmpHeight <= 32) {
+		else if (rcTmpHeight <= 48) {
 			VIKING::_pAnimation->setFixedFrame(0);
 		}
 		else if (rcTmpHeight > 32) {
 			setAnimation(static_cast<VIKING::DIRECTION>(_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER));
 		}
-		else if (rcTmpHeight == 1) {
-			setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
-			
-		}
+		 
 	}
 }
 
@@ -125,9 +130,9 @@ void ERIC::jump()
 	_jumpPower += _gravity;
 	VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY() + _jumpPower * TIMEMANAGER->getElpasedTime());
 
-	if (_saveY <=  VIKING::OBJECT::getPosY())
+	if (getIsOnGround())
 	{
-		VIKING::OBJECT::setPosY(_saveY);
+		//VIKING::OBJECT::setPosY(_saveY);
 		_isUsingSkillTwo = false;
 		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
@@ -595,13 +600,8 @@ void ERIC::setStopAnimation()
 	if (static_cast<int>(VIKING::ACTION::RUN) == _behavior) {
 		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::SPECIAL));
 	}
-	//else if (static_cast<int>(VIKING::ACTION::SKILL_TWO) == _behavior) {
-	//	setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
-	//}
-	//else if (static_cast<int>(VIKING::ACTION::FALLDOWN) == _behavior) {
-	//	callbackEricFallDown();
-	//}
-	_jumpingTime = 0.0F;
+
+	//_jumpingTime = 0.0F;
 
 }
 
