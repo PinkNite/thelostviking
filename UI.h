@@ -73,11 +73,16 @@ private:
 	tagUI _olaf[3];
 	tagUI _select[3];
 	tagUI _trashCan;
+	
 
 	ITEMBOOM* _pItemBoom[2];
+	tagUI _itemBoom[2];
 	ITEMFRUIT1* _pItemFruit1[2];
+	tagUI _itemFruit1[2];
 	ITEMFRUIT2* _pItemFruit2[2];
+	tagUI _itemFruit2[2];
 	ITEMMEAT* _pItemMeat;
+	tagUI _itemMeat[2];
 
 	trashCanState _trashCanState;
 	baleogState _baleogState;
@@ -95,6 +100,8 @@ private:
 	PLAYER* _pPlayer;
 	INPUTMANAGER* _pInputMG;
 	
+	int x = 0, y = 0;
+
 public:
 	UI();
 	~UI();

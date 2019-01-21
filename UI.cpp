@@ -364,7 +364,7 @@ void UI::render(HDC hdc)
 	itemRender(hdc);
 
 	char str[128];
-	sprintf_s(str, "%d", 0);
+	sprintf_s(str, "%d%d", x,y);
 	TextOut(hdc, 400, 300, str, strlen(str));
 
 }
@@ -951,87 +951,94 @@ void UI::changePlayer()
 
 void UI::moveItem()
 {
-	int x=0, y=0;
+	
 	if ((_pInputMG->getLeft() || _pInputMG->getRight()))
 	{
 		for (int i = 0; i < 2; i++)
 		{
 			
+			for (int j = 0; j < 3; j++)
+			{
+
 
 				if (_pItemBoom[i]->getMove() == true && _pItemBoom[i]->getX() != 564 && _pItemBoom[i]->getY() != 402 + 118)
 				{
-					x = _pItemBoom[i]->getX();
-					y = _pItemBoom[i]->getY();
+					_itemBoom[i].x = _pItemBoom[i]->getX();
+					_itemBoom[i].y = _pItemBoom[i]->getY();
 					_pItemBoom[i]->setX(564);
 					_pItemBoom[i]->setY(402 + 118);
-					_selectStateTemp[i] = _selectState[i];
-					_selectState[i] = SELECT_REMOVE;
+					_selectStateTemp[j] = _selectState[j];
+					_selectState[j] = SELECT_REMOVE;
+					
 					//ÁÂÇ¥ ¿òÁ÷ÀÓ
 					break;
 				}
 				else if (_pItemBoom[i]->getMove() == true && _pItemBoom[i]->getX() == 564 && _pItemBoom[i]->getY() == 402 + 118)
 				{
-					_pItemBoom[i]->setX(x);
-					_pItemBoom[i]->setY(y);
-					_selectState[i] = _selectStateTemp[i];
+					_pItemBoom[i]->setX(_itemBoom[i].x);
+					_pItemBoom[i]->setY(_itemBoom[i].y);
+					_selectState[j] = _selectStateTemp[j];
 					break;
 				}
-				if (_pItemFruit1[i]->getMove() == true)
+				if (_pItemFruit1[i]->getMove() == true && _pItemFruit1[i]->getX() != 564 && _pItemFruit1[i]->getY() != 402 + 118)
 				{
-					x = _pItemFruit1[i]->getX();
-					y = _pItemFruit1[i]->getY();
+					_itemFruit1[i].x = _pItemFruit1[i]->getX();
+					_itemFruit1[i].y = _pItemFruit1[i]->getY();
 					_pItemFruit1[i]->setX(564);
 					_pItemFruit1[i]->setY(402 + 118);
-					_selectStateTemp[i] = _selectState[i];
-					_selectState[i] = SELECT_REMOVE;
+					_selectStateTemp[j] = _selectState[j];
+					_selectState[j] = SELECT_REMOVE;
 					//ÁÂÇ¥ ¿òÁ÷ÀÓ
 					break;
 				}
 				else if (_pItemFruit1[i]->getMove() == true && _pItemFruit1[i]->getX() == 564 && _pItemFruit1[i]->getY() == 402 + 118)
 				{
-					_pItemFruit1[i]->setX(x);
-					_pItemFruit1[i]->setY(y);
-					_selectState[i] = _selectStateTemp[i];
+					_pItemFruit1[i]->setX(_itemFruit1[i].x);
+					_pItemFruit1[i]->setY(_itemFruit1[i].y);
+					_selectState[j] = _selectStateTemp[j];
 					break;
 				}
-				if (_pItemFruit2[i]->getMove() == true)
+				if (_pItemFruit2[i]->getMove() == true && _pItemFruit2[i]->getX() != 564 && _pItemFruit2[i]->getY() != 402 + 118)
 				{
-					x = _pItemFruit2[i]->getX();
-					y = _pItemFruit2[i]->getY();
+					_itemFruit2[i].x = _pItemFruit2[i]->getX();
+					_itemFruit2[i].y = _pItemFruit2[i]->getY();
 					_pItemFruit2[i]->setX(564);
 					_pItemFruit2[i]->setY(402 + 118);
-					_selectStateTemp[i] = _selectState[i];
-					_selectState[i] = SELECT_REMOVE;
-
+					_selectStateTemp[j] = _selectState[j];
+					_selectState[j] = SELECT_REMOVE;
+					system("pause");
+					
 					//ÁÂÇ¥ ¿òÁ÷ÀÓ
 					break;
 				}
 				else if (_pItemFruit2[i]->getMove() == true && _pItemFruit2[i]->getX() == 564 && _pItemFruit2[i]->getY() == 402 + 118)
 				{
-					_pItemFruit2[i]->setX(x);
-					_pItemFruit2[i]->setY(y);
-					_selectState[i] = _selectStateTemp[i];
+					
+					_pItemFruit2[i]->setX(_itemFruit2[i].x);
+					_pItemFruit2[i]->setY(_itemFruit2[i].y);
+					_selectState[j] = _selectStateTemp[j];
 					break;
 				}
-				if (_pItemMeat->getMove() == true)
+				if (_pItemMeat->getMove() == true&& _pItemMeat->getX() != 564 && _pItemMeat->getY() != 402 + 118)
 				{
-					x = _pItemMeat->getX();
-					y = _pItemMeat->getY();
+					
+					_itemMeat[i].x= _pItemMeat->getX();
+					_itemMeat[i].y= _pItemMeat->getY();
 					_pItemMeat->setX(564);
 					_pItemMeat->setY(402 + 118);
-					_selectStateTemp[i] =_selectState[i];
-					_selectState[i] = SELECT_REMOVE;
+					_selectStateTemp[j] = _selectState[j];
+					_selectState[j] = SELECT_REMOVE;
 					//ÁÂÇ¥ ¿òÁ÷ÀÓ
 					break;
 				}
 				else if (_pItemMeat->getMove() == true && _pItemMeat->getX() == 564 && _pItemMeat->getY() == 402 + 118)
 				{
-					_pItemMeat->setX(x);
-					_pItemMeat->setY(y);
-					_selectState[i] = _selectStateTemp[i];
+					_pItemMeat->setX(_itemMeat[i].x);
+					_pItemMeat->setY(_itemMeat[i].y);
+					_selectState[j] = _selectStateTemp[j];
 					break;
 				}
-			
+			}
 		}
 	}
 }
