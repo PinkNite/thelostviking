@@ -141,14 +141,19 @@ void VIKING::setStopAnimation()
 	
 }
 
+void VIKING::falldownAnimation()
+{
+}
+
 void VIKING::setSkillAnimation()
 {
 }
 
-void VIKING::setLadderAnimation(int offset, bool isOverAni)
+void VIKING::setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight)
 {
 }
 
 void VIKING::pressGravity()
 {
 }
+

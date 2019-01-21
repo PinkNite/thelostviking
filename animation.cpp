@@ -734,6 +734,15 @@ void animation::frameClickUpdate()
 
 }
 
+void animation::frameFixedFrame()
+{
+	if (_play)
+	{
+		_nowPlayIndex = _fixedFrame;
+	}
+
+}
+
 void animation::start()
 {
 	_play = TRUE;

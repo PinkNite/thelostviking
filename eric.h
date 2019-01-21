@@ -28,7 +28,7 @@ public:
 
 	virtual void skillOne() override;
 	virtual void skillTwo() override;
-	virtual	void setLadderAnimation(int offset, bool isOverAni) override;
+	virtual	void setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight) override;
 
 	
 private:
@@ -68,7 +68,7 @@ private:
 	virtual	void	setStopAnimation() override;
 	virtual	void	setSkillAnimation() override;
 	virtual void	pressGravity() override;
-
+	virtual void	falldownAnimation() override;
 	
 	void jump();
 

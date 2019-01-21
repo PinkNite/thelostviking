@@ -118,7 +118,7 @@ public:
 	inline int getLeft() { return _left; }
 	inline int getTop() { return _top; }
 	inline image* getIamge() { return _pImg; }
-	inline bool getIsOnGround() { _isOnGround; }
+	inline bool getIsOnGround() {return _isOnGround; }
 
 	inline void setPosX(float posX) { _posX = posX; }
 	inline void setPosY(float posY) { _posY = posY; }
@@ -146,8 +146,11 @@ public:
 	virtual void	setMovingAnimation(int direction)	;
 	virtual	void	setStopAnimation()					;
 
+	virtual void	falldownAnimation();
+
 	virtual	void	setSkillAnimation();
 
-	virtual	void	setLadderAnimation(int offset,bool isOverAni);
+	virtual	void	setLadderAnimation(int offset,bool isOverAni,int rcTmpHeight);
 	virtual void	pressGravity();
+
 };

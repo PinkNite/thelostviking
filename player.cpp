@@ -28,8 +28,14 @@ void PLAYER::update()
 	if (!_pPixelCollision->getCollisionbot())
 	{
 		_pViking[_nCurrentViking]->pressGravity();
-	}
+		_pViking[_nCurrentViking]->setIsOnGround(false);
+		_pViking[_nCurrentViking]->setSkillAnimation();
 
+	}
+	else {
+		_pViking[_nCurrentViking]->setIsOnGround(true);
+		_pViking[_nCurrentViking]->falldownAnimation();
+	}
 
 	_pViking[_nCurrentViking]->update();
 }
@@ -153,10 +159,10 @@ void PLAYER::setLadderAnimation(int offset)
 
 	if (_rcTmpHeight <= 32)
 	{
-		_pViking[_nCurrentViking]->setLadderAnimation(1, true);
+		_pViking[_nCurrentViking]->setLadderAnimation(1, true,_rcTmpHeight);
 	}
 	else {
-		_pViking[_nCurrentViking]->setLadderAnimation(offset, false);
+		_pViking[_nCurrentViking]->setLadderAnimation(offset, false, _rcTmpHeight);
 
 	}
 }

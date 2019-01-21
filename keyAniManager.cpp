@@ -40,13 +40,17 @@ void keyAniManager::update()
 				iterAni++;
 				continue;
 			}
-			if (!iterAni->second->getIsClickRender())
+			if (!iterAni->second->getIsClickRender() && !iterAni->second->getIsFixedRender())
 			{
 				iterAni->second->frameUpdate(fTime * 1.0f);
 			}
-			else
+			else if(iterAni->second->getIsClickRender())
 			{
 				iterAni->second->frameClickUpdate();
+			}
+			else if (iterAni->second->getIsFixedRender()) 
+			{
+				iterAni->second->frameFixedFrame();
 			}
 			iterAni++;
 		}

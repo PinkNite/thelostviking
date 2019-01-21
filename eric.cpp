@@ -23,12 +23,12 @@ void ERIC::init(int posX, int posY, int width, int height)
 	_saveY = 0;
 	_jumpPower = 0.0f;
 	_isUsingSkillTwo = false;
+	setIsOnGround(true);
 }
 
 void ERIC::update()
 {
-	if (VIKING::_behavior == static_cast<int>(VIKING::ACTION::SKILL_TWO) ||
-		VIKING::_behavior == static_cast<int>(VIKING::ACTION::FALLDOWN))
+	if (!getIsOnGround())
 	{
 		_jumpingTime += TIMEMANAGER->getElpasedTime();
 	}
@@ -39,8 +39,10 @@ void ERIC::update()
 	}
 	else if (_jumpingTime >= 6.0f) {
 		//여기에 픽셀 충돌하면 으로 바꾸어야한다.
-		callbackEricFallDown();
-		_jumpingTime = 0.0F;
+		if (getIsOnGround()) {
+			callbackEricFallDown();
+			_jumpingTime = 0.0F;
+		}
 	}
 	jump();
 
@@ -76,12 +78,13 @@ void ERIC::skillTwo()
 	_jumpPower = Mins::presentPowerY(PI / 2.0f, _jumpSpeed);
 	_isUsingSkillTwo = true;
 	VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY() + _jumpPower * TIMEMANAGER->getElpasedTime());
+	setIsOnGround(false);
 
 	_saveY = VIKING::OBJECT::getPosY();
 	setSkillAnimation();
 }
 
-void ERIC::setLadderAnimation(int offset, bool isOverAni)
+void ERIC::setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight)
 {
 	if (static_cast<VIKING::ACTION>( VIKING::_behavior) != VIKING::ACTION::ON_LADDER && !isOverAni)
 	{
@@ -91,7 +94,28 @@ void ERIC::setLadderAnimation(int offset, bool isOverAni)
 		setAnimation(static_cast<VIKING::DIRECTION>(_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER_OVER));
 	}
 
-	VIKING::_pAnimation->setClickVariable(offset);
+
+	if (static_cast<VIKING::ACTION>(VIKING::_behavior) == VIKING::ACTION::ON_LADDER)
+	{
+		VIKING::_pAnimation->setClickVariable(offset);
+	}
+	if (static_cast<VIKING::ACTION>(VIKING::_behavior) == VIKING::ACTION::ON_LADDER_OVER)
+	{
+		if (rcTmpHeight <= 16)
+		{
+			VIKING::_pAnimation->setFixedFrame(1);
+		}
+		else if (rcTmpHeight <= 32) {
+			VIKING::_pAnimation->setFixedFrame(0);
+		}
+		else if (rcTmpHeight > 32) {
+			setAnimation(static_cast<VIKING::DIRECTION>(_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER));
+		}
+		else if (rcTmpHeight == 1) {
+			setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+			
+		}
+	}
 }
 
 void ERIC::jump()
@@ -115,6 +139,7 @@ void ERIC::fallDown()
 	if (VIKING::_behavior == static_cast<int>(VIKING::ACTION::FALLDOWN))
 	{
 		//땅과 충돌하면 땅위에 있다고 변환시키고
+		
 		//callbackEricFallDown();//을 실행시킨다.
 
 	}
@@ -212,12 +237,12 @@ void ERIC::initKeyAnimation()
 	KEYANIMANAGER->findAnimation("eric",
 		addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
 			VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
-			VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)]))->setClickRender(true);
+			VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)]))->setFixedRender(true);
 
 	KEYANIMANAGER->findAnimation("eric",
 		addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
 			VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
-			VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)]))->setClickRender(true);
+			VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)]))->setFixedRender(true);
 
 
 
@@ -570,12 +595,24 @@ void ERIC::setStopAnimation()
 	if (static_cast<int>(VIKING::ACTION::RUN) == _behavior) {
 		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::SPECIAL));
 	}
-	
+	//else if (static_cast<int>(VIKING::ACTION::SKILL_TWO) == _behavior) {
+	//	setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+	//}
+	//else if (static_cast<int>(VIKING::ACTION::FALLDOWN) == _behavior) {
+	//	callbackEricFallDown();
+	//}
+	_jumpingTime = 0.0F;
+
 }
 
 void ERIC::setSkillAnimation()
 {
-	setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO));
+	if (VIKING::ACTION::SKILL_TWO != static_cast<VIKING::ACTION>(VIKING::_behavior)&&
+		VIKING::ACTION::ON_LADDER != static_cast<VIKING::ACTION>(VIKING::_behavior) &&
+		VIKING::ACTION::ON_LADDER_OVER != static_cast<VIKING::ACTION>(VIKING::_behavior))
+	{
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO));
+	}
 }
 
 void ERIC::pressGravity()
@@ -585,6 +622,18 @@ void ERIC::pressGravity()
 	{
 		VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY() + _gravity * TIMEMANAGER->getElpasedTime());
 	}
+}
+
+void ERIC::falldownAnimation()
+{
+	if (static_cast<int>(VIKING::ACTION::SKILL_TWO) == _behavior) {
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+	}
+	else if (static_cast<int>(VIKING::ACTION::FALLDOWN) == _behavior) {
+		callbackEricFallDown();
+	}
+	_jumpingTime = 0.0F;
+
 }
 
 
@@ -687,4 +736,5 @@ void ERIC::callbackEricFallDown()
 	else {
 		setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::STUN));
 	}
+	setIsOnGround(true);
 }

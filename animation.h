@@ -35,6 +35,9 @@ private:
 
 	BOOL	_isClickRender;	//이것은 클릭 렌더 입니다.
 	int		_clickVariable;
+
+	BOOL	_isFixedRender;
+	int		_fixedFrame;
 public:
 	animation();
 	~animation();
@@ -70,6 +73,7 @@ public:
 	//렌더링
 	void frameUpdate(float elapsedTime);
 	void frameClickUpdate();
+	void frameFixedFrame();
 
 	void start();		//재생
 	void stop();		//정지
@@ -85,5 +89,9 @@ public:
 	inline BOOL	getIsClickRender() { return _isClickRender; }
 
 	inline void setClickVariable(int variable) { _clickVariable = variable; }
+
+	inline void setFixedRender(BOOL isFixedRender) { _isFixedRender = isFixedRender; }
+	inline BOOL	getIsFixedRender() { return _isFixedRender; }
+	inline void setFixedFrame(int fixedFrame) {_fixedFrame = fixedFrame;}
 };
 
