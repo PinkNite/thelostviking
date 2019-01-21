@@ -99,8 +99,32 @@ void PLAYER::moveRight()
 
 void PLAYER::moveUp()
 {
-	_pViking[_nCurrentViking]->moveUp(0.0f);
+	RECT rcPlayer = RectMakeCenter(_pViking[_nCurrentViking]->getPosX(), _pViking[_nCurrentViking]->getPosY(),
+		_pViking[_nCurrentViking]->getWidth(), _pViking[_nCurrentViking]->getHeight());
+	_pMap2->getRCLadder(0);
+	bool bIsCollisionLadder = false;
+	int	 nLadder = 0;
 
+	while (nLadder < 6 && !bIsCollisionLadder)
+	{
+		RECT rcTmp;
+		if (IntersectRect(&rcTmp,&rcPlayer,&(_pMap2->getRCLadder(nLadder))))
+		{
+			if (rcTmp.right - rcTmp.left >= 32)
+			{
+
+			}
+			bIsCollisionLadder++;
+		}
+		else {
+			nLadder++;
+		}
+	}
+	if (bIsCollisionLadder)
+	{
+
+		_pViking[_nCurrentViking]->moveUp(0.0f);
+	}	
 }
 
 void PLAYER::moveDown()

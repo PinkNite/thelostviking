@@ -43,6 +43,7 @@ void ERIC::update()
 	}
 	jump();
 
+	VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY() + _gravity * TIMEMANAGER->getElpasedTime());
 
 	KEYANIMANAGER->update();
 }
@@ -183,25 +184,25 @@ void ERIC::initKeyAnimation()
 		180, 1, 1, true);
 
 
-	//KEYANIMANAGER->findAnimation("eric",
-	//	addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
-	//		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
-	//		VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER)]))->setClickRender(true);
+	KEYANIMANAGER->findAnimation("eric",
+		addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+			VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+			VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER)]))->setClickRender(true);
 
-	//KEYANIMANAGER->findAnimation("eric",
-	//	addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
-	//		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
-	//		VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER)]))->setClickRender(true);
-	//
-	//KEYANIMANAGER->findAnimation("eric",
-	//	addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
-	//		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
-	//		VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)]))->setClickRender(true);
+	KEYANIMANAGER->findAnimation("eric",
+		addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+			VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+			VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER)]))->setClickRender(true);
+	
+	KEYANIMANAGER->findAnimation("eric",
+		addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+			VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+			VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)]))->setClickRender(true);
 
-	//KEYANIMANAGER->findAnimation("eric",
-	//	addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
-	//		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
-	//		VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)]))->setClickRender(true);
+	KEYANIMANAGER->findAnimation("eric",
+		addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+			VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+			VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)]))->setClickRender(true);
 
 
 
