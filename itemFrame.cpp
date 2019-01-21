@@ -17,6 +17,7 @@ HRESULT ITEMFRAME::init(int x, int y, int width, int height)
 	_y = y;
 	_width = width;
 	_height = height;
+
 	return S_OK;
 }
 
@@ -30,7 +31,7 @@ void ITEMFRAME::update()
 
 void ITEMFRAME::render(HDC hdc)
 {
-	
+
 }
 
 void ITEMFRAME::setImage(image * image)
@@ -44,4 +45,6 @@ void ITEMFRAME::setItem(int x, int y, int width, int height)
 	_y = y;
 	_width = width;
 	_height = height;
+	_isAllive = true;
+	_alphaCount = 255;
 }

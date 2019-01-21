@@ -1,12 +1,13 @@
 #pragma once
-class ITEMFRUIT1
+#include "itemFrame.h"
+class ITEMFRUIT1 :public ITEMFRAME
 {
 public:
 	ITEMFRUIT1();
 	~ITEMFRUIT1();
-	virtual HRESULT init();
+	virtual HRESULT init(int x, int y, int width, int height);
 	virtual void release();
 	virtual void update();
-	virtual void render();
+	virtual void render(HDC hdc);
 };
 
