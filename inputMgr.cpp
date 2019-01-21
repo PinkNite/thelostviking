@@ -15,8 +15,8 @@ void INPUTMANAGER::init(PLAYER * pPlayer, CAMERA * pCamera)
 	_isRight = false;
 	_isTop = false;
 	_isBottom = false;
-	_isUse = false;
-	_isOpen = false;
+	/*_isUse = false;
+	_isOpen = false;*/
 }
 
 void INPUTMANAGER::update()
@@ -66,10 +66,6 @@ void INPUTMANAGER::update()
 
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
-		if (_pPlayer->isCollisionLadder())
-		{
-			_pPlayer->setLadderAnimation(-1);
-		}
 		_pPlayer->moveDown();
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
@@ -92,10 +88,6 @@ void INPUTMANAGER::update()
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
-		if (_pPlayer->isCollisionLadder())
-		{
-			_pPlayer->setLadderAnimation(1);
-		}
 		_pPlayer->moveUp();
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_UP))
@@ -127,22 +119,7 @@ void INPUTMANAGER::update()
 		_pPlayer->useSkillOne();
 	}
 	//이승재
-	if (KEYMANAGER->isToggleKey(VK_SPACE)&&!_isUse)//아이템사용
-	{
-		_isUse = true;
-	}
-	else
-	{
-		_isUse = false;
-	}
-	if (KEYMANAGER->isToggleKey(VK_F8)&&!_isOpen)//아이템사용
-	{
-		_isOpen = true;
-	}
-	else
-	{
-		_isOpen = false;
-	}
+
 	
 
 

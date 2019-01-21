@@ -180,10 +180,11 @@ void UI::update()
 	changePlayer();
 
 
+	
 
 	//_life[0].isAllive = false;//이럼 사라짐
 
-	if (_pInputMG->getOpen() == true)
+	if (0)
 	{
 		selectMove();//얘는 특정 조건에서만 되어야함
 	}
@@ -204,6 +205,36 @@ void UI::update()
 
 	selectCollision();
 	moveItem();//아이템이동함수
+	/*
+	if (!_isUse)
+	{
+		if (KEYMANAGER->isToggleKey(VK_SPACE))//아이템사용
+		{
+			_isUse = true;
+		}
+	}
+	else
+	{
+		if (KEYMANAGER->isToggleKey(VK_SPACE))//아이템사용
+		{
+			_isUse = false;
+		}
+	}
+	if (!_isOpen)
+	{
+		if (KEYMANAGER->isToggleKey(VK_F8))//아이템사용
+		{
+			_isOpen = true;
+		}
+	}
+	else
+	{
+		if (KEYMANAGER->isToggleKey(VK_F8))//아이템사용
+		{
+			_isOpen = false;
+		}
+	}
+	*/
 }
 
 void UI::render(HDC hdc)
@@ -349,10 +380,10 @@ void UI::render(HDC hdc)
 	//아이템
 	//인벤토리 렌더
 	itemRender(hdc);
-/*
+
 	char str[128];
-	sprintf_s(str, "%d", _erikItem);
-	TextOut(getMemDC(), 400, 300, str, strlen(str));*/
+	sprintf_s(str, "%d", 0);
+	TextOut(hdc, 400, 300, str, strlen(str));
 
 }
 
@@ -360,7 +391,7 @@ void UI::selectMove()
 {
 	if (_erikState == ERIK_ON)
 	{
-		_select[0].alphaCount += 10;//온이면 알파값 변함
+		
 		if (_pInputMG->getLeft()==true)
 		{
 			switch (_selectState[0])
@@ -409,112 +440,138 @@ void UI::selectMove()
 				break;
 			}
 		}
+		if (0)
+		{
+			_select[0].alphaCount += 10;//온이면 알파값 변함
+		}
+		else if (0)
+		{
+			_select[0].alphaCount = 255;
+		}
 	}
-	else if (_baleogState == BALEOG_ON)
+	
+	if (_baleogState == BALEOG_ON)
 	{
-		_select[0].alphaCount += 10;//온이면 알파값 변함
+		
 		if (_pInputMG->getLeft() == true)
 		{
-			switch (_selectState[0])
+			switch (_selectState[1])
 			{
 			case SELECT_RIGHT_TOP:
-				_selectState[0] = SELECT_LEFT_TOP;
+				_selectState[1] = SELECT_LEFT_TOP;
 				break;
 			case SELECT_RIGHT_BOTTOM:
-				_selectState[0] = SELECT_LEFT_BOTTOM;
+				_selectState[1] = SELECT_LEFT_BOTTOM;
 				break;
 			}
 		}
 		if (_pInputMG->getRight() == true)
 		{
-			switch (_selectState[0])
+			switch (_selectState[1])
 			{
 			case SELECT_LEFT_TOP:
-				_selectState[0] = SELECT_RIGHT_TOP;
+				_selectState[1] = SELECT_RIGHT_TOP;
 				break;
 			case SELECT_LEFT_BOTTOM:
-				_selectState[0] = SELECT_RIGHT_BOTTOM;
+				_selectState[1] = SELECT_RIGHT_BOTTOM;
 				break;
 			}
 		}
 		if (_pInputMG->getTop() == true)
 		{
-			switch (_selectState[0])
+			switch (_selectState[1])
 			{
 			case SELECT_LEFT_BOTTOM:
-				_selectState[0] = SELECT_LEFT_TOP;
+				_selectState[1] = SELECT_LEFT_TOP;
 				break;
 			case SELECT_RIGHT_BOTTOM:
-				_selectState[0] = SELECT_RIGHT_TOP;
+				_selectState[1] = SELECT_RIGHT_TOP;
 				break;
 			}
 		}
 		if (_pInputMG->getBottom() == true)
 		{
-			switch (_selectState[0])
+			switch (_selectState[1])
 			{
 			case SELECT_LEFT_TOP:
-				_selectState[0] = SELECT_LEFT_BOTTOM;
+				_selectState[1] = SELECT_LEFT_BOTTOM;
 				break;
 			case SELECT_RIGHT_TOP:
-				_selectState[0] = SELECT_RIGHT_BOTTOM;
+				_selectState[1] = SELECT_RIGHT_BOTTOM;
 				break;
 			}
+		}
+		if (0)
+		{
+			_select[1].alphaCount += 10;//온이면 알파값 변함
+		}
+		else if(0)
+		{
+			_select[1].alphaCount = 255;
 		}
 	}
-	else if (_olafState == OLAF_ON)
-	{
-		_select[0].alphaCount += 10;//온이면 알파값 변함
-		if (_pInputMG->getLeft() == true)
-		{
-			switch (_selectState[0])
-			{
-			case SELECT_RIGHT_TOP:
-				_selectState[0] = SELECT_LEFT_TOP;
-				break;
-			case SELECT_RIGHT_BOTTOM:
-				_selectState[0] = SELECT_LEFT_BOTTOM;
-				break;
-			}
-		}
-		if (_pInputMG->getRight() == true)
-		{
-			switch (_selectState[0])
-			{
-			case SELECT_LEFT_TOP:
-				_selectState[0] = SELECT_RIGHT_TOP;
-				break;
-			case SELECT_LEFT_BOTTOM:
-				_selectState[0] = SELECT_RIGHT_BOTTOM;
-				break;
-			}
-		}
-		if (_pInputMG->getTop() == true)
-		{
-			switch (_selectState[0])
-			{
-			case SELECT_LEFT_BOTTOM:
-				_selectState[0] = SELECT_LEFT_TOP;
-				break;
-			case SELECT_RIGHT_BOTTOM:
-				_selectState[0] = SELECT_RIGHT_TOP;
-				break;
-			}
-		}
-		if (_pInputMG->getBottom() == true)
-		{
-			switch (_selectState[0])
-			{
-			case SELECT_LEFT_TOP:
-				_selectState[0] = SELECT_LEFT_BOTTOM;
-				break;
-			case SELECT_RIGHT_TOP:
-				_selectState[0] = SELECT_RIGHT_BOTTOM;
-				break;
-			}
-		}
 
+	if (_olafState == OLAF_ON)
+	{
+		
+		if (_pInputMG->getLeft() == true)
+		{
+			switch (_selectState[2])
+			{
+			case SELECT_RIGHT_TOP:
+				_selectState[2] = SELECT_LEFT_TOP;
+				break;
+			case SELECT_RIGHT_BOTTOM:
+				_selectState[2] = SELECT_LEFT_BOTTOM;
+				break;
+			}
+		}
+		if (_pInputMG->getRight() == true)
+		{
+			switch (_selectState[2])
+			{
+			case SELECT_LEFT_TOP:
+				_selectState[2] = SELECT_RIGHT_TOP;
+				break;
+			case SELECT_LEFT_BOTTOM:
+				_selectState[2] = SELECT_RIGHT_BOTTOM;
+				break;
+			}
+		}
+		if (_pInputMG->getTop() == true)
+		{
+			switch (_selectState[2])
+			{
+			case SELECT_LEFT_BOTTOM:
+				_selectState[2] = SELECT_LEFT_TOP;
+				break;
+			case SELECT_RIGHT_BOTTOM:
+				_selectState[2] = SELECT_RIGHT_TOP;
+				break;
+			}
+		}
+		if (_pInputMG->getBottom() == true)
+		{
+			switch (_selectState[2])
+			{
+			case SELECT_LEFT_TOP:
+				_selectState[2] = SELECT_LEFT_BOTTOM;
+				break;
+			case SELECT_RIGHT_TOP:
+				_selectState[2] = SELECT_RIGHT_BOTTOM;
+				break;
+			}
+		}
+		if (0)
+		{
+			_select[2].alphaCount += 10;//온이면 알파값 변함
+		}
+		else
+		{
+			_select[2].alphaCount = 255;
+		}
 	}
+	
 	/////////////////이동부분
 	for (int i = 0; i < 3; i++)
 	{
@@ -796,7 +853,7 @@ void UI::selectCollision()//알파값 변하는 함수와 선택조건
 	for (int i = 0; i < 3; i++)
 	{
 		
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[0]->getX(), _pItemBoom[0]->getY(), 40, 40)&& _pInputMG->getUse())
+			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[0]->getX(), _pItemBoom[0]->getY(), 40, 40))
 			{
 				
 				_pItemBoom[0]->setAlphaCountPlus(15);
@@ -808,7 +865,7 @@ void UI::selectCollision()//알파값 변하는 함수와 선택조건
 			{
 				_pItemBoom[0]->setAlphaCount(255);
 			}
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[1]->getX(), _pItemBoom[1]->getY(), 40, 40) && _pInputMG->getUse())
+			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[1]->getX(), _pItemBoom[1]->getY(), 40, 40) )
 			{
 				_pItemBoom[1]->setAlphaCountPlus(15);
 					_pItemBoom[1]->setMove(true);//사용으로 바꿔줌
@@ -820,7 +877,7 @@ void UI::selectCollision()//알파값 변하는 함수와 선택조건
 			}
 			//////////////////과일
 
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[0]->getX(), _pItemFruit1[0]->getY(), 40, 40) && _pInputMG->getUse())
+			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[0]->getX(), _pItemFruit1[0]->getY(), 40, 40) )
 			{
 				_pItemFruit1[0]->setAlphaCountPlus(15);
 					_pItemFruit1[0]->setMove(true);
@@ -830,7 +887,7 @@ void UI::selectCollision()//알파값 변하는 함수와 선택조건
 			{
 				_pItemFruit1[0]->setAlphaCount(255);
 			}
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[1]->getX(), _pItemFruit1[1]->getY(), 40, 40) && _pInputMG->getUse())
+			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[1]->getX(), _pItemFruit1[1]->getY(), 40, 40) )
 			{
 				_pItemFruit1[1]->setAlphaCountPlus(15);
 					_pItemFruit1[1]->setMove(true);
@@ -842,7 +899,7 @@ void UI::selectCollision()//알파값 변하는 함수와 선택조건
 			}
 			/////////////////////////////과일
 
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[0]->getX(), _pItemFruit2[0]->getY(), 40, 40) && _pInputMG->getUse())
+			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[0]->getX(), _pItemFruit2[0]->getY(), 40, 40) )
 			{
 				
 				_pItemFruit2[0]->setAlphaCountPlus(15);
@@ -854,7 +911,7 @@ void UI::selectCollision()//알파값 변하는 함수와 선택조건
 			{
 				_pItemFruit2[0]->setAlphaCount(255);
 			}
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[1]->getX(), _pItemFruit2[1]->getY(), 40, 40) && _pInputMG->getUse())
+			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[1]->getX(), _pItemFruit2[1]->getY(), 40, 40) )
 			{
 				_pItemFruit2[1]->setAlphaCountPlus(15);
 
@@ -866,7 +923,7 @@ void UI::selectCollision()//알파값 변하는 함수와 선택조건
 				_pItemFruit2[1]->setAlphaCount(255);
 			}
 			//고기
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat->getX(), _pItemMeat->getY(), 40, 40) && _pInputMG->getUse())
+			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat->getX(), _pItemMeat->getY(), 40, 40) )
 			{
 				_pItemMeat->setAlphaCountPlus(15);
 					_pItemMeat->setMove(true);
