@@ -60,13 +60,17 @@ void ERIC::render(HDC hdc)
 
 void ERIC::skillOne()
 {
+	if (static_cast<VIKING::ACTION>(VIKING::_behavior) != VIKING::ACTION::RUN) return;
+	setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE));
 
 }
 
 void ERIC::skillTwo()
 {
+	if (_isUsingSkillTwo) return;
+	if (static_cast<VIKING::ACTION>(VIKING::_behavior) == VIKING::ACTION::SKILL_ONE)return;
 	_jumpingTime = 0.0f;
-	_jumpSpeed = 2000.0f;
+	_jumpSpeed = 1500.0f;
 	_jumpPower = Mins::presentPowerY(PI / 2.0f, _jumpSpeed);
 	_isUsingSkillTwo = true;
 
@@ -85,7 +89,7 @@ void ERIC::jump()
 	{
 		VIKING::OBJECT::setPosY(_saveY);
 		_isUsingSkillTwo = false;
-		//setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
 }
 
@@ -96,6 +100,7 @@ void ERIC::fallDown()
 	{
 		//땅과 충돌하면 땅위에 있다고 변환시키고
 		//callbackEricFallDown();//을 실행시킨다.
+
 	}
 }
 
@@ -133,9 +138,9 @@ void ERIC::initKeyAnimation()
 		32, 8, 10, true);
 
 	addRightAliveAnimationCoordinate(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE),
-		40, 8, 10, true, false, callbackHading);
+		40, 8, 5, true, false, callbackHading);
 	addLeftAliveAnimationCoordinate(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE),
-		48, 8, 10, true, false, callbackHading);
+		48, 8, 5, true, false, callbackHading);
 
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::STUN),
 		56, 11, 10, false, callbackStun);
@@ -570,6 +575,8 @@ void ERIC::callbackHading(void *obj)
 	//스턴
 	//달리기
 	//한숨아이들
+	ERIC* pEric = (ERIC*)obj;
+	pEric->callbackEricHading();
 }
 
 void ERIC::callbackStun(void * obj)
@@ -603,6 +610,13 @@ void ERIC::callbackEricJump()
 
 void ERIC::callbackEricHading()
 {
+	if (VIKING::_direction == static_cast<int>(VIKING::DIRECTION::LEFT))
+	{
+		setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::SPECIAL));
+	}
+	else {
+		setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::SPECIAL));
+	}
 }
 
 void ERIC::callbackEricStun()

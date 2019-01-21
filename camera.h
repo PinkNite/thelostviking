@@ -3,9 +3,7 @@
 #include "stdafx.h"
 #include "image.h"
 
-
 class PLAYER;
-
 
 class CAMERA {
 private:

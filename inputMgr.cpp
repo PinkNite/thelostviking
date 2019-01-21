@@ -83,7 +83,10 @@ void INPUTMANAGER::update()
 		{
 		}
 	}
-
+	if (KEYMANAGER->isOnceKeyDown('D'))
+	{
+		_pPlayer->useSkillOne();
+	}
 
 
 	if (_pPlayer->getPosX() < _pCamera->getLeft() + _pCamera->getWidth() / 2 - 32)
