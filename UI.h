@@ -38,7 +38,8 @@ enum selectState
 	SELECT_LEFT_TOP,
 	SELECT_LEFT_BOTTOM,
 	SELECT_RIGHT_TOP,
-	SELECT_RIGHT_BOTTOM
+	SELECT_RIGHT_BOTTOM,
+	SELECT_REMOVE
 };
 enum itemMemory
 {
@@ -83,6 +84,7 @@ private:
 	olafState _olafState;
 	erikState _erikState;
 	selectState _selectState[3];
+	selectState _selectStateTemp[3];
 	itemMemory _erikItem;
 	itemMemory _baleogItem;
 	itemMemory _olafItem;
