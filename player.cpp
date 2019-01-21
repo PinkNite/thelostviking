@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "player.h"
 #include "eric.h"
+#include "pixelCollision.h"
+
 
 PLAYER::PLAYER()
 {

@@ -104,6 +104,7 @@ HRESULT playGround::init()
 	_enemy->init(800, 600, 40, 64, 2.0f, ENEMY::ENEMY_TYPE::CANNON);
 	
 	_pPlayer->setMap2(_pMap2);
+	_pPlayer->setPixelCollision(_pixel);
 	return S_OK;
 }
 

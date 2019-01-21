@@ -7,6 +7,7 @@
 class ERIC;
 class OBJECT;
 class MAP2;
+class pixelCollision;
 
 class PLAYER
 {
@@ -24,7 +25,7 @@ private:
 	MAP2*	_pMap2;
 
 	int		_rcTmpHeight;
-
+	pixelCollision*		_pPixelCollision;
 public:
 	PLAYER();
 	~PLAYER();
@@ -59,7 +60,7 @@ public:
 	bool isCollisionLadder();
 
 	inline	void setMap2(MAP2* pMap) { _pMap2 = pMap; }
-
+	inline	void	setPixelCollision(pixelCollision* pPiexl) { _pPixelCollision = pPiexl; }
 
 	void	setPosX	 (float posX);
 	void	setPosY	 (float posY);
