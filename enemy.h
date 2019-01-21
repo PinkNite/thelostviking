@@ -49,18 +49,26 @@ private:
 	// key animation data
 	animation*	 _pAnimation;
 	vector<int*> _vAniFrame;
+	vector<int>  _frameFps;
 	int			 _arAniFrameCount[int(ENEMY_STATE::MAX)];
 	string		 _arAniFrameStrKey[int(ENEMY_STATE::MAX)];
-	int			 _maxAniFrame;
 
 	int _hp;
 	float _speed;
+
+	// 생성 위치
 	float _startX;
+
+	// 이동 영역 끝 좌표
 	float _endX;
 
+	// 이동 영역 거리
 	float  _moveRange;
+
+	// 공격 인식 거리
 	float  _attackRange;
 
+	// Enemy Key Name;
 	string _typeName;
 
 	image* _bullet;

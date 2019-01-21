@@ -17,18 +17,13 @@ void ENEMY::init(int posX, int posY, int width, int height, float speed, ENEMY_T
 	_hp = 1;
 	_speed = speed;
 	
-	// 생성 위치
 	_startX = posX;
-	// 이동 영역 거리
+	
 	_moveRange = 200.0f;
-	// 이동 영역 끝 좌표
+	
 	_endX = _startX + _moveRange;
 
-	// 공격 인식 거리
 	_attackRange = 200.0f;
-
-	// 키애니메이션 배열 최대값
-	_maxAniFrame = 0;
 
 	setEnemyType(type);
 }
@@ -50,7 +45,7 @@ void ENEMY::update()
 	}
 	else
 	{
-		// 플레이어가 근접한경우 
+		// TODO: 플레이어가 근접한경우 처리
 		float _deltaX = abs(_startX - OBJECT::_posX);
 		if (OBJECT::_posX - _deltaX >= -_attackRange)
 		{
@@ -147,7 +142,10 @@ void ENEMY::release()
 
 void ENEMY::render(HDC hdc)
 {
-	_bullet->render(hdc, _bulletX, OBJECT::_posY);
+	if (_bullet != NULL)
+	{
+		_bullet->render(hdc, _bulletX, OBJECT::_posY);
+	}
 	OBJECT::getImage()->aniRender(hdc, OBJECT::getPosX() - OBJECT::getWidth() / 2, OBJECT::getPosY() - OBJECT::getHeight() / 2, _pAnimation);
 }
 
@@ -263,40 +261,40 @@ void ENEMY::initAniFrame()
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_RIGHT)] = "IDLE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_RIGHT)] = 1;
 		frameNum = new int[1]{ 0 };
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_LEFT)] = "IDLE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_LEFT)] = 1;
 		frameNum = new int[1]{ 10 };
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_RIGHT)] = "MOVE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_RIGHT)] = 4;
 		frameNum = new int[4]{ 0, 1, 2, 3 };
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_LEFT)] = "MOVE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_LEFT)] = 4;
 		frameNum = new int[4]{ 7, 8, 9, 10 };
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_RIGHT)] = "ATTACK_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::ATTACK_RIGHT)] = 7;
 		frameNum = new int[7]{ 14, 15, 16, 17, 18, 19, 20 };
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_LEFT)] = "ATTACK_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::ATTACK_LEFT)] = 7;
 		frameNum = new int[7]{ 21, 22, 23, 24, 25, 26, 27 };
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		_maxAniFrame = 6;
-
-		// 키프레임 animation 등록
-		for (int i = 0; i < _maxAniFrame; i++)
-		{
-			KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], 4, true);
-		}
 
 		break;
 
@@ -305,30 +303,29 @@ void ENEMY::initAniFrame()
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_RIGHT)] = "IDLE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_RIGHT)] = 1;
 		frameNum = new int[1]{ 0 };
+		_frameFps.push_back(2);
 		_vAniFrame.push_back(frameNum);
 
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_LEFT)] = "IDLE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_LEFT)] = 1;
 		frameNum = new int[1]{ 6 };
+		_frameFps.push_back(2);
 		_vAniFrame.push_back(frameNum);
 
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_RIGHT)] = "MOVE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_RIGHT)] = 3;
 		frameNum = new int[3]{ 0, 1, 2 };
+		_frameFps.push_back(2);
 		_vAniFrame.push_back(frameNum);
 
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_LEFT)] = "MOVE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_LEFT)] = 3;
 		frameNum = new int[3]{ 3, 4, 5 };
+		_frameFps.push_back(2);
 		_vAniFrame.push_back(frameNum);
 
 		_maxAniFrame = 4;
 
-		// 키프레임 animation 등록
-		for (int i = 0; i < _maxAniFrame; i++)
-		{
-			KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], 3, true);
-		}
 
 		break;
 
@@ -337,41 +334,40 @@ void ENEMY::initAniFrame()
 		frameNum = new int[1]{ 0 };
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_RIGHT)] = "IDLE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_RIGHT)] = 1;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[1]{ 11 };
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_LEFT)] = "IDLE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_LEFT)] = 1;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[6]{ 0, 1, 2, 3, 4, 5 };
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_RIGHT)] = "MOVE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_RIGHT)] = 6;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[6]{ 6, 7, 8, 9, 10, 11 };
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_LEFT)] = "MOVE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_LEFT)] = 6;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[3]{ 12, 13, 14 };
 		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_RIGHT)] = "ATTACK_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::ATTACK_RIGHT)] = 3;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[3]{ 18, 19, 20 };
 		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_LEFT)] = "ATTACK_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::ATTACK_LEFT)] = 3;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		_maxAniFrame = 6;
-
-		// 키프레임 animation 등록
-		for (int i = 0; i < _maxAniFrame; i++)
-		{
-			KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], 4, true);
-		}
-
 
 		break;
 	case ENEMY::ENEMY_TYPE::YELLOW_BALL:
@@ -379,31 +375,28 @@ void ENEMY::initAniFrame()
 		frameNum = new int[1]{ 0 };
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_RIGHT)] = "IDLE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_RIGHT)] = 1;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[1]{ 3 };
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_LEFT)] = "IDLE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_LEFT)] = 1;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[2]{ 0, 1 };
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_RIGHT)] = "MOVE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_RIGHT)] = 2;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[2]{ 2, 3 };
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_LEFT)] = "MOVE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_LEFT)] = 2;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		_maxAniFrame = 4;
-
-		// 키프레임 animation 등록
-		for (int i = 0; i < _maxAniFrame; i++)
-		{
-			KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], 4, true);
-		}
-
 
 		break;
 
@@ -412,40 +405,40 @@ void ENEMY::initAniFrame()
 		frameNum = new int[1]{ 0 };
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_RIGHT)] = "IDLE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_RIGHT)] = 1;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[1]{ 11 };
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_LEFT)] = "IDLE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_LEFT)] = 1;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[6]{ 0, 1, 2, 3, 4, 5 };
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_RIGHT)] = "MOVE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_RIGHT)] = 6;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[6]{ 6, 7, 8, 9, 10, 11 };
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_LEFT)] = "MOVE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_LEFT)] = 6;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[6]{ 12, 13, 14, 15, 16, 17 };
 		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_RIGHT)] = "ATTACK_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::ATTACK_RIGHT)] = 6;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[6]{ 18, 19, 20, 21, 22, 23 };
 		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_LEFT)] = "ATTACK_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::ATTACK_LEFT)] = 6;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		_maxAniFrame = 6;
-
-		// 키프레임 animation 등록
-		for (int i = 0; i < _maxAniFrame; i++)
-		{
-			KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], 4, true);
-		}
 
 		break;
 
@@ -454,40 +447,40 @@ void ENEMY::initAniFrame()
 		frameNum = new int[1]{ 0 };
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_RIGHT)] = "IDLE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_RIGHT)] = 1;
+		_frameFps.push_back(2);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[1]{ 3 };
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_LEFT)] = "IDLE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_LEFT)] = 1;
+		_frameFps.push_back(2);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[2]{ 2, 3 };
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_RIGHT)] = "MOVE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_RIGHT)] = 2;
+		_frameFps.push_back(2);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[2]{ 0, 1 };
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_LEFT)] = "MOVE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_LEFT)] = 2;
+		_frameFps.push_back(2);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[2]{ 2, 3 };
 		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_RIGHT)] = "ATTACK_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::ATTACK_RIGHT)] = 2;
+		_frameFps.push_back(2);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[2]{ 0, 1 };
 		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_LEFT)] = "ATTACK_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::ATTACK_LEFT)] = 2;
+		_frameFps.push_back(2);
 		_vAniFrame.push_back(frameNum);
 
 		_maxAniFrame = 6;
-
-		// 키프레임 animation 등록
-		for (int i = 0; i < _maxAniFrame; i++)
-		{
-			KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], 2, true);
-		}
 
 		break;
 
@@ -496,79 +489,49 @@ void ENEMY::initAniFrame()
 		frameNum = new int[1]{ 0 };
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_RIGHT)] = "IDLE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_RIGHT)] = 1;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[1]{ 9 };
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_LEFT)] = "IDLE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_LEFT)] = 1;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[5]{ 0, 1, 2, 3, 4 };
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_RIGHT)] = "MOVE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_RIGHT)] = 5;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[5]{ 5, 6, 7, 8, 9 };
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_LEFT)] = "MOVE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_LEFT)] = 5;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[5]{ 10, 11, 12, 13, 14 };
 		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_RIGHT)] = "ATTACK_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::ATTACK_RIGHT)] = 5;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[5]{ 15, 16, 17, 18, 19 };
 		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_LEFT)] = "ATTACK_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::ATTACK_LEFT)] = 5;
+		_frameFps.push_back(4);
 		_vAniFrame.push_back(frameNum);
 
 		_maxAniFrame = 6;
 
-		// 키프레임 animation 등록
-		for (int i = 0; i < _maxAniFrame; i++)
-		{
-			KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], 4, true);
-		}
-
 		break;
-		/*
-		case enemy::ENEMY_TYPE::BOSS:
-
-			frameNum = new int[1]{ 0 };
-			_arAniFrameStrKey[int(ENEMY_STATE::IDLE_RIGHT)] = "IDLE_RIGHT";
-			_arAniFrameCount[int(ENEMY_STATE::IDLE_RIGHT)] = 1;
-			_vAniFrame.push_back(frameNum);
-
-			frameNum = new int[1]{ 7 };
-			_arAniFrameStrKey[int(ENEMY_STATE::IDLE_LEFT)] = "IDLE_LEFT";
-			_arAniFrameCount[int(ENEMY_STATE::IDLE_LEFT)] = 1;
-			_vAniFrame.push_back(frameNum);
-
-			frameNum = new int[4]{ 0, 1, 2, 3 };
-			_arAniFrameStrKey[int(ENEMY_STATE::MOVE_RIGHT)] = "MOVE_RIGHT";
-			_arAniFrameCount[int(ENEMY_STATE::MOVE_RIGHT)] = 4;
-			_vAniFrame.push_back(frameNum);
-
-			frameNum = new int[4]{ 4, 5, 6, 7 };
-			_arAniFrameStrKey[int(ENEMY_STATE::MOVE_LEFT)] = "MOVE_LEFT";
-			_arAniFrameCount[int(ENEMY_STATE::MOVE_LEFT)] = 4;
-			_vAniFrame.push_back(frameNum);
-
-			frameNum = new int[4]{ 7, 8, 9, 10 };
-			_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_RIGHT)] = "ATTACK_RIGHT";
-			_arAniFrameCount[int(ENEMY_STATE::ATTACK_RIGHT)] = 4;
-			_vAniFrame.push_back(frameNum);
-
-			frameNum = new int[4]{ 11, 12, 13, 14 };
-			_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_LEFT)] = "ATTACK_LEFT";
-			_arAniFrameCount[int(ENEMY_STATE::ATTACK_LEFT)] = 4;
-			_vAniFrame.push_back(frameNum);
-
-			break;
-		*/
-
+		
 	}
 
+	// 키프레임 animation 등록
+	for (int i = 0; i < _frameFps.size(); i++)
+	{
+		KEYANIMANAGER->addArrayFrameAnimation(_typeName, _arAniFrameStrKey[i], _typeName.c_str(), _vAniFrame[i], _arAniFrameCount[i], _frameFps[i], true);
+	}
 
 }
