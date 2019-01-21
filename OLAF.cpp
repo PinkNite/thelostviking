@@ -145,16 +145,6 @@ void OLAF::initKeyAnimation()
 		addLeftAliveAnimation(actionTeleport, 11, 7, 3, false);
 	}
 
-	string idleNormal = VIKING::_vBehavior[int(VIKING::STATE::IDLE)][int(VIKING::IDLE::NORMAL)];
-	{
-		string blockTop = VIKING::_arOlafShield[int(VIKING::OLAFSHIELD::BLOCK_TOP)];
-		addRightAliveAnimation(blockTop, idleNormal, 0, 1, 1, true);
-		addLeftAliveAnimation(blockTop, idleNormal, 1, 1, 1, true);
-
-		string blockFront = VIKING::_arOlafShield[int(VIKING::OLAFSHIELD::BLOCK_FRONT)];
-		addRightAliveAnimation(blockFront, idleNormal, 2, 1, 1, true);
-		addLeftAliveAnimation(blockFront, idleNormal, 3, 1, 1, true);
-	}
 
 }
 
