@@ -206,6 +206,7 @@
   <ItemGroup>
     <ClCompile Include="action.cpp" />
     <ClCompile Include="animation.cpp" />
+    <ClCompile Include="baleog.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="buttons.cpp" />
     <ClCompile Include="camera.cpp" />

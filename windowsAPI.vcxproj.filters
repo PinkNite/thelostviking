@@ -410,6 +410,9 @@
     <ClCompile Include="EnemyManager.cpp">
       <Filter>PlayGround\Object\enemy</Filter>
     </ClCompile>
+    <ClCompile Include="baleog.cpp">
+      <Filter>PlayGround\Object\player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="windowsAPI.rc">
