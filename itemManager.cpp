@@ -41,8 +41,9 @@ HRESULT ITEMMANAGER::init()
 		_itemFruit1[i] = 0;
 		_itemFruit2[i] = 0;
 	}
-	//_pItemMeat = new ITEMMEAT;
-	//_pItemMeat->init(50, 50, 40, 35);
+	_pItemMeat = new ITEMMEAT;
+	_pItemMeat->init(50, 50, 40, 35);
+	_itemMeat = 0;
 	return S_OK;
 }
 
@@ -75,7 +76,7 @@ void ITEMMANAGER::render(HDC hdc)
 		_pItemFruit2[i]->render(hdc);
 
 	}
-	//_pItemMeat->render(hdc);
+	//_pItemMeat->render(hdc);//고기는 출력안해도됨
 
 }
 
@@ -118,10 +119,15 @@ void ITEMMANAGER::isCollisionPlayer()
 		}
 
 	}
-	/*if (_pItemMeat->getX(), _pItemMeat->getY(), 40, 38, _pPlayer->getPosX(), _pPlayer->getPosY(), 64, 64)
+	if (isCollision(_pItemMeat->getX(), _pItemMeat->getY(), 40, 38, _pPlayer->getPosX(), _pPlayer->getPosY(), 64, 64)&&_pItemMeat->getIsAllive())
 	{
-
-	}*/
+		_pItemMeat->SetIsAlliveFalse();
+		_itemMeat = 1;
+	}
+	else
+	{
+		_itemMeat = 0;
+	}
 
 }
 inline bool ITEMMANAGER::isCollision(int x, int y, int width, int height, int x1, int y1, int width1, int height1)

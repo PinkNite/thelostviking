@@ -17,8 +17,8 @@ class ITEMMANAGER
 
 	ITEMFRUIT2* _pItemFruit2[2];
 	int _itemFruit2[2];
-	//	ITEMMEAT* _pItemMeat;
-
+	ITEMMEAT* _pItemMeat;
+	int _itemMeat;
 	PLAYER* _pPlayer;
 	UI* _pUI;
 public:
