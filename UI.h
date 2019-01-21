@@ -111,6 +111,8 @@ public:
 
 	void itemRender();
 	void selectCollision();
+	//플레이어 변화할때 초상화값
+	void changePlayer();
 
 public:
 	itemMemory getErikItemMax() { return _erikItem; }//겟으로 아이템 공간이 꽉찼다는 걸보냄

@@ -101,44 +101,8 @@ void UI::release()
 
 void UI::update()
 {
-
-	//스테이트 바꿔서 테스트
-	/*if (KEYMANAGER->isOnceKeyDown('Y'))
-	{
-		_baleogState = BALEOG_ON;
-	}
-	if (KEYMANAGER->isOnceKeyDown('U'))
-	{
-		_baleogState = BALEOG_OFF;
-	}
-	if (KEYMANAGER->isOnceKeyDown('3'))
-	{
-		_baleogState = BALEOG_DEAD;
-	}
-	if (KEYMANAGER->isOnceKeyDown('4'))
-	{
-		_erikState = ERIK_ON;
-	}
-	if (KEYMANAGER->isOnceKeyDown('5'))
-	{
-		_erikState = ERIK_OFF;
-	}
-	if (KEYMANAGER->isOnceKeyDown('6'))
-	{
-		_erikState = ERIK_DEAD;
-	}
-	if (KEYMANAGER->isOnceKeyDown('7'))
-	{
-		_olafState = OLAF_ON;
-	}
-	if (KEYMANAGER->isOnceKeyDown('8'))
-	{
-		_olafState = OLAF_OFF;
-	}
-	if (KEYMANAGER->isOnceKeyDown('9'))
-	{
-		_olafState = OLAF_DEAD;
-	}*/
+	//플레이어 상태값 갱신되는것
+	changePlayer();
 
 
 
@@ -961,6 +925,29 @@ void UI::selectCollision()//알파값 변하는 함수
 		}
 	}
 
+}
+
+void UI::changePlayer()
+{
+	if (_pPlayer->getCurrentViking() == PLAYER::VIKINGNAME::ERIC)
+	{
+		_erikState = ERIK_ON;
+		_baleogState = BALEOG_OFF;
+		_olafState = OLAF_OFF;
+
+	}
+	if (_pPlayer->getCurrentViking() == PLAYER::VIKINGNAME::BALEOG)
+	{
+		_erikState = ERIK_OFF;
+		_baleogState = BALEOG_ON;
+		_olafState = OLAF_OFF;
+	}
+	if (_pPlayer->getCurrentViking() == PLAYER::VIKINGNAME::OLAF)
+	{
+		_erikState = ERIK_OFF;
+		_baleogState = BALEOG_OFF;
+		_olafState = OLAF_ON;
+	}
 }
 
 

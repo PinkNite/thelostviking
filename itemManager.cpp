@@ -55,10 +55,19 @@ void ITEMMANAGER::release()
 
 void ITEMMANAGER::update()
 {
-	//_pItemBoom[0]->SetIsAlliveFalse();
-
-	isCollisionPlayer();
-
+	
+	if (_pPlayer->getCurrentViking() == PLAYER::VIKINGNAME::ERIC)
+	{
+		isCollisionPlayer();
+	}
+	if (_pPlayer->getCurrentViking() == PLAYER::VIKINGNAME::BALEOG)
+	{
+		isCollisionPlayer();
+	}
+	if (_pPlayer->getCurrentViking() == PLAYER::VIKINGNAME::OLAF)
+	{
+		isCollisionPlayer();
+	}
 }
 
 void ITEMMANAGER::render(HDC hdc)
