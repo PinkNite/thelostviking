@@ -144,3 +144,7 @@ void VIKING::setStopAnimation()
 void VIKING::setSkillAnimation()
 {
 }
+
+void VIKING::setLadderAnimation(int noffset)
+{
+}

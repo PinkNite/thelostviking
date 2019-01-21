@@ -28,6 +28,7 @@ public:
 
 	virtual void skillOne() override;
 	virtual void skillTwo() override;
+	virtual	void	setLadderAnimation(int noffset) override;
 
 	
 private:

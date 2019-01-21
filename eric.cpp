@@ -79,6 +79,15 @@ void ERIC::skillTwo()
 	setSkillAnimation();
 }
 
+void ERIC::setLadderAnimation(int noffset)
+{
+	if (static_cast<VIKING::ACTION>( VIKING::_behavior) != VIKING::ACTION::ON_LADDER)
+	{
+		//setAnimation(static_cast<VIKING::DIRECTION>( _direction),)
+	}
+
+}
+
 void ERIC::jump()
 {
 	if (!_isUsingSkillTwo) return;
