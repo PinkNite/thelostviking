@@ -48,4 +48,5 @@ void ITEMFRAME::setItem(int x, int y, int width, int height)
 	_isAllive = true;
 	_alphaCount = 255;
 	_isUse = false;
+	_isMove = false;
 }

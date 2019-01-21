@@ -16,6 +16,7 @@ protected:
 	bool _isAllive;//살아있냐
 	int _alphaCount;//알파값
 	bool _isUse;//사용했냐
+	bool _isMove;
 
 public:
 	ITEMFRAME();
@@ -33,8 +34,8 @@ public:
 	inline image* getImage() { return _pImage; }
 	inline int getX() { return _x; }
 	inline int getY() { return _y; }
-	inline int setX(int x) { _x = x; }//위치 변할값
-	inline int setY(int y) { _y = y; }
+	inline void setX(int x) { _x = x; }//위치 변할값
+	inline void setY(int y) { _y = y; }
 	inline bool getIsAllive() { return _isAllive; }
 	inline void SetIsAlliveFalse() { _isAllive = false; }
 	inline int getAlphaCount() { return _alphaCount; }
@@ -42,7 +43,8 @@ public:
 	inline void setAlphaCount(int num) { _alphaCount = num; }//값을넣으면 그만큼 알파카운트가 증가한다.
 	inline bool getUse() { return _isUse; }
 	inline void setUse(bool _bool) { _isUse = _bool; }
-
+	inline bool getMove() { return _isMove; }//이동상태인가
+	inline void setMove(bool _bool) { _isMove = _bool; }
 
 
 };

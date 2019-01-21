@@ -119,11 +119,11 @@ void INPUTMANAGER::update()
 		_pPlayer->useSkillOne();
 	}
 	//이승재
-	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))//아이템사용
+	if (KEYMANAGER->isToggleKey(VK_SPACE)&&!_isUse)//아이템사용
 	{
 		_isUse = true;
 	}
-	if (KEYMANAGER->isOnceKeyUp(VK_SPACE))
+	else
 	{
 		_isUse = false;
 	}
