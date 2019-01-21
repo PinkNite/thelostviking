@@ -100,10 +100,6 @@ HRESULT playGround::init()
 	_pCamera = new CAMERA();
 	_pCamera->init(512, 512, WINSIZEX, WINSIZEY);
 
-	// working on: Test Enemies Scene 
-	SCENEMANAGER->addScene("TestStage1", new TestStage1);
-	SCENEMANAGER->changeScene("TestStage1");
-
 	_pPlayer = new PLAYER;
 	_pPlayer->init();
 
@@ -129,8 +125,12 @@ HRESULT playGround::init()
 	_pInputMgr->init(_pPlayer, _pCamera);
 
 	_enemy = new ENEMY();
-	_enemy->init(800, 600, 40, 64, 2.0f, ENEMY::ENEMY_TYPE::CANNON);
+	_enemy->init(100, 610, 40, 64, 2.0f, ENEMY::ENEMY_TYPE::CANNON);
 	
+	_enemyManager = new EnemyManager();
+	_enemyManager->init();
+	_enemyManager->addEnemy(3, ENEMY::ENEMY_TYPE::GREEN);
+
 	_pPlayer->setMap2(_pMap2);
 	_pPlayer->setPixelCollision(_pixel);
 
@@ -165,14 +165,14 @@ void playGround::update()
 	_pInputMgr->update();
 
 	_enemy->update();
-	
+	_enemyManager->update();
+
 	_pixel->update();
 
 	_pItemManager->update();//이승재
 
 	_pUI->update();//이승재
 
-	SCENEMANAGER->update();
 }
 
 
@@ -187,11 +187,10 @@ void playGround::render()
 	_pPlayer->render(_pCamera->getMemDC());
 
 	_enemy->render(_pCamera->getMemDC());
+	_enemyManager->render(_pCamera->getMemDC());
 
 	//pCamera->getCameraBuffer()->render(getMemDC(), 0, 0, 200, 200, 800, 600);
 	////getMemDc 대신 뭐 넣을때는 pCamera->getMemDc()를 쓰세요.
-
-	//SCENEMANAGER->render();
 
 	//pCamera->getMemDC();
 	

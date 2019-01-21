@@ -7,6 +7,7 @@
 #include "map1.h"
 #include "map2.h"
 #include "enemy.h"
+#include "EnemyManager.h"
 #include "pixelCollision.h"
 #include "itemManager.h"
 #include "UI.h"
@@ -21,6 +22,8 @@ private:
 	MAP2*           _pMap2;
 
 	ENEMY*			_enemy;
+	EnemyManager*	_enemyManager;
+
 	pixelCollision* _pixel;
 
 	ITEMMANAGER*    _pItemManager;
