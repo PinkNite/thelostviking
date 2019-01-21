@@ -72,5 +72,4 @@ void pixelCollision::update()
 
 void pixelCollision::render(HDC hdc)
 {
-	//_imgMap2Cbg->render(hdc);
 }

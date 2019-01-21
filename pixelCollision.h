@@ -17,6 +17,8 @@ private:
 	MAP2* _pMap2;
 	float x;
 	int _probeY;
+	int _probeLeftX;
+	int _probeRightX;
 	bool _isCollision;
 
 public:
