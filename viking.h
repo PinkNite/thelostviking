@@ -57,6 +57,7 @@ public:
 		DAMEGE,
 		SKILL_ONE,
 		SKILL_TWO,
+		SKILL_SPECIAL,
 		MAX
 	};
 
