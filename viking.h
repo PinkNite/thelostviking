@@ -101,6 +101,7 @@ protected:
 
 	animation*		_pAnimation;				//실행할 애니메이션을 담는다
 	bool			_isOnGround;
+	
 public:
 	void init(int posX, int posY, int width, int height);
 	virtual void update()			abstract;
@@ -152,5 +153,5 @@ public:
 
 	virtual	void	setLadderAnimation(int offset,bool isOverAni,int rcTmpHeight);
 	virtual void	pressGravity();
-
+	virtual VIKING::ACTION	getAction() { return static_cast<VIKING::ACTION>(_behavior); }
 };

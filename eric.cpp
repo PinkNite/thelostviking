@@ -57,7 +57,7 @@ void ERIC::release()
 
 void ERIC::render(HDC hdc)
 {
-	RectangleMake(hdc,VIKING::getPosX() - VIKING::getWidth() / 2, VIKING::getPosY() - VIKING::getHeight() / 2, 64, 69);
+	RectangleMake(hdc,VIKING::getPosX() - VIKING::getWidth() / 2, VIKING::getPosY() - VIKING::getHeight() / 2, 64, 64);
 
 
 	
@@ -111,7 +111,7 @@ void ERIC::setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight)
 	{
 		if (rcTmpHeight < 5) {
 			setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
-			VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY() - 5);
+			VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY());
 		}
 		else if (rcTmpHeight <= 36)
 		{
@@ -122,16 +122,17 @@ void ERIC::setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight)
 		}
 		else if (rcTmpHeight > 32) {
 			setAnimation(static_cast<VIKING::DIRECTION>(_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER));
-		}
-		 
+		}	 
 	}
+
+	_isUsingSkillTwo = false;
 }
 
 void ERIC::jump()
 {
 	if (!_isUsingSkillTwo) return;
 	
-	if (_jumpPower < 1500.0f)
+	if (_jumpPower < _gravity)
 	{
 		_jumpPower += _gravity;
 
@@ -615,9 +616,7 @@ void ERIC::setStopAnimation()
 
 void ERIC::setSkillAnimation()
 {
-	if (VIKING::ACTION::SKILL_TWO != static_cast<VIKING::ACTION>(VIKING::_behavior)&&
-		VIKING::ACTION::ON_LADDER != static_cast<VIKING::ACTION>(VIKING::_behavior) &&
-		VIKING::ACTION::ON_LADDER_OVER != static_cast<VIKING::ACTION>(VIKING::_behavior))
+	if (VIKING::ACTION::SKILL_TWO != static_cast<VIKING::ACTION>(VIKING::_behavior))
 	{
 		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO));
 	}
@@ -640,8 +639,14 @@ void ERIC::falldownAnimation()
 	else if (static_cast<int>(VIKING::ACTION::FALLDOWN) == _behavior) {
 		callbackEricFallDown();
 	}
-	_jumpingTime = 0.0F;
+	else if (static_cast<int>(VIKING::ACTION::ON_LADDER_OVER) == _behavior) {
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+	}
+	else if (static_cast<int>(VIKING::ACTION::ON_LADDER) == _behavior) {
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+	}
 
+	_jumpingTime = 0.0F;
 }
 
 

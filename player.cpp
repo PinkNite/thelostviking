@@ -27,18 +27,24 @@ void PLAYER::update()
 {
 	if (!_pPixelCollision->getCollisionbot())
 	{
-		if (!isCollisionLadder())
+		if ( _pViking[_nCurrentViking]->getAction() != VIKING::ACTION::ON_LADDER &&  _pViking[_nCurrentViking]->getAction() != VIKING::ACTION::ON_LADDER_OVER)
 		{
 			_pViking[_nCurrentViking]->pressGravity();
-
+			_pViking[_nCurrentViking]->setSkillAnimation();
 		}
+
 		_pViking[_nCurrentViking]->setIsOnGround(false);
-		_pViking[_nCurrentViking]->setSkillAnimation();
+		
 
 	}
 	else {
 		_pViking[_nCurrentViking]->setIsOnGround(true);
 		_pViking[_nCurrentViking]->falldownAnimation();
+	}
+
+	if (_pPixelCollision->getCollisionbot())
+	{
+
 	}
 
 	_pViking[_nCurrentViking]->update();
@@ -168,21 +174,25 @@ void PLAYER::setStopAnimation()
 void PLAYER::setLadderAnimation(int offset)
 {
 
-	if (_rcTmpHeight <= 32)
+	if (isCollisionLadder())
 	{
-		_pViking[_nCurrentViking]->setLadderAnimation(1, true,_rcTmpHeight);
-	}
-	else if(_rcTmpHeight > 32) {
-		_pViking[_nCurrentViking]->setLadderAnimation(offset, false, _rcTmpHeight);
-	}
 
+		if (_rcTmpHeight <= 32)
+		{
+			_pViking[_nCurrentViking]->setLadderAnimation(1, true, _rcTmpHeight);
+		}
+		else if (_rcTmpHeight > 32) {
+			_pViking[_nCurrentViking]->setLadderAnimation(offset, false, _rcTmpHeight);
+		}
 
+	}
+	
 }
 
 bool PLAYER::isCollisionLadder()
 {
-	RECT rcPlayer = RectMakeCenter(_pViking[_nCurrentViking]->getPosX(), _pViking[_nCurrentViking]->getPosY(),
-		_pViking[_nCurrentViking]->getWidth(), _pViking[_nCurrentViking]->getHeight()+5);
+	RECT rcPlayer = RectMakeCenter(_pViking[_nCurrentViking]->getPosX(), _pViking[_nCurrentViking]->getPosY()-5,
+		_pViking[_nCurrentViking]->getWidth(), _pViking[_nCurrentViking]->getHeight());
 	_pMap2->getRCLadder(0);
 	bool bIsCollisionLadder = false;
 	int	 nLadder = 0;
