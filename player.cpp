@@ -2,7 +2,7 @@
 #include "player.h"
 #include "eric.h"
 #include "pixelCollision.h"
-
+#include "baleog.h"
 
 PLAYER::PLAYER()
 {
@@ -17,6 +17,11 @@ void PLAYER::init()
 	//바이킹들 초기화
 	_pViking[static_cast<const int>(VIKINGNAME::ERIC)] = new ERIC();
 	_pViking[static_cast<const int>(VIKINGNAME::ERIC)]->init(610, 610, 64, 64);
+
+	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)] = new BALEOG();
+	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)]->init(610, 610, 64, 64);
+
+
 
 
 	//처음 시작 바이킹 설정
@@ -256,4 +261,13 @@ void PLAYER::setTop()
 
 void PLAYER::setLeft()
 {
+}
+
+void PLAYER::nextViking()
+{
+	_nCurrentViking++;
+	if (_nCurrentViking > 1)
+	{
+		_nCurrentViking = 0;
+	}
 }

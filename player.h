@@ -8,7 +8,7 @@ class ERIC;
 class OBJECT;
 class MAP2;
 class pixelCollision;
-
+class BALEOG;
 class PLAYER
 {
 public://∞Ì√∆¥Ÿ µø»÷æﬂ
@@ -75,5 +75,5 @@ public:
 
 	VIKINGNAME		getCurrentViking() { return static_cast<VIKINGNAME>(_nCurrentViking); }
 
-
+	void	nextViking();
 };

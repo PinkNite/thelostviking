@@ -128,7 +128,11 @@ void INPUTMANAGER::update()
 	}
 	//ÀÌ½ÂÀç
 
-	
+	if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
+	{
+		_pPlayer->nextViking();
+		_pCamera->setting();
+	}
 
 
 	if (_pPlayer->getPosX() < _pCamera->getLeft() + _pCamera->getWidth() / 2 - 32)

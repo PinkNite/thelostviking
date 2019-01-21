@@ -9,11 +9,9 @@ private:
 	int _arTmpFrame[11];
 
 	float		_jumpingTime;
-	float		_jumpPower;
-	float		_jumpSpeed;
+
 
 	//임시변수 점프에 대한
-	float		_saveY;
 	bool		_isUsingSkillTwo;
 public:
 	BALEOG();
