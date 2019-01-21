@@ -22,6 +22,9 @@ private:
 	VIKING * _pViking[3];
 	int		_nCurrentViking;
 	MAP2*	_pMap2;
+
+	int		_rcTmpHeight;
+
 public:
 	PLAYER();
 	~PLAYER();

@@ -33,11 +33,12 @@ void ERIC::update()
 		_jumpingTime += TIMEMANAGER->getElpasedTime();
 	}
 
-	if (_jumpingTime >= 2.0f && VIKING::_behavior == static_cast<int>(VIKING::ACTION::SKILL_TWO))
+	if (_jumpingTime >= 4.0f && VIKING::_behavior == static_cast<int>(VIKING::ACTION::SKILL_TWO))
 	{
 		setFallOut();
 	}
-	else if (_jumpingTime >= 3.0f) {
+	else if (_jumpingTime >= 6.0f) {
+		//여기에 픽셀 충돌하면 으로 바꾸어야한다.
 		callbackEricFallDown();
 		_jumpingTime = 0.0F;
 	}
@@ -85,7 +86,7 @@ void ERIC::skillTwo()
 
 void ERIC::setLadderAnimation(int offset, bool isOverAni)
 {
-	if (static_cast<VIKING::ACTION>( VIKING::_behavior) != VIKING::ACTION::ON_LADDER)
+	if (static_cast<VIKING::ACTION>( VIKING::_behavior) != VIKING::ACTION::ON_LADDER && !isOverAni)
 	{
 		setAnimation(static_cast<VIKING::DIRECTION>(_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER));
 	}
@@ -176,9 +177,9 @@ void ERIC::initKeyAnimation()
 		89, 3, 2, false, 3, callbackBreath);
 
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER),
-		92, 4, 10, true);
+		92, 4, 10, false);
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER_OVER),
-		96, 2, 10, true);
+		96, 2, 10, false);
 
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER),
 		92, 4, 10, false);

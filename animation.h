@@ -85,6 +85,5 @@ public:
 	inline BOOL	getIsClickRender() { return _isClickRender; }
 
 	inline void setClickVariable(int variable) { _clickVariable = variable; }
-
 };
 
