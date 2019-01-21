@@ -604,6 +604,7 @@ void ERIC::setMovingAnimation(int direction)
 			setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO));
 		}
 	}
+	//벽이랑 충돌나면 밀기로
 }
 
 void ERIC::setStopAnimation()
