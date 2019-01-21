@@ -7,7 +7,7 @@
 //#include <vector>
 
 
-
+class PLAYER;
 class ITEMMANAGER;
 enum baleogState
 {
@@ -91,7 +91,7 @@ private:
 	ITEMMANAGER* _pItemMG;
 
 	//플레이어
-
+	PLAYER* _pPlayer;
 
 public:
 	UI();
@@ -120,5 +120,6 @@ public:
 	inline bool isCollision(int x, int y, int width, int height, int x1, int y1, int width1, int height1);
 
 	void linkItemManger(ITEMMANAGER* _item) { _pItemMG = _item; }
+	void linkPlayer(PLAYER* _player) { _pPlayer = _player; }
 };
 

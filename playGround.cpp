@@ -84,6 +84,13 @@ void playGround::load()
 void playGround::link()
 {
 	_pCamera->setPlayer(_pPlayer);
+
+	_pItemManager->setLinkPlayer(_pPlayer);
+
+	_pUI->linkItemManger(_pItemManager);
+	_pUI->linkPlayer(_pPlayer);
+	_pItemManager->setLinkUI(_pUI);
+	
 }
 
 
@@ -95,12 +102,13 @@ HRESULT playGround::init()
 	_pCamera = new CAMERA();
 	_pCamera->init(512, 512, WINSIZEX, WINSIZEY);
 
-	// working on: Test Enemies Scene 
-	SCENEMANAGER->addScene("TestStage1", new TestStage1);
-	SCENEMANAGER->changeScene("TestStage1");
-
 	_pPlayer = new PLAYER;
 	_pPlayer->init();
+
+	_pItemManager = new ITEMMANAGER;
+	_pItemManager->init();
+	_pUI = new UI;
+	_pUI->init();
 
 	link();
 
@@ -119,10 +127,16 @@ HRESULT playGround::init()
 	_pInputMgr->init(_pPlayer, _pCamera);
 
 	_enemy = new ENEMY();
-	_enemy->init(800, 600, 40, 64, 2.0f, ENEMY::ENEMY_TYPE::CANNON);
+	_enemy->init(100, 610, 40, 64, 2.0f, ENEMY::ENEMY_TYPE::CANNON);
 	
+	_enemyManager = new EnemyManager();
+	_enemyManager->init();
+	_enemyManager->addEnemy(3, ENEMY::ENEMY_TYPE::GREEN);
+
 	_pPlayer->setMap2(_pMap2);
 	_pPlayer->setPixelCollision(_pixel);
+
+
 	return S_OK;
 }
 
@@ -153,10 +167,14 @@ void playGround::update()
 	_pInputMgr->update();
 
 	_enemy->update();
-	
+	_enemyManager->update();
+
 	_pixel->update();
 
-	SCENEMANAGER->update();
+	_pItemManager->update();//ÀÌ½ÂÀç
+
+	_pUI->update();//ÀÌ½ÂÀç
+
 }
 
 
@@ -167,15 +185,13 @@ void playGround::render()
 	_pCamera->renderinit();
 
 	_pMap2->render(_pCamera->getMemDC());
-	_pixel->render(_pCamera->getMemDC());
 	_pPlayer->render(_pCamera->getMemDC());
 
 	_enemy->render(_pCamera->getMemDC());
+	_enemyManager->render(_pCamera->getMemDC());
 
 	//pCamera->getCameraBuffer()->render(getMemDC(), 0, 0, 200, 200, 800, 600);
 	////getMemDc ´ë½Å ¹¹ ³ÖÀ»¶§´Â pCamera->getMemDc()¸¦ ¾²¼¼¿ä.
-
-	//SCENEMANAGER->render();
 
 	//pCamera->getMemDC();
 	
@@ -183,9 +199,10 @@ void playGround::render()
 
 	//Scene
 	//_pSceneStart->render();//ÀÌ½ÂÀç 2019-01-16
-	
+	_pItemManager->render(_pCamera->getMemDC());
 	TIMEMANAGER->render(getMemDC());
 	_pCamera->render(getMemDC()); 
+	_pUI->render();
 
 	//===========================================================
 	this->getBackBuffer()->render(getHDC(), 0, 0);

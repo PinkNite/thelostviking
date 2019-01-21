@@ -24,6 +24,8 @@ private:
 
 	//bullet*			_bullet;
 
+	// 생성 가능한 수
+	int _enemyCount;
 	// enemy 생성 초기 좌표
 	EnemyPosition _arrEnemyLocations[10];
 
