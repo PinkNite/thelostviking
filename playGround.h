@@ -8,6 +8,8 @@
 #include "map2.h"
 #include "enemy.h"
 #include "pixelCollision.h"
+#include "itemManager.h"
+#include "UI.h"
 
 class playGround : public gameNode
 {
@@ -20,6 +22,9 @@ private:
 
 	ENEMY*			_enemy;
 	pixelCollision* _pixel;
+
+	ITEMMANAGER*    _pItemManager;
+	UI*				_pUI;
 
 public:
 	virtual HRESULT init();

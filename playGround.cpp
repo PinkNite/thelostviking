@@ -84,6 +84,11 @@ void playGround::load()
 void playGround::link()
 {
 	_pCamera->setPlayer(_pPlayer);
+
+	_pItemManager->setLinkPlayer(_pPlayer);
+
+	_pUI->linkItemManger(_pItemManager);
+	_pItemManager->setLinkUI(_pUI);
 }
 
 
@@ -101,6 +106,11 @@ HRESULT playGround::init()
 
 	_pPlayer = new PLAYER;
 	_pPlayer->init();
+
+	_pItemManager = new ITEMMANAGER;
+	_pItemManager->init();
+	_pUI = new UI;
+	_pUI->init();
 
 	link();
 
@@ -123,6 +133,8 @@ HRESULT playGround::init()
 	
 	_pPlayer->setMap2(_pMap2);
 	_pPlayer->setPixelCollision(_pixel);
+
+
 	return S_OK;
 }
 
@@ -156,6 +168,10 @@ void playGround::update()
 	
 	_pixel->update();
 
+	_pItemManager->update();//ÀÌ½ÂÀç
+
+	_pUI->update();//ÀÌ½ÂÀç
+
 	SCENEMANAGER->update();
 }
 
@@ -183,9 +199,10 @@ void playGround::render()
 
 	//Scene
 	//_pSceneStart->render();//ÀÌ½ÂÀç 2019-01-16
-	
+	_pItemManager->render(_pCamera->getMemDC());
 	TIMEMANAGER->render(getMemDC());
 	_pCamera->render(getMemDC()); 
+	_pUI->render();
 
 	//===========================================================
 	this->getBackBuffer()->render(getHDC(), 0, 0);
