@@ -37,16 +37,18 @@ void ERIC::update()
 	{
 		setFallOut();
 	}
-	else if (_jumpingTime >= 6.0f) {
-		//여기에 픽셀 충돌하면 으로 바꾸어야한다.
-		if (getIsOnGround()) {
-			callbackEricFallDown();
-			_jumpingTime = 0.0F;
-		}
+	else if (getIsOnGround() && VIKING::_behavior == static_cast<int>(VIKING::ACTION::FALLDOWN))
+	{
+		callbackEricFallDown();
+		_jumpingTime = 0.0F;
 	}
 	jump();
 
-
+	if (VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER)||
+		VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER_OVER))
+	{
+		_jumpingTime = 0.0f;
+	}
 
 	KEYANIMANAGER->update();
 }
