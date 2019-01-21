@@ -25,5 +25,6 @@ public:
 	void release(); 
 	void update();
 	void render(HDC hdc);
+	void setPlayer(PLAYER* pPlayer) { _pPlayer = pPlayer; }
 };
 

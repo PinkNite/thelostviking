@@ -25,7 +25,7 @@ void pixelCollision::update()
 {
 	/*printf("x : %f, y : %f, width : %d, height : %d\n", _pPlayer->getPosX(), _pPlayer->getPosY(), 
 		_pPlayer->getWidth(), _pPlayer->getHeight());*/
-	//x = _pPlayer->getPosX();
+	x = _pPlayer->getPosX();
 }
 
 void pixelCollision::render(HDC hdc)
