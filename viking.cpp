@@ -49,8 +49,8 @@ void VIKING::init(int posX, int posY, int width, int height)
 	_vBehavior[static_cast<int>(VIKING::STATE::DEATH_MOTION)].push_back("SHOP");
 
 	//올라프 방패 방향
-	_arOlafShield[static_cast<const int>(VIKING::OLAFSHIELD::VERTICAL)] = "VERTICAL";
-	_arOlafShield[static_cast<const int>(VIKING::OLAFSHIELD::HORIZENTAL)] = "HORIZENTAL";
+	_arOlafShield[static_cast<const int>(VIKING::OLAFSHIELD::BLOCK_TOP)] = "BLOCK_TOP";
+	_arOlafShield[static_cast<const int>(VIKING::OLAFSHIELD::BLOCK_FRONT)] = "BLOCK_FRONT";
 
 	_speed = 300.0f;
 	_maxSpeed = 560.0f;

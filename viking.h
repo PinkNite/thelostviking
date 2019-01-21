@@ -19,8 +19,8 @@ public:
 	//막는 방향
 	enum class OLAFSHIELD
 	{
-		VERTICAL,
-		HORIZENTAL,
+		BLOCK_TOP,
+		BLOCK_FRONT,
 		MAX
 	};
 

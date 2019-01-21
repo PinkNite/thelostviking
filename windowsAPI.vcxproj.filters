@@ -261,6 +261,9 @@
     <ClInclude Include="baleog.h">
       <Filter>PlayGround\Object\player</Filter>
     </ClInclude>
+    <ClInclude Include="OLAF.h">
+      <Filter>PlayGround\Object\player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -411,6 +414,9 @@
       <Filter>PlayGround\Object\enemy</Filter>
     </ClCompile>
     <ClCompile Include="baleog.cpp">
+      <Filter>PlayGround\Object\player</Filter>
+    </ClCompile>
+    <ClCompile Include="OLAF.cpp">
       <Filter>PlayGround\Object\player</Filter>
     </ClCompile>
   </ItemGroup>
