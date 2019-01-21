@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "UI.h"
 #include "itemManager.h"
+#include "player.h"
 
 UI::UI()
 {
@@ -145,10 +146,10 @@ void UI::update()
 	selectMove();//얘는 특정 조건에서만 되어야함
 
 	////////////////캐릭 선택필 수 조건
-
+	//_pPlayer->
 	getItem(&_erikItem, 120, 402, 160, 442);//에릭인벤토리세팅
-	//getItem(&_baleogItem, 302, 402, 342, 442);
-	//getItem(&_olafItem, 482, 402, 522, 442);
+	getItem(&_baleogItem, 302, 402, 342, 442);
+	getItem(&_olafItem, 482, 402, 522, 442);
 
 
 	selectCollision();
@@ -571,7 +572,7 @@ void UI::getItem(itemMemory* name, int x, int y, int x1, int y1)
 		{
 			itemFruit2(x, y, 40, 38, name, ITEM_1, 1);
 		}
-		if (KEYMANAGER->isOnceKeyDown('5'))//예시조건
+		if (_pItemMG->getItemFalseMeat() == 0 && _pItemMG->getItemCollisionMeat() == 1)
 		{
 			itemMeat(x, y, 40, 38, name, ITEM_1);
 		}
@@ -604,7 +605,7 @@ void UI::getItem(itemMemory* name, int x, int y, int x1, int y1)
 		{
 			itemFruit2(x1, y, 40, 38, name, ITEM_2, 1);
 		}
-		if (KEYMANAGER->isOnceKeyDown('5'))//예시조건
+		if (_pItemMG->getItemFalseMeat() == 0 && _pItemMG->getItemCollisionMeat() == 1)
 		{
 			itemMeat(x1, y, 40, 38, name, ITEM_2);
 		}
@@ -636,7 +637,7 @@ void UI::getItem(itemMemory* name, int x, int y, int x1, int y1)
 		{
 			itemFruit2(x, y1, 40, 38, name, ITEM_3, 1);
 		}
-		if (KEYMANAGER->isOnceKeyDown('5'))//예시조건
+		if (_pItemMG->getItemFalseMeat() == 0 && _pItemMG->getItemCollisionMeat() == 1)
 		{
 			itemMeat(x, y1, 40, 38, name, ITEM_3);
 		}
@@ -668,7 +669,7 @@ void UI::getItem(itemMemory* name, int x, int y, int x1, int y1)
 		{
 			itemFruit2(x1, y1, 40, 38, name, ITEM_4, 1);
 		}
-		if (KEYMANAGER->isOnceKeyDown('5'))//예시조건
+		if (_pItemMG->getItemFalseMeat() == 0 && _pItemMG->getItemCollisionMeat() == 1)
 		{
 			itemMeat(x1, y1, 40, 38, name, ITEM_4);
 		}

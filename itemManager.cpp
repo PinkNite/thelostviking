@@ -78,7 +78,7 @@ void ITEMMANAGER::render(HDC hdc)
 		_pItemFruit2[i]->render(hdc);
 
 	}
-	_pItemMeat->render(hdc);//고기는 출력안해도됨
+	//_pItemMeat->render(hdc);//고기는 출력안해도됨
 
 }
 

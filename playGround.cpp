@@ -88,7 +88,9 @@ void playGround::link()
 	_pItemManager->setLinkPlayer(_pPlayer);
 
 	_pUI->linkItemManger(_pItemManager);
+	_pUI->linkPlayer(_pPlayer);
 	_pItemManager->setLinkUI(_pUI);
+	
 }
 
 

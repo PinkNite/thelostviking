@@ -45,6 +45,7 @@ public:
 	bool getItemFalseFruit1B() { return  _pItemFruit1[1]->getIsAllive(); }
 	bool getItemFalseFruit2A() { return  _pItemFruit2[0]->getIsAllive(); }
 	bool getItemFalseFruit2B() { return  _pItemFruit2[1]->getIsAllive(); }
+	bool getItemFalseMeat() { return _pItemMeat->getIsAllive(); }
 
 	int getItemCollisionBoomA() { return  _itemBoom[0]; }
 	int getItemCollisionBoomB() { return  _itemBoom[1]; }
@@ -52,6 +53,7 @@ public:
 	int getItemCollisionFruit1B() { return  _itemFruit1[1]; }
 	int getItemCollisionFruit2A() { return  _itemFruit2[0]; }
 	int getItemCollisionFruit2B() { return  _itemFruit2[1]; }
+	int getItemCollisionMeat() { return _itemMeat; }
 };
 
 
