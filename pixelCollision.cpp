@@ -12,8 +12,9 @@ pixelCollision::~pixelCollision()
 
 HRESULT pixelCollision::init()
 {
-	_imgMap2Cbg = IMAGEMANAGER->addImage("map2Collision", "resource/map/map1-2_collision.bmp", 2048, 1630, false, RGB(255, 0, 255));
-	
+	_imgMap2Cbg = IMAGEMANAGER->addImage("map2Collision", "resource/map/map1-2_collision2.bmp", 2048, 1630, false, RGB(255, 0, 255));
+	_probeY = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
+	_isCollision = false;
 	return S_OK;
 }
 
@@ -23,9 +24,28 @@ void pixelCollision::release()
 
 void pixelCollision::update()
 {
-	/*printf("x : %f, y : %f, width : %d, height : %d\n", _pPlayer->getPosX(), _pPlayer->getPosY(), 
-		_pPlayer->getWidth(), _pPlayer->getHeight());*/
-	x = _pPlayer->getPosX();
+	for (int i = _probeY - 10; i <= _probeY; ++i)
+	{
+		COLORREF color = GetPixel(IMAGEMANAGER->findImage("map2Collision")->getMemDC(),
+			_pPlayer->getPosX(), i);
+
+		int r = GetRValue(color);
+		int g = GetGValue(color);
+		int b = GetBValue(color);
+
+		if ((r == 255 && g == 0 && b == 255))
+		{
+			_pPlayer->setPosY(i - _pPlayer->getHeight() / 2);
+			_isCollision = true;
+			break;
+		}
+		else
+		{
+			_isCollision = false;
+		}
+	}
+	_probeY = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
+	printf("Ãæµ¹ : %d\n", _isCollision);
 }
 
 void pixelCollision::render(HDC hdc)

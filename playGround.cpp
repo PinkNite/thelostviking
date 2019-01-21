@@ -91,6 +91,7 @@ HRESULT playGround::init()
 	_pCamera->setMap(IMAGEMANAGER->findImage("Map2bg"));
 
 	_pixel = new pixelCollision;
+	_pixel->setPlayer(_pPlayer);
 	_pixel->init();
 	_pCamera->setMap(IMAGEMANAGER->findImage("map2Collision"));
 
@@ -101,8 +102,7 @@ HRESULT playGround::init()
 
 	_enemy = new ENEMY();
 	_enemy->init(800, 600, 40, 64, 2.0f, ENEMY::ENEMY_TYPE::CANNON);
-
-	_pixel->setPlayer(_pPlayer);
+	
 	_pPlayer->setMap2(_pMap2);
 	return S_OK;
 }

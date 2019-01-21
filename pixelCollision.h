@@ -16,6 +16,8 @@ private:
 	MAP1* _pMap1;
 	MAP2* _pMap2;
 	float x;
+	int _probeY;
+	bool _isCollision;
 
 public:
 	pixelCollision();
@@ -26,5 +28,8 @@ public:
 	void update();
 	void render(HDC hdc);
 	void setPlayer(PLAYER* pPlayer) { _pPlayer = pPlayer; }
+
+	bool getCollisionbot() { return _isCollision; }
+	void setCollisionbot(bool isCollision) { _isCollision = isCollision;	}
 };
 
