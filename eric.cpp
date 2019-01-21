@@ -12,6 +12,7 @@ ERIC::~ERIC()
 void ERIC::init(int posX, int posY, int width, int height)
 {
 	VIKING::init(posX, posY, static_cast<int>(VIKING_WIDTH), static_cast<int>(VIKING_HEIGHT));
+
 	for (int i = 0; i < 11; i++)
 	{
 		_arTmpFrame[i] = 0;
@@ -26,7 +27,8 @@ void ERIC::init(int posX, int posY, int width, int height)
 
 void ERIC::update()
 {
-	if (VIKING::_behavior == static_cast<int>(VIKING::ACTION::SKILL_TWO))
+	if (VIKING::_behavior == static_cast<int>(VIKING::ACTION::SKILL_TWO) ||
+		VIKING::_behavior == static_cast<int>(VIKING::ACTION::FALLDOWN))
 	{
 		_jumpingTime += TIMEMANAGER->getElpasedTime();
 	}
@@ -35,7 +37,10 @@ void ERIC::update()
 	{
 		setFallOut();
 	}
-	
+	else if (_jumpingTime >= 3.0f) {
+		callbackEricFallDown();
+		_jumpingTime = 0.0F;
+	}
 	jump();
 
 
@@ -80,7 +85,17 @@ void ERIC::jump()
 	{
 		VIKING::OBJECT::setPosY(_saveY);
 		_isUsingSkillTwo = false;
-		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+		//setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+	}
+}
+
+void ERIC::fallDown()
+{
+	//임시 처리하겠다.
+	if (VIKING::_behavior == static_cast<int>(VIKING::ACTION::FALLDOWN))
+	{
+		//땅과 충돌하면 땅위에 있다고 변환시키고
+	
 	}
 }
 
@@ -570,6 +585,7 @@ void ERIC::callbackBreath(void * obj)
 	pEric->callbackEricBreath();
 }
 
+
 void ERIC::callbackEricRun()
 {
 }
@@ -612,4 +628,15 @@ void ERIC::callbackEricBreath()
 		setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
 
+}
+
+void ERIC::callbackEricFallDown()
+{
+	if (VIKING::_direction == static_cast<int>(VIKING::DIRECTION::LEFT))
+	{
+		setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::STUN));
+	}
+	else {
+		setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::STUN));
+	}
 }
