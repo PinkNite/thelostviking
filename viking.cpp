@@ -102,7 +102,7 @@ void VIKING::moveUp(float acceleration)
 void VIKING::moveDown(float acceleration)
 {
 	float fDistance = Mins::presentPowerY(PI2 - PI / 2.0f, _speed) * TIMEMANAGER->getElpasedTime();
-	OBJECT::setPosY(OBJECT::getPosY() + fDistance-5);
+	OBJECT::setPosY(OBJECT::getPosY() + fDistance+2);
 }
 
 void VIKING::resetSpeed()
