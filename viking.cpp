@@ -148,3 +148,7 @@ void VIKING::setSkillAnimation()
 void VIKING::setLadderAnimation(int offset, bool isOverAni)
 {
 }
+
+void VIKING::pressGravity()
+{
+}

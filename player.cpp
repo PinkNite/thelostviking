@@ -25,6 +25,12 @@ void PLAYER::init()
 
 void PLAYER::update()
 {
+	if (!_pPixelCollision->getCollisionbot())
+	{
+		_pViking[_nCurrentViking]->pressGravity();
+	}
+
+
 	_pViking[_nCurrentViking]->update();
 }
 

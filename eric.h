@@ -67,6 +67,7 @@ private:
 	virtual void	setMovingAnimation(int direction) override;
 	virtual	void	setStopAnimation() override;
 	virtual	void	setSkillAnimation() override;
+	virtual void	pressGravity() override;
 
 	
 	void jump();

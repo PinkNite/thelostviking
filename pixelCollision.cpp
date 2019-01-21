@@ -24,6 +24,8 @@ void pixelCollision::release()
 
 void pixelCollision::update()
 {
+	_probeY = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
+
 	for (int i = _probeY - 10; i <= _probeY; ++i)
 	{
 		COLORREF color = GetPixel(IMAGEMANAGER->findImage("map2Collision")->getMemDC(),
@@ -35,7 +37,7 @@ void pixelCollision::update()
 
 		if ((r == 255 && g == 0 && b == 255))
 		{
-			_pPlayer->setPosY(i - _pPlayer->getHeight() / 2);
+			_pPlayer->setPosY(i - _pPlayer->getHeight() / 2 );
 			_isCollision = true;
 			break;
 		}
@@ -44,7 +46,6 @@ void pixelCollision::update()
 			_isCollision = false;
 		}
 	}
-	_probeY = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
 	printf("Ãæµ¹ : %d\n", _isCollision);
 }
 

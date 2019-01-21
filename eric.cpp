@@ -44,11 +44,7 @@ void ERIC::update()
 	}
 	jump();
 
-	if (VIKING::_behavior != static_cast<int>(VIKING::ACTION::ON_LADDER) &&
-		VIKING::_behavior != static_cast<int>(VIKING::ACTION::ON_LADDER_OVER))
-	{
-		VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY() + _gravity * TIMEMANAGER->getElpasedTime());
-	}
+
 
 	KEYANIMANAGER->update();
 }
@@ -79,6 +75,7 @@ void ERIC::skillTwo()
 	_jumpSpeed = 1500.0f;
 	_jumpPower = Mins::presentPowerY(PI / 2.0f, _jumpSpeed);
 	_isUsingSkillTwo = true;
+	VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY() + _jumpPower * TIMEMANAGER->getElpasedTime());
 
 	_saveY = VIKING::OBJECT::getPosY();
 	setSkillAnimation();
@@ -579,6 +576,15 @@ void ERIC::setStopAnimation()
 void ERIC::setSkillAnimation()
 {
 	setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO));
+}
+
+void ERIC::pressGravity()
+{
+	if (VIKING::_behavior != static_cast<int>(VIKING::ACTION::ON_LADDER) &&
+		VIKING::_behavior != static_cast<int>(VIKING::ACTION::ON_LADDER_OVER))
+	{
+		VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY() + _gravity * TIMEMANAGER->getElpasedTime());
+	}
 }
 
 
