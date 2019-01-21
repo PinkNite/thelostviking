@@ -80,7 +80,7 @@ void ERIC::skillTwo()
 {
 	if (_isUsingSkillTwo) return;
 	if (static_cast<VIKING::ACTION>(VIKING::_behavior) == VIKING::ACTION::SKILL_ONE)return;
-	if (static_cast<VIKING::ACTION>(VIKING::_behavior) == VIKING::ACTION::FALLDOWN)return;
+	if (static_cast<VIKING::ACTION>(VIKING::_behavior) == VIKING::ACTION::FALLDOWN)	return;
 	if (static_cast<VIKING::ACTION>(VIKING::_behavior) == VIKING::ACTION::SKILL_TWO)return;
 	
 	_jumpingTime = 0.0f;
