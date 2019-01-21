@@ -16,6 +16,7 @@ void INPUTMANAGER::init(PLAYER * pPlayer, CAMERA * pCamera)
 	_isTop = false;
 	_isBottom = false;
 	_isUse = false;
+	_isOpen = false;
 }
 
 void INPUTMANAGER::update()
@@ -118,7 +119,7 @@ void INPUTMANAGER::update()
 		_pPlayer->useSkillOne();
 	}
 	//이승재
-	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))//아이템사용
 	{
 		_isUse = true;
 	}
@@ -126,6 +127,11 @@ void INPUTMANAGER::update()
 	{
 		_isUse = false;
 	}
+	if (KEYMANAGER->isToggleKey(VK_F8))//아이템사용
+	{
+		_isOpen = true;
+	}
+	
 
 
 	if (_pPlayer->getPosX() < _pCamera->getLeft() + _pCamera->getWidth() / 2 - 32)

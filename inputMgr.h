@@ -18,6 +18,7 @@ private:
 	bool _isTop;
 	bool _isBottom;
 	bool _isUse;
+	bool _isOpen;
 public:
 	void init(PLAYER * pPlayer,CAMERA* pCamera);
 	void update();

@@ -89,7 +89,78 @@ HRESULT UI::init()
 	_olafItem = ITEM_0;  //현재 갯수 0
 
 
-	//좌표값 가져오기
+	//초기 셀렉트창 좌표 초기화
+	
+	/////////////////이동부분
+	for (int i = 0; i < 3; i++)
+	{
+		switch (i)//3종류 다다르게 해야함
+		{
+		case 0:
+			switch (_selectState[i])
+			{
+			case  SELECT_LEFT_TOP:
+				_select[i].x = 120;
+				_select[i].y = 402;
+				break;
+			case  SELECT_LEFT_BOTTOM:
+				_select[i].x = 120;
+				_select[i].y = 442;
+				break;
+			case  SELECT_RIGHT_TOP:
+				_select[i].x = 160;
+				_select[i].y = 402;
+				break;
+			case  SELECT_RIGHT_BOTTOM:
+				_select[i].x = 160;
+				_select[i].y = 442;
+				break;
+			}
+			break;
+		case 1:
+			switch (_selectState[i])
+			{
+			case  SELECT_LEFT_TOP:
+				_select[i].x = 302;
+				_select[i].y = 402;
+				break;
+			case  SELECT_LEFT_BOTTOM:
+				_select[i].x = 302;
+				_select[i].y = 442;
+				break;
+			case  SELECT_RIGHT_TOP:
+				_select[i].x = 342;
+				_select[i].y = 402;
+				break;
+			case  SELECT_RIGHT_BOTTOM:
+				_select[i].x = 342;
+				_select[i].y = 442;
+				break;
+			}
+			break;
+		case 2:
+			switch (_selectState[i])
+			{
+			case  SELECT_LEFT_TOP:
+				_select[i].x = 482;
+				_select[i].y = 402;
+				break;
+			case  SELECT_LEFT_BOTTOM:
+				_select[i].x = 482;
+				_select[i].y = 442;
+				break;
+			case  SELECT_RIGHT_TOP:
+				_select[i].x = 522;
+				_select[i].y = 402;
+				break;
+			case  SELECT_RIGHT_BOTTOM:
+				_select[i].x = 522;
+				_select[i].y = 442;
+				break;
+			}
+			break;
+		}
+	}
 
 
 
@@ -111,10 +182,12 @@ void UI::update()
 
 
 	//_life[0].isAllive = false;//이럼 사라짐
-	selectMove();//얘는 특정 조건에서만 되어야함
 
+	
+		selectMove();//얘는 특정 조건에서만 되어야함
+	
 	////////////////캐릭 선택필 수 조건
-	//_pPlayer->
+	
 	if (_pPlayer->getCurrentViking() ==PLAYER::VIKINGNAME::ERIC )
 	{
 		getItem(&_erikItem, 120, 402, 160, 442);//에릭인벤토리세팅
@@ -338,105 +411,104 @@ void UI::selectMove()
 	}
 	else if (_baleogState == BALEOG_ON)
 	{
-		_select[1].alphaCount += 10;
-		if (KEYMANAGER->isOnceKeyDown('A'))
+		_select[0].alphaCount += 10;//온이면 알파값 변함
+		if (_pInputMG->getLeft() == true)
 		{
-			switch (_selectState[1])
+			switch (_selectState[0])
 			{
 			case SELECT_RIGHT_TOP:
-				_selectState[1] = SELECT_LEFT_TOP;
+				_selectState[0] = SELECT_LEFT_TOP;
 				break;
 			case SELECT_RIGHT_BOTTOM:
-				_selectState[1] = SELECT_LEFT_BOTTOM;
+				_selectState[0] = SELECT_LEFT_BOTTOM;
 				break;
 			}
 		}
-		if (KEYMANAGER->isOnceKeyDown('D'))
+		if (_pInputMG->getRight() == true)
 		{
-			switch (_selectState[1])
+			switch (_selectState[0])
 			{
 			case SELECT_LEFT_TOP:
-				_selectState[1] = SELECT_RIGHT_TOP;
+				_selectState[0] = SELECT_RIGHT_TOP;
 				break;
 			case SELECT_LEFT_BOTTOM:
-				_selectState[1] = SELECT_RIGHT_BOTTOM;
+				_selectState[0] = SELECT_RIGHT_BOTTOM;
 				break;
 			}
 		}
-		if (KEYMANAGER->isOnceKeyDown('W'))
+		if (_pInputMG->getTop() == true)
 		{
-			switch (_selectState[1])
+			switch (_selectState[0])
 			{
 			case SELECT_LEFT_BOTTOM:
-				_selectState[1] = SELECT_LEFT_TOP;
+				_selectState[0] = SELECT_LEFT_TOP;
 				break;
 			case SELECT_RIGHT_BOTTOM:
-				_selectState[1] = SELECT_RIGHT_TOP;
+				_selectState[0] = SELECT_RIGHT_TOP;
 				break;
 			}
 		}
-		if (KEYMANAGER->isOnceKeyDown('S'))
+		if (_pInputMG->getBottom() == true)
 		{
-			switch (_selectState[1])
+			switch (_selectState[0])
 			{
 			case SELECT_LEFT_TOP:
-				_selectState[1] = SELECT_LEFT_BOTTOM;
+				_selectState[0] = SELECT_LEFT_BOTTOM;
 				break;
 			case SELECT_RIGHT_TOP:
-				_selectState[1] = SELECT_RIGHT_BOTTOM;
+				_selectState[0] = SELECT_RIGHT_BOTTOM;
 				break;
 			}
 		}
 	}
 	else if (_olafState == OLAF_ON)
 	{
-		_select[2].alphaCount += 10;
-		if (KEYMANAGER->isOnceKeyDown('A'))
+		_select[0].alphaCount += 10;//온이면 알파값 변함
+		if (_pInputMG->getLeft() == true)
 		{
-			switch (_selectState[2])
+			switch (_selectState[0])
 			{
 			case SELECT_RIGHT_TOP:
-				_selectState[2] = SELECT_LEFT_TOP;
+				_selectState[0] = SELECT_LEFT_TOP;
 				break;
 			case SELECT_RIGHT_BOTTOM:
-				_selectState[2] = SELECT_LEFT_BOTTOM;
+				_selectState[0] = SELECT_LEFT_BOTTOM;
 				break;
 			}
-
 		}
-		if (KEYMANAGER->isOnceKeyDown('D'))
+		if (_pInputMG->getRight() == true)
 		{
-			switch (_selectState[2])
+			switch (_selectState[0])
 			{
 			case SELECT_LEFT_TOP:
-				_selectState[2] = SELECT_RIGHT_TOP;
+				_selectState[0] = SELECT_RIGHT_TOP;
 				break;
 			case SELECT_LEFT_BOTTOM:
-				_selectState[2] = SELECT_RIGHT_BOTTOM;
+				_selectState[0] = SELECT_RIGHT_BOTTOM;
 				break;
 			}
 		}
-		if (KEYMANAGER->isOnceKeyDown('W'))
+		if (_pInputMG->getTop() == true)
 		{
-			switch (_selectState[2])
+			switch (_selectState[0])
 			{
 			case SELECT_LEFT_BOTTOM:
-				_selectState[2] = SELECT_LEFT_TOP;
+				_selectState[0] = SELECT_LEFT_TOP;
 				break;
 			case SELECT_RIGHT_BOTTOM:
-				_selectState[2] = SELECT_RIGHT_TOP;
+				_selectState[0] = SELECT_RIGHT_TOP;
 				break;
 			}
 		}
-		if (KEYMANAGER->isOnceKeyDown('S'))
+		if (_pInputMG->getBottom() == true)
 		{
-			switch (_selectState[2])
+			switch (_selectState[0])
 			{
 			case SELECT_LEFT_TOP:
-				_selectState[2] = SELECT_LEFT_BOTTOM;
+				_selectState[0] = SELECT_LEFT_BOTTOM;
 				break;
 			case SELECT_RIGHT_TOP:
-				_selectState[2] = SELECT_RIGHT_BOTTOM;
+				_selectState[0] = SELECT_RIGHT_BOTTOM;
 				break;
 			}
 		}
