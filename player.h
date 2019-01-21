@@ -11,7 +11,7 @@ class pixelCollision;
 
 class PLAYER
 {
-private:
+public://∞Ì√∆¥Ÿ µø»÷æﬂ
 	enum class VIKINGNAME {
 		ERIC = 0,
 		BALEOG,

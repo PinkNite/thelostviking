@@ -147,10 +147,18 @@ void UI::update()
 
 	////////////////캐릭 선택필 수 조건
 	//_pPlayer->
-	getItem(&_erikItem, 120, 402, 160, 442);//에릭인벤토리세팅
-	getItem(&_baleogItem, 302, 402, 342, 442);
-	getItem(&_olafItem, 482, 402, 522, 442);
-
+	if (_pPlayer->getCurrentViking() ==PLAYER::VIKINGNAME::ERIC )
+	{
+		getItem(&_erikItem, 120, 402, 160, 442);//에릭인벤토리세팅
+	}
+	if (_pPlayer->getCurrentViking() == PLAYER::VIKINGNAME::BALEOG)
+	{
+		getItem(&_baleogItem, 302, 402, 342, 442);
+	}
+	if (_pPlayer->getCurrentViking() == PLAYER::VIKINGNAME::OLAF)
+	{
+		getItem(&_olafItem, 482, 402, 522, 442);
+	}
 
 	selectCollision();
 
