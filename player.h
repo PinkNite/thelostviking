@@ -2,9 +2,11 @@
 #include "stdafx.h"
 #include "object.h"
 #include "viking.h"
+#include "map2.h"
 
 class ERIC;
 class OBJECT;
+class MAP2;
 
 class PLAYER
 {
@@ -19,7 +21,7 @@ private:
 private:
 	VIKING * _pViking[3];
 	int		_nCurrentViking;
-
+	MAP2*	_pMap2;
 public:
 	PLAYER();
 	~PLAYER();
@@ -49,4 +51,6 @@ public:
 
 	void setMovingAnimation(int direction);
 	void setStopAnimation();
+
+	inline	void setMap2(MAP2* pMap) { _pMap2 = pMap; }
 };
