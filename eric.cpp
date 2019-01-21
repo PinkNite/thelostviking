@@ -43,7 +43,11 @@ void ERIC::update()
 	}
 	jump();
 
-	VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY() + _gravity * TIMEMANAGER->getElpasedTime());
+	if (VIKING::_behavior != static_cast<int>(VIKING::ACTION::ON_LADDER) &&
+		VIKING::_behavior != static_cast<int>(VIKING::ACTION::ON_LADDER_OVER))
+	{
+		VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY() + _gravity * TIMEMANAGER->getElpasedTime());
+	}
 
 	KEYANIMANAGER->update();
 }
@@ -79,13 +83,17 @@ void ERIC::skillTwo()
 	setSkillAnimation();
 }
 
-void ERIC::setLadderAnimation(int noffset)
+void ERIC::setLadderAnimation(int offset, bool isOverAni)
 {
 	if (static_cast<VIKING::ACTION>( VIKING::_behavior) != VIKING::ACTION::ON_LADDER)
 	{
-		//setAnimation(static_cast<VIKING::DIRECTION>( _direction),)
+		setAnimation(static_cast<VIKING::DIRECTION>(_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER));
+	}
+	else if (static_cast<VIKING::ACTION>(VIKING::_behavior) != VIKING::ACTION::ON_LADDER_OVER && isOverAni) {
+		setAnimation(static_cast<VIKING::DIRECTION>(_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER_OVER));
 	}
 
+	VIKING::_pAnimation->setClickVariable(offset);
 }
 
 void ERIC::jump()
@@ -168,14 +176,14 @@ void ERIC::initKeyAnimation()
 		89, 3, 2, false, 3, callbackBreath);
 
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER),
-		92, 4, 1, true);
+		92, 4, 10, true);
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER_OVER),
-		96, 2, 1, true);
+		96, 2, 10, true);
 
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER),
-		92, 4, 1, true);
+		92, 4, 10, false);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER_OVER),
-		96, 2, 1, true);
+		96, 2, 10, false);
 
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::PUSH),
 		98, 4, 5, true);
@@ -540,6 +548,15 @@ void ERIC::setMovingAnimation(int direction)
 	}
 	else if (direction != VIKING::_direction && static_cast<int>(VIKING::ACTION::SKILL_TWO) == _behavior && VIKING::STATE::ACTION == static_cast<VIKING::STATE>(_state))
 	{
+		if (direction == static_cast<int>(VIKING::DIRECTION::LEFT))
+		{
+			setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO));
+		}
+		else {
+			setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO));
+		}
+	}
+	else if (static_cast<int>(VIKING::ACTION::ON_LADDER) == _behavior && VIKING::STATE::ACTION == static_cast<VIKING::STATE>(_state)) {
 		if (direction == static_cast<int>(VIKING::DIRECTION::LEFT))
 		{
 			setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO));

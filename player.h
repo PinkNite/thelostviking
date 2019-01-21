@@ -51,6 +51,9 @@ public:
 
 	void setMovingAnimation(int direction);
 	void setStopAnimation();
+	void setLadderAnimation(int offset);
+
+	bool isCollisionLadder();
 
 	inline	void setMap2(MAP2* pMap) { _pMap2 = pMap; }
 

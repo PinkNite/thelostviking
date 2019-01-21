@@ -20,7 +20,6 @@ void INPUTMANAGER::update()
 	//왼쪽 이동 중
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		
 		_pPlayer->moveLeft();
 	}
 	//왼쪽 이동 해제
@@ -47,6 +46,10 @@ void INPUTMANAGER::update()
 	//사다리는 플레이어 상태가 어떻든 하이제깅해야한다.
 	if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
 	{
+		if (_pPlayer->isCollisionLadder())
+		{
+			_pPlayer->setLadderAnimation(-1);
+		}
 	}
 
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
@@ -55,11 +58,19 @@ void INPUTMANAGER::update()
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
 	{
+		if (_pPlayer->isCollisionLadder())
+		{
+			_pPlayer->setLadderAnimation(0);
+		}
 	}
 
 
 	if (KEYMANAGER->isOnceKeyDown(VK_UP))
 	{
+		if (_pPlayer->isCollisionLadder())
+		{
+			_pPlayer->setLadderAnimation(1);
+		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
@@ -67,8 +78,13 @@ void INPUTMANAGER::update()
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_UP))
 	{
-
+		if (_pPlayer->isCollisionLadder())
+		{
+			_pPlayer->setLadderAnimation(0);
+		}
 	}
+
+
 	if (KEYMANAGER->isOnceKeyDown('F'))
 	{
 		_pPlayer->useSkillTwo();

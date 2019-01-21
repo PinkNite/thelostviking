@@ -148,5 +148,5 @@ public:
 
 	virtual	void	setSkillAnimation();
 
-	virtual	void	setLadderAnimation(int noffset);
+	virtual	void	setLadderAnimation(int offset,bool isOverAni);
 };

@@ -145,6 +145,6 @@ void VIKING::setSkillAnimation()
 {
 }
 
-void VIKING::setLadderAnimation(int noffset)
+void VIKING::setLadderAnimation(int offset, bool isOverAni)
 {
 }
