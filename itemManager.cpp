@@ -41,9 +41,11 @@ HRESULT ITEMMANAGER::init()
 		_itemFruit1[i] = 0;
 		_itemFruit2[i] = 0;
 	}
+
 	_pItemMeat = new ITEMMEAT;
-	_pItemMeat->init(50, 50, 40, 35);
+	_pItemMeat->init(1700, 530, 40, 35);
 	_itemMeat = 0;
+
 	return S_OK;
 }
 
@@ -76,7 +78,7 @@ void ITEMMANAGER::render(HDC hdc)
 		_pItemFruit2[i]->render(hdc);
 
 	}
-	//_pItemMeat->render(hdc);//고기는 출력안해도됨
+	_pItemMeat->render(hdc);//고기는 출력안해도됨
 
 }
 
@@ -84,6 +86,7 @@ void ITEMMANAGER::isCollisionPlayer()
 {
 
 	//플레이어 상태값을 받아야함
+	
 	for (int i = 0; i < 2; i++)
 	{
 		if (isCollision(_pItemBoom[i]->getX(), _pItemBoom[i]->getY(), 40, 38, _pPlayer->getPosX(), _pPlayer->getPosY(), 64, 64) && _pItemBoom[i]->getIsAllive())

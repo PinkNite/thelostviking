@@ -298,10 +298,10 @@ void UI::render()
 	//아이템
 	//인벤토리 렌더
 	itemRender();
-
+/*
 	char str[128];
 	sprintf_s(str, "%d", _erikItem);
-	TextOut(getMemDC(), 400, 300, str, strlen(str));
+	TextOut(getMemDC(), 400, 300, str, strlen(str));*/
 
 }
 
