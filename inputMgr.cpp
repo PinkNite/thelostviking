@@ -67,6 +67,10 @@ void INPUTMANAGER::update()
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		_pPlayer->moveDown();
+		if (_pPlayer->isCollisionLadder())
+		{
+			_pPlayer->setLadderAnimation(-1);
+		}
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
 	{
@@ -89,6 +93,10 @@ void INPUTMANAGER::update()
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
 		_pPlayer->moveUp();
+		if (_pPlayer->isCollisionLadder())
+		{
+			_pPlayer->setLadderAnimation(1);
+		}
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_UP))
 	{
