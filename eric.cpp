@@ -95,7 +95,7 @@ void ERIC::fallDown()
 	if (VIKING::_behavior == static_cast<int>(VIKING::ACTION::FALLDOWN))
 	{
 		//땅과 충돌하면 땅위에 있다고 변환시키고
-	
+		//callbackEricFallDown();//을 실행시킨다.
 	}
 }
 
