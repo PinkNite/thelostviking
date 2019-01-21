@@ -6,7 +6,7 @@
 #include "itemMeat.h"
 //#include <vector>
 
-
+class INPUTMANAGER;
 class PLAYER;
 class ITEMMANAGER;
 enum baleogState
@@ -92,6 +92,7 @@ private:
 
 	//플레이어
 	PLAYER* _pPlayer;
+	INPUTMANAGER* _pInputMG;
 
 public:
 	UI();

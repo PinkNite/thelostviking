@@ -15,6 +15,7 @@ protected:
 	image* _pImage;
 	bool _isAllive;//살아있냐
 	int _alphaCount;//알파값
+	bool _isUse;//사용했냐
 
 public:
 	ITEMFRAME();
@@ -39,5 +40,9 @@ public:
 	inline int getAlphaCount() { return _alphaCount; }
 	inline void setAlphaCountPlus(int num) { _alphaCount += num; }//값을넣으면 그만큼 알파카운트가 증가한다.
 	inline void setAlphaCount(int num) { _alphaCount = num; }//값을넣으면 그만큼 알파카운트가 증가한다.
+	inline bool getUse() { return _isUse; }
+	inline void setUse(bool _bool) { _isUse = _bool; }
+
+
 };
 

@@ -29,6 +29,7 @@ public:
 	void update();
 	void render(HDC hdc);
 	void isCollisionPlayer();//아이템과 플레이어 충돌
+	
 public:
 
 	inline void setLinkPlayer(PLAYER* _player) { _pPlayer = _player; }

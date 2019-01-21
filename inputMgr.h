@@ -11,8 +11,23 @@ private:
 
 	float		_ericJumpPower;
 	float		_jumpKeyPressTime;
+
+	//ÀÌ½ÂÀç
+	bool _isLeft;
+	bool _isRight;
+	bool _isTop;
+	bool _isBottom;
+	bool _isUse;
 public:
 	void init(PLAYER * pPlayer,CAMERA* pCamera);
 	void update();
 	void release();
+
+
+	//ÀÌ½ÂÀç
+	bool getLeft() { return _isLeft; }
+	bool getRight() { return _isRight; }
+	bool getTop() { return _isTop; }
+	bool getBottom() { return _isBottom; }
+	bool getUse() { return _isUse; }
 };

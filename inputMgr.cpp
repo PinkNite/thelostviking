@@ -9,13 +9,20 @@ void INPUTMANAGER::init(PLAYER * pPlayer, CAMERA * pCamera)
 	_pPlayer = pPlayer;
 	_pCamera = pCamera;
 	_ericJumpPower = 0.0f;
+
+	//이승재
+	_isLeft = false;
+	_isRight = false;
+	_isTop = false;
+	_isBottom = false;
+	_isUse = false;
 }
 
 void INPUTMANAGER::update()
 {
 	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
 	{
-
+		_isLeft = true;
 	}
 	//왼쪽 이동 중
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
@@ -25,27 +32,31 @@ void INPUTMANAGER::update()
 	//왼쪽 이동 해제
 	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{
+		_isLeft = false;
 		_pPlayer->setStopAnimation();
 	}
 
 	//오른쪽 이동 시작
 	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
 	{
-
+		_isRight = true;
 	}
 	//오른쪽 이동 중
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
+		
 		_pPlayer->moveRight();
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 	{
+		_isRight = false;
 		_pPlayer->setStopAnimation();
 	}
 
 	//사다리는 플레이어 상태가 어떻든 하이제깅해야한다.
 	if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
 	{
+		_isBottom = true;
 		if (_pPlayer->isCollisionLadder())
 		{
 			_pPlayer->setLadderAnimation(-1);
@@ -58,6 +69,7 @@ void INPUTMANAGER::update()
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
 	{
+		_isBottom = false;
 		if (_pPlayer->isCollisionLadder())
 		{
 			_pPlayer->setLadderAnimation(0);
@@ -67,6 +79,7 @@ void INPUTMANAGER::update()
 
 	if (KEYMANAGER->isOnceKeyDown(VK_UP))
 	{
+		_isTop = true;
 		if (_pPlayer->isCollisionLadder())
 		{
 			_pPlayer->setLadderAnimation(1);
@@ -78,6 +91,7 @@ void INPUTMANAGER::update()
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_UP))
 	{
+		_isTop = false;
 		if (_pPlayer->isCollisionLadder())
 		{
 			_pPlayer->setLadderAnimation(0);
@@ -102,6 +116,15 @@ void INPUTMANAGER::update()
 	if (KEYMANAGER->isOnceKeyDown('D'))
 	{
 		_pPlayer->useSkillOne();
+	}
+	//이승재
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+	{
+		_isUse = true;
+	}
+	if (KEYMANAGER->isOnceKeyUp(VK_SPACE))
+	{
+		_isUse = false;
 	}
 
 

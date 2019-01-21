@@ -142,6 +142,7 @@ void ITEMMANAGER::isCollisionPlayer()
 	}
 
 }
+
 inline bool ITEMMANAGER::isCollision(int x, int y, int width, int height, int x1, int y1, int width1, int height1)
 {
 	RECT temp, rc, rc1;

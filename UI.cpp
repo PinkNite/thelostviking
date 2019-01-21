@@ -2,6 +2,10 @@
 #include "UI.h"
 #include "itemManager.h"
 #include "player.h"
+#include "inputMgr.h"
+
+//다시 해야할것 아이템획득 효과추가
+
 
 UI::UI()
 {
@@ -710,7 +714,7 @@ void UI::itemRender()
 	}
 }
 
-void UI::selectCollision()//알파값 변하는 함수
+void UI::selectCollision()//알파값 변하는 함수와 선택조건
 {
 	for (int i = 0; i < 3; i++)
 	{
@@ -721,7 +725,11 @@ void UI::selectCollision()//알파값 변하는 함수
 			{
 				//system("pause");
 				_pItemBoom[0]->setAlphaCountPlus(15);
-
+				//들어왔따 그리고 키값이 있냐.
+				if (0)
+				{
+					_pItemBoom[0]->setUse(true);//사용으로 바꿔줌
+				}
 			}
 			else
 			{
@@ -730,6 +738,10 @@ void UI::selectCollision()//알파값 변하는 함수
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[1]->getX(), _pItemBoom[1]->getY(), 40, 40))
 			{
 				_pItemBoom[1]->setAlphaCountPlus(15);
+				if (0)
+				{
+					_pItemBoom[1]->setUse(true);//사용으로 바꿔줌
+				}
 			}
 			else
 			{
@@ -740,6 +752,10 @@ void UI::selectCollision()//알파값 변하는 함수
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[0]->getX(), _pItemFruit1[0]->getY(), 40, 40))
 			{
 				_pItemFruit1[0]->setAlphaCountPlus(15);
+				if (0)
+				{
+					_pItemFruit1[0]->setUse(true);
+				}
 			}
 			else
 			{
@@ -748,6 +764,10 @@ void UI::selectCollision()//알파값 변하는 함수
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[1]->getX(), _pItemFruit1[1]->getY(), 40, 40))
 			{
 				_pItemFruit1[1]->setAlphaCountPlus(15);
+				if (0)
+				{
+					_pItemFruit1[1]->setUse(true);
+				}
 			}
 			else
 			{
@@ -757,8 +777,12 @@ void UI::selectCollision()//알파값 변하는 함수
 
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[0]->getX(), _pItemFruit2[0]->getY(), 40, 40))
 			{
-				//system("pause");
+				
 				_pItemFruit2[0]->setAlphaCountPlus(15);
+				if (0)
+				{
+					_pItemFruit2[0]->setUse(true);
+				}
 
 			}
 			else
@@ -768,6 +792,10 @@ void UI::selectCollision()//알파값 변하는 함수
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[1]->getX(), _pItemFruit2[1]->getY(), 40, 40))
 			{
 				_pItemFruit2[1]->setAlphaCountPlus(15);
+				if (0)
+				{
+					_pItemFruit2[1]->setUse(true);
+				}
 			}
 			else
 			{
@@ -777,7 +805,10 @@ void UI::selectCollision()//알파값 변하는 함수
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat->getX(), _pItemMeat->getY(), 40, 40))
 			{
 				_pItemMeat->setAlphaCountPlus(15);
-
+				if (0)
+				{
+					_pItemMeat->setUse(0);
+				}
 			}
 			else
 			{
@@ -789,7 +820,11 @@ void UI::selectCollision()//알파값 변하는 함수
 			{
 				//system("pause");
 				_pItemBoom[0]->setAlphaCountPlus(15);
-
+				//들어왔따 그리고 키값이 있냐.
+				if (0)
+				{
+					_pItemBoom[0]->setUse(true);//사용으로 바꿔줌
+				}
 			}
 			else
 			{
@@ -798,6 +833,10 @@ void UI::selectCollision()//알파값 변하는 함수
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[1]->getX(), _pItemBoom[1]->getY(), 40, 40))
 			{
 				_pItemBoom[1]->setAlphaCountPlus(15);
+				if (0)
+				{
+					_pItemBoom[1]->setUse(true);//사용으로 바꿔줌
+				}
 			}
 			else
 			{
@@ -808,6 +847,10 @@ void UI::selectCollision()//알파값 변하는 함수
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[0]->getX(), _pItemFruit1[0]->getY(), 40, 40))
 			{
 				_pItemFruit1[0]->setAlphaCountPlus(15);
+				if (0)
+				{
+					_pItemFruit1[0]->setUse(true);
+				}
 			}
 			else
 			{
@@ -816,6 +859,10 @@ void UI::selectCollision()//알파값 변하는 함수
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[1]->getX(), _pItemFruit1[1]->getY(), 40, 40))
 			{
 				_pItemFruit1[1]->setAlphaCountPlus(15);
+				if (0)
+				{
+					_pItemFruit1[1]->setUse(true);
+				}
 			}
 			else
 			{
@@ -825,8 +872,12 @@ void UI::selectCollision()//알파값 변하는 함수
 
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[0]->getX(), _pItemFruit2[0]->getY(), 40, 40))
 			{
-				//system("pause");
+
 				_pItemFruit2[0]->setAlphaCountPlus(15);
+				if (0)
+				{
+					_pItemFruit2[0]->setUse(true);
+				}
 
 			}
 			else
@@ -836,6 +887,10 @@ void UI::selectCollision()//알파값 변하는 함수
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[1]->getX(), _pItemFruit2[1]->getY(), 40, 40))
 			{
 				_pItemFruit2[1]->setAlphaCountPlus(15);
+				if (0)
+				{
+					_pItemFruit2[1]->setUse(true);
+				}
 			}
 			else
 			{
@@ -845,20 +900,26 @@ void UI::selectCollision()//알파값 변하는 함수
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat->getX(), _pItemMeat->getY(), 40, 40))
 			{
 				_pItemMeat->setAlphaCountPlus(15);
-
+				if (0)
+				{
+					_pItemMeat->setUse(0);
+				}
 			}
 			else
 			{
 				_pItemMeat->setAlphaCount(255);
 			}
-
 			break;
 		case 2:
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[0]->getX(), _pItemBoom[0]->getY(), 40, 40))
 			{
 				//system("pause");
 				_pItemBoom[0]->setAlphaCountPlus(15);
-
+				//들어왔따 그리고 키값이 있냐.
+				if (0)
+				{
+					_pItemBoom[0]->setUse(true);//사용으로 바꿔줌
+				}
 			}
 			else
 			{
@@ -867,6 +928,10 @@ void UI::selectCollision()//알파값 변하는 함수
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[1]->getX(), _pItemBoom[1]->getY(), 40, 40))
 			{
 				_pItemBoom[1]->setAlphaCountPlus(15);
+				if (0)
+				{
+					_pItemBoom[1]->setUse(true);//사용으로 바꿔줌
+				}
 			}
 			else
 			{
@@ -877,6 +942,10 @@ void UI::selectCollision()//알파값 변하는 함수
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[0]->getX(), _pItemFruit1[0]->getY(), 40, 40))
 			{
 				_pItemFruit1[0]->setAlphaCountPlus(15);
+				if (0)
+				{
+					_pItemFruit1[0]->setUse(true);
+				}
 			}
 			else
 			{
@@ -885,6 +954,10 @@ void UI::selectCollision()//알파값 변하는 함수
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[1]->getX(), _pItemFruit1[1]->getY(), 40, 40))
 			{
 				_pItemFruit1[1]->setAlphaCountPlus(15);
+				if (0)
+				{
+					_pItemFruit1[1]->setUse(true);
+				}
 			}
 			else
 			{
@@ -894,8 +967,12 @@ void UI::selectCollision()//알파값 변하는 함수
 
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[0]->getX(), _pItemFruit2[0]->getY(), 40, 40))
 			{
-				//system("pause");
+
 				_pItemFruit2[0]->setAlphaCountPlus(15);
+				if (0)
+				{
+					_pItemFruit2[0]->setUse(true);
+				}
 
 			}
 			else
@@ -905,6 +982,10 @@ void UI::selectCollision()//알파값 변하는 함수
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[1]->getX(), _pItemFruit2[1]->getY(), 40, 40))
 			{
 				_pItemFruit2[1]->setAlphaCountPlus(15);
+				if (0)
+				{
+					_pItemFruit2[1]->setUse(true);
+				}
 			}
 			else
 			{
@@ -914,13 +995,15 @@ void UI::selectCollision()//알파값 변하는 함수
 			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat->getX(), _pItemMeat->getY(), 40, 40))
 			{
 				_pItemMeat->setAlphaCountPlus(15);
-
+				if (0)
+				{
+					_pItemMeat->setUse(0);
+				}
 			}
 			else
 			{
 				_pItemMeat->setAlphaCount(255);
 			}
-
 			break;
 		}
 	}
