@@ -258,6 +258,9 @@
     <ClInclude Include="EnemyManager.h">
       <Filter>PlayGround\Object\enemy</Filter>
     </ClInclude>
+    <ClInclude Include="baleog.h">
+      <Filter>PlayGround\Object\player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

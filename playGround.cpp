@@ -183,7 +183,7 @@ void playGround::update()
 
 void playGround::render()
 {
-	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
+	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY+118, BLACKNESS);
 	_pCamera->renderinit();
 
 	_pMap2->render(_pCamera->getMemDC());

@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="action.h" />
     <ClInclude Include="animation.h" />
+    <ClInclude Include="baleog.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="buttons.h" />
     <ClInclude Include="camera.h" />
