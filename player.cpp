@@ -112,25 +112,55 @@ void PLAYER::moveUp()
 		{
 			if (rcTmp.right - rcTmp.left >= 32)
 			{
-
+				bIsCollisionLadder++;
+				_pViking[_nCurrentViking]->setPosX(_pMap2->getRCLadder(nLadder).left + (_pMap2->getRCLadder(nLadder).right - _pMap2->getRCLadder(nLadder).left) / 2);
 			}
-			bIsCollisionLadder++;
+			else {
+				nLadder++;
+			}
 		}
-		else {
+		else
+		{
 			nLadder++;
 		}
 	}
 	if (bIsCollisionLadder)
 	{
-
 		_pViking[_nCurrentViking]->moveUp(0.0f);
 	}	
 }
 
 void PLAYER::moveDown()
 {
-	_pViking[_nCurrentViking]->moveDown(0.0f);
+	RECT rcPlayer = RectMakeCenter(_pViking[_nCurrentViking]->getPosX(), _pViking[_nCurrentViking]->getPosY(),
+		_pViking[_nCurrentViking]->getWidth(), _pViking[_nCurrentViking]->getHeight());
+	_pMap2->getRCLadder(0);
+	bool bIsCollisionLadder = false;
+	int	 nLadder = 0;
 
+	while (nLadder < 6 && !bIsCollisionLadder)
+	{
+		RECT rcTmp;
+		if (IntersectRect(&rcTmp, &rcPlayer, &(_pMap2->getRCLadder(nLadder))))
+		{
+			if (rcTmp.right - rcTmp.left >= 32)
+			{
+				bIsCollisionLadder++;
+				_pViking[_nCurrentViking]->setPosX(_pMap2->getRCLadder(nLadder).left + (_pMap2->getRCLadder(nLadder).right - _pMap2->getRCLadder(nLadder).left) / 2);
+			}
+			else {
+				nLadder++;
+			}
+		}
+		else
+		{
+			nLadder++;
+		}
+	}
+	if (bIsCollisionLadder)
+	{
+		_pViking[_nCurrentViking]->moveDown(0.0f);
+	}
 }
 
 void PLAYER::resetSpeed()
@@ -157,4 +187,33 @@ void PLAYER::setMovingAnimation(int direction)
 void PLAYER::setStopAnimation()
 {
 	_pViking[_nCurrentViking]->setStopAnimation();
+}
+
+void PLAYER::setPosX(float posX)
+{
+	_pViking[_nCurrentViking]->setPosX(posX);
+}
+
+void PLAYER::setPosY(float posY)
+{
+	_pViking[_nCurrentViking]->setPosY(posY);
+}
+
+void PLAYER::setWidth(int width)
+{
+	_pViking[_nCurrentViking]->setWidth(width);
+}
+
+void PLAYER::setHeight(int height)
+{
+	_pViking[_nCurrentViking]->setHeight(height);
+}
+
+void PLAYER::setTop()
+{
+
+}
+
+void PLAYER::setLeft()
+{
 }

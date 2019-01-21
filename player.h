@@ -53,4 +53,12 @@ public:
 	void setStopAnimation();
 
 	inline	void setMap2(MAP2* pMap) { _pMap2 = pMap; }
+
+
+	void	setPosX	 (float posX);
+	void	setPosY	 (float posY);
+	void	setWidth (int width);
+	void	setHeight(int height);
+	void	setTop	 ();
+	void	setLeft	 ();
 };

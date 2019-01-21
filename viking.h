@@ -147,4 +147,6 @@ public:
 	virtual	void	setStopAnimation()					;
 
 	virtual	void	setSkillAnimation();
+
+	virtual	void	setLadderAnimation(int noffset);
 };
