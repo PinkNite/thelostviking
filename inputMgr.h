@@ -31,4 +31,5 @@ public:
 	bool getTop() { return _isTop; }
 	bool getBottom() { return _isBottom; }
 	bool getUse() { return _isUse; }
+	bool getOpen() { return _isOpen; }
 };
