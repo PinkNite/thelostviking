@@ -67,4 +67,8 @@ public:
 	void	setHeight(int height);
 	void	setTop	 ();
 	void	setLeft	 ();
+
+	VIKINGNAME		getCurrentViking() { return static_cast<VIKINGNAME>(_nCurrentViking); }
+
+
 };
