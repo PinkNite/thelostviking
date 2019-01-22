@@ -16,10 +16,10 @@ void PLAYER::init()
 {
 	//바이킹들 초기화
 	_pViking[static_cast<const int>(VIKINGNAME::ERIC)] = new ERIC();
-	_pViking[static_cast<const int>(VIKINGNAME::ERIC)]->init(610, 610, 64, 64);
+	_pViking[static_cast<const int>(VIKINGNAME::ERIC)]->init(610, 580, 64, 64);
 
 	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)] = new BALEOG();
-	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)]->init(610, 610, 64, 64);
+	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)]->init(100, 100, 64, 64);
 
 
 
@@ -143,7 +143,10 @@ void PLAYER::moveUp()
 {
 	if (isCollisionLadder())
 	{
-		_pViking[_nCurrentViking]->moveUp(0.0f);
+		if (_rcTmpTop - (_pViking[_nCurrentViking]->getPosY()-32) < 63)
+		{
+			_pViking[_nCurrentViking]->moveUp(0.0f);
+		}
 	}
 }
 
