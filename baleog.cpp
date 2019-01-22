@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "baleog.h"
+#include "arrow.h"
 
 BALEOG::BALEOG()
 {
@@ -65,10 +66,45 @@ void BALEOG::update()
 	{
 		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE_END));
 		//화살 나가게 하기
+
+		updateArrow();
+	}
+
+	if (_pArrow)
+	{
+		_pArrow->update();
+		if (_pArrow->deleteArrow())
+		{
+			_pArrow->release();
+			delete _pArrow;
+			_pArrow = nullptr;
+		}
 	}
 
 	KEYANIMANAGER->update();
 }
+void BALEOG::updateArrow()
+{
+	float angle;
+	if (static_cast<VIKING::DIRECTION>(VIKING::_direction) == VIKING::DIRECTION::LEFT)
+	{
+		angle = PI;
+	}
+	else {
+		angle = 0.0f;
+	}
+
+	if (!_pArrow)
+	{
+		_pArrow = new ARROW;
+
+		_pArrow->init(OBJECT::getPosX(), OBJECT::getPosY(), 32, 6, angle);
+	}
+	else {
+		_pArrow->init(OBJECT::getPosX(), OBJECT::getPosY(), 32, 6, angle);
+	}
+}
+
 
 void BALEOG::release()
 {
@@ -77,6 +113,10 @@ void BALEOG::release()
 void BALEOG::render(HDC hdc)
 {
 	VIKING::_pImg->aniRender(hdc, VIKING::_posX - VIKING::_width / 2, VIKING::_posY - VIKING::_height / 2, VIKING::_pAnimation);
+	if (_pArrow)
+	{
+		_pArrow->render(hdc);
+	}
 }
 
 void BALEOG::skillOne()
@@ -88,6 +128,7 @@ void BALEOG::skillOne()
 void BALEOG::skillTwo()
 {
 	setSkillTwoAni();
+	_isUsingSkillTwo = true;
 }
 
 void BALEOG::setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight)
@@ -128,6 +169,16 @@ void BALEOG::skillOneEnd()
 {
 
 	_isUsingSKillOne = false;
+}
+
+bool BALEOG::getUseSkillOne()
+{
+	return _isUsingSKillOne;
+}
+
+bool BALEOG::getUseSkillTwo()
+{
+	return _isUsingSkillTwo;
 }
 
 void BALEOG::initKeyAnimation()
@@ -525,7 +576,7 @@ void BALEOG::setMovingAnimation(int direction)
 
 void BALEOG::setStopAnimation()
 {
-	if (static_cast<int>(VIKING::ACTION::RUN) == _behavior || static_cast<int>(VIKING::ACTION::SKILL_ONE) == _behavior) {
+	if (static_cast<int>(VIKING::ACTION::RUN) == _behavior || static_cast<int>(VIKING::ACTION::SKILL_ONE_END) == _behavior) {
 		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
 }
@@ -602,5 +653,7 @@ void BALEOG::callbackSpecialIdle(void * obj)
 void BALEOG::callbackbaleogSpecialIdle()
 {
 	setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+	_isUsingSkillTwo = false;
+
 }
 

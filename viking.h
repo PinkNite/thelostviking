@@ -2,8 +2,11 @@
 #include "object.h"
 #include "stdafx.h"
 
+
+
 enum { VIKING_WIDTH = 64 };
 enum { VIKING_HEIGHT = 64 };
+
 
 class VIKING : public OBJECT {
 public:
@@ -106,7 +109,6 @@ protected:
 	animation*		_pAnimation;				//실행할 애니메이션을 담는다
 	bool			_isOnGround;
 	
-
 public:
 	void init(int posX, int posY, int width, int height);
 	virtual void update()			abstract;
@@ -165,4 +167,7 @@ public:
 	virtual void	setSkillTwoAni();
 
 	virtual void	skillOneEnd();
+
+	virtual bool	getUseSkillOne();
+	virtual bool	getUseSkillTwo();
 };

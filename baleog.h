@@ -2,6 +2,7 @@
 
 #include "viking.h"
 
+class ARROW;
 
 class BALEOG :public VIKING {
 
@@ -15,7 +16,7 @@ private:
 	bool		_isUsingSkillTwo;
 	bool		_isUsingSKillOne;
 
-
+	ARROW*			_pArrow;
 public:
 	BALEOG();
 	~BALEOG();
@@ -31,6 +32,8 @@ public:
 	virtual	void setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight) override;
 	virtual void	skillOneEnd() override;
 
+	virtual bool	getUseSkillOne() override;
+	virtual bool	getUseSkillTwo() override;
 
 private:
 	void	initKeyAnimation();
@@ -73,8 +76,9 @@ private:
 
 	virtual void	setSkillOneAni() override;
 	virtual void	setSkillTwoAni() override;
+	
 
-
+	void	updateArrow();
 
 
 public:

@@ -173,3 +173,13 @@ void VIKING::skillOneEnd()
 {
 }
 
+bool VIKING::getUseSkillOne()
+{
+	return false;
+}
+
+bool VIKING::getUseSkillTwo()
+{
+	return false;
+}
+

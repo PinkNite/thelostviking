@@ -117,6 +117,8 @@ int PLAYER::getLeft()
 
 void PLAYER::moveLeft()
 {
+	if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::BALEOG && _pViking[_nCurrentViking]->getUseSkillOne()) return;
+
 	float	acceleration = 0.0f;
 	if (_nCurrentViking == static_cast<int>(VIKINGNAME::ERIC))
 	{
@@ -132,6 +134,8 @@ void PLAYER::moveLeft()
 
 void PLAYER::moveRight()
 {
+	if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::BALEOG && _pViking[_nCurrentViking]->getUseSkillOne()) return;
+
 
 	float	acceleration = 0.0f;
 	if (_nCurrentViking == static_cast<int>(VIKINGNAME::ERIC))
@@ -172,7 +176,6 @@ void PLAYER::moveDown()
 
 			}
 		}
-
 	}
 }
 
