@@ -41,10 +41,13 @@ HRESULT ITEMMANAGER::init()
 		_itemFruit1[i] = 0;
 		_itemFruit2[i] = 0;
 	}
-
-	_pItemMeat = new ITEMMEAT;
-	_pItemMeat->init(1700, 530, 40, 35);
-	_itemMeat = 0;
+	for (int i = 0; i < 2; i++)
+	{
+		_pItemMeat[i] = new ITEMMEAT;
+		_pItemMeat[i]->init(1700, 530, 40, 35);
+		_itemMeat[i] = 0;
+	}
+	
 
 	return S_OK;
 }
@@ -129,17 +132,17 @@ void ITEMMANAGER::isCollisionPlayer()
 		{
 			_itemFruit2[i] = 0;
 		}
+		if (isCollision(_pItemMeat[i]->getX(), _pItemMeat[i]->getY(), 40, 38, _pPlayer->getPosX(), _pPlayer->getPosY(), 64, 64) && _pItemMeat[i]->getIsAllive())
+		{
+			_pItemMeat[i]->SetIsAlliveFalse();
+			_itemMeat[i] = 1;
+		}
+		else
+		{
+			_itemMeat[i] = 0;
+		}
+	}
 
-	}
-	if (isCollision(_pItemMeat->getX(), _pItemMeat->getY(), 40, 38, _pPlayer->getPosX(), _pPlayer->getPosY(), 64, 64)&&_pItemMeat->getIsAllive())
-	{
-		_pItemMeat->SetIsAlliveFalse();
-		_itemMeat = 1;
-	}
-	else
-	{
-		_itemMeat = 0;
-	}
 
 }
 

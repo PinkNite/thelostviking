@@ -81,7 +81,7 @@ private:
 	tagUI _itemFruit1[2];
 	ITEMFRUIT2* _pItemFruit2[2];
 	tagUI _itemFruit2[2];
-	ITEMMEAT* _pItemMeat;
+	ITEMMEAT* _pItemMeat[2];
 	tagUI _itemMeat[2];
 
 	trashCanState _trashCanState;
@@ -100,7 +100,9 @@ private:
 	PLAYER* _pPlayer;
 	INPUTMANAGER* _pInputMG;
 	
-	int x = 0, y = 0;
+	int _countNum;
+	int _countLeft;
+	int _countRight;
 
 public:
 	UI();
@@ -116,7 +118,7 @@ public:
 	void itemBoom(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i); //ÆøÅº ÁÂÇ¥
 	void itemFruit1(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i);
 	void itemFruit2(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i);
-	void itemMeat(int x, int y, int width, int height, itemMemory* name, itemMemory item);
+	void itemMeat(int x, int y, int width, int height, itemMemory* name, itemMemory item,int i);
 
 	void itemRender(HDC hdc);
 	void selectCollision();
