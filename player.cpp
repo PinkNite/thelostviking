@@ -155,12 +155,18 @@ void PLAYER::moveUp()
 
 void PLAYER::moveDown()
 {
-
-	if (isCollisionLadder() )
+	if (isCollisionLadder())
 	{
 		if (_rcTmpBottom != _pViking[_nCurrentViking]->getPosY() +32)
 		{
-			_pViking[_nCurrentViking]->moveDown(0.0f);
+			if (_pPixelCollision->getCollisionbot())
+			{
+				_pViking[_nCurrentViking]->moveDown(6.0f);
+			}
+			else {
+				_pViking[_nCurrentViking]->moveDown(0.0f);
+
+			}
 		}
 
 	}
@@ -212,7 +218,7 @@ void PLAYER::setLadderAnimation(int offset)
 
 bool PLAYER::isCollisionLadder()
 {
-	RECT rcPlayer = RectMakeCenter(_pViking[_nCurrentViking]->getPosX(), _pViking[_nCurrentViking]->getPosY()+3,
+	RECT rcPlayer = RectMakeCenter(_pViking[_nCurrentViking]->getPosX(), _pViking[_nCurrentViking]->getPosY()+ 5,
 		_pViking[_nCurrentViking]->getWidth(), _pViking[_nCurrentViking]->getHeight());
 	_pMap2->getRCLadder(0);
 	bool bIsCollisionLadder = false;

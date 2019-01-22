@@ -67,7 +67,10 @@ private:
 	virtual void	pressGravity() override;
 	virtual void	falldownAnimation() override;
 
-	void jump();
+	virtual void	setSkillOneAni() override;
+	virtual void	setSkillTwoAni() override;
+
+
 
 	void fallDown();
 
@@ -76,7 +79,6 @@ public:
 	static void	callbackSpecialIdle(void *obj);	//달리는 상태 종류후 나오는 것들
 	
 	void	callbackbaleogSpecialIdle();
-
 
 
 
