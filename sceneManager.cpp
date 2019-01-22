@@ -86,3 +86,12 @@ HRESULT sceneManager::changeScene(string sceneName)
 
 	return E_FAIL;
 }
+bool sceneManager::confirmScene(string sceneName)
+{
+	mapSceneIter find = _mSceneList.find(sceneName);
+	if (find->second == _currentScene)
+	{
+		return true;
+	}
+	return false;
+}

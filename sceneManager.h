@@ -30,6 +30,7 @@ public:
 	//¾À º¯°æ ÇÔ¾¥
 	HRESULT changeScene(string sceneName);
 
-
+	//¾À È®ÀÎ ÇÔ¼ö
+	bool confirmScene(string sceneName);
 };
 
