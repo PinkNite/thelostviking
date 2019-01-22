@@ -10,6 +10,7 @@ class pixelCollision
 private:
 	image* _imgMap1Cbg;
 	image* _imgMap2Cbg;
+	RECT ladderRect[12];
 
 private:
 	PLAYER* _pPlayer;
@@ -36,8 +37,10 @@ public:
 	void update();
 	void render(HDC hdc);
 	void setPlayer(PLAYER* pPlayer) { _pPlayer = pPlayer; }
+	void collisionRect(RECT rect, PLAYER* pPlayer);
 
 	bool getCollisionbot() { return _isCollisionBottom; }
 	void setCollisionbot(bool isCollisionBottom) { _isCollisionBottom = isCollisionBottom;	}
+	 
 };
 

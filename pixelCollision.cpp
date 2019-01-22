@@ -20,6 +20,19 @@ HRESULT pixelCollision::init()
 	_isCollisionLeft = false;
 	_isCollisionRight = false;
 	_isCollisionBottom = false;
+	ladderRect[0] = RectMake(593, 160, 16, 30);
+	ladderRect[1] = RectMake(673, 160, 16, 30);
+	ladderRect[2] = RectMake(1137, 160, 16, 30);
+	ladderRect[3] = RectMake(1217, 160, 16, 30);
+	ladderRect[4] = RectMake(1873, 448, 16, 30);
+	ladderRect[5] = RectMake(1569, 800, 16, 30);
+	ladderRect[6] = RectMake(1441, 800, 64, 30);
+	ladderRect[7] = RectMake(193, 640, 32, 32);
+	ladderRect[8] = RectMake(97, 640, 32, 32);
+	ladderRect[9] = RectMake(545, 1088, 32, 32);
+	ladderRect[10] = RectMake(81, 1408, 16, 30);
+	ladderRect[11] = RectMake(161, 1408, 16, 30);
+
 	return S_OK;
 }
 
@@ -29,28 +42,40 @@ void pixelCollision::release()
 
 void pixelCollision::update()
 {
+	for (int i = 0; i < 12; i++)
+	{
+		collisionRect(ladderRect[i], _pPlayer);
+	}
 	_probeTopY = _pPlayer->getPosY() - (_pPlayer->getHeight() / 2);
 	_probeBottomY = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
 	_probeLeftX = _pPlayer->getPosX() - (_pPlayer->getWidth() / 2) + 6;
 	_probeRightX = _pPlayer->getPosX() + (_pPlayer->getWidth() / 2) - 6;
-	/*
+	
 	// 왼쪽 벽 충돌
 	for (int i = _probeLeftX; i <= _probeLeftX + 10; ++i)
 	{
-		for (int j = _pPlayer->getPosY() - _pPlayer->getHeight() / 2;
-			j <= _pPlayer->getPosY() + _pPlayer->getHeight() / 2; ++j)
-		{
-			//PlayerRect 왼쪽 위 범위
+		//PlayerRect 왼쪽 위 범위
 			COLORREF color = GetPixel(IMAGEMANAGER->findImage("map2Collision")->getMemDC(),
-				i, j);
+				i, _pPlayer->getPosY() - (_pPlayer->getHeight() / 2));
+			COLORREF color2 = GetPixel(IMAGEMANAGER->findImage("map2Collision")->getMemDC(),
+				i, _pPlayer->getPosY());
+			COLORREF color3 = GetPixel(IMAGEMANAGER->findImage("map2Collision")->getMemDC(),
+				i, _pPlayer->getPosY() + (_pPlayer->getHeight() / 2));
 
 			int r = GetRValue(color);
 			int g = GetGValue(color);
 			int b = GetBValue(color);
+			int r2 = GetRValue(color2);
+			int g2 = GetGValue(color2);
+			int b2 = GetBValue(color2);
+			int r3 = GetRValue(color3);
+			int g3 = GetGValue(color3);
+			int b3 = GetBValue(color3);
 
-			if ((r == 0 && g == 255 && b == 255))
+			if ((r == 0 && g == 255 && b == 255) || (r2 == 0 && g2 == 255 && b2 == 255) || (r3 == 0 && g3 == 255 && b3 == 255))
 			{
 				_pPlayer->setPosX(i + _pPlayer->getWidth() / 2);
+				//_pPlayer->setPosX(_probeLeftX - 6);
 				_isCollisionLeft = true;
 				_onceCollisionLeft = true;
 				break;
@@ -59,73 +84,45 @@ void pixelCollision::update()
 			{
 				_isCollisionLeft = false;
 			}
-		}
-		if (_onceCollisionLeft == true)
-		{
-			_onceCollisionLeft = false;
-			break;
-		}
 	}
 
-	/*
-	for (int j = _pPlayer->getPosY() - _pPlayer->getHeight() / 2;
-		j <= _pPlayer->getPosY() + _pPlayer->getHeight() / 2; ++j)
+	//오른쪽 벽 충돌
+	for (int i = _probeRightX; i >= _probeRightX - 10; --i)
 	{
 		//PlayerRect 왼쪽 위 범위
 		COLORREF color = GetPixel(IMAGEMANAGER->findImage("map2Collision")->getMemDC(),
-			_probeLeftX, j);
+			i, _pPlayer->getPosY() - (_pPlayer->getHeight() / 2));
+		COLORREF color2 = GetPixel(IMAGEMANAGER->findImage("map2Collision")->getMemDC(),
+			i, _pPlayer->getPosY());
+		COLORREF color3 = GetPixel(IMAGEMANAGER->findImage("map2Collision")->getMemDC(),
+			i, _pPlayer->getPosY() + (_pPlayer->getHeight() / 2));
 
 		int r = GetRValue(color);
 		int g = GetGValue(color);
 		int b = GetBValue(color);
+		int r2 = GetRValue(color2);
+		int g2 = GetGValue(color2);
+		int b2 = GetBValue(color2);
+		int r3 = GetRValue(color3);
+		int g3 = GetGValue(color3);
+		int b3 = GetBValue(color3);
 
-		if ((r == 0 && g == 255 && b == 255))
+		if ((r == 0 && g == 255 && b == 255) || (r2 == 0 && g2 == 255 && b2 == 255) || (r3 == 0 && g3 == 255 && b3 == 255))
 		{
-			_pPlayer->setPosX(_probeLeftX + _pPlayer->getWidth() / 2);
-			_isCollisionLeft = true;
+			_pPlayer->setPosX(i - _pPlayer->getWidth() / 2);
+			//_pPlayer->setPosX(_probeRightX + 6);
+			_isCollisionRight = true;
+			_onceCollisionRight = true;
 			break;
 		}
 		else
 		{
-			_isCollisionLeft = false;
+			_isCollisionRight = false;
 		}
 	}
 	
-	//오른쪽 벽 충돌
-	for (int i = _probeRightX; i >= _probeRightX - 10; --i)
-	{
-		for (int j = _pPlayer->getPosY() - _pPlayer->getHeight() / 2;
-			j <= _pPlayer->getPosY() + _pPlayer->getHeight() / 2; ++j)
-		{
-			//PlayerRect 왼쪽 위 범위
-			COLORREF color = GetPixel(IMAGEMANAGER->findImage("map2Collision")->getMemDC(),
-				i, j);
-
-			int r = GetRValue(color);
-			int g = GetGValue(color);
-			int b = GetBValue(color);
-
-			if ((r == 0 && g == 255 && b == 255))
-			{
-				_pPlayer->setPosX(i - _pPlayer->getWidth() / 2);
-				_isCollisionRight = true;
-				_onceCollisionRight = true;
-				break;
-			}
-			else
-			{
-				_isCollisionRight = false;
-			}
-		}
-		if (_onceCollisionRight == true)
-		{
-			_onceCollisionRight = false;
-			break;
-		}
-	}
-	*/
 	// 천장충돌
-	for (int i = _probeTopY + _pPlayer->getWidth(); i >= _probeTopY; --i)
+	for (int i = _probeTopY + _pPlayer->getHeight()/2; i >= _probeTopY; --i)
 	{
 		//PlayerRect 왼쪽 범위
 		COLORREF color = GetPixel(IMAGEMANAGER->findImage("map2Collision")->getMemDC(),
@@ -189,4 +186,21 @@ void pixelCollision::update()
 
 void pixelCollision::render(HDC hdc)
 {
+}
+
+void pixelCollision::collisionRect(RECT rect, PLAYER * pPlayer)
+{
+	RECT tempRect;
+	RECT playerRect = RectMakeCenter(pPlayer->getPosX(), pPlayer->getPosY(), pPlayer->getWidth(), pPlayer->getHeight());
+	if (IntersectRect(&tempRect, &rect, &playerRect))
+	{
+		if (tempRect.left + (tempRect.right - tempRect.left) / 2 < pPlayer->getPosX())
+		{
+			pPlayer->setPosX(tempRect.right + pPlayer->getWidth()/2);
+		}
+		if (tempRect.left + (tempRect.right - tempRect.left) / 2 > pPlayer->getPosX())
+		{
+			pPlayer->setPosX(tempRect.left - pPlayer->getWidth() / 2);
+		}
+	}
 }
