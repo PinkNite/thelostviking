@@ -13,13 +13,17 @@ pixelCollision::~pixelCollision()
 HRESULT pixelCollision::init()
 {
 	_imgMap2Cbg = IMAGEMANAGER->addImage("map2Collision", "resource/map/map1-2_collision4.bmp", 2048, 1630, false, RGB(255, 0, 255));
+	_imgElevatorC = IMAGEMANAGER->addImage("elevatorCollision", "resource/map/effect/elevatorCollision.bmp", 64, 64, false, RGB(255, 0, 255));
+
 	_probeTopY = _pPlayer->getPosY() - (_pPlayer->getHeight() / 2);
 	_probeBottomY = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
+	_probeElavatorBottomY = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
 	_probeLeftX = _pPlayer->getPosX() - (_pPlayer->getWidth() / 2);
 	_probeRightX = _pPlayer->getPosX() + (_pPlayer->getWidth() / 2);
 	_isCollisionLeft = false;
 	_isCollisionRight = false;
 	_isCollisionBottom = false;
+	_isCollisionElevatorBottom = false;
 	ladderRect[0] = RectMake(593, 160, 16, 30);
 	ladderRect[1] = RectMake(673, 160, 16, 30);
 	ladderRect[2] = RectMake(1137, 160, 16, 30);
@@ -32,7 +36,8 @@ HRESULT pixelCollision::init()
 	ladderRect[9] = RectMake(545, 1088, 32, 32);
 	ladderRect[10] = RectMake(81, 1408, 16, 30);
 	ladderRect[11] = RectMake(161, 1408, 16, 30);
-
+	
+	//_rcElevatorC = RectMake(_pMap2->getRCElevator().left, _pMap2->getRCElevator().top + 31, (_pMap2->getRCElevator().right - _pMap2->getRCElevator().left), (_pMap2->getRCElevator().bottom - _pMap2->getRCElevator().top) / 2);
 	return S_OK;
 }
 
@@ -43,29 +48,19 @@ void pixelCollision::release()
 void pixelCollision::update()
 {
 	playerRect = RectMakeCenter(_pPlayer->getPosX(), _pPlayer->getPosY(), _pPlayer->getWidth(), _pPlayer->getHeight());
+	_rcElevatorC = RectMake(_pMap2->getRCElevator().left, _pMap2->getRCElevator().top, (_pMap2->getRCElevator().right - _pMap2->getRCElevator().left), (_pMap2->getRCElevator().bottom - _pMap2->getRCElevator().top) / 2);
+	
+	//printf("왼쪽 : %d, 위 : %d, 오른쪽 : %d, 아래 : %d\n", _pMap2->getRCElevator().left, _pMap2->getRCElevator().top, _pMap2->getRCElevator().right, _pMap2->getRCElevator().bottom);
 	_probeTopY = _pPlayer->getPosY() - (_pPlayer->getHeight() / 2);
 	_probeBottomY = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
 	_probeLeftX = _pPlayer->getPosX() - (_pPlayer->getWidth() / 2) + 6;
 	_probeRightX = _pPlayer->getPosX() + (_pPlayer->getWidth() / 2) - 6;
+	_probeElavatorBottomY = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
 	
 	//애매한 렉트 처리
 	for (int i = 0; i < 12; i++)
 	{
 		collisionRect(ladderRect[i], _pPlayer);
-	}
-
-	//
-	for (int i = 0; i < _vDoor.size(); i++)
-	{
-		RECT tempRc;
-		if (IntersectRect(&tempRc, &_vDoor[i]->getColiisionArea(), &playerRect))
-		{
-			_vDoor[i]->setIsoff(true);
-		}
-		else
-		{
-			_vDoor[i]->setIsoff(false);
-		}
 	}
 
 	// 왼쪽 벽 충돌
@@ -137,7 +132,7 @@ void pixelCollision::update()
 			_isCollisionRight = false;
 		}
 	}
-	
+
 	// 천장충돌
 	for (int i = _probeTopY + _pPlayer->getHeight()/2; i >= _probeTopY; --i)
 	{
@@ -197,16 +192,52 @@ void pixelCollision::update()
 			_isCollisionBottom = false;
 		}
 	}
-	printf("왼쪽벽 충돌 : %d, 오른쪽 벽 충돌 : %d, 바닥 충돌 : %d\n", _isCollisionLeft,
-		_isCollisionRight, _isCollisionBottom);
+
+	// 엘베충돌
+	RECT temp;
+	if (IntersectRect(&temp, &playerRect, &_rcElevatorC))
+	{
+		for (int i = _probeElavatorBottomY - 10; i <= _probeElavatorBottomY; ++i)
+		{
+			//PlayerRect 왼쪽 범위
+			COLORREF color = GetPixel(IMAGEMANAGER->findImage("map2Collision")->getMemDC(),
+				_pPlayer->getPosX() - _pPlayer->getWidth() / 2 + 12, i);
+
+			//PlayerRect 오른쪽 범위
+			COLORREF color2 = GetPixel(IMAGEMANAGER->findImage("map2Collision")->getMemDC(),
+				_pPlayer->getPosX() + _pPlayer->getWidth() / 2 - 12, i);
+
+			int r = GetRValue(color);
+			int g = GetGValue(color);
+			int b = GetBValue(color);
+			int r2 = GetRValue(color);
+			int g2 = GetGValue(color);
+			int b2 = GetBValue(color);
+
+			if ((r == 255 && g == 0 && b == 255) || (r2 == 255 && g2 == 0 && b2 == 255))
+			{
+				_pPlayer->setPosY(i - _pPlayer->getHeight() / 2);
+				_isCollisionElevatorBottom = true;
+				break;
+			}
+			else
+			{
+				_isCollisionElevatorBottom = false;
+			}
+		}
+	}
+		
+	//printf("왼쪽벽 충돌 : %d, 오른쪽 벽 충돌 : %d, 바닥 충돌 : %d\n", _isCollisionLeft,
+	//	_isCollisionRight, _isCollisionBottom);
+	//printf("엘베바닥충돌 : %d\n", _isCollisionElevatorBottom);
+	printf("왼쪽 : %d, 위 : %d, 넓이 : %d, 높이 : %d\n", _pMap2->getRCElevator().left, _pMap2->getRCElevator().top + 32, (_pMap2->getRCElevator().right - _pMap2->getRCElevator().left), (_pMap2->getRCElevator().bottom - _pMap2->getRCElevator().top + 32) / 2);
+
 }
 
 void pixelCollision::render(HDC hdc)
 {
-	for (int i = 0; i < _vDoor.size(); i++)
-	{
-		_vDoor[i]->render(hdc);
-	}
+	_imgElevatorC->render(IMAGEMANAGER->findImage("map2Collision")->getMemDC(), _rcElevatorC.left, _rcElevatorC.top);
+	//Rectangle(getMemDC(), _rcElevatorC);
 }
 
 void pixelCollision::collisionRect(RECT rect, PLAYER * pPlayer)
@@ -217,30 +248,11 @@ void pixelCollision::collisionRect(RECT rect, PLAYER * pPlayer)
 	{
 		if (tempRect.left + (tempRect.right - tempRect.left) / 2 < pPlayer->getPosX())
 		{
-			pPlayer->setPosX(tempRect.right + pPlayer->getWidth()/2);
+			pPlayer->setPosX(tempRect.right + pPlayer->getWidth() / 2);
 		}
 		if (tempRect.left + (tempRect.right - tempRect.left) / 2 > pPlayer->getPosX())
 		{
 			pPlayer->setPosX(tempRect.left - pPlayer->getWidth() / 2);
 		}
 	}
-}
-
-void pixelCollision::doorInit()
-{
-	setDOOR* doorObtacle = new DOORS;
-	doorObtacle->init("collisionDoorObc1", 449, 352, 32, 96, true, 3);
-	_vDoor.push_back(doorObtacle);
-
-	doorObtacle = new DOORS;
-	doorObtacle->init("collisionDoorObc2", 865, 352, 32, 96, true, 3);
-	_vDoor.push_back(doorObtacle);
-
-	doorObtacle = new DOORS;
-	doorObtacle->init("collisionDoorObc3", 193, 1312, 32, 96, true, 3);
-	_vDoor.push_back(doorObtacle);
-
-	doorObtacle = new DOORS;
-	doorObtacle->init("collisionDoorObc4", 449, 1472, 32, 96, true, 3);
-	_vDoor.push_back(doorObtacle);
 }

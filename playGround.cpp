@@ -127,6 +127,7 @@ HRESULT playGround::init()
 
 	_pixel = new pixelCollision;
 	_pixel->setPlayer(_pPlayer);
+	_pixel->setMap2(_pMap2);
 	_pixel->init();
 	_pCamera->setMap(IMAGEMANAGER->findImage("map2Collision"));
 

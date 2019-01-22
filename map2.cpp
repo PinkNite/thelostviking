@@ -17,7 +17,8 @@ HRESULT MAP2::init()
 	_imgElectric3 = IMAGEMANAGER->addFrameImage("electric3", "resource/map/effect/electric_Shock3.bmp", 448, 32, 7, 1, true, RGB(255, 0, 255));
 	_imgHandleOff = IMAGEMANAGER->addImage("handleOff", "resource/map/effect/handleOff.bmp", 28, 30, true, RGB(255, 0, 255));
 	_imgHandleOn = IMAGEMANAGER->addImage("handleOn", "resource/map/effect/handleOn.bmp", 28, 30, true, RGB(255, 0, 255));
-    for (int i = 0; i < MAXBROKENBLOCK; i++)
+    
+	for (int i = 0; i < MAXBROKENBLOCK; i++)
 	{
 		//sprintf_s(str, "brokenBlock%d", i);
 		_imgBrokenblock[i] = IMAGEMANAGER->addFrameImage(str, "resource/map/effect/broken_Block.bmp", 96, 32, 3, 1, true, RGB(255, 0, 255));
@@ -71,6 +72,7 @@ HRESULT MAP2::init()
 	_arrBlocki = 0;
 	_arrBlockj = 0;
 	_arrNum = 0;
+	_speedElevator = 2;
 
 	_isElevatorMove = false;
 	_checkElevatorUpdown = false;
@@ -137,6 +139,8 @@ void MAP2::update()
 				_rcElevator.bottom -= _speedElevator;
 			}
 		}
+
+		_rcElevator = RectMake(_rcElevator.left, _rcElevator.top, _rcElevator.right - _rcElevator.left, _rcElevator.bottom - _rcElevator.top);
 	}
 
 	if (_isElevatorMove == true && _checkElevatorUpdown == false)
@@ -170,6 +174,8 @@ void MAP2::update()
 				_rcElevator.bottom += _speedElevator;
 			}
 		}
+
+		_rcElevator = RectMake(_rcElevator.left, _rcElevator.top, _rcElevator.right - _rcElevator.left, _rcElevator.bottom - _rcElevator.top);
 	}
 	// moving Elevator end
 
@@ -233,6 +239,56 @@ void MAP2::update()
 			_vDoor[i]->setIsoff(false);
 		}
 	}
+
+	if (KEYMANAGER->isOnceKeyDown('S'))
+	{
+		RECT tempRc;
+		//버튼
+		for (int i = 0; i < _vButton.size(); i++)
+		{
+			if (IntersectRect(&tempRc, &_vButton[i]->getRcTrigger(), &playerRect))
+			{
+				_vButton[i]->setIsoff(true);
+			}
+		}
+	}
+
+	if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
+	{
+		RECT tempRc;
+		if (IntersectRect(&tempRc, &playerRect, &_rcElevator))
+		{
+			_isElevatorMove = true;
+			_checkElevatorUpdown = false;
+		}
+	}
+
+	if (KEYMANAGER->isOnceKeyDown(VK_UP))
+	{
+		RECT tempRc;
+		//버튼
+		if (IntersectRect(&tempRc, &playerRect, &_rcElevator))
+		{
+			_isElevatorMove = true;
+			_checkElevatorUpdown = true;
+		}
+	}
+
+	//버튼에 따른 전기
+	if (_vButton[0]->getIsoff() == true)
+	{
+		_vElectric[0]->setIsoff(true);
+		_vElectric[1]->setIsoff(true);
+	}
+	if (_vButton[1]->getIsoff() == true)
+	{
+		_vElectric[2]->setIsoff(true);
+	}
+	if (_vButton[2]->getIsoff() == true)
+	{
+		_vElectric[5]->setIsoff(true);
+	}
+
 //		if (KEYMANAGER->isOnceKeyDown('S'))
 //	{
 //	}

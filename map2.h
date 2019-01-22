@@ -22,7 +22,7 @@ private:
 	image* _imgBrokencomputer;
 	image* _imgUpeffect;
 	image* _imgElevator;
-
+	
 	RECT _rcElectric3;
 	RECT _rcHandle;
 	RECT _rcBrokenblocks;

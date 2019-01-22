@@ -41,6 +41,7 @@ public:
 
 	bool getIsoff() { return Electric4.isOff; }
 	void setIsoff(bool setIsoff) { Electric4.isOff = setIsoff; }
+	RECT getRcTrigger() { return Electric4.rcTrigger; }
 };
 
 class setDOOR
@@ -98,4 +99,5 @@ public:
 
 	bool getIsoff() { return Button.isOff; }
 	void setIsoff(bool setIsoff) { Button.isOff = setIsoff; }
+	RECT getRcTrigger() { return Button.rcTrigger; }
 };

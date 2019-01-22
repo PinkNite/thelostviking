@@ -5,15 +5,18 @@
 #include "map2.h"
 #include "player.h"
 #include <vector>
+#include "gameNode.h"
 
-class pixelCollision
+class pixelCollision : public gameNode
 {
 private:
 	image* _imgMap1Cbg;
 	image* _imgMap2Cbg;
-	image* _imgDoorcollision;
+	image* _imgElevatorC;
+
 	RECT ladderRect[12];
 	RECT playerRect;
+	RECT _rcElevatorC;
 
 private:
 	PLAYER* _pPlayer;
@@ -22,17 +25,18 @@ private:
 	float x;
 	int _probeTopY;
 	int _probeBottomY;
+	int _probeElavatorBottomY;
 	int _probeLeftX;
 	int _probeRightX;
+
 	bool _isCollisionTop;
 	bool _isCollisionBottom;
+	bool _isCollisionElevatorBottom;
 	bool _isCollisionLeft;
 	bool _isCollisionRight;
 	bool _onceCollisionLeft;
 	bool _onceCollisionRight;
 
-	vector<setDOOR*>								_vDoor;
-	vector<setDOOR*>::iterator						_viDoor;
 public:
 	pixelCollision();
 	~pixelCollision();
@@ -43,7 +47,6 @@ public:
 	void render(HDC hdc);
 	void setPlayer(PLAYER* pPlayer) { _pPlayer = pPlayer; }
 	void collisionRect(RECT rect, PLAYER* pPlayer);
-	void doorInit();
 
 	bool getCollisionbot() { return _isCollisionBottom; }
 	void setCollisionbot(bool isCollisionBottom) { _isCollisionBottom = isCollisionBottom;	}
@@ -51,5 +54,6 @@ public:
 	void setCollisionleft(bool isCollisionLeft) { _isCollisionLeft = isCollisionLeft; }
 	bool getCollisionright() { return _isCollisionRight; }
 	void setCollisionright(bool isCollisionRight) { _isCollisionRight = isCollisionRight; }
+	void setMap2(MAP2* pMap2) { _pMap2 = pMap2; }
 };
 
