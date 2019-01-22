@@ -11,7 +11,20 @@
 #include "pixelCollision.h"
 #include "itemManager.h"
 #include "UI.h"
+#include "sceneIntro.h"
+#include "sceneMenu.h"
+#include "sceneOption.h"
+#include "scenePassword.h"
+enum GAMESTATE
+{
+	INTRO,
+	MENU,
+	OPTION,
+	PASSWORD,
+	INVENTORY,
+	PLAY,
 
+};
 class playGround : public gameNode
 {
 private:
@@ -28,7 +41,7 @@ private:
 
 	ITEMMANAGER*    _pItemManager;
 	UI*				_pUI;
-
+	GAMESTATE       _gameState;
 public:
 	virtual HRESULT init();
 	virtual void release();
