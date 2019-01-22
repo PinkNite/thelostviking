@@ -12,6 +12,7 @@ class pixelCollision : public gameNode
 private:
 	image* _imgMap1Cbg;
 	image* _imgMap2Cbg;
+	image* _imgMap2CbgCopy;
 	image* _imgElevatorC;
 
 	RECT ladderRect[12];

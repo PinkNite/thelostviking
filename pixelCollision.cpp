@@ -13,6 +13,7 @@ pixelCollision::~pixelCollision()
 HRESULT pixelCollision::init()
 {
 	_imgMap2Cbg = IMAGEMANAGER->addImage("map2Collision", "resource/map/map1-2_collision4.bmp", 2048, 1630, false, RGB(255, 0, 255));
+	_imgMap2CbgCopy = IMAGEMANAGER->addImage("map2Collision2", "resource/map/map1-2_collision4.bmp", 2048, 1630, false, RGB(255, 0, 255));
 	_imgElevatorC = IMAGEMANAGER->addImage("elevatorCollision", "resource/map/effect/elevatorCollision.bmp", 64, 64, false, RGB(255, 0, 255));
 
 	for (int i = 0; i < 3; i++)
@@ -52,7 +53,6 @@ void pixelCollision::update()
 {
 	_rcElevatorC = RectMake(_pMap2->getRCElevator().left, _pMap2->getRCElevator().top, (_pMap2->getRCElevator().right - _pMap2->getRCElevator().left), (_pMap2->getRCElevator().bottom - _pMap2->getRCElevator().top) / 2);
 	
-	//printf("왼쪽 : %d, 위 : %d, 오른쪽 : %d, 아래 : %d\n", _pMap2->getRCElevator().left, _pMap2->getRCElevator().top, _pMap2->getRCElevator().right, _pMap2->getRCElevator().bottom);
 	for (int i = 0; i < 3; i++)
 	{
 		playerRect[i]			 = RectMakeCenter(_pPlayer->getViking(i)->getPosX(), _pPlayer->getViking(i)->getPosY(), _pPlayer->getViking(i)->getWidth(), _pPlayer->getViking(i)->getHeight());
@@ -69,6 +69,7 @@ void pixelCollision::update()
 		_probeElavatorBottomY[i] = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
 		*/
 	}
+
 	//애매한 렉트 처리
 	for (int i = 0; i < 12; i++)
 	{
@@ -256,15 +257,16 @@ void pixelCollision::update()
 	//	_isCollisionRight, _isCollisionBottom);
 	//printf("엘베바닥충돌 : %d\n", _isCollisionElevatorBottom);
 	//printf("왼쪽 : %d, 위 : %d, 넓이 : %d, 높이 : %d\n", _pMap2->getRCElevator().left, _pMap2->getRCElevator().top + 32, (_pMap2->getRCElevator().right - _pMap2->getRCElevator().left), (_pMap2->getRCElevator().bottom - _pMap2->getRCElevator().top + 32) / 2);
-
+	_imgMap2CbgCopy->render(IMAGEMANAGER->findImage("map2Collision")->getMemDC()); 
+	_imgElevatorC->render(IMAGEMANAGER->findImage("map2Collision")->getMemDC(), _rcElevatorC.left, _rcElevatorC.top);
 }
 
 void pixelCollision::render(HDC hdc)
 {
+	//PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
 	//_imgMap2Cbg = IMAGEMANAGER->addImage("map2Collision", "resource/map/map1-2_collision4.bmp", 2048, 1630, false, RGB(255, 0, 255));
 	
-	_imgElevatorC->render(IMAGEMANAGER->findImage("map2Collision")->getMemDC(), _rcElevatorC.left, _rcElevatorC.top);
-	_imgMap2Cbg->render(getMemDC());
+	//_imgElevatorC->render(IMAGEMANAGER->findImage("map2Collision")->getMemDC(), _rcElevatorC.left, _rcElevatorC.top);
 	//Rectangle(getMemDC(), _rcElevatorC);
 }
 
