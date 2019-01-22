@@ -20,7 +20,7 @@ void PLAYER::init()
 	_pViking[static_cast<const int>(VIKINGNAME::ERIC)]->init(610, 570, 64, 64);
 
 	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)] = new BALEOG();
-	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)]->init(100, 100, 64, 64);
+	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)]->init(100, 415, 64, 64);
 
 	_pViking[static_cast<const int>(VIKINGNAME::OLAF)] = new OLAF();
 	_pViking[static_cast<const int>(VIKINGNAME::OLAF)]->init(100, 100, 64, 64);
@@ -31,6 +31,8 @@ void PLAYER::init()
 
 void PLAYER::update()
 {
+
+
 	if (!_pPixelCollision->getCollisionbot())
 	{
 		if ( _pViking[_nCurrentViking]->getAction() != VIKING::ACTION::ON_LADDER &&  _pViking[_nCurrentViking]->getAction() != VIKING::ACTION::ON_LADDER_OVER)
@@ -40,8 +42,6 @@ void PLAYER::update()
 		}
 
 		_pViking[_nCurrentViking]->setIsOnGround(false);
-		
-
 	}
 	else {
 		_pViking[_nCurrentViking]->setIsOnGround(true);
