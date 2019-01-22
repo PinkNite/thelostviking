@@ -10,6 +10,7 @@ class pixelCollision
 private:
 	image* _imgMap1Cbg;
 	image* _imgMap2Cbg;
+	image* _imgDoorcollision;
 	RECT ladderRect[12];
 
 private:

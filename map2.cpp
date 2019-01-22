@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "map2.h"
-
+#include "player.h"
 
 MAP2::MAP2()
 {
@@ -218,6 +218,9 @@ void MAP2::update()
 		_isBrokenblocks = true;
 	}
 	
+	if (KEYMANAGER->isOnceKeyDown('S'))
+	{
+	}
 	/*
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{

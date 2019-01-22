@@ -13,6 +13,7 @@ pixelCollision::~pixelCollision()
 HRESULT pixelCollision::init()
 {
 	_imgMap2Cbg = IMAGEMANAGER->addImage("map2Collision", "resource/map/map1-2_collision4.bmp", 2048, 1630, false, RGB(255, 0, 255));
+	_imgDoorcollision = IMAGEMANAGER->addFrameImage("doorCollision", "resource/map/effect/open_DoorCollision.bmp", 128, 96, 4, 1, false, RGB(255, 0, 255));
 	_probeTopY = _pPlayer->getPosY() - (_pPlayer->getHeight() / 2);
 	_probeBottomY = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
 	_probeLeftX = _pPlayer->getPosX() - (_pPlayer->getWidth() / 2);
