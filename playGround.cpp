@@ -15,8 +15,8 @@ void playGround::load()
 {
 	//이미지 넣는것은 여기서 하세요
 	IMAGEMANAGER->addFrameImage("eric", "resource/viking/ericSprites.bmp", 704, 1344, 11, 21, true, RGB(255, 0, 255));
-	
 	IMAGEMANAGER->addFrameImage("baleog", "resource/viking/baleogSprites.bmp", 704, 1216, 11, 19, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("olaf", "resource/viking/olafSprites.bmp", 704, 1088, 11, 17, true, RGB(255, 0, 255));
 
 	//이승재 2019-01-17
 	//인트로

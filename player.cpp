@@ -3,6 +3,7 @@
 #include "eric.h"
 #include "pixelCollision.h"
 #include "baleog.h"
+#include "OLAF.h"
 
 PLAYER::PLAYER()
 {
@@ -21,8 +22,8 @@ void PLAYER::init()
 	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)] = new BALEOG();
 	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)]->init(100, 100, 64, 64);
 
-
-
+	_pViking[static_cast<const int>(VIKINGNAME::OLAF)] = new OLAF();
+	_pViking[static_cast<const int>(VIKINGNAME::OLAF)]->init(100, 100, 64, 64);
 
 	//처음 시작 바이킹 설정
 	_nCurrentViking = static_cast<int>(VIKINGNAME::ERIC);
@@ -41,7 +42,9 @@ void PLAYER::update()
 			}
 			else if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::BALEOG) {
 				_pViking[_nCurrentViking]->setSkillAnimation();
-
+			}
+			else if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::OLAF) {
+				_pViking[_nCurrentViking]->setSkillAnimation();
 			}
 		}
 
@@ -71,7 +74,7 @@ void PLAYER::render(HDC hdc)
 {
 
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		_pViking[i]->render(hdc);
 
@@ -296,7 +299,7 @@ void PLAYER::setLeft()
 void PLAYER::nextViking()
 {
 	_nCurrentViking++;
-	if (_nCurrentViking > 1)
+	if (_nCurrentViking > 2)
 	{
 		_nCurrentViking = 0;
 	}
