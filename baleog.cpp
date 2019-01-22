@@ -645,7 +645,7 @@ void BALEOG::setSkillTwoAni()
 void BALEOG::setPushWallAni(bool isCollisionWall)
 {
 
-	if (static_cast<STATE>(_state) == STATE::ACTION &&static_cast<ACTION>(_behavior) == ACTION::RUN && isCollisionWall)
+	if (static_cast<STATE>(_state) == STATE::ACTION && static_cast<ACTION>(_behavior) == ACTION::RUN && isCollisionWall)
 	{
 		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::PUSH));
 	}
