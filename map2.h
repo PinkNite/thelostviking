@@ -2,12 +2,17 @@
 #include "doors.h"
 #include "buttons.h"
 #include <vector>
+
 #define MAXBROKENBLOCK 9
 
 #pragma once
+class PLAYER;
+
 class MAP2
 {
 private:
+	PLAYER* _pPlayer;
+
 	image* _imgMap2bg;
 	image* _imgElectric3;
 	image* _imgHandleOn;
@@ -94,5 +99,5 @@ public:
 	void							setHandle(bool isHandle) { _isHandle = isHandle; }
 	void							setBrokencomputer(bool isBrokenComputer) { _isBrokenComputer = isBrokenComputer; }
 	void							setBrokenblocks(bool isBrokenblocks) { _isBrokenblocks = isBrokenblocks; }
-
+	void							setPlayer(PLAYER* pPlayer) { _pPlayer = pPlayer; }
 };

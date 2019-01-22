@@ -118,6 +118,7 @@ HRESULT playGround::init()
 	link();
 
 	_pMap2 = new MAP2;
+	_pMap2->setPlayer(_pPlayer);
 	_pMap2->init();
 	_pCamera->setMap(IMAGEMANAGER->findImage("Map2bg"));
 
@@ -139,7 +140,7 @@ HRESULT playGround::init()
 
 	_pPlayer->setMap2(_pMap2);
 	_pPlayer->setPixelCollision(_pixel);
-
+	
 
 	return S_OK;
 }
@@ -171,6 +172,7 @@ void playGround::update()
 	_pInputMgr->update();
 
 	_enemy->update();
+
 	_enemyManager->update();
 
 	_pixel->update();
