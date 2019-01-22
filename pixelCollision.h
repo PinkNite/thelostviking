@@ -15,27 +15,28 @@ private:
 	image* _imgElevatorC;
 
 	RECT ladderRect[12];
-	RECT playerRect;
+	RECT playerRect[3];
 	RECT _rcElevatorC;
 
 private:
 	PLAYER* _pPlayer;
+
 	MAP1* _pMap1;
 	MAP2* _pMap2;
 	float x;
-	int _probeTopY;
-	int _probeBottomY;
-	int _probeElavatorBottomY;
-	int _probeLeftX;
-	int _probeRightX;
+	int _probeTopY[3];
+	int _probeBottomY[3];
+	int _probeElavatorBottomY[3];
+	int _probeLeftX[3];
+	int _probeRightX[3];
 
-	bool _isCollisionTop;
-	bool _isCollisionBottom;
-	bool _isCollisionElevatorBottom;
-	bool _isCollisionLeft;
-	bool _isCollisionRight;
-	bool _onceCollisionLeft;
-	bool _onceCollisionRight;
+	bool _isCollisionTop[3];
+	bool _isCollisionBottom[3];
+	bool _isCollisionElevatorBottom[3];
+	bool _isCollisionLeft[3];
+	bool _isCollisionRight[3];
+	bool _onceCollisionLeft[3];
+	bool _onceCollisionRight[3];
 
 public:
 	pixelCollision();
@@ -48,12 +49,12 @@ public:
 	void setPlayer(PLAYER* pPlayer) { _pPlayer = pPlayer; }
 	void collisionRect(RECT rect, PLAYER* pPlayer);
 
-	bool getCollisionbot() { return _isCollisionBottom; }
-	void setCollisionbot(bool isCollisionBottom) { _isCollisionBottom = isCollisionBottom;	}
-	bool getCollisionleft() { return _isCollisionLeft; }
-	void setCollisionleft(bool isCollisionLeft) { _isCollisionLeft = isCollisionLeft; }
-	bool getCollisionright() { return _isCollisionRight; }
-	void setCollisionright(bool isCollisionRight) { _isCollisionRight = isCollisionRight; }
+	bool getCollisionbot(int index) { return _isCollisionBottom[index]; }
+	void setCollisionbot(bool isCollisionBottom, int index) { _isCollisionBottom[index] = isCollisionBottom;	}
+	bool getCollisionleft(int index) { return _isCollisionLeft[index]; }
+	void setCollisionleft(bool isCollisionLeft, int index) { _isCollisionLeft[index] = isCollisionLeft; }
+	bool getCollisionright(int index) { return _isCollisionRight[index]; }
+	void setCollisionright(bool isCollisionRight, int index) { _isCollisionRight[index] = isCollisionRight; }
 	void setMap2(MAP2* pMap2) { _pMap2 = pMap2; }
 };
 

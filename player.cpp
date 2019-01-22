@@ -20,10 +20,10 @@ void PLAYER::init()
 	_pViking[static_cast<const int>(VIKINGNAME::ERIC)]->init(610, 570, 64, 64);
 
 	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)] = new BALEOG();
-	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)]->init(100, 415, 64, 64);
+	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)]->init(100, 100, 64, 64);
 
 	_pViking[static_cast<const int>(VIKINGNAME::OLAF)] = new OLAF();
-	_pViking[static_cast<const int>(VIKINGNAME::OLAF)]->init(100, 410, 64, 64);
+	_pViking[static_cast<const int>(VIKINGNAME::OLAF)]->init(100, 100, 64, 64);
 
 	//처음 시작 바이킹 설정
 	_nCurrentViking = static_cast<int>(VIKINGNAME::ERIC);
@@ -31,9 +31,7 @@ void PLAYER::init()
 
 void PLAYER::update()
 {
-
-
-	if (!_pPixelCollision->getCollisionbot())
+	if (!_pPixelCollision->getCollisionbot(_nCurrentViking))
 	{
 		if ( _pViking[_nCurrentViking]->getAction() != VIKING::ACTION::ON_LADDER &&  _pViking[_nCurrentViking]->getAction() != VIKING::ACTION::ON_LADDER_OVER)
 		{
@@ -42,13 +40,15 @@ void PLAYER::update()
 		}
 
 		_pViking[_nCurrentViking]->setIsOnGround(false);
+		
+
 	}
 	else {
 		_pViking[_nCurrentViking]->setIsOnGround(true);
 		_pViking[_nCurrentViking]->falldownAnimation();
 	}
 
-	if (_pPixelCollision->getCollisionleft() || _pPixelCollision->getCollisionright())
+	if (_pPixelCollision->getCollisionleft(_nCurrentViking) || _pPixelCollision->getCollisionright(_nCurrentViking))
 	{
 		_pViking[_nCurrentViking]->setPushWallAni(true);
 	}
@@ -164,7 +164,7 @@ void PLAYER::moveDown()
 	{
 		if (_rcTmpBottom != _pViking[_nCurrentViking]->getPosY() +32)
 		{
-			if (_pPixelCollision->getCollisionbot())
+			if (_pPixelCollision->getCollisionbot(_nCurrentViking))
 			{
 				_pViking[_nCurrentViking]->moveDown(6.0f);
 			}
