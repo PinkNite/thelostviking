@@ -18,6 +18,7 @@ void OLAF::init(int posX, int posY, int width, int height)
 	_arTmpFrame[11] = { 0, };
 	_fallingTime = 0.0f;
 	_whereBlock = OLAFSHIELD::BLOCK_FRONT;
+	_isUsingSkillTwo = false;
 
 	initKeyAnimation();
 	setIsOnGround(true);
@@ -69,11 +70,13 @@ void OLAF::skillOne()
 	// 방패가 앞에 있을경우: 추락 O
 	if (_whereBlock == OLAFSHIELD::BLOCK_FRONT)
 	{
-		_whereBlock == OLAFSHIELD::BLOCK_TOP;
+		_whereBlock = OLAFSHIELD::BLOCK_TOP;
+		setAnimation(VIKING::OLAFSHIELD::BLOCK_TOP, VIKING::DIRECTION(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
 	else // 방패가 머리에 있을경우: 추락 X
 	{
-		_whereBlock == OLAFSHIELD::BLOCK_FRONT;
+		_whereBlock = OLAFSHIELD::BLOCK_FRONT;
+		setAnimation(VIKING::OLAFSHIELD::BLOCK_FRONT, VIKING::DIRECTION(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
 }
 
@@ -82,21 +85,23 @@ void OLAF::skillTwo()
 	// 방패가 앞에 있을경우: 추락 O
 	if (_whereBlock == OLAFSHIELD::BLOCK_FRONT)
 	{
-		_whereBlock == OLAFSHIELD::BLOCK_TOP;
+		_whereBlock = OLAFSHIELD::BLOCK_TOP;
+		setAnimation(VIKING::OLAFSHIELD::BLOCK_TOP, VIKING::DIRECTION(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
 	else // 방패가 머리에 있을경우: 추락 X
 	{
-		_whereBlock == OLAFSHIELD::BLOCK_FRONT;
+		_whereBlock = OLAFSHIELD::BLOCK_FRONT;
+		setAnimation(VIKING::OLAFSHIELD::BLOCK_FRONT, VIKING::DIRECTION(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
 }
 
 void OLAF::setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight)
 {
-	if (VIKING::ACTION(VIKING::_behavior) != VIKING::ACTION::ON_LADDER)
+	if (VIKING::ACTION(VIKING::_behavior) != VIKING::ACTION::ON_LADDER && !isOverAni)
 	{
 		setAnimation(VIKING::DIRECTION(_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, int(VIKING::ACTION::ON_LADDER));
 	}
-	else if (VIKING::ACTION(VIKING::_behavior)!= VIKING::ACTION::ON_LADDER_OVER)
+	else if (VIKING::ACTION(VIKING::_behavior)!= VIKING::ACTION::ON_LADDER_OVER && !isOverAni)
 	{
 		setAnimation(VIKING::DIRECTION(_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, int(VIKING::ACTION::ON_LADDER_OVER));
 	}
@@ -135,13 +140,13 @@ void OLAF::initKeyAnimation()
 
 	string idleNormal = VIKING::_vBehavior[int(VIKING::STATE::IDLE)][int(VIKING::IDLE::NORMAL)];
 	{
-		string blockTop = VIKING::_arOlafShield[int(VIKING::OLAFSHIELD::BLOCK_TOP)];
-		addRightAliveAnimation(blockTop, idleNormal, 0, 1, 1, true);
-		addLeftAliveAnimation(blockTop, idleNormal, 1, 1, 1, true);
-
 		string blockFront = VIKING::_arOlafShield[int(VIKING::OLAFSHIELD::BLOCK_FRONT)];
-		addRightAliveAnimation(blockFront, idleNormal, 2, 1, 1, true);
-		addLeftAliveAnimation(blockFront, idleNormal, 3, 1, 1, true);
+		addRightAliveAnimation(blockFront, idleNormal, 0, 1, 1, true);
+		addLeftAliveAnimation(blockFront, idleNormal, 1, 1, 1, true);
+
+		string blockTop = VIKING::_arOlafShield[int(VIKING::OLAFSHIELD::BLOCK_TOP)];
+		addRightAliveAnimation(blockTop, idleNormal, 2, 1, 1, true);
+		addLeftAliveAnimation(blockTop, idleNormal, 3, 1, 1, true);
 	}
 
 	string actionTeleport = VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::TELEPORT)];
@@ -180,12 +185,12 @@ void OLAF::initKeyAnimation()
 
 	{ // 사다리
 		string actionLadder = VIKING::_vBehavior[int(VIKING::STATE::ACTION)][int(VIKING::ACTION::ON_LADDER)];
-		addRightAliveAnimation(actionLadder, 64, 4, 2, false);
-		addLeftAliveAnimation(actionLadder, 64, 4, 2, false);
+		addRightAliveAnimation(actionLadder, 64, 4, 2, true);
+		addLeftAliveAnimation(actionLadder, 64, 4, 2, true);
 
 		string actionLadderOver = VIKING::_vBehavior[int(VIKING::STATE::ACTION)][int(VIKING::ACTION::ON_LADDER_OVER)];
-		addRightAliveAnimation(actionLadderOver, 68, 2, 1, false);
-		addLeftAliveAnimation(actionLadderOver, 68, 2, 1, false);
+		addRightAliveAnimation(actionLadderOver, 68, 2, 1, true);
+		addLeftAliveAnimation(actionLadderOver, 68, 2, 1, true);
 	}
 
 	string actionFlyTurn = VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::FLY_TURN)];
@@ -220,8 +225,8 @@ void OLAF::initKeyAnimation()
 
 	string actionPush = VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::PUSH)];
 	{ //  밀기
-		addRightAliveAnimation(actionPush, 84, 4, 2, false);
-		addLeftAliveAnimation(actionPush, 88, 4, 2, false);
+		addRightAliveAnimation(actionPush, 84, 4, 2, true);
+		addLeftAliveAnimation(actionPush, 88, 4, 2, true);
 	}
 
 	string idleFat = VIKING::_vBehavior[static_cast<int>(VIKING::STATE::IDLE)][static_cast<int>(VIKING::IDLE::FAT)];
@@ -236,8 +241,8 @@ void OLAF::initKeyAnimation()
 		addLeftAliveAnimation(actionStun, 103, 5, 2, false);
 	}
 
-	//addRightAliveAnimationCoordinate(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE), 40, 8, 5, true, false, callbackHading);
-	//addLeftAliveAnimationCoordinate(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE), 48, 8, 5, true, false, callbackHading);
+	addRightAliveAnimationCoordinate(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE), 40, 8, 5, true, false, callbackSpecialIdle);
+	addLeftAliveAnimationCoordinate(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE), 48, 8, 5, true, false, callbackSpecialIdle);
 
 	KEYANIMANAGER->findAnimation(this->_name,
 		addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
@@ -259,7 +264,7 @@ void OLAF::initKeyAnimation()
 			VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
 			VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)]))->setFixedRender(true);
 
-	//setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+
 	setAnimation(VIKING::OLAFSHIELD::BLOCK_FRONT, VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 
 }
@@ -661,7 +666,7 @@ void OLAF::setMovingAnimation(int direction)
 
 void OLAF::setStopAnimation()
 {
-	if (static_cast<int>(VIKING::ACTION::RUN) == _behavior || static_cast<int>(VIKING::ACTION::SKILL_ONE) == _behavior) {
+	if (static_cast<int>(VIKING::ACTION::RUN) == _behavior || static_cast<int>(VIKING::ACTION::SKILL_ONE_END) == _behavior || static_cast<int>(VIKING::ACTION::PUSH) == _behavior) {
 		setAnimation(VIKING::OLAFSHIELD(OLAF::_whereBlock), static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
 }
@@ -692,14 +697,35 @@ void OLAF::falldownAnimation()
 		//callbackEricFallDown();
 	}
 	else if (static_cast<int>(VIKING::ACTION::ON_LADDER_OVER) == _behavior) {
-		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+		setAnimation(VIKING::OLAFSHIELD(OLAF::_whereBlock), static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
 	else if (static_cast<int>(VIKING::ACTION::ON_LADDER) == _behavior) {
-		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+		setAnimation(VIKING::OLAFSHIELD(OLAF::_whereBlock), static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
 
 	_fallingTime = 0.0f;
 }
+
+void OLAF::setPushWallAni(bool isCollisionWall)
+{
+	if (static_cast<STATE>(_state) == STATE::ACTION && static_cast<ACTION>(_behavior) == ACTION::RUN && isCollisionWall)
+	{
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::PUSH));
+	}
+}
+
+void OLAF::callbackSpecialIdle(void * obj)
+{
+	OLAF* pOlaf = (OLAF*)obj;
+	pOlaf->callbackbaleogSpecialIdle();
+}
+
+void OLAF::callbackbaleogSpecialIdle()
+{
+	setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+	_isUsingSkillTwo = false;
+}
+
 
 void OLAF::callbackFallDown()
 {

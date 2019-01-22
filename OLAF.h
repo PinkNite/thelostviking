@@ -10,6 +10,7 @@ private:
 
 	OLAFSHIELD	_whereBlock;
 	float	_fallingTime;
+	bool	_isUsingSkillTwo;
 
 public:
 	OLAF();
@@ -70,9 +71,10 @@ private:
 	virtual void	setSkillAnimation() override;
 	virtual void	pressGravity() override;
 	virtual void	falldownAnimation() override;
+	virtual void	setPushWallAni(bool isCollisionWall) override;
 
-	void fallDown();
-	
+	static void callbackSpecialIdle(void * obj);
+	void callbackbaleogSpecialIdle();
 	void callbackFallDown();
 
 };

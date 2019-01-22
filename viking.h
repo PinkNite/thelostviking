@@ -22,8 +22,8 @@ public:
 	//막는 방향
 	enum class OLAFSHIELD
 	{
-		BLOCK_TOP,
 		BLOCK_FRONT,
+		BLOCK_TOP,
 		MAX
 	};
 
