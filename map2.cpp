@@ -59,7 +59,7 @@ HRESULT MAP2::init()
 	{
 		_rcBrokenblock[i] = RectMake(673 + 64, 1055 - (i-6) * 32, 32, 32);
 	}
-	
+
 	_indexElectric3 = 0;
 	_indexElectric4 = 0;
 	_indexUpeffect = 0;
@@ -90,6 +90,8 @@ void MAP2::release()
 
 void MAP2::update()
 {
+	playerRect = RectMakeCenter(_pPlayer->getPosX(), _pPlayer->getPosY(), _pPlayer->getWidth(), _pPlayer->getHeight());
+
 	for (int i = 0; i < _vElectric.size(); i++)
 	{
 		_vElectric[i]->update();
@@ -218,9 +220,22 @@ void MAP2::update()
 		_isBrokenblocks = true;
 	}
 	
-	if (KEYMANAGER->isOnceKeyDown('S'))
+	// ÀÚµ¿¹®
+	for (int i = 0; i < _vDoor.size(); i++)
 	{
+		RECT tempRc;
+		if (IntersectRect(&tempRc, &_vDoor[i]->getColiisionArea(), &playerRect))
+		{
+			_vDoor[i]->setIsoff(true);
+		}
+		else
+		{
+			_vDoor[i]->setIsoff(false);
+		}
 	}
+//		if (KEYMANAGER->isOnceKeyDown('S'))
+//	{
+//	}
 	/*
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
@@ -435,19 +450,19 @@ void MAP2::electricInit()
 void MAP2::doorInit()
 {
 	setDOOR* doorObtacle = new DOORS;
-	doorObtacle->init("doorObc1", 449, 352, 32, 96);
+	doorObtacle->init("doorObc1", 449, 352, 32, 96, false, 3);
 	_vDoor.push_back(doorObtacle);
 
 	doorObtacle = new DOORS;
-	doorObtacle->init("doorObc2", 865, 352, 32, 96);
+	doorObtacle->init("doorObc2", 865, 352, 32, 96, false, 3);
 	_vDoor.push_back(doorObtacle);
 
 	doorObtacle = new DOORS;
-	doorObtacle->init("doorObc3", 193, 1312, 32, 96);
+	doorObtacle->init("doorObc3", 193, 1312, 32, 96, false, 3);
 	_vDoor.push_back(doorObtacle);
 
 	doorObtacle = new DOORS;
-	doorObtacle->init("doorObc4", 449, 1472, 32, 96);
+	doorObtacle->init("doorObc4", 449, 1472, 32, 96, false, 3);
 	_vDoor.push_back(doorObtacle);
 }
 

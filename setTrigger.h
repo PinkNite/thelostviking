@@ -4,6 +4,7 @@ struct tagTrigger
 {
 	image* imgTrigger;
 	RECT rcTrigger;
+	RECT rcColiisionArea;
 	bool isOff;
 };
 class setTRIGGER
@@ -61,13 +62,14 @@ public:
 	setDOOR();
 	~setDOOR();
 
-	HRESULT init(string strKey, int x, int y, int width, int height, int frameSpeed = 5);
+	HRESULT init(string strKey, int x, int y, int width, int height, bool isCollision, int frameSpeed = 5);
 	void release();
 	void update();
 	void render(HDC hdc);
 
 	bool getIsoff() { return Door.isOff; }
 	void setIsoff(bool setIsoff) { Door.isOff = setIsoff; }
+	RECT getColiisionArea() { return Door.rcColiisionArea; }
 };
 
 class setBUTTON

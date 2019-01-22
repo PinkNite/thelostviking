@@ -23,7 +23,6 @@ HRESULT setELECTRIC::init(string strKey, int x, int y, int width, int height, in
 	Electric4.isOff = false;
 	Electric4.imgTrigger = IMAGEMANAGER->addFrameImage(strKey, "resource/map/effect/electric_Shock4.bmp", 96, 128, 3, 1, true, RGB(255, 0, 255));
 	Electric4.rcTrigger = RectMake(x, y, width, height);
-
 	_currentFrameX = _currentFrameY = 0;
 	_currentPframeX = _currentPframeY = 0;
 
@@ -65,11 +64,19 @@ setDOOR::~setDOOR()
 {
 }
 
-HRESULT setDOOR::init(string strKey, int x, int y, int width, int height, int frameSpeed)
+HRESULT setDOOR::init(string strKey, int x, int y, int width, int height, bool isCollision, int frameSpeed)
 {
 	Door.isOff = false;
-	Door.imgTrigger = IMAGEMANAGER->addFrameImage(strKey, "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	if(isCollision == false)
+	{
+		Door.imgTrigger = IMAGEMANAGER->addFrameImage(strKey, "resource/map/effect/open_Door.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	}
+	else
+	{
+		Door.imgTrigger = IMAGEMANAGER->addFrameImage(strKey, "resource/map/effect/open_DoorCollision.bmp", 128, 96, 4, 1, true, RGB(255, 0, 255));
+	}
 	Door.rcTrigger = RectMake(x, y, width, height);
+	Door.rcColiisionArea = RectMake(x - 30, y, width + 60, height);
 
 	_currentFrameX = _currentFrameY = 0;
 	_currentPframeX = _currentPframeY = 0;

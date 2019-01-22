@@ -13,7 +13,6 @@ pixelCollision::~pixelCollision()
 HRESULT pixelCollision::init()
 {
 	_imgMap2Cbg = IMAGEMANAGER->addImage("map2Collision", "resource/map/map1-2_collision4.bmp", 2048, 1630, false, RGB(255, 0, 255));
-	_imgDoorcollision = IMAGEMANAGER->addFrameImage("doorCollision", "resource/map/effect/open_DoorCollision.bmp", 128, 96, 4, 1, false, RGB(255, 0, 255));
 	_probeTopY = _pPlayer->getPosY() - (_pPlayer->getHeight() / 2);
 	_probeBottomY = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
 	_probeLeftX = _pPlayer->getPosX() - (_pPlayer->getWidth() / 2);
@@ -187,6 +186,10 @@ void pixelCollision::update()
 
 void pixelCollision::render(HDC hdc)
 {
+	for (int i = 0; i < _vDoor.size(); i++)
+	{
+		_vDoor[i]->render(hdc);
+	}
 }
 
 void pixelCollision::collisionRect(RECT rect, PLAYER * pPlayer)
@@ -204,4 +207,23 @@ void pixelCollision::collisionRect(RECT rect, PLAYER * pPlayer)
 			pPlayer->setPosX(tempRect.left - pPlayer->getWidth() / 2);
 		}
 	}
+}
+
+void pixelCollision::doorInit()
+{
+	setDOOR* doorObtacle = new DOORS;
+	doorObtacle->init("doorObc1", 449, 352, 32, 96, true, 3);
+	_vDoor.push_back(doorObtacle);
+
+	doorObtacle = new DOORS;
+	doorObtacle->init("doorObc2", 865, 352, 32, 96, true, 3);
+	_vDoor.push_back(doorObtacle);
+
+	doorObtacle = new DOORS;
+	doorObtacle->init("doorObc3", 193, 1312, 32, 96, true, 3);
+	_vDoor.push_back(doorObtacle);
+
+	doorObtacle = new DOORS;
+	doorObtacle->init("doorObc4", 449, 1472, 32, 96, true, 3);
+	_vDoor.push_back(doorObtacle);
 }

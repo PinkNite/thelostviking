@@ -58,10 +58,10 @@ void MAP1::render(HDC hdc)
 void MAP1::doorInit()
 {
 	setDOOR* doorObtacle = new DOORS;
-	doorObtacle->init("doorObc1", 320, 448, 32, 96);
+	doorObtacle->init("doorObc1", 320, 448, 32, 96, false);
 	_vDoor.push_back(doorObtacle);
 
 	doorObtacle = new DOORS;
-	doorObtacle->init("doorObc2", 672, 256, 32, 96);
+	doorObtacle->init("doorObc2", 672, 256, 32, 96, false);
 	_vDoor.push_back(doorObtacle);
 }

@@ -12,6 +12,7 @@ class MAP2
 {
 private:
 	PLAYER* _pPlayer;
+	RECT playerRect;
 
 	image* _imgMap2bg;
 	image* _imgElectric3;
