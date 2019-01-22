@@ -50,7 +50,7 @@ void VIKING::init(int posX, int posY, int width, int height)
 	_vBehavior[static_cast<int>(VIKING::STATE::DEATH_MOTION)].push_back("PRESS");
 	_vBehavior[static_cast<int>(VIKING::STATE::DEATH_MOTION)].push_back("WATER");
 	_vBehavior[static_cast<int>(VIKING::STATE::DEATH_MOTION)].push_back("DROP");
-	_vBehavior[static_cast<int>(VIKING::STATE::DEATH_MOTION)].push_back("SHOP");
+	_vBehavior[static_cast<int>(VIKING::STATE::DEATH_MOTION)].push_back("SHOT");
 
 	//올라프 방패 방향
 	_arOlafShield[static_cast<const int>(VIKING::OLAFSHIELD::BLOCK_TOP)] = "BLOCK_TOP";
