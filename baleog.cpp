@@ -654,6 +654,5 @@ void BALEOG::callbackbaleogSpecialIdle()
 {
 	setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	_isUsingSkillTwo = false;
-
 }
 

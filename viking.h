@@ -108,7 +108,7 @@ protected:
 
 	animation*		_pAnimation;				//실행할 애니메이션을 담는다
 	bool			_isOnGround;
-	
+
 public:
 	void init(int posX, int posY, int width, int height);
 	virtual void update()			abstract;
@@ -170,4 +170,6 @@ public:
 
 	virtual bool	getUseSkillOne();
 	virtual bool	getUseSkillTwo();
+
+	virtual void	death(DEATH_MOTION death);
 };

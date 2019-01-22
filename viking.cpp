@@ -183,3 +183,10 @@ bool VIKING::getUseSkillTwo()
 	return false;
 }
 
+void VIKING::death(DEATH_MOTION death)
+{
+	_life = static_cast<int>(LIFE::DEATH);
+	_behavior = static_cast<int>(death);
+	_state = static_cast<int>(STATE::DEATH_MOTION);
+}
+
