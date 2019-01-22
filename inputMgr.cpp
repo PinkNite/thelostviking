@@ -131,30 +131,34 @@ void INPUTMANAGER::update()
 	if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
 	{
 		_pPlayer->nextViking();
-		_pCamera->setting();
+		_pCamera->movingStart();
+		//_pCamera->setting();
 	}
 
+	if (!_pCamera->getMoving())
+	{
+		if (_pPlayer->getPosX() < _pCamera->getLeft() + _pCamera->getWidth() / 2 - 32)
+		{
+			float offset = _pCamera->getLeft() + _pCamera->getWidth() / 2 - 32 - _pPlayer->getPosX();
+			_pCamera->moveLeft(offset);
+		}
+		else if (_pPlayer->getPosX() > _pCamera->getLeft() + _pCamera->getWidth() / 2 + 32)
+		{
+			float offset = _pPlayer->getPosX() - (_pCamera->getLeft() + _pCamera->getWidth() / 2 + 32);
+			_pCamera->moveRight(offset);
+		}
+		if (_pPlayer->getPosY() > _pCamera->getTop() + _pCamera->getHeight() / 2 + 5)
+		{
+			float offset = _pPlayer->getPosY() - (_pCamera->getTop() + _pCamera->getHeight() / 2 + 5);
+			_pCamera->moveDown(offset);
+		}
+		else if (_pPlayer->getPosY() < _pCamera->getTop() + _pCamera->getHeight() / 2 - 5)
+		{
+			float offset = _pCamera->getTop() + _pCamera->getHeight() / 2 - 5 - _pPlayer->getPosY();
+			_pCamera->moveUp(offset);
+		}
+	}
 
-	if (_pPlayer->getPosX() < _pCamera->getLeft() + _pCamera->getWidth() / 2 - 32)
-	{
-		float offset = _pCamera->getLeft() + _pCamera->getWidth() / 2 - 32 - _pPlayer->getPosX();
-		_pCamera->moveLeft(offset);
-	}
-	else if (_pPlayer->getPosX() > _pCamera->getLeft() + _pCamera->getWidth() / 2 + 32)
-	{
-		float offset = _pPlayer->getPosX() - (_pCamera->getLeft() + _pCamera->getWidth() / 2 + 32);
-		_pCamera->moveRight(offset);
-	}
-	if (_pPlayer->getPosY() > _pCamera->getTop() + _pCamera->getHeight() / 2 + 5)
-	{
-		float offset = _pPlayer->getPosY() - (_pCamera->getTop() + _pCamera->getHeight() / 2 + 5);
-		_pCamera->moveDown(offset);
-	}
-	else if (_pPlayer->getPosY() < _pCamera->getTop() + _pCamera->getHeight() / 2 - 5)
-	{
-		float offset = _pCamera->getTop() + _pCamera->getHeight() / 2 - 5 - _pPlayer->getPosY();
-		_pCamera->moveUp(offset);
-	}
 }
 
 void INPUTMANAGER::release()

@@ -35,6 +35,7 @@ void BALEOG::release()
 
 void BALEOG::render(HDC hdc)
 {
+	VIKING::_pImg->aniRender(hdc, VIKING::_posX - VIKING::_width / 2, VIKING::_posY - VIKING::_height / 2, VIKING::_pAnimation);
 }
 
 void BALEOG::skillOne()
@@ -53,7 +54,6 @@ void BALEOG::initKeyAnimation()
 {
 	VIKING::setImage(IMAGEMANAGER->findImage("baleog"));
 	KEYANIMANAGER->addObject("baleog");
-	VIKING::_pAnimation;
 
 	addRightAliveAnimation(VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL), 0, 2, 2, true);
 	addLeftAliveAnimation(VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL), 2, 2, 2, true);
@@ -80,6 +80,8 @@ void BALEOG::initKeyAnimation()
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER_OVER), 70, 2, 2, true);
 
 
+
+	setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 }
 
 string BALEOG::addString(string direction, string live, string action)
@@ -342,6 +344,17 @@ void BALEOG::setFallOut()
 
 void BALEOG::setAnimation(VIKING::DIRECTION direction, VIKING::LIFE life, VIKING::STATE state, int behavior)
 {
+	string tmp = addString(VIKING::_arDirection[static_cast<int>(direction)],
+		VIKING::_arLive[static_cast<int>(life)],
+		VIKING::_vBehavior[static_cast<int>(state)][behavior]);
+	VIKING::_pAnimation = KEYANIMANAGER->findAnimation("eric", tmp);
+
+	VIKING::_direction = static_cast<int>(direction);
+	VIKING::_life = static_cast<int>(life);
+	VIKING::_state = static_cast<int>(state);
+	VIKING::_behavior = behavior;
+
+	VIKING::_pAnimation->start();
 }
 
 void BALEOG::setMovingAnimation(int direction)

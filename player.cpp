@@ -62,7 +62,13 @@ void PLAYER::release()
 
 void PLAYER::render(HDC hdc)
 {
-	_pViking[_nCurrentViking]->render(hdc);
+
+
+	for (int i = 0; i < 2; i++)
+	{
+		_pViking[i]->render(hdc);
+
+	}
 
 	//for (int i = 0; i < 6; i++)
 	//{

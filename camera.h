@@ -17,7 +17,10 @@ private:
 	HDC		_hdc;
 	image*	_pBac;
 	PLAYER*	_pPlayer;
-
+	bool	_isMoving;
+	float	_time;
+	float	_travelRangeX;
+	float	_travelRangeY;
 public:
 	CAMERA();
 	~CAMERA();
@@ -46,6 +49,10 @@ public:
 	void	moveUp(float offset);
 	void	moveDown(float offset);
 
+	void	moveToPlayer();
+	void	movingStart();
+
+
 public:
 	inline	float	getLeft() { return _left; }
 	inline	float	getTop() { return _top; }
@@ -53,4 +60,5 @@ public:
 	inline	int	getBotton() { return _top + _height; }
 	inline	int	getWidth() { return _width; }
 	inline	int	getHeight() { return _height; }
+	inline	bool getMoving() { return _isMoving; }
 };
