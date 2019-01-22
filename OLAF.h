@@ -27,10 +27,12 @@ public:
 private: 
 	void	initKeyAnimation();
 	string	addString(string direction, string live, string action);
+	string	addString(string shield, string direction, string live, string action);
 	void	addKeyAnimation(VIKING::DIRECTION direction, VIKING::LIFE life, string action, int startFrame, int length, int fps, bool isLoop);
+	void	addKeyAnimation(VIKING::OLAFSHIELD shield, VIKING::DIRECTION direction, VIKING::LIFE life, string action, int startFrame, int length, int fps, bool isLoop);
 	
-	void	addLeftAliveAnimation(string block, string action, int startFrame, int length, int fps, bool isLoop);
-	void	addRightAliveAnimation(string block, string action, int startFrame, int length, int fps, bool isLoop);
+	void	addLeftAliveAnimation(string shield, string action, int startFrame, int length, int fps, bool isLoop);
+	void	addRightAliveAnimation(string shield, string action, int startFrame, int length, int fps, bool isLoop);
 
 	void	addLeftAliveAnimation(string action, int startFrame, int length, int fps, bool isLoop);
 	void	addRightAliveAnimation(string action, int startFrame, int length, int fps, bool isLoop);
@@ -48,8 +50,9 @@ private:
 	void	addRightAliveAnimation(VIKING::STATE state, int behavior, int startFrame, int length, int fps, bool isLoop, void * pCallBack);
 	void	addLeftDeathAnimation(VIKING::STATE state, int behavior, int startFrame, int length, int fps, bool isLoop, void * pCallBack);
 	void	addRightDeathAnimation(VIKING::STATE state, int behavior, int startFrame, int length, int fps, bool isLoop, void * pCallBack);
-	void	addLeftAliveAnimationCoordinate(VIKING::STATE state, int behavior, int startFrame, int length, int fps, bool isLoop, void * pCallBack);
-	void	addRightAliveAnimationCoordinate(VIKING::STATE state, int behavior, int startFrame, int length, int fps, bool isLoop, void * pCallBack);
+
+	void	addLeftAliveAnimationCoordinate(VIKING::STATE state, int behavior, int startFrame, int length, int fps, bool isReverse, bool isLoop, void * pCallBack);
+	void	addRightAliveAnimationCoordinate(VIKING::STATE state, int behavior, int startFrame, int length, int fps, bool isReverse, bool isLoop, void * pCallBack);
 
 	void	addLeftAliveAnimation(VIKING::STATE state, int behavior, int startFrame, int length, int fps, bool isLoop, int loopCount, void * pCallBack);
 	void	addRightAliveAnimation(VIKING::STATE state, int behavior, int startFrame, int length, int fps, bool isLoop, int loopCount, void * pCallBack);
@@ -60,6 +63,7 @@ private:
 
 	void	setFallOut();
 	void	setAnimation(VIKING::DIRECTION direction, VIKING::LIFE life, VIKING::STATE state, int behavior);
+	void	setAnimation(VIKING::OLAFSHIELD shield, VIKING::DIRECTION direction, VIKING::LIFE life, VIKING::STATE state, int behavior);
 	
 	virtual void	setMovingAnimation(int direction) override;
 	virtual void	setStopAnimation() override;
