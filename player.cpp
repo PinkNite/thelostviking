@@ -16,7 +16,7 @@ void PLAYER::init()
 {
 	//바이킹들 초기화
 	_pViking[static_cast<const int>(VIKINGNAME::ERIC)] = new ERIC();
-	_pViking[static_cast<const int>(VIKINGNAME::ERIC)]->init(610, 580, 64, 64);
+	_pViking[static_cast<const int>(VIKINGNAME::ERIC)]->init(610, 570, 64, 64);
 
 	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)] = new BALEOG();
 	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)]->init(100, 100, 64, 64);
@@ -38,6 +38,10 @@ void PLAYER::update()
 			if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::ERIC)
 			{
 				_pViking[_nCurrentViking]->setSkillAnimation();
+			}
+			else if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::BALEOG) {
+				_pViking[_nCurrentViking]->setSkillAnimation();
+
 			}
 		}
 

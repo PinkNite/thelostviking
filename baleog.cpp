@@ -32,7 +32,7 @@ void BALEOG::update()
 		_jumpingTime += TIMEMANAGER->getElpasedTime();
 	}
 
-	if (_jumpingTime >= 2.0f && VIKING::_behavior == static_cast<int>(VIKING::ACTION::SKILL_TWO))
+	if (_jumpingTime >= 2.0f && VIKING::_behavior == static_cast<int>(VIKING::ACTION::FLY))
 	{
 		setFallOut();
 	}
@@ -65,7 +65,6 @@ void BALEOG::release()
 
 void BALEOG::render(HDC hdc)
 {
-	RectangleMake(hdc, VIKING::getPosX() - VIKING::getWidth() / 2, VIKING::getPosY() - VIKING::getHeight() / 2 + 5, 64, 64);
 
 	VIKING::_pImg->aniRender(hdc, VIKING::_posX - VIKING::_width / 2, VIKING::_posY - VIKING::_height / 2, VIKING::_pAnimation);
 }
@@ -510,6 +509,10 @@ void BALEOG::setStopAnimation()
 
 void BALEOG::setSkillAnimation()
 {
+	if (VIKING::ACTION::FLY != static_cast<VIKING::ACTION>(VIKING::_behavior))
+	{
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FLY));
+	}
 }
 
 void BALEOG::pressGravity()
