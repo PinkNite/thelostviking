@@ -60,6 +60,7 @@ public:
 		SKILL_SPECIAL,
 		FLY,
 		FLY_TURN,
+		SKILL_ONE_END,
 		MAX
 	};
 
@@ -162,4 +163,6 @@ public:
 	//¹ß·Î±×
 	virtual void	setSkillOneAni();
 	virtual void	setSkillTwoAni();
+
+	virtual void	skillOneEnd();
 };

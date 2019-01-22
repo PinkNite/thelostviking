@@ -23,6 +23,7 @@ void BALEOG::init(int posX, int posY, int width, int height)
 	_jumpingTime = 0.0f;
 	_isUsingSkillTwo = false;
 	setIsOnGround(true);
+	_isUsingSKillOne = false;
 }
 
 void BALEOG::update()
@@ -56,6 +57,13 @@ void BALEOG::update()
 		_jumpingTime = 0.0f;
 	}
 
+	if ((static_cast<int>(VIKING::ACTION::SKILL_ONE) == _behavior && VIKING::_state == static_cast<int>(VIKING::STATE::ACTION) &&
+		VIKING::_pAnimation->getFramePlayingCount() == VIKING::_pAnimation->getFrameMaxCount() - 1) && !_isUsingSKillOne) 
+	{
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE_END));
+		//화살 나가게 하기
+	}
+
 	KEYANIMANAGER->update();
 }
 
@@ -65,16 +73,18 @@ void BALEOG::release()
 
 void BALEOG::render(HDC hdc)
 {
-
 	VIKING::_pImg->aniRender(hdc, VIKING::_posX - VIKING::_width / 2, VIKING::_posY - VIKING::_height / 2, VIKING::_pAnimation);
 }
 
 void BALEOG::skillOne()
 {
+	setSkillOneAni();
+	_isUsingSKillOne = true;
 }
 
 void BALEOG::skillTwo()
 {
+	setSkillTwoAni();
 }
 
 void BALEOG::setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight)
@@ -111,6 +121,12 @@ void BALEOG::setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight)
 	}
 }
 
+void BALEOG::skillOneEnd()
+{
+
+	_isUsingSKillOne = false;
+}
+
 void BALEOG::initKeyAnimation()
 {
 	VIKING::setImage(IMAGEMANAGER->findImage("baleog"));
@@ -126,8 +142,12 @@ void BALEOG::initKeyAnimation()
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::RUN), 18, 8, 2, true);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::RUN), 26, 8, 2, true);
 	//활
-	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE), 34, 8, 2, false);
-	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE), 42, 8, 2, false);
+	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE), 34, 6, 2, false);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE), 42, 6, 2, false);
+
+	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE_END), 40, 2, 2, false, callbackSpecialIdle);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE_END), 48, 2, 2, false, callbackSpecialIdle);
+
 	//검1
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO), 50, 4, 2, false, callbackSpecialIdle);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO), 54, 4, 2, false, callbackSpecialIdle);
@@ -554,8 +574,8 @@ void BALEOG::setSkillTwoAni()
 {
 	if ((static_cast<int>(VIKING::ACTION::RUN) == _behavior && VIKING::_state == static_cast<int>(VIKING::STATE::ACTION)) ||
 		VIKING::_state == static_cast<int>(VIKING::STATE::IDLE)) {
-		int nRnd = RND->getInt(1);
-		if (nRnd == 0)
+		int nRnd = RND->getInt(2);
+		if (nRnd == 1)
 		{
 			setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO));
 		}
@@ -568,9 +588,7 @@ void BALEOG::setSkillTwoAni()
 
 
 
-void BALEOG::fallDown()
-{
-}
+
 
 void BALEOG::callbackSpecialIdle(void * obj)
 {

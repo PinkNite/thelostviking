@@ -57,6 +57,8 @@ public:
 	void useSkillOne();
 	void useSkillTwo();
 
+	void stopSkillOne();
+
 	void setMovingAnimation(int direction);
 	void setStopAnimation();
 	void setLadderAnimation(int offset);

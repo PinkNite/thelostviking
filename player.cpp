@@ -192,6 +192,11 @@ void PLAYER::useSkillTwo()
 	_pViking[_nCurrentViking]->skillTwo();
 }
 
+void PLAYER::stopSkillOne()
+{
+	_pViking[_nCurrentViking]->skillOneEnd();
+}
+
 void PLAYER::setMovingAnimation(int direction)
 {
 	_pViking[_nCurrentViking]->setMovingAnimation(direction);

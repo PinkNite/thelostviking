@@ -85,6 +85,9 @@ public:
 	inline int getFrameWidth() { return _frameWidth; }
 	inline int getFrameHeight() { return _frameHeight; }
 
+	inline int getFramePlayingCount() { return _nowPlayIndex; }
+	inline int getFrameMaxCount() { return static_cast<int>(_playList.size()); }
+
 	inline void setClickRender(BOOL isClickRender) { _isClickRender = isClickRender; }
 	inline BOOL	getIsClickRender() { return _isClickRender; }
 

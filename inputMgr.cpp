@@ -120,6 +120,12 @@ void INPUTMANAGER::update()
 		_pPlayer->useSkillOne();
 	}
 
+	if (KEYMANAGER->isOnceKeyUp('D'))
+	{
+		_pPlayer->stopSkillOne();
+	}
+
+
 	if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
 	{
 		_pPlayer->nextViking();

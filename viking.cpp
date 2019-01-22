@@ -41,8 +41,9 @@ void VIKING::init(int posX, int posY, int width, int height)
 	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("SKILL_SPECIAL"); 
 	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("FLY");
 	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("FLY_TURN");
+	_vBehavior[static_cast<int>(VIKING::STATE::ACTION)].push_back("SKILL_ONE_END");
 
-
+	
 	//Á×À½ + »óÅÂ
 	_vBehavior[static_cast<int>(VIKING::STATE::DEATH_MOTION)].push_back("ELECTIRC");
 	_vBehavior[static_cast<int>(VIKING::STATE::DEATH_MOTION)].push_back("FIRE");
@@ -165,6 +166,10 @@ void VIKING::setSkillOneAni()
 }
 
 void VIKING::setSkillTwoAni()
+{
+}
+
+void VIKING::skillOneEnd()
 {
 }
 

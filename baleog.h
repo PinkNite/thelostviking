@@ -13,6 +13,7 @@ private:
 
 	//임시변수 점프에 대한
 	bool		_isUsingSkillTwo;
+	bool		_isUsingSKillOne;
 public:
 	BALEOG();
 	~BALEOG();
@@ -26,6 +27,7 @@ public:
 	virtual void skillOne() override;
 	virtual void skillTwo() override;
 	virtual	void setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight) override;
+	virtual void	skillOneEnd() override;
 
 
 private:
@@ -72,7 +74,6 @@ private:
 
 
 
-	void fallDown();
 
 public:
 	//여러가지 상태로 변하는 애들은 여기서 처리한다.
