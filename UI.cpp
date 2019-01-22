@@ -388,7 +388,7 @@ void UI::render(HDC hdc)
 	itemRender(hdc);
 
 	char str[128];
-	sprintf_s(str, "%d", _selectStateTemp[0]);
+	sprintf_s(str, "%d", _pInputMG->getRight());
 	TextOut(hdc, 400, 300, str, strlen(str));
 
 }
@@ -400,7 +400,7 @@ void UI::selectMove()
 	{
 		if (!_isCountSelect)
 		{
-			if (_pInputMG->getLeft() == true&& !_isCountSelect)
+			if (_pInputMG->getLeft() == true)
 			{
 				switch (_selectState[0])
 				{
@@ -412,7 +412,7 @@ void UI::selectMove()
 					break;
 				}
 			}
-			if (_pInputMG->getRight() == true && !_isCountSelect)
+			if (_pInputMG->getRight() == true)
 			{
 				switch (_selectState[0])
 				{
@@ -424,7 +424,7 @@ void UI::selectMove()
 					break;
 				}
 			}
-			if (_pInputMG->getTop() == true && !_isCountSelect)
+			if (_pInputMG->getTop() == true)
 			{
 				switch (_selectState[0])
 				{
@@ -436,7 +436,7 @@ void UI::selectMove()
 					break;
 				}
 			}
-			if (_pInputMG->getBottom() == true && !_isCountSelect)
+			if (_pInputMG->getBottom() == true)
 			{
 				switch (_selectState[0])
 				{
@@ -453,129 +453,143 @@ void UI::selectMove()
 
 		
 	}
-	
-	else if (_baleogState == BALEOG_ON)
+	else
 	{
-		
-		if (_pInputMG->getLeft() == true && !_isCountSelect)
+
+		_select[0].alphaCount = 255;
+		_trashCan.alphaCount = 255;
+	}
+	
+	if (_baleogState == BALEOG_ON)
+	{
+		if (!_isCountSelect)
 		{
-			switch (_selectState[1])
+			if (_pInputMG->getLeft() == true)
 			{
-			case SELECT_RIGHT_TOP:
-				_selectState[1] = SELECT_LEFT_TOP;
-				break;
-			case SELECT_RIGHT_BOTTOM:
-				_selectState[1] = SELECT_LEFT_BOTTOM;
-				break;
+				switch (_selectState[1])
+				{
+				case SELECT_RIGHT_TOP:
+					_selectState[1] = SELECT_LEFT_TOP;
+					break;
+				case SELECT_RIGHT_BOTTOM:
+					_selectState[1] = SELECT_LEFT_BOTTOM;
+					break;
+				}
+			}
+			if (_pInputMG->getRight() == true)
+			{
+				switch (_selectState[1])
+				{
+				case SELECT_LEFT_TOP:
+					_selectState[1] = SELECT_RIGHT_TOP;
+					break;
+				case SELECT_LEFT_BOTTOM:
+					_selectState[1] = SELECT_RIGHT_BOTTOM;
+					break;
+				}
+			}
+			if (_pInputMG->getTop() == true)
+			{
+				switch (_selectState[1])
+				{
+				case SELECT_LEFT_BOTTOM:
+					_selectState[1] = SELECT_LEFT_TOP;
+					break;
+				case SELECT_RIGHT_BOTTOM:
+					_selectState[1] = SELECT_RIGHT_TOP;
+					break;
+				}
+			}
+			if (_pInputMG->getBottom() == true)
+			{
+				switch (_selectState[1])
+				{
+				case SELECT_LEFT_TOP:
+					_selectState[1] = SELECT_LEFT_BOTTOM;
+					break;
+				case SELECT_RIGHT_TOP:
+					_selectState[1] = SELECT_RIGHT_BOTTOM;
+					break;
+				}
 			}
 		}
-		if (_pInputMG->getRight() == true && !_isCountSelect)
-		{
-			switch (_selectState[1])
-			{
-			case SELECT_LEFT_TOP:
-				_selectState[1] = SELECT_RIGHT_TOP;
-				break;
-			case SELECT_LEFT_BOTTOM:
-				_selectState[1] = SELECT_RIGHT_BOTTOM;
-				break;
-			}
-		}
-		if (_pInputMG->getTop() == true && !_isCountSelect)
-		{
-			switch (_selectState[1])
-			{
-			case SELECT_LEFT_BOTTOM:
-				_selectState[1] = SELECT_LEFT_TOP;
-				break;
-			case SELECT_RIGHT_BOTTOM:
-				_selectState[1] = SELECT_RIGHT_TOP;
-				break;
-			}
-		}
-		if (_pInputMG->getBottom() == true && !_isCountSelect)
-		{
-			switch (_selectState[1])
-			{
-			case SELECT_LEFT_TOP:
-				_selectState[1] = SELECT_LEFT_BOTTOM;
-				break;
-			case SELECT_RIGHT_TOP:
-				_selectState[1] = SELECT_RIGHT_BOTTOM;
-				break;
-			}
-		}
-		
 			_select[1].alphaCount += 10;//온이면 알파값 변함
 		
+		
 	}
+	else
+	{
 
-	else if (_olafState == OLAF_ON)
-	{
-		
-		if (_pInputMG->getLeft() == true && !_isCountSelect)
-		{
-			switch (_selectState[2])
-			{
-			case SELECT_RIGHT_TOP:
-				_selectState[2] = SELECT_LEFT_TOP;
-				break;
-			case SELECT_RIGHT_BOTTOM:
-				_selectState[2] = SELECT_LEFT_BOTTOM;
-				break;
-			}
-		}
-		if (_pInputMG->getRight() == true && !_isCountSelect)
-		{
-			switch (_selectState[2])
-			{
-			case SELECT_LEFT_TOP:
-				_selectState[2] = SELECT_RIGHT_TOP;
-				break;
-			case SELECT_LEFT_BOTTOM:
-				_selectState[2] = SELECT_RIGHT_BOTTOM;
-				break;
-			}
-		}
-		if (_pInputMG->getTop() == true && !_isCountSelect)
-		{
-			switch (_selectState[2])
-			{
-			case SELECT_LEFT_BOTTOM:
-				_selectState[2] = SELECT_LEFT_TOP;
-				break;
-			case SELECT_RIGHT_BOTTOM:
-				_selectState[2] = SELECT_RIGHT_TOP;
-				break;
-			}
-		}
-		if (_pInputMG->getBottom() == true && !_isCountSelect)//키가 안눌렸을때
-		{
-			switch (_selectState[2])
-			{
-			case SELECT_LEFT_TOP:
-				_selectState[2] = SELECT_LEFT_BOTTOM;
-				break;
-			case SELECT_RIGHT_TOP:
-				_selectState[2] = SELECT_RIGHT_BOTTOM;
-				break;
-			}
-		}
-		_select[2].alphaCount += 10;
-		
-	}
-	if (_olafState != ERIK_ON)
-	{
-		_select[0].alphaCount = 255;
-	}
-	if (_olafState != BALEOG_ON)
-	{
 		_select[1].alphaCount = 255;
+		_trashCan.alphaCount = 255;
 	}
-	if (_olafState != OLAF_ON)
+	if (_olafState == OLAF_ON)
 	{
-		_select[2].alphaCount = 255;
+		if (!_isCountSelect)
+		{
+			if (_pInputMG->getLeft() == true)
+			{
+				switch (_selectState[2])
+				{
+				case SELECT_RIGHT_TOP:
+					_selectState[2] = SELECT_LEFT_TOP;
+
+					break;
+				case SELECT_RIGHT_BOTTOM:
+					_selectState[2] = SELECT_LEFT_BOTTOM;
+					break;
+				}
+			}
+			if (_pInputMG->getRight() == true)
+			{
+
+				switch (_selectState[2])
+				{
+				case SELECT_LEFT_TOP:
+					_selectState[2] = SELECT_RIGHT_TOP;
+					break;
+				case SELECT_LEFT_BOTTOM:
+					_selectState[2] = SELECT_RIGHT_BOTTOM;
+					break;
+				}
+			}
+			if (_pInputMG->getTop() == true)
+			{
+				switch (_selectState[2])
+				{
+				case SELECT_LEFT_BOTTOM:
+					_selectState[2] = SELECT_LEFT_TOP;
+					break;
+				case SELECT_RIGHT_BOTTOM:
+					_selectState[2] = SELECT_RIGHT_TOP;
+					break;
+				}
+			}
+			if (_pInputMG->getBottom() == true)//키가 안눌렸을때
+			{
+
+				switch (_selectState[2])
+				{
+				case SELECT_LEFT_TOP:
+					_selectState[2] = SELECT_LEFT_BOTTOM;
+					break;
+				case SELECT_RIGHT_TOP:
+					_selectState[2] = SELECT_RIGHT_BOTTOM;
+					break;
+				}
+			}
+		}
+			_select[2].alphaCount += 10;
+		
 	}
+	else
+	{
+		
+			_select[2].alphaCount = 255;
+			_trashCan.alphaCount = 255;
+		
+	}
+	
 	
 	/////////////////이동부분
 	for (int i = 0; i < 3; i++)
@@ -669,7 +683,7 @@ void UI::selectMove()
 
 }
 
-void UI::getItem(itemMemory* name, int x, int y, int x1, int y1)
+void UI::getItem(ITEMMEMORY* name, int x, int y, int x1, int y1)
 {
 	//특정조건이 되었다 그럼 좌표를 정해주고
 	//if()erik이 먹엇다 그럼 에릭에서 좌표세팅
@@ -895,28 +909,28 @@ void UI::getItem(itemMemory* name, int x, int y, int x1, int y1)
 
 }
 
-void UI::itemBoom(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i)
+void UI::itemBoom(int x, int y, int width, int height, ITEMMEMORY* name, ITEMMEMORY item, int i)
 {
 	_pItemBoom[i]->init(x, y, width, height);
 	*name = item;
 
 }
 
-void UI::itemFruit1(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i)
+void UI::itemFruit1(int x, int y, int width, int height, ITEMMEMORY* name, ITEMMEMORY item, int i)
 {
 	_pItemFruit1[i]->init(x, y, width, height);
 	*name = item;
 
 }
 
-void UI::itemFruit2(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i)
+void UI::itemFruit2(int x, int y, int width, int height, ITEMMEMORY* name, ITEMMEMORY item, int i)
 {
 	_pItemFruit2[i]->init(x, y, width, height);
 	*name = item;
 
 }
 
-void UI::itemMeat(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i)
+void UI::itemMeat(int x, int y, int width, int height, ITEMMEMORY* name, ITEMMEMORY item, int i)
 {
 	_pItemMeat[i]->init(x, y, width, height);
 	*name = item;
@@ -1126,10 +1140,40 @@ void UI::moveItem()
 
 			if (KEYMANAGER->isOnceKeyDown('P'))
 			{
+				///////////////////////////
+				for (int i = 0; i < 2; i++)
+				{
 
-		
+					if (_pItemFruit2[i]->getMove()&& _pItemFruit2[i]->getX()==564&& _pItemFruit2[i]->getY()== 402 + 118)
+					{
+						
+						_pItemFruit2[i]->SetIsAlliveFalse();
+						//좌표 움직임
+						break;
+					}
+					else if (_pItemBoom[i]->getMove() && _pItemBoom[i]->getX()==564&& _pItemBoom[i]->getY()== 402 + 118)
+					{
+						
+						_pItemBoom[i]->SetIsAlliveFalse();
+						break;
+					}
+					else if (_pItemFruit1[i]->getMove()&& _pItemFruit1[i]->getX()==564&& _pItemFruit1[i]->getY()==402+118)
+					{
+						_pItemFruit1[i]->SetIsAlliveFalse();
 
+						break;
+					}
+					else if (_pItemMeat[i]->getMove() && _pItemMeat[i]->getX()==564&& _pItemMeat[i]->getY()== 402 + 118)
+					{
 
+						_pItemMeat[i]->SetIsAlliveFalse();
+
+						break;
+					}
+
+				}
+
+				//////////////////
 				switch (_isCountSelect)
 				{
 				case 0:
@@ -1155,10 +1199,37 @@ void UI::moveItem()
 
 			if (KEYMANAGER->isOnceKeyDown('P'))
 			{
+				for (int i = 0; i < 2; i++)
+				{
 
-		
+					if (_pItemFruit2[i]->getMove() && _pItemFruit2[i]->getX() == 564 && _pItemFruit2[i]->getY() == 402 + 118)
+					{
+						
+						_pItemFruit2[i]->SetIsAlliveFalse();
+						//좌표 움직임
+						break;
+					}
+					else if (_pItemBoom[i]->getMove() && _pItemBoom[i]->getX() == 564 && _pItemBoom[i]->getY() == 402 + 118)
+					{
 
+						_pItemBoom[i]->SetIsAlliveFalse();
+						break;
+					}
+					else if (_pItemFruit1[i]->getMove() && _pItemFruit1[i]->getX() == 564 && _pItemFruit1[i]->getY() == 402 + 118)
+					{
+						_pItemFruit1[i]->SetIsAlliveFalse();
 
+						break;
+					}
+					else if (_pItemMeat[i]->getMove() && _pItemMeat[i]->getX() == 564 && _pItemMeat[i]->getY() == 402 + 118)
+					{
+
+						_pItemMeat[i]->SetIsAlliveFalse();
+
+						break;
+					}
+
+				}
 				switch (_isCountSelect)
 				{
 				case 0:
@@ -1186,7 +1257,37 @@ void UI::moveItem()
 			{
 
 		
+				for (int i = 0; i < 2; i++)
+				{
 
+					if (_pItemFruit2[i]->getMove() && _pItemFruit2[i]->getX() == 564 && _pItemFruit2[i]->getY() == 402 + 118)
+					{
+						
+						_pItemFruit2[i]->SetIsAlliveFalse();
+						//좌표 움직임
+						break;
+					}
+					else if (_pItemBoom[i]->getMove() && _pItemBoom[i]->getX() == 564 && _pItemBoom[i]->getY() == 402 + 118)
+					{
+
+						_pItemBoom[i]->SetIsAlliveFalse();
+						break;
+					}
+					else if (_pItemFruit1[i]->getMove() && _pItemFruit1[i]->getX() == 564 && _pItemFruit1[i]->getY() == 402 + 118)
+					{
+						_pItemFruit1[i]->SetIsAlliveFalse();
+
+						break;
+					}
+					else if (_pItemMeat[i]->getMove() && _pItemMeat[i]->getX() == 564 && _pItemMeat[i]->getY() == 402 + 118)
+					{
+
+						_pItemMeat[i]->SetIsAlliveFalse();
+
+						break;
+					}
+
+				}
 
 				switch (_isCountSelect)
 				{
@@ -1449,6 +1550,8 @@ void UI::moveTrashCanItem(int j)
 
 	}
 }
+
+
 
 
 

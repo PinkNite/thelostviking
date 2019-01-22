@@ -8,32 +8,32 @@
 class INPUTMANAGER;
 class PLAYER;
 class ITEMMANAGER;
-enum baleogState
+enum BALEOGSTATE
 {
 	BALEOG_ON,
 	BALEOG_OFF,
 	BALEOG_DEAD,
 
 };
-enum erikState
+enum ERIKSTATE
 {
 	ERIK_ON,
 	ERIK_OFF,
 	ERIK_DEAD,
 };
-enum olafState
+enum OLAFSTATE
 {
 	OLAF_ON,
 	OLAF_OFF,
 	OLAF_DEAD,
 };
-enum trashCanState
+enum TRASHCANSTATE
 {
 	TRASHCAN_ON,
 	TRASHCAN_OFF,
 
 };
-enum selectState
+enum SELECTSTATE
 {
 	SELECT_LEFT_TOP,
 	SELECT_LEFT_BOTTOM,
@@ -42,7 +42,7 @@ enum selectState
 	SELECT_REMOVE,
 	SELECT_BACK
 };
-enum itemMemory
+enum ITEMMEMORY
 {
 	ITEM_0,
 	ITEM_1,
@@ -53,7 +53,7 @@ enum itemMemory
 };
 
 
-struct tagUI
+struct TAGUI
 {
 	bool isAllive;
 	image* pImage;
@@ -67,33 +67,33 @@ class UI
 private:
 	/*vector<itemMemory>          _vItem;
 	vector<itemMemory>::iterator  _viItem;*/
-	tagUI _ui;
-	tagUI _life[9];
-	tagUI _baleog[3];//0ÀÌ ¿Â 1ÀÌ ¿ÀÇÁ 2 ÀÌ Á×À½
-	tagUI _erik[3];
-	tagUI _olaf[3];
-	tagUI _select[3];
-	tagUI _trashCan;
+	TAGUI _ui;
+	TAGUI _life[9];
+	TAGUI _baleog[3];//0ÀÌ ¿Â 1ÀÌ ¿ÀÇÁ 2 ÀÌ Á×À½
+	TAGUI _erik[3];
+	TAGUI _olaf[3];
+	TAGUI _select[3];
+	TAGUI _trashCan;
 	
 
 	ITEMBOOM* _pItemBoom[2];
-	tagUI _itemBoom[2];
+	TAGUI _itemBoom[2];
 	ITEMFRUIT1* _pItemFruit1[2];
-	tagUI _itemFruit1[2];
+	TAGUI _itemFruit1[2];
 	ITEMFRUIT2* _pItemFruit2[2];
-	tagUI _itemFruit2[2];
+	TAGUI _itemFruit2[2];
 	ITEMMEAT* _pItemMeat[2];
-	tagUI _itemMeat[2];
+	TAGUI _itemMeat[2];
 
-	trashCanState _trashCanState;
-	baleogState _baleogState;
-	olafState _olafState;
-	erikState _erikState;
-	selectState _selectState[3];
-	selectState _selectStateTemp[3];
-	itemMemory _erikItem;
-	itemMemory _baleogItem;
-	itemMemory _olafItem;
+	TRASHCANSTATE _trashCanState;
+	BALEOGSTATE _baleogState;
+	OLAFSTATE _olafState;
+	ERIKSTATE _erikState;
+	SELECTSTATE _selectState[3];
+	SELECTSTATE _selectStateTemp[3];
+	ITEMMEMORY _erikItem;
+	ITEMMEMORY _baleogItem;
+	ITEMMEMORY _olafItem;
 
 	ITEMMANAGER* _pItemMG;
 
@@ -122,12 +122,12 @@ public:
 	void render(HDC hdc);
 	void selectMove();
 	//Ä³¸¯ ³×ÀÓ ÁÖ¼Ò¸¦ ³ÖÀ¸¸é ±× ÇØ´ç ÀÎº¥Åä¸® ¼³Á¤µÊ
-	void getItem(itemMemory* name, int x, int y, int x1, int y1);
+	void getItem(ITEMMEMORY* name, int x, int y, int x1, int y1);
 	//           ¾ÆÀÌÅÛX , ¾ÆÀÌÅÛY, ¾ÆÀÌÅÛ ³ÐÀÌ, ¾ÆÀÌÅÛ ³ôÀÌ , ¾ÆÀÌÅÛÀÌ³Ñ¹®ÀÇ ÁÖ¼Ò, ÀÌ³Ñ¹® º¯È­°ª, ÇØ´ç ÆøÅºÀÇ ¹è¿­¹øÈ£ 
-	void itemBoom(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i); //ÆøÅº ÁÂÇ¥
-	void itemFruit1(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i);
-	void itemFruit2(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i);
-	void itemMeat(int x, int y, int width, int height, itemMemory* name, itemMemory item,int i);
+	void itemBoom(int x, int y, int width, int height, ITEMMEMORY* name, ITEMMEMORY item, int i); //ÆøÅº ÁÂÇ¥
+	void itemFruit1(int x, int y, int width, int height, ITEMMEMORY* name, ITEMMEMORY item, int i);
+	void itemFruit2(int x, int y, int width, int height, ITEMMEMORY* name, ITEMMEMORY item, int i);
+	void itemMeat(int x, int y, int width, int height, ITEMMEMORY* name, ITEMMEMORY item,int i);
 
 	void itemRender(HDC hdc);
 	void selectCollision();
@@ -140,12 +140,12 @@ public:
 	void moveItemTrashCan(int j);
 	void moveTrashCanItem(int j);
 
-	selectState conveyValue(selectState* ss) { return *ss; }
+	SELECTSTATE conveyValue(SELECTSTATE* ss) { return *ss; }
 
 public:
-	itemMemory getErikItemMax() { return _erikItem; }//°ÙÀ¸·Î ¾ÆÀÌÅÛ °ø°£ÀÌ ²ËÃ¡´Ù´Â °Éº¸³¿
-	itemMemory getBaleogItemMax() { return _baleogItem; }//°ÙÀ¸·Î ¾ÆÀÌÅÛ °ø°£ÀÌ ²ËÃ¡´Ù´Â °Éº¸³¿
-	itemMemory getOlafItemMax() { return _olafItem; }//°ÙÀ¸·Î ¾ÆÀÌÅÛ °ø°£ÀÌ ²ËÃ¡´Ù´Â °Éº¸³¿
+	ITEMMEMORY getErikItemMax() { return _erikItem; }//°ÙÀ¸·Î ¾ÆÀÌÅÛ °ø°£ÀÌ ²ËÃ¡´Ù´Â °Éº¸³¿
+	ITEMMEMORY getBaleogItemMax() { return _baleogItem; }//°ÙÀ¸·Î ¾ÆÀÌÅÛ °ø°£ÀÌ ²ËÃ¡´Ù´Â °Éº¸³¿
+	ITEMMEMORY getOlafItemMax() { return _olafItem; }//°ÙÀ¸·Î ¾ÆÀÌÅÛ °ø°£ÀÌ ²ËÃ¡´Ù´Â °Éº¸³¿
 
 	inline bool isCollision(int x, int y, int width, int height, int x1, int y1, int width1, int height1);
 
