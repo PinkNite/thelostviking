@@ -39,7 +39,8 @@ enum selectState
 	SELECT_LEFT_BOTTOM,
 	SELECT_RIGHT_TOP,
 	SELECT_RIGHT_BOTTOM,
-	SELECT_REMOVE
+	SELECT_REMOVE,
+	SELECT_BACK
 };
 enum itemMemory
 {
@@ -103,7 +104,15 @@ private:
 	int _countNum;
 	int _countLeft;
 	int _countRight;
+	int _countSelect;
+	bool _isCountSelect;
+	bool _isCollision;
 
+	int sss;
+	int _selectX;
+	int _selectY;
+	int _selectTempX;
+	int _selectTempY;
 public:
 	UI();
 	~UI();
@@ -125,6 +134,13 @@ public:
 	//플레이어 변화할때 초상화값
 	void changePlayer();
 	void moveItem();
+	bool isCollisionSelectItem();
+	bool isCollisionSelectRemove();
+
+	void moveItemTrashCan(int j);
+	void moveTrashCanItem(int j);
+
+	selectState conveyValue(selectState* ss) { return *ss; }
 
 public:
 	itemMemory getErikItemMax() { return _erikItem; }//겟으로 아이템 공간이 꽉찼다는 걸보냄
@@ -136,5 +152,8 @@ public:
 	void linkItemManger(ITEMMANAGER* _item) { _pItemMG = _item; }
 	void linkPlayer(PLAYER* _player) { _pPlayer = _player; }
 	void linkInputManager(INPUTMANAGER* _mg) { _pInputMG = _mg; }
+
+	int getMoveX(int x) { return x; }
+	int getMoveY(int y) { return y; }
 };
 
