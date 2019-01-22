@@ -160,3 +160,11 @@ void VIKING::pressGravity()
 {
 }
 
+void VIKING::setSkillOneAni()
+{
+}
+
+void VIKING::setSkillTwoAni()
+{
+}
+

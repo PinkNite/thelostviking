@@ -158,4 +158,8 @@ public:
 	virtual	void	setLadderAnimation(int offset,bool isOverAni,int rcTmpHeight);
 	virtual void	pressGravity();
 	virtual VIKING::ACTION	getAction() { return static_cast<VIKING::ACTION>(_behavior); }
+
+	//¹ß·Î±×
+	virtual void	setSkillOneAni();
+	virtual void	setSkillTwoAni();
 };
