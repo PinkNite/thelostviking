@@ -14,6 +14,8 @@ private:
 	//임시변수 점프에 대한
 	bool		_isUsingSkillTwo;
 	bool		_isUsingSKillOne;
+
+
 public:
 	BALEOG();
 	~BALEOG();

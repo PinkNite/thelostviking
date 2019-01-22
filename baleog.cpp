@@ -24,6 +24,9 @@ void BALEOG::init(int posX, int posY, int width, int height)
 	_isUsingSkillTwo = false;
 	setIsOnGround(true);
 	_isUsingSKillOne = false;
+
+
+
 }
 
 void BALEOG::update()

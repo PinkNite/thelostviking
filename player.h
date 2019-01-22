@@ -30,6 +30,8 @@ private:
 	int		_rcTmpTop;
 	int		_rcTmpBottom;
 
+
+
 public:
 	PLAYER();
 	~PLAYER();

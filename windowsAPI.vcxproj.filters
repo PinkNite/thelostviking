@@ -264,6 +264,9 @@
     <ClInclude Include="OLAF.h">
       <Filter>PlayGround\Object\player</Filter>
     </ClInclude>
+    <ClInclude Include="arrow.h">
+      <Filter>PlayGround\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -418,6 +421,9 @@
     </ClCompile>
     <ClCompile Include="OLAF.cpp">
       <Filter>PlayGround\Object\player</Filter>
+    </ClCompile>
+    <ClCompile Include="arrow.cpp">
+      <Filter>PlayGround\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
