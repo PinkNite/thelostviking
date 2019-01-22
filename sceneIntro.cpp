@@ -41,6 +41,11 @@ void SCENEINTRO::release()
 
 void SCENEINTRO::update()
 {
+	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
+	{
+
+		SCENEMANAGER->changeScene("MENU");
+	}
 	_time += TIMEMANAGER->getElpasedTime();//신이 시작되면 이렇게됨..
 
 	actionOnOff(5.0f, 6.0f, 9.0f, &_imageAlphaCount, "intro1");//5초에 나오고 9초에 사라짐
@@ -58,9 +63,9 @@ void SCENEINTRO::render()
 	_pImage->alphaRender(getMemDC(), 0, _y2, _imageAlphaCount);//렌더는 계속중임
 	_pImage2->alphaRender(getMemDC(), 0, _y, _image2AlphaCount);//
 
-	char str[128];
+	/*char str[128];
 	sprintf_s(str, "%lf", _time);
-	TextOut(getMemDC(), 200, 200, str, strlen(str));
+	TextOut(getMemDC(), 200, 200, str, strlen(str));*/
 
 }
 

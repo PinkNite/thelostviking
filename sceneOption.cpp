@@ -23,7 +23,7 @@ HRESULT SCENEOPTION::init()
 	_imageTitleAlphaCount = 255;
 
 	_pImageMenu = new image;
-	_pImageMenu = IMAGEMANAGER->findImage("menu");
+	_pImageMenu = IMAGEMANAGER->findImage("option");
 	_imageMenuAlphaCount = 255;
 
 	_pImageSelect = new image;
@@ -86,7 +86,57 @@ void SCENEOPTION::update()
 	}
 
 
+	if (KEYMANAGER->isOnceKeyDown(VK_UP) && _y > 208)
+	{
+		if (_y == 360)
+		{
+			_y = 304;
+		}
+		else if (_y <= 304)
+		{
+			_y -= 32;
+		}
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_DOWN) && _y <= 360)
+	{
+		if (_y == 304)
+		{
+			_y = 360;
+		}
+		if (_y < 304)
+		{
+			_y += 32;
+		}
 
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_RETURN) && _y == 360)
+	{
+		SCENEMANAGER->changeScene("MENU");
+	}
+
+	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT) || KEYMANAGER->isOnceKeyDown(VK_LEFT))
+	{
+		switch ((int)_y)
+		{
+		case 208:
+			_numButtonFrameX++;
+			break;
+		case 240:
+
+			_onOffButtonFrameX++;
+			break;
+		case 272:
+
+
+			_onOffButtonFrameX2++;
+			break;
+		case 304:
+
+			_onOffButtonFrameX3++;
+			break;
+
+		}
+	}
 	if (KEYMANAGER->isOnceKeyDown('V'))//예시
 	{
 		_onOffButtonFrameX++;
@@ -109,7 +159,5 @@ void SCENEOPTION::render()
 	_pImageOnOffButton->frameRender(getMemDC(), 386, 320, _onOffButtonFrameX3, 0);
 
 
-	char str[128];
-	sprintf_s(str, "값이 변하면 이미지가 체인지 됩니다.%d", _onOffButtonFrameX);
-	TextOut(getMemDC(), 200, 200, str, strlen(str));
+
 }

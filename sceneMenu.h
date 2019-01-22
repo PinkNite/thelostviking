@@ -1,5 +1,6 @@
 #pragma once
 #include "gameNode.h"
+
 class SCENEMENU : public gameNode
 {
 private:
@@ -13,6 +14,8 @@ private:
 	float _y;//이거는 셀렉트가 움직일 값
 	int _backGroundAlphaCount;
 
+	int _gameStart;
+
 public:
 	SCENEMENU();
 	~SCENEMENU();
@@ -20,5 +23,7 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
+public:
+	int getGameStart() { return _gameStart; }
 };
 

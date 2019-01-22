@@ -24,6 +24,10 @@ void SCENEPASSWORD::release()
 
 void SCENEPASSWORD::update()
 {
+	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
+	{
+		SCENEMANAGER->changeScene("MENU");
+	}
 }
 
 void SCENEPASSWORD::render()
