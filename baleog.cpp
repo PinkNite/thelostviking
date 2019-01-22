@@ -27,6 +27,36 @@ void BALEOG::init(int posX, int posY, int width, int height)
 
 void BALEOG::update()
 {
+	if (!getIsOnGround())
+	{
+		_jumpingTime += TIMEMANAGER->getElpasedTime();
+	}
+
+	if (_jumpingTime >= 2.0f && VIKING::_behavior == static_cast<int>(VIKING::ACTION::FLY))
+	{
+		setFallOut();
+	}
+	else if (getIsOnGround() && VIKING::_behavior == static_cast<int>(VIKING::ACTION::FALLDOWN))
+	{
+		if (VIKING::_direction == static_cast<int>(VIKING::DIRECTION::LEFT))
+		{
+			setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::STUN));
+		}
+		else {
+			setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::STUN));
+		}
+		setIsOnGround(true);
+		_jumpingTime = 0.0F;
+	}
+	jump();
+
+	if (VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER) ||
+		VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER_OVER))
+	{
+		_jumpingTime = 0.0f;
+	}
+
+	KEYANIMANAGER->update();
 }
 
 void BALEOG::release()
@@ -35,6 +65,7 @@ void BALEOG::release()
 
 void BALEOG::render(HDC hdc)
 {
+
 	VIKING::_pImg->aniRender(hdc, VIKING::_posX - VIKING::_width / 2, VIKING::_posY - VIKING::_height / 2, VIKING::_pAnimation);
 }
 
@@ -98,11 +129,11 @@ void BALEOG::initKeyAnimation()
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE), 34, 8, 2, false);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE), 42, 8, 2, false);
 	//검1
-	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO), 50, 4, 2, false);
-	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO), 54, 4, 2, false);
+	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO), 50, 4, 2, false, callbackSpecialIdle);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO), 54, 4, 2, false, callbackSpecialIdle);
 	//검2
-	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_SPECIAL), 58, 4, 2, false);
-	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_SPECIAL), 62, 4, 2, false);
+	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_SPECIAL), 58, 4, 2, false, callbackSpecialIdle);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_SPECIAL), 62, 4, 2, false, callbackSpecialIdle);
 	//사다리
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER), 66, 4, 2, true);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER), 66, 4, 2, true);
@@ -134,7 +165,25 @@ void BALEOG::initKeyAnimation()
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN), 186, 1, 2, true);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN), 187, 1, 2, true);
 
+	KEYANIMANAGER->findAnimation("baleog",
+		addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+			VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+			VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER)]))->setClickRender(true);
 
+	KEYANIMANAGER->findAnimation("baleog",
+		addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+			VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+			VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER)]))->setClickRender(true);
+
+	KEYANIMANAGER->findAnimation("baleog",
+		addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+			VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+			VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)]))->setFixedRender(true);
+
+	KEYANIMANAGER->findAnimation("baleog",
+		addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+			VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+			VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)]))->setFixedRender(true);
 
 	setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 }
@@ -393,7 +442,7 @@ void BALEOG::setAnimation(VIKING::DIRECTION direction, VIKING::LIFE life, VIKING
 	string tmp = addString(VIKING::_arDirection[static_cast<int>(direction)],
 		VIKING::_arLive[static_cast<int>(life)],
 		VIKING::_vBehavior[static_cast<int>(state)][behavior]);
-	VIKING::_pAnimation = KEYANIMANAGER->findAnimation("eric", tmp);
+	VIKING::_pAnimation = KEYANIMANAGER->findAnimation("baleog", tmp);
 
 	VIKING::_direction = static_cast<int>(direction);
 	VIKING::_life = static_cast<int>(life);
@@ -447,32 +496,77 @@ void BALEOG::setMovingAnimation(int direction)
 			setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FLY));
 		}
 	}
+	
 	//벽이랑 충돌나면 밀기로
 }
 
 void BALEOG::setStopAnimation()
 {
-	if (static_cast<int>(VIKING::ACTION::RUN) == _behavior) {
+	if (static_cast<int>(VIKING::ACTION::RUN) == _behavior || static_cast<int>(VIKING::ACTION::SKILL_ONE) == _behavior) {
 		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
-
 }
 
 void BALEOG::setSkillAnimation()
 {
+	if (VIKING::ACTION::FLY != static_cast<VIKING::ACTION>(VIKING::_behavior))
+	{
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FLY));
+	}
 }
 
 void BALEOG::pressGravity()
 {
+	if (VIKING::_behavior != static_cast<int>(VIKING::ACTION::ON_LADDER) &&
+		VIKING::_behavior != static_cast<int>(VIKING::ACTION::ON_LADDER_OVER))
+	{
+		VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY() + _gravity * TIMEMANAGER->getElpasedTime());
+	}
 }
 
 void BALEOG::falldownAnimation()
 {
+	if (static_cast<int>(VIKING::ACTION::FLY) == _behavior) {
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+	}
+	else if (static_cast<int>(VIKING::ACTION::FALLDOWN) == _behavior) {
+		//callbackEricFallDown();
+	}
+	else if (static_cast<int>(VIKING::ACTION::ON_LADDER_OVER) == _behavior) {
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+	}
+	else if (static_cast<int>(VIKING::ACTION::ON_LADDER) == _behavior) {
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+	}
+
+	_jumpingTime = 0.0F;
 }
 
-void BALEOG::jump()
+void BALEOG::setSkillOneAni()
 {
+	if ((static_cast<int>(VIKING::ACTION::RUN) == _behavior && VIKING::_state == static_cast<int>(VIKING::STATE::ACTION))||
+		VIKING::_state == static_cast<int>(VIKING::STATE::IDLE )) {
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE));
+	}
 }
+
+void BALEOG::setSkillTwoAni()
+{
+	if ((static_cast<int>(VIKING::ACTION::RUN) == _behavior && VIKING::_state == static_cast<int>(VIKING::STATE::ACTION)) ||
+		VIKING::_state == static_cast<int>(VIKING::STATE::IDLE)) {
+		int nRnd = RND->getInt(1);
+		if (nRnd == 0)
+		{
+			setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO));
+		}
+		else
+		{
+			setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_SPECIAL));
+		}
+	}
+}
+
+
 
 void BALEOG::fallDown()
 {

@@ -8,7 +8,8 @@ void INPUTMANAGER::init(PLAYER * pPlayer, CAMERA * pCamera)
 {
 	_pPlayer = pPlayer;
 	_pCamera = pCamera;
-	_ericJumpPower = 0.0f;
+
+
 
 	//ÀÌ½ÂÀç
 	_isLeft = false;
@@ -111,29 +112,21 @@ void INPUTMANAGER::update()
 	if (KEYMANAGER->isOnceKeyDown('F'))
 	{
 		_pPlayer->useSkillTwo();
-		_ericJumpPower = 500.0f;
-		_jumpKeyPressTime = 0.0f;
-	}
-	if (KEYMANAGER->isStayKeyDown('F'))
-	{
-		_jumpKeyPressTime += TIMEMANAGER->getElpasedTime();
 
-		if (_jumpKeyPressTime >= 0.1f)
-		{
-		}
 	}
+
 	if (KEYMANAGER->isOnceKeyDown('D'))
 	{
 		_pPlayer->useSkillOne();
 	}
-	//ÀÌ½ÂÀç
 
 	if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
 	{
 		_pPlayer->nextViking();
 		_pCamera->movingStart();
-		//_pCamera->setting();
 	}
+
+
 
 	if (!_pCamera->getMoving())
 	{

@@ -9,8 +9,6 @@ private:
 	PLAYER *	_pPlayer;
 	CAMERA*		_pCamera;
 
-	float		_ericJumpPower;
-	float		_jumpKeyPressTime;
 
 	//ÀÌ½ÂÀç
 	bool _isLeft;

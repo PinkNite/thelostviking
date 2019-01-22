@@ -16,7 +16,7 @@ void PLAYER::init()
 {
 	//바이킹들 초기화
 	_pViking[static_cast<const int>(VIKINGNAME::ERIC)] = new ERIC();
-	_pViking[static_cast<const int>(VIKINGNAME::ERIC)]->init(610, 580, 64, 64);
+	_pViking[static_cast<const int>(VIKINGNAME::ERIC)]->init(610, 570, 64, 64);
 
 	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)] = new BALEOG();
 	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)]->init(100, 100, 64, 64);
@@ -38,6 +38,10 @@ void PLAYER::update()
 			if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::ERIC)
 			{
 				_pViking[_nCurrentViking]->setSkillAnimation();
+			}
+			else if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::BALEOG) {
+				_pViking[_nCurrentViking]->setSkillAnimation();
+
 			}
 		}
 
@@ -155,12 +159,18 @@ void PLAYER::moveUp()
 
 void PLAYER::moveDown()
 {
-
-	if (isCollisionLadder() )
+	if (isCollisionLadder())
 	{
 		if (_rcTmpBottom != _pViking[_nCurrentViking]->getPosY() +32)
 		{
-			_pViking[_nCurrentViking]->moveDown(0.0f);
+			if (_pPixelCollision->getCollisionbot())
+			{
+				_pViking[_nCurrentViking]->moveDown(6.0f);
+			}
+			else {
+				_pViking[_nCurrentViking]->moveDown(0.0f);
+
+			}
 		}
 
 	}
@@ -212,7 +222,7 @@ void PLAYER::setLadderAnimation(int offset)
 
 bool PLAYER::isCollisionLadder()
 {
-	RECT rcPlayer = RectMakeCenter(_pViking[_nCurrentViking]->getPosX(), _pViking[_nCurrentViking]->getPosY()+3,
+	RECT rcPlayer = RectMakeCenter(_pViking[_nCurrentViking]->getPosX(), _pViking[_nCurrentViking]->getPosY()+ 5,
 		_pViking[_nCurrentViking]->getWidth(), _pViking[_nCurrentViking]->getHeight());
 	_pMap2->getRCLadder(0);
 	bool bIsCollisionLadder = false;
