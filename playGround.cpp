@@ -191,6 +191,7 @@ void playGround::render()
 	_pCamera->renderinit();
 
 	_pMap2->render(_pCamera->getMemDC());
+	_pixel->render(_pCamera->getMemDC());
 	_pPlayer->render(_pCamera->getMemDC());
 
 	_enemy->render(_pCamera->getMemDC());

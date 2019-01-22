@@ -42,15 +42,32 @@ void pixelCollision::release()
 
 void pixelCollision::update()
 {
-	for (int i = 0; i < 12; i++)
-	{
-		collisionRect(ladderRect[i], _pPlayer);
-	}
+	playerRect = RectMakeCenter(_pPlayer->getPosX(), _pPlayer->getPosY(), _pPlayer->getWidth(), _pPlayer->getHeight());
 	_probeTopY = _pPlayer->getPosY() - (_pPlayer->getHeight() / 2);
 	_probeBottomY = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
 	_probeLeftX = _pPlayer->getPosX() - (_pPlayer->getWidth() / 2) + 6;
 	_probeRightX = _pPlayer->getPosX() + (_pPlayer->getWidth() / 2) - 6;
 	
+	//애매한 렉트 처리
+	for (int i = 0; i < 12; i++)
+	{
+		collisionRect(ladderRect[i], _pPlayer);
+	}
+
+	//
+	for (int i = 0; i < _vDoor.size(); i++)
+	{
+		RECT tempRc;
+		if (IntersectRect(&tempRc, &_vDoor[i]->getColiisionArea(), &playerRect))
+		{
+			_vDoor[i]->setIsoff(true);
+		}
+		else
+		{
+			_vDoor[i]->setIsoff(false);
+		}
+	}
+
 	// 왼쪽 벽 충돌
 	for (int i = _probeLeftX; i <= _probeLeftX + 10; ++i)
 	{
@@ -212,18 +229,18 @@ void pixelCollision::collisionRect(RECT rect, PLAYER * pPlayer)
 void pixelCollision::doorInit()
 {
 	setDOOR* doorObtacle = new DOORS;
-	doorObtacle->init("doorObc1", 449, 352, 32, 96, true, 3);
+	doorObtacle->init("collisionDoorObc1", 449, 352, 32, 96, true, 3);
 	_vDoor.push_back(doorObtacle);
 
 	doorObtacle = new DOORS;
-	doorObtacle->init("doorObc2", 865, 352, 32, 96, true, 3);
+	doorObtacle->init("collisionDoorObc2", 865, 352, 32, 96, true, 3);
 	_vDoor.push_back(doorObtacle);
 
 	doorObtacle = new DOORS;
-	doorObtacle->init("doorObc3", 193, 1312, 32, 96, true, 3);
+	doorObtacle->init("collisionDoorObc3", 193, 1312, 32, 96, true, 3);
 	_vDoor.push_back(doorObtacle);
 
 	doorObtacle = new DOORS;
-	doorObtacle->init("doorObc4", 449, 1472, 32, 96, true, 3);
+	doorObtacle->init("collisionDoorObc4", 449, 1472, 32, 96, true, 3);
 	_vDoor.push_back(doorObtacle);
 }
