@@ -35,7 +35,10 @@ void PLAYER::update()
 		if ( _pViking[_nCurrentViking]->getAction() != VIKING::ACTION::ON_LADDER &&  _pViking[_nCurrentViking]->getAction() != VIKING::ACTION::ON_LADDER_OVER)
 		{
 			_pViking[_nCurrentViking]->pressGravity();
-			_pViking[_nCurrentViking]->setSkillAnimation();
+			if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::ERIC)
+			{
+				_pViking[_nCurrentViking]->setSkillAnimation();
+			}
 		}
 
 		_pViking[_nCurrentViking]->setIsOnGround(false);

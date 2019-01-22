@@ -73,18 +73,10 @@ private:
 
 public:
 	//여러가지 상태로 변하는 애들은 여기서 처리한다.
-	static void	callbackRun(void *obj);	//달리는 상태 종류후 나오는 것들
-	static void	callbackJump(void *obj);	//점프후 나오는 상태 종류
-	static void	callbackHading(void *obj);//해딩후 나올수 있는 것들
-	static void	callbackStun(void* obj);//스턴후
-	static void callbackBreath(void* obj);
+	static void	callbackSpecialIdle(void *obj);	//달리는 상태 종류후 나오는 것들
+	
+	void	callbackbaleogSpecialIdle();
 
-	void	callbackEricRun();	//달리는 상태 종류후 나오는 것들
-	void	callbackEricJump();	//점프후 나오는 상태 종류
-	void	callbackEricHading();//해딩후 나올수 있는 것들
-	void	callbackEricStun();//스턴후
-	void	callbackEricBreath();
-	void	callbackEricFallDown();
 
 
 
