@@ -80,4 +80,6 @@ public:
 	VIKINGNAME		getCurrentViking() { return static_cast<VIKINGNAME>(_nCurrentViking); }
 
 	void	nextViking();
+
+	void	deathViking(VIKING::DEATH_MOTION death);
 };

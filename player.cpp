@@ -301,3 +301,8 @@ void PLAYER::nextViking()
 		_nCurrentViking = 0;
 	}
 }
+
+void PLAYER::deathViking(VIKING::DEATH_MOTION death)
+{
+	_pViking[_nCurrentViking]->death(death);
+}
