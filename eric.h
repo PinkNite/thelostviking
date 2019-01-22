@@ -31,7 +31,7 @@ public:
 	virtual	void setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight) override;
 	virtual void	setPushWallAni(bool isCollisionWall) override;
 
-	
+
 private:
 	void	initKeyAnimation();
 	string	addString(string direction, string live, string action);

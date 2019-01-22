@@ -35,6 +35,8 @@ public:
 	virtual bool	getUseSkillOne() override;
 	virtual bool	getUseSkillTwo() override;
 
+
+
 private:
 	void	initKeyAnimation();
 	string	addString(string direction, string live, string action);

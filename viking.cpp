@@ -205,3 +205,7 @@ void VIKING::death(DEATH_MOTION death)
 	_state = static_cast<int>(STATE::DEATH_MOTION);
 }
 
+void VIKING::setDeathMotion()
+{
+}
+

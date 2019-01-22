@@ -181,6 +181,8 @@ bool BALEOG::getUseSkillTwo()
 	return _isUsingSkillTwo;
 }
 
+
+
 void BALEOG::initKeyAnimation()
 {
 	VIKING::setImage(IMAGEMANAGER->findImage("baleog"));

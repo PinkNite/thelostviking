@@ -127,6 +127,8 @@ public:
 	inline int getTop() { return _top; }
 	inline image* getIamge() { return _pImg; }
 	inline bool getIsOnGround() {return _isOnGround; }
+	inline int	getState() { return _state; }
+
 
 	inline void setPosX(float posX) { _posX = posX; }
 	inline void setPosY(float posY) { _posY = posY; }
@@ -176,4 +178,6 @@ public:
 	virtual bool	getUseSkillTwo();
 
 	virtual void	death(DEATH_MOTION death);
+
+	virtual void	setDeathMotion();
 };

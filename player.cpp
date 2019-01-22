@@ -71,9 +71,12 @@ void PLAYER::render(HDC hdc)
 {
 
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 3; i++)
 	{
-		_pViking[i]->render(hdc);
+		if (static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState()) != VIKING::STATE::DEATH_MOTION)
+		{
+			_pViking[i]->render(hdc);
+		}
 
 	}
 

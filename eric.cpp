@@ -145,6 +145,8 @@ void ERIC::setPushWallAni(bool isCollisionWall)
 	}
 }
 
+
+
 void ERIC::jump()
 {
 	if (!_isUsingSkillTwo) return;
