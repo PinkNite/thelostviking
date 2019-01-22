@@ -29,6 +29,7 @@ public:
 	virtual void skillOne() override;
 	virtual void skillTwo() override;
 	virtual	void setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight) override;
+	virtual void	setPushWallAni(bool isCollisionWall) override;
 
 	
 private:

@@ -576,7 +576,7 @@ void BALEOG::setMovingAnimation(int direction)
 
 void BALEOG::setStopAnimation()
 {
-	if (static_cast<int>(VIKING::ACTION::RUN) == _behavior || static_cast<int>(VIKING::ACTION::SKILL_ONE_END) == _behavior) {
+	if (static_cast<int>(VIKING::ACTION::RUN) == _behavior || static_cast<int>(VIKING::ACTION::SKILL_ONE_END) == _behavior || static_cast<int>(VIKING::ACTION::PUSH) == _behavior) {
 		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}
 }
@@ -637,6 +637,15 @@ void BALEOG::setSkillTwoAni()
 		{
 			setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_SPECIAL));
 		}
+	}
+}
+
+void BALEOG::setPushWallAni(bool isCollisionWall)
+{
+
+	if (static_cast<STATE>(_state) == STATE::ACTION &&static_cast<ACTION>(_behavior) == ACTION::RUN && isCollisionWall)
+	{
+		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::PUSH));
 	}
 }
 

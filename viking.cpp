@@ -109,6 +109,16 @@ void VIKING::moveDown(float acceleration)
 	OBJECT::setPosY(OBJECT::getPosY() + fDistance + acceleration);
 }
 
+bool VIKING::stunStop()
+{
+	if (static_cast<VIKING::ACTION>(_behavior) == VIKING::ACTION::STUN)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void VIKING::resetSpeed()
 {
 	_speed = _minSpeed;
@@ -159,6 +169,11 @@ void VIKING::setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight)
 
 void VIKING::pressGravity()
 {
+}
+
+void VIKING::setPushWallAni(bool isCollisionWall)
+{
+
 }
 
 void VIKING::setSkillOneAni()

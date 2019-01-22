@@ -77,6 +77,10 @@ private:
 	virtual void	setSkillOneAni() override;
 	virtual void	setSkillTwoAni() override;
 	
+	virtual void	setPushWallAni(bool isCollisionWall) override;
+
+
+
 
 	void	updateArrow();
 

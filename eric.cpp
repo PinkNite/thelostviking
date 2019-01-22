@@ -130,6 +130,21 @@ void ERIC::setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight)
 	_isUsingSkillTwo = false;
 }
 
+void ERIC::setPushWallAni(bool isCollisionWall)
+{
+	if (static_cast<STATE>(_state) == STATE::ACTION &&static_cast<ACTION>(_behavior) == ACTION::RUN && isCollisionWall)
+	{
+		if (static_cast<VIKING::DIRECTION>(VIKING::_direction) == DIRECTION::LEFT)
+		{
+			setAnimation(DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::PUSH));
+		}
+		else {
+			setAnimation(DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::PUSH));
+
+		}
+	}
+}
+
 void ERIC::jump()
 {
 	if (!_isUsingSkillTwo) return;
@@ -224,7 +239,7 @@ void ERIC::initKeyAnimation()
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER_OVER),
 		96, 2, 2, false);
 
-	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::PUSH),
+	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::PUSH),
 		98, 4, 5, true);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::PUSH),
 		102, 4, 5, true);
@@ -609,7 +624,7 @@ void ERIC::setMovingAnimation(int direction)
 
 void ERIC::setStopAnimation()
 {
-	if (static_cast<int>(VIKING::ACTION::RUN) == _behavior) {
+	if (static_cast<int>(VIKING::ACTION::RUN) == _behavior || static_cast<int>(VIKING::ACTION::PUSH) == _behavior) {
 		setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::SPECIAL));
 	}
 

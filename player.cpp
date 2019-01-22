@@ -54,9 +54,9 @@ void PLAYER::update()
 		_pViking[_nCurrentViking]->falldownAnimation();
 	}
 
-	if (_pPixelCollision->getCollisionbot())
+	if (_pPixelCollision->getCollisionleft() || _pPixelCollision->getCollisionright())
 	{
-
+		_pViking[_nCurrentViking]->setPushWallAni(true);
 	}
 
 	_pViking[_nCurrentViking]->update();
@@ -118,11 +118,11 @@ int PLAYER::getLeft()
 void PLAYER::moveLeft()
 {
 	if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::BALEOG && _pViking[_nCurrentViking]->getUseSkillOne()) return;
-
+	if (_pViking[_nCurrentViking]->stunStop()) return;
 	float	acceleration = 0.0f;
 	if (_nCurrentViking == static_cast<int>(VIKINGNAME::ERIC))
 	{
-		acceleration = 500.0f * TIMEMANAGER->getElpasedTime();
+		acceleration = 20.0f * TIMEMANAGER->getElpasedTime();
 	}
 	else {
 		acceleration = 0.0f;
@@ -135,12 +135,12 @@ void PLAYER::moveLeft()
 void PLAYER::moveRight()
 {
 	if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::BALEOG && _pViking[_nCurrentViking]->getUseSkillOne()) return;
-
+	if (_pViking[_nCurrentViking]->stunStop()) return;
 
 	float	acceleration = 0.0f;
 	if (_nCurrentViking == static_cast<int>(VIKINGNAME::ERIC))
 	{
-		acceleration = 500.0f * TIMEMANAGER->getElpasedTime();
+		acceleration = 20.0f * TIMEMANAGER->getElpasedTime();
 	}
 	else {
 		acceleration = 0.0f;

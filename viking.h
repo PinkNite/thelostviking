@@ -145,6 +145,8 @@ public:
 	virtual void moveUp(float acceleration);
 	virtual void moveDown(float acceleration);
 
+	virtual bool stunStop();
+
 	void	resetSpeed();
 
 	//스킬 각자 받아서 공격이나 특이 행동을 쓸때 쓰는 오버라이딩 함수
@@ -161,6 +163,8 @@ public:
 	virtual	void	setLadderAnimation(int offset,bool isOverAni,int rcTmpHeight);
 	virtual void	pressGravity();
 	virtual VIKING::ACTION	getAction() { return static_cast<VIKING::ACTION>(_behavior); }
+
+	virtual void	setPushWallAni(bool isCollisionWall);
 
 	//발로그
 	virtual void	setSkillOneAni();
