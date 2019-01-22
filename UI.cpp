@@ -75,9 +75,9 @@ HRESULT UI::init()
 	}
 
 	//충돌 할때 아이템들
-	_pItemMeat = new ITEMMEAT;
 	for (int i = 0; i < 2; i++)
 	{
+		_pItemMeat[i] = new ITEMMEAT;
 		_pItemBoom[i] = new ITEMBOOM;
 		_pItemFruit1[i] = new ITEMFRUIT1;
 		_pItemFruit2[i] = new ITEMFRUIT2;
@@ -163,6 +163,9 @@ HRESULT UI::init()
 	}
 
 
+	_countNum = 0;
+	_countLeft = 0;
+	_countRight = 0;
 
 	return S_OK;
 }
@@ -184,9 +187,12 @@ void UI::update()
 
 	//_life[0].isAllive = false;//이럼 사라짐
 
+	//인벤 접근키
 	if (KEYMANAGER->isToggleKey(VK_F8))
 	{
 		selectMove();//얘는 특정 조건에서만 되어야함
+		moveItem();//아이템이동함수
+		selectCollision();//충돌함수
 	}
 	////////////////캐릭 선택필 수 조건
 	
@@ -203,11 +209,11 @@ void UI::update()
 		getItem(&_olafItem, 482, 402+118, 522, 442+118);
 	}
 	
-		selectCollision();
+		
 	
-	moveItem();//아이템이동함수
+	
 
-	
+	//인벤에서 나오면 셀렉트 알파값 원상태복귀
 	if (KEYMANAGER->isOnceKeyUp(VK_F8))//렌더 알파값
 	{
 		_select[0].alphaCount = 255;
@@ -364,7 +370,7 @@ void UI::render(HDC hdc)
 	itemRender(hdc);
 
 	char str[128];
-	sprintf_s(str, "%d%d", x,y);
+	sprintf_s(str, "%d", _countNum);
 	TextOut(hdc, 400, 300, str, strlen(str));
 
 }
@@ -374,7 +380,7 @@ void UI::selectMove()
 	if (_erikState == ERIK_ON)
 	{
 		
-		if (_pInputMG->getLeft()==true)
+		if (_pInputMG->getLeft()==true&& !KEYMANAGER->isToggleKey(VK_SPACE))
 		{
 			switch (_selectState[0])
 			{
@@ -386,7 +392,7 @@ void UI::selectMove()
 				break;
 			}
 		}
-		if (_pInputMG->getRight()==true)
+		if (_pInputMG->getRight()==true && !KEYMANAGER->isToggleKey(VK_SPACE))
 		{
 			switch (_selectState[0])
 			{
@@ -398,7 +404,7 @@ void UI::selectMove()
 				break;
 			}
 		}
-		if (_pInputMG->getTop() == true)
+		if (_pInputMG->getTop() == true && !KEYMANAGER->isToggleKey(VK_SPACE))
 		{
 			switch (_selectState[0])
 			{
@@ -410,7 +416,7 @@ void UI::selectMove()
 				break;
 			}
 		}
-		if (_pInputMG->getBottom() == true)
+		if (_pInputMG->getBottom() == true && !KEYMANAGER->isToggleKey(VK_SPACE))
 		{
 			switch (_selectState[0])
 			{
@@ -431,7 +437,7 @@ void UI::selectMove()
 	if (_baleogState == BALEOG_ON)
 	{
 		
-		if (_pInputMG->getLeft() == true)
+		if (_pInputMG->getLeft() == true && !KEYMANAGER->isToggleKey(VK_SPACE))
 		{
 			switch (_selectState[1])
 			{
@@ -443,7 +449,7 @@ void UI::selectMove()
 				break;
 			}
 		}
-		if (_pInputMG->getRight() == true)
+		if (_pInputMG->getRight() == true && !KEYMANAGER->isToggleKey(VK_SPACE))
 		{
 			switch (_selectState[1])
 			{
@@ -455,7 +461,7 @@ void UI::selectMove()
 				break;
 			}
 		}
-		if (_pInputMG->getTop() == true)
+		if (_pInputMG->getTop() == true && !KEYMANAGER->isToggleKey(VK_SPACE))
 		{
 			switch (_selectState[1])
 			{
@@ -467,7 +473,7 @@ void UI::selectMove()
 				break;
 			}
 		}
-		if (_pInputMG->getBottom() == true)
+		if (_pInputMG->getBottom() == true && !KEYMANAGER->isToggleKey(VK_SPACE))
 		{
 			switch (_selectState[1])
 			{
@@ -487,7 +493,7 @@ void UI::selectMove()
 	if (_olafState == OLAF_ON)
 	{
 		
-		if (_pInputMG->getLeft() == true)
+		if (_pInputMG->getLeft() == true && !KEYMANAGER->isToggleKey(VK_SPACE))
 		{
 			switch (_selectState[2])
 			{
@@ -499,7 +505,7 @@ void UI::selectMove()
 				break;
 			}
 		}
-		if (_pInputMG->getRight() == true)
+		if (_pInputMG->getRight() == true && !KEYMANAGER->isToggleKey(VK_SPACE))
 		{
 			switch (_selectState[2])
 			{
@@ -511,7 +517,7 @@ void UI::selectMove()
 				break;
 			}
 		}
-		if (_pInputMG->getTop() == true)
+		if (_pInputMG->getTop() == true && !KEYMANAGER->isToggleKey(VK_SPACE))
 		{
 			switch (_selectState[2])
 			{
@@ -523,7 +529,7 @@ void UI::selectMove()
 				break;
 			}
 		}
-		if (_pInputMG->getBottom() == true)
+		if (_pInputMG->getBottom() == true && !KEYMANAGER->isToggleKey(VK_SPACE))//키가 안눌렸을때
 		{
 			switch (_selectState[2])
 			{
@@ -636,30 +642,50 @@ void UI::getItem(itemMemory* name, int x, int y, int x1, int y1)
 		if (_pItemMG->getItemFalseBoomA() == 0 && _pItemMG->getItemCollisionBoomA() == 1)
 		{
 			itemBoom(x, y, 40, 38, name, ITEM_1, 0);
+			_itemBoom[0].x = x;
+			_itemBoom[0].y = y;
 		}
 		if (_pItemMG->getItemFalseBoomB() == 0 && _pItemMG->getItemCollisionBoomB() == 1)
 		{
 			itemBoom(x, y, 40, 38, name, ITEM_1, 1);
+			_itemBoom[1].x = x;
+			_itemBoom[1].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit1A() == 0 && _pItemMG->getItemCollisionFruit1A() == 1)
 		{
 			itemFruit1(x, y, 40, 38, name, ITEM_1, 0);
+			_itemFruit1[0].x = x;
+			_itemFruit1[0].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit1B() == 0 && _pItemMG->getItemCollisionFruit1B() == 1)
 		{
 			itemFruit1(x, y, 40, 38, name, ITEM_1, 1);
+			_itemFruit1[1].x = x;
+			_itemFruit1[1].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit2A() == 0 && _pItemMG->getItemCollisionFruit2A() == 1)
 		{
 			itemFruit2(x, y, 40, 38, name, ITEM_1, 0);
+			_itemFruit2[0].x = x;
+			_itemFruit2[0].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit2B() == 0 && _pItemMG->getItemCollisionFruit2B() == 1)
 		{
 			itemFruit2(x, y, 40, 38, name, ITEM_1, 1);
+			_itemFruit2[1].x = x;
+			_itemFruit2[1].y = y;
 		}
-		if (_pItemMG->getItemFalseMeat() == 0 && _pItemMG->getItemCollisionMeat() == 1)
+		if (_pItemMG->getItemFalseMeatA() == 0 && _pItemMG->getItemCollisionMeatA() == 1)
 		{
-			itemMeat(x, y, 40, 38, name, ITEM_1);
+			itemMeat(x, y, 40, 38, name, ITEM_1,0);
+			_itemMeat[0].x = x;
+			_itemMeat[0].y = y;
+		}
+		if (_pItemMG->getItemFalseMeatB() == 0 && _pItemMG->getItemCollisionMeatB() == 1)
+		{
+			itemMeat(x, y, 40, 38, name, ITEM_1, 1);
+			_itemMeat[1].x = x;
+			_itemMeat[1].y = y;
 		}
 	}
 	else if (*name == ITEM_1)
@@ -668,31 +694,51 @@ void UI::getItem(itemMemory* name, int x, int y, int x1, int y1)
 		//폭탄과충돌햇다 아이템공간이 1이다
 		if (_pItemMG->getItemFalseBoomA() == 0 && _pItemMG->getItemCollisionBoomA() == 1)
 		{
-			itemBoom(x1, y, 40, 38, name, ITEM_2, 0);
+			itemBoom(x, y, 40, 38, name, ITEM_2, 0);
+			_itemBoom[0].x = x;
+			_itemBoom[0].y = y;
 		}
 		if (_pItemMG->getItemFalseBoomB() == 0 && _pItemMG->getItemCollisionBoomB() == 1)
 		{
-			itemBoom(x1, y, 40, 38, name, ITEM_2, 1);
+			itemBoom(x, y, 40, 38, name, ITEM_2, 1);
+			_itemBoom[1].x = x;
+			_itemBoom[1].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit1A() == 0 && _pItemMG->getItemCollisionFruit1A() == 1)
 		{
-			itemFruit1(x1, y, 40, 38, name, ITEM_2, 0);
+			itemFruit1(x, y, 40, 38, name, ITEM_2, 0);
+			_itemFruit1[0].x = x;
+			_itemFruit1[0].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit1B() == 0 && _pItemMG->getItemCollisionFruit1B() == 1)
 		{
-			itemFruit1(x1, y, 40, 38, name, ITEM_2, 1);
+			itemFruit1(x, y, 40, 38, name, ITEM_2, 1);
+			_itemFruit1[1].x = x;
+			_itemFruit1[1].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit2A() == 0 && _pItemMG->getItemCollisionFruit2A() == 1)
 		{
-			itemFruit2(x1, y, 40, 38, name, ITEM_2, 0);
+			itemFruit2(x, y, 40, 38, name, ITEM_2, 0);
+			_itemFruit2[0].x = x;
+			_itemFruit2[0].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit2B() == 0 && _pItemMG->getItemCollisionFruit2B() == 1)
 		{
-			itemFruit2(x1, y, 40, 38, name, ITEM_2, 1);
+			itemFruit2(x, y, 40, 38, name, ITEM_2, 1);
+			_itemFruit2[1].x = x;
+			_itemFruit2[1].y = y;
 		}
-		if (_pItemMG->getItemFalseMeat() == 0 && _pItemMG->getItemCollisionMeat() == 1)
+		if (_pItemMG->getItemFalseMeatA() == 0 && _pItemMG->getItemCollisionMeatA() == 1)
 		{
-			itemMeat(x1, y, 40, 38, name, ITEM_2);
+			itemMeat(x, y, 40, 38, name, ITEM_2, 0);
+			_itemMeat[0].x = x;
+			_itemMeat[0].y = y;
+		}
+		if (_pItemMG->getItemFalseMeatB() == 0 && _pItemMG->getItemCollisionMeatB() == 1)
+		{
+			itemMeat(x, y, 40, 38, name, ITEM_2, 1);
+			_itemMeat[1].x = x;
+			_itemMeat[1].y = y;
 		}
 	}
 	else if (*name == ITEM_2)
@@ -700,31 +746,51 @@ void UI::getItem(itemMemory* name, int x, int y, int x1, int y1)
 		//폭탄과충돌햇다 아이템공간이 2이다
 		if (_pItemMG->getItemFalseBoomA() == 0 && _pItemMG->getItemCollisionBoomA() == 1)
 		{
-			itemBoom(x, y1, 40, 38, name, ITEM_3, 0);
+			itemBoom(x, y, 40, 38, name, ITEM_3, 0);
+			_itemBoom[0].x = x;
+			_itemBoom[0].y = y;
 		}
 		if (_pItemMG->getItemFalseBoomB() == 0 && _pItemMG->getItemCollisionBoomB() == 1)
 		{
-			itemBoom(x, y1, 40, 38, name, ITEM_3, 1);
+			itemBoom(x, y, 40, 38, name, ITEM_3, 1);
+			_itemBoom[1].x = x;
+			_itemBoom[1].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit1A() == 0 && _pItemMG->getItemCollisionFruit1A() == 1)
 		{
-			itemFruit1(x, y1, 40, 38, name, ITEM_3, 0);
+			itemFruit1(x, y, 40, 38, name, ITEM_3, 0);
+			_itemFruit1[0].x = x;
+			_itemFruit1[0].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit1B() == 0 && _pItemMG->getItemCollisionFruit1B() == 1)
 		{
-			itemFruit1(x, y1, 40, 38, name, ITEM_3, 1);
+			itemFruit1(x, y, 40, 38, name, ITEM_3, 1);
+			_itemFruit1[1].x = x;
+			_itemFruit1[1].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit2A() == 0 && _pItemMG->getItemCollisionFruit2A() == 1)
 		{
-			itemFruit2(x, y1, 40, 38, name, ITEM_3, 0);
+			itemFruit2(x, y, 40, 38, name, ITEM_3, 0);
+			_itemFruit2[0].x = x;
+			_itemFruit2[0].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit2B() == 0 && _pItemMG->getItemCollisionFruit2B() == 1)
 		{
-			itemFruit2(x, y1, 40, 38, name, ITEM_3, 1);
+			itemFruit2(x, y, 40, 38, name, ITEM_3, 1);
+			_itemFruit2[1].x = x;
+			_itemFruit2[1].y = y;
 		}
-		if (_pItemMG->getItemFalseMeat() == 0 && _pItemMG->getItemCollisionMeat() == 1)
+		if (_pItemMG->getItemFalseMeatA() == 0 && _pItemMG->getItemCollisionMeatA() == 1)
 		{
-			itemMeat(x, y1, 40, 38, name, ITEM_3);
+			itemMeat(x, y, 40, 38, name, ITEM_3, 0);
+			_itemMeat[0].x = x;
+			_itemMeat[0].y = y;
+		}
+		if (_pItemMG->getItemFalseMeatB() == 0 && _pItemMG->getItemCollisionMeatB() == 1)
+		{
+			itemMeat(x, y, 40, 38, name, ITEM_3, 1);
+			_itemMeat[1].x = x;
+			_itemMeat[1].y = y;
 		}
 	}
 	else if (*name == ITEM_3)
@@ -732,31 +798,51 @@ void UI::getItem(itemMemory* name, int x, int y, int x1, int y1)
 		//폭탄과충돌햇다 아이템공간이 3이다
 		if (_pItemMG->getItemFalseBoomA() == 0 && _pItemMG->getItemCollisionBoomA() == 1)
 		{
-			itemBoom(x1, y1, 40, 38, name, ITEM_4, 0);
+			itemBoom(x, y, 40, 38, name, ITEM_4, 0);
+			_itemBoom[0].x = x;
+			_itemBoom[0].y = y;
 		}
 		if (_pItemMG->getItemFalseBoomB() == 0 && _pItemMG->getItemCollisionBoomB() == 1)
 		{
-			itemBoom(x1, y1, 40, 38, name, ITEM_4, 1);
+			itemBoom(x, y, 40, 38, name, ITEM_4, 1);
+			_itemBoom[1].x = x;
+			_itemBoom[1].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit1A() == 0 && _pItemMG->getItemCollisionFruit1A() == 1)
 		{
-			itemFruit1(x1, y1, 40, 38, name, ITEM_4, 0);
+			itemFruit1(x, y, 40, 38, name, ITEM_4, 0);
+			_itemFruit1[0].x = x;
+			_itemFruit1[0].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit1B() == 0 && _pItemMG->getItemCollisionFruit1B() == 1)
 		{
-			itemFruit1(x1, y1, 40, 38, name, ITEM_4, 1);
+			itemFruit1(x, y, 40, 38, name, ITEM_4, 1);
+			_itemFruit1[1].x = x;
+			_itemFruit1[1].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit2A() == 0 && _pItemMG->getItemCollisionFruit2A() == 1)
 		{
-			itemFruit2(x1, y1, 40, 38, name, ITEM_4, 0);
+			itemFruit2(x, y, 40, 38, name, ITEM_4, 0);
+			_itemFruit2[0].x = x;
+			_itemFruit2[0].y = y;
 		}
 		if (_pItemMG->getItemFalseFruit2B() == 0 && _pItemMG->getItemCollisionFruit2B() == 1)
 		{
-			itemFruit2(x1, y1, 40, 38, name, ITEM_4, 1);
+			itemFruit2(x, y, 40, 38, name, ITEM_4, 1);
+			_itemFruit2[1].x = x;
+			_itemFruit2[1].y = y;
 		}
-		if (_pItemMG->getItemFalseMeat() == 0 && _pItemMG->getItemCollisionMeat() == 1)
+		if (_pItemMG->getItemFalseMeatA() == 0 && _pItemMG->getItemCollisionMeatA() == 1)
 		{
-			itemMeat(x1, y1, 40, 38, name, ITEM_4);
+			itemMeat(x, y, 40, 38, name, ITEM_4, 0);
+			_itemMeat[0].x = x;
+			_itemMeat[0].y = y;
+		}
+		if (_pItemMG->getItemFalseMeatB() == 0 && _pItemMG->getItemCollisionMeatB() == 1)
+		{
+			itemMeat(x, y, 40, 38, name, ITEM_4, 1);
+			_itemMeat[1].x = x;
+			_itemMeat[1].y = y;
 		}
 	}
 	else if (*name == ITEM_4)
@@ -790,9 +876,9 @@ void UI::itemFruit2(int x, int y, int width, int height, itemMemory* name, itemM
 
 }
 
-void UI::itemMeat(int x, int y, int width, int height, itemMemory* name, itemMemory item)
+void UI::itemMeat(int x, int y, int width, int height, itemMemory* name, itemMemory item, int i)
 {
-	_pItemMeat->init(x, y, width, height);
+	_pItemMeat[i]->init(x, y, width, height);
 	*name = item;
 
 }
@@ -815,12 +901,13 @@ void UI::itemRender(HDC hdc)
 
 			_pItemFruit2[i]->render(hdc);
 		}
-	}
-	if (_pItemMeat->getIsAllive())
-	{
+		if (_pItemMeat[i]->getIsAllive())
+		{
 
-		_pItemMeat->render(hdc);
+			_pItemMeat[i]->render(hdc);
+		}
 	}
+	
 
 	/*char str[128];
 	sprintf_s(str, "%d", ss);
@@ -909,16 +996,27 @@ void UI::selectCollision()//알파값 변하는 함수와 선택조건
 				_pItemFruit2[1]->setAlphaCount(255);
 			}
 			//고기
-			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat->getX(), _pItemMeat->getY(), 40, 40)&& KEYMANAGER->isToggleKey(VK_SPACE))
+			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat[0]->getX(), _pItemMeat[0]->getY(), 40, 40)&& KEYMANAGER->isToggleKey(VK_SPACE))
 			{
-				_pItemMeat->setAlphaCountPlus(15);
-				_pItemMeat->setMove(true);
+				_pItemMeat[0]->setAlphaCountPlus(15);
+				_pItemMeat[0]->setMove(true);
 				break;
 			}
 			else
 			{
-				_pItemMeat->setMove(false);
-				_pItemMeat->setAlphaCount(255);
+				_pItemMeat[0]->setMove(false);
+				_pItemMeat[0]->setAlphaCount(255);
+			}
+			if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat[1]->getX(), _pItemMeat[1]->getY(), 40, 40) && KEYMANAGER->isToggleKey(VK_SPACE))
+			{
+				_pItemMeat[1]->setAlphaCountPlus(15);
+				_pItemMeat[1]->setMove(true);
+				break;
+			}
+			else
+			{
+				_pItemMeat[1]->setMove(false);
+				_pItemMeat[1]->setAlphaCount(255);
 			}
 
 
@@ -951,96 +1049,165 @@ void UI::changePlayer()
 
 void UI::moveItem()
 {
-	
-	if ((_pInputMG->getLeft() || _pInputMG->getRight()))
+	//   아이템이랑 셀렉이랑 충돌상태다
+
+	switch (_countNum % 2)//아이템이 이동해서 쓰레기통으로 가냐 안가냐
 	{
+	case 0:
 		for (int i = 0; i < 2; i++)
 		{
-			
-			for (int j = 0; j < 3; j++)
+			if (_pItemFruit2[i]->getMove() == true)
 			{
 
+				_pItemFruit2[i]->setX(_itemFruit2[i].x);
+				_pItemFruit2[i]->setY(_itemFruit2[i].y);
 
-				if (_pItemBoom[i]->getMove() == true && _pItemBoom[i]->getX() != 564 && _pItemBoom[i]->getY() != 402 + 118)
-				{
-					_itemBoom[i].x = _pItemBoom[i]->getX();
-					_itemBoom[i].y = _pItemBoom[i]->getY();
-					_pItemBoom[i]->setX(564);
-					_pItemBoom[i]->setY(402 + 118);
-					_selectStateTemp[j] = _selectState[j];
-					_selectState[j] = SELECT_REMOVE;
-					
-					//좌표 움직임
-					break;
-				}
-				else if (_pItemBoom[i]->getMove() == true && _pItemBoom[i]->getX() == 564 && _pItemBoom[i]->getY() == 402 + 118)
-				{
-					_pItemBoom[i]->setX(_itemBoom[i].x);
-					_pItemBoom[i]->setY(_itemBoom[i].y);
-					_selectState[j] = _selectStateTemp[j];
-					break;
-				}
-				if (_pItemFruit1[i]->getMove() == true && _pItemFruit1[i]->getX() != 564 && _pItemFruit1[i]->getY() != 402 + 118)
-				{
-					_itemFruit1[i].x = _pItemFruit1[i]->getX();
-					_itemFruit1[i].y = _pItemFruit1[i]->getY();
-					_pItemFruit1[i]->setX(564);
-					_pItemFruit1[i]->setY(402 + 118);
-					_selectStateTemp[j] = _selectState[j];
-					_selectState[j] = SELECT_REMOVE;
-					//좌표 움직임
-					break;
-				}
-				else if (_pItemFruit1[i]->getMove() == true && _pItemFruit1[i]->getX() == 564 && _pItemFruit1[i]->getY() == 402 + 118)
-				{
-					_pItemFruit1[i]->setX(_itemFruit1[i].x);
-					_pItemFruit1[i]->setY(_itemFruit1[i].y);
-					_selectState[j] = _selectStateTemp[j];
-					break;
-				}
-				if (_pItemFruit2[i]->getMove() == true && _pItemFruit2[i]->getX() != 564 && _pItemFruit2[i]->getY() != 402 + 118)
-				{
-					_itemFruit2[i].x = _pItemFruit2[i]->getX();
-					_itemFruit2[i].y = _pItemFruit2[i]->getY();
-					_pItemFruit2[i]->setX(564);
-					_pItemFruit2[i]->setY(402 + 118);
-					_selectStateTemp[j] = _selectState[j];
-					_selectState[j] = SELECT_REMOVE;
-					system("pause");
-					
-					//좌표 움직임
-					break;
-				}
-				else if (_pItemFruit2[i]->getMove() == true && _pItemFruit2[i]->getX() == 564 && _pItemFruit2[i]->getY() == 402 + 118)
-				{
-					
-					_pItemFruit2[i]->setX(_itemFruit2[i].x);
-					_pItemFruit2[i]->setY(_itemFruit2[i].y);
-					_selectState[j] = _selectStateTemp[j];
-					break;
-				}
-				if (_pItemMeat->getMove() == true&& _pItemMeat->getX() != 564 && _pItemMeat->getY() != 402 + 118)
-				{
-					
-					_itemMeat[i].x= _pItemMeat->getX();
-					_itemMeat[i].y= _pItemMeat->getY();
-					_pItemMeat->setX(564);
-					_pItemMeat->setY(402 + 118);
-					_selectStateTemp[j] = _selectState[j];
-					_selectState[j] = SELECT_REMOVE;
-					//좌표 움직임
-					break;
-				}
-				else if (_pItemMeat->getMove() == true && _pItemMeat->getX() == 564 && _pItemMeat->getY() == 402 + 118)
-				{
-					_pItemMeat->setX(_itemMeat[i].x);
-					_pItemMeat->setY(_itemMeat[i].y);
-					_selectState[j] = _selectStateTemp[j];
-					break;
-				}
+				//좌표 움직임
+				break;
 			}
 		}
+		
+		break;
+	case 1:
+		
+		//셀렉 좌표랑 아이템 좌표가 휴지통으로감
+		for (int i = 0; i < 2; i++)
+		{
+			if (_pItemFruit2[i]->getMove() == true)
+			{
+				_itemFruit2[i].x = _pItemFruit2[i]->getX();
+				_itemFruit2[i].y = _pItemFruit2[i]->getY();
+				_pItemFruit2[i]->setX(564);
+				_pItemFruit2[i]->setY(402 + 118);
+				_selectStateTemp[0] = _selectState[0];
+				_selectState[0] = SELECT_REMOVE;
+
+
+				//좌표 움직임
+				break;
+			}
+		}
+	
+		break;
 	}
+
+
+	if (_pInputMG->getLeft())
+	{
+		_countLeft++;
+	}
+	else
+	{
+		_countLeft = 0;
+	}
+	if (_pInputMG->getRight())
+	{
+		_countRight++;
+
+
+	}
+	else
+	{
+		_countRight = 0;
+	}
+
+
+	if (_countLeft == 1 || _countRight == 1)
+	{
+		_countNum++;
+	}
+
+
+
+	//if ((_pInputMG->getLeft() || _pInputMG->getRight()))
+	//{
+	//	for (int i = 0; i < 2; i++)
+	//	{
+	//		
+	//		for (int j = 0; j < 3; j++)
+	//		{
+
+
+	//			if (_pItemBoom[i]->getMove() == true && _pItemBoom[i]->getX() != 564 && _pItemBoom[i]->getY() != 402 + 118)
+	//			{
+	//				_itemBoom[i].x = _pItemBoom[i]->getX();
+	//				_itemBoom[i].y = _pItemBoom[i]->getY();
+	//				_pItemBoom[i]->setX(564);
+	//				_pItemBoom[i]->setY(402 + 118);
+	//				_selectStateTemp[j] = _selectState[j];
+	//				_selectState[j] = SELECT_REMOVE;
+	//				
+	//				//좌표 움직임
+	//				break;
+	//			}
+	//			else if (_pItemBoom[i]->getMove() == true && _pItemBoom[i]->getX() == 564 && _pItemBoom[i]->getY() == 402 + 118)
+	//			{
+	//				_pItemBoom[i]->setX(_itemBoom[i].x);
+	//				_pItemBoom[i]->setY(_itemBoom[i].y);
+	//				_selectState[j] = _selectStateTemp[j];
+	//				break;
+	//			}
+	//			if (_pItemFruit1[i]->getMove() == true && _pItemFruit1[i]->getX() != 564 && _pItemFruit1[i]->getY() != 402 + 118)
+	//			{
+	//				_itemFruit1[i].x = _pItemFruit1[i]->getX();
+	//				_itemFruit1[i].y = _pItemFruit1[i]->getY();
+	//				_pItemFruit1[i]->setX(564);
+	//				_pItemFruit1[i]->setY(402 + 118);
+	//				_selectStateTemp[j] = _selectState[j];
+	//				_selectState[j] = SELECT_REMOVE;
+	//				//좌표 움직임
+	//				break;
+	//			}
+	//			else if (_pItemFruit1[i]->getMove() == true && _pItemFruit1[i]->getX() == 564 && _pItemFruit1[i]->getY() == 402 + 118)
+	//			{
+	//				_pItemFruit1[i]->setX(_itemFruit1[i].x);
+	//				_pItemFruit1[i]->setY(_itemFruit1[i].y);
+	//				_selectState[j] = _selectStateTemp[j];
+	//				break;
+	//			}
+	//			if (_pItemFruit2[i]->getMove() == true && _pItemFruit2[i]->getX() != 564 && _pItemFruit2[i]->getY() != 402 + 118)
+	//			{
+	//				_itemFruit2[i].x = _pItemFruit2[i]->getX();
+	//				_itemFruit2[i].y = _pItemFruit2[i]->getY();
+	//				_pItemFruit2[i]->setX(564);
+	//				_pItemFruit2[i]->setY(402 + 118);
+	//				_selectStateTemp[j] = _selectState[j];
+	//				_selectState[j] = SELECT_REMOVE;
+	//				
+	//				
+	//				//좌표 움직임
+	//				break;
+	//			}
+	//			else if (_pItemFruit2[i]->getMove() == true && _pItemFruit2[i]->getX() == 564 && _pItemFruit2[i]->getY() == 402 + 118)
+	//			{
+	//				
+	//				_pItemFruit2[i]->setX(_itemFruit2[i].x);
+	//				_pItemFruit2[i]->setY(_itemFruit2[i].y);
+	//				_selectState[j] = _selectStateTemp[j];
+	//				break;
+	//			}
+	//			if (_pItemMeat->getMove() == true&& _pItemMeat->getX() != 564 && _pItemMeat->getY() != 402 + 118)
+	//			{
+	//				
+	//				_itemMeat[i].x= _pItemMeat->getX();
+	//				_itemMeat[i].y= _pItemMeat->getY();
+	//				_pItemMeat->setX(564);
+	//				_pItemMeat->setY(402 + 118);
+	//				_selectStateTemp[j] = _selectState[j];
+	//				_selectState[j] = SELECT_REMOVE;
+	//				//좌표 움직임
+	//				break;
+	//			}
+	//			else if (_pItemMeat->getMove() == true && _pItemMeat->getX() == 564 && _pItemMeat->getY() == 402 + 118)
+	//			{
+	//				_pItemMeat->setX(_itemMeat[i].x);
+	//				_pItemMeat->setY(_itemMeat[i].y);
+	//				_selectState[j] = _selectStateTemp[j];
+	//				break;
+	//			}
+	//		}
+	//	}
+	//}
 }
 
 
