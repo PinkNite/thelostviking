@@ -23,7 +23,7 @@ void PLAYER::init()
 	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)]->init(100, 415, 64, 64);
 
 	_pViking[static_cast<const int>(VIKINGNAME::OLAF)] = new OLAF();
-	_pViking[static_cast<const int>(VIKINGNAME::OLAF)]->init(100, 100, 64, 64);
+	_pViking[static_cast<const int>(VIKINGNAME::OLAF)]->init(100, 410, 64, 64);
 
 	//처음 시작 바이킹 설정
 	_nCurrentViking = static_cast<int>(VIKINGNAME::ERIC);

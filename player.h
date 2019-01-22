@@ -82,4 +82,7 @@ public:
 	void	nextViking();
 
 	void	deathViking(VIKING::DEATH_MOTION death);
+
+
+	inline VIKING*	getViking(int index) { return _pViking[index]; }
 };
