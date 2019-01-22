@@ -31,22 +31,27 @@ void PLAYER::init()
 
 void PLAYER::update()
 {
-	if (!_pPixelCollision->getCollisionbot(_nCurrentViking))
+	for (int i = 0; i < 3; i++)
 	{
-		if ( _pViking[_nCurrentViking]->getAction() != VIKING::ACTION::ON_LADDER &&  _pViking[_nCurrentViking]->getAction() != VIKING::ACTION::ON_LADDER_OVER)
+		if (!_pPixelCollision->getCollisionbot(i))
 		{
-			_pViking[_nCurrentViking]->pressGravity();
-			_pViking[_nCurrentViking]->setSkillAnimation();
+			if (_pViking[i]->getAction() != VIKING::ACTION::ON_LADDER &&  _pViking[i]->getAction() != VIKING::ACTION::ON_LADDER_OVER)
+			{
+				_pViking[i]->pressGravity();
+				_pViking[i]->setSkillAnimation();
+			}
+
+			_pViking[i]->setIsOnGround(false);
+
+
+		}
+		else {
+			_pViking[i]->setIsOnGround(true);
+			_pViking[i]->falldownAnimation();
 		}
 
-		_pViking[_nCurrentViking]->setIsOnGround(false);
-		
+	}
 
-	}
-	else {
-		_pViking[_nCurrentViking]->setIsOnGround(true);
-		_pViking[_nCurrentViking]->falldownAnimation();
-	}
 
 	if (_pPixelCollision->getCollisionleft(_nCurrentViking) || _pPixelCollision->getCollisionright(_nCurrentViking))
 	{
