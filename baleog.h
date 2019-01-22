@@ -90,9 +90,11 @@ private:
 public:
 	//여러가지 상태로 변하는 애들은 여기서 처리한다.
 	static void	callbackSpecialIdle(void *obj);	//달리는 상태 종류후 나오는 것들
-	
+	static void callbackDeath(void *obj);
+
+
 	void	callbackbaleogSpecialIdle();
 
-
+	void callbackBaleogDeath();
 
 };

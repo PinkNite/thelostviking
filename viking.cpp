@@ -59,6 +59,8 @@ void VIKING::init(int posX, int posY, int width, int height)
 	_speed = 300.0f;
 	_maxSpeed = 560.0f;
 	_minSpeed = 300.0f;
+
+	_isDeath = false;
 }
 
 
@@ -205,7 +207,28 @@ void VIKING::death(DEATH_MOTION death)
 	_state = static_cast<int>(STATE::DEATH_MOTION);
 }
 
-void VIKING::setDeathMotion()
+void VIKING::setDeathMotion(int viking)
 {
+	string strTmp = "";
+	strTmp.append(_arDirection[_direction]);
+	strTmp.append("_");
+	strTmp.append(_arLive[_life]);
+	strTmp.append("_");
+	strTmp.append(_vBehavior[_state][_behavior]);
+
+	if (viking == 0)
+	{
+		_pAnimation = KEYANIMANAGER->findAnimation("eric", strTmp);
+
+	}
+	else if (viking == 1)
+	{
+		_pAnimation = KEYANIMANAGER->findAnimation("baleog", strTmp);
+
+	}
+	else if (viking == 2)
+	{
+		_pAnimation = KEYANIMANAGER->findAnimation("olaf", strTmp);
+	}
 }
 

@@ -109,6 +109,7 @@ protected:
 	animation*		_pAnimation;				//실행할 애니메이션을 담는다
 	bool			_isOnGround;
 
+	bool			_isDeath;
 public:
 	void init(int posX, int posY, int width, int height);
 	virtual void update()			abstract;
@@ -128,14 +129,14 @@ public:
 	inline image* getIamge() { return _pImg; }
 	inline bool getIsOnGround() {return _isOnGround; }
 	inline int	getState() { return _state; }
-
+	inline bool getIsDeath() { return _isDeath; }
 
 	inline void setPosX(float posX) { _posX = posX; }
 	inline void setPosY(float posY) { _posY = posY; }
 	inline void setWidth(int width) { _width = width; }
 	inline void setHeight(int height) { _height = height; }
 	inline void	setIsOnGround(bool isOnGround) { _isOnGround = isOnGround; }
-
+	inline void setIsDeath(bool isDeath) { _isDeath = isDeath; }
 	//이동함수
 	//움직임 애니메이션 변경 생각
 	//현 상태를 본다.
@@ -179,5 +180,5 @@ public:
 
 	virtual void	death(DEATH_MOTION death);
 
-	virtual void	setDeathMotion();
+	virtual void	setDeathMotion(int viking);
 };

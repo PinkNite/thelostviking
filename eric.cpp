@@ -222,9 +222,9 @@ void ERIC::initKeyAnimation()
 		67, 11, 10, false, callbackStun);
 
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO),
-		78, 4, 10, false, callbackJump);
+		78, 4, 10, false);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO),
-		82, 4, 10, false, callbackJump);
+		82, 4, 10, false);
 
 	addRightAliveAnimation(VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::SPECIAL),
 		86, 3, 2, false, 3, callbackBreath);
@@ -255,6 +255,21 @@ void ERIC::initKeyAnimation()
 		178, 1, 1, true);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN),
 		180, 1, 1, true);
+
+	addLeftDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::ELECTRIC),
+		152, 2, 2, false, 5, callbackDeath);
+	addRightDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::ELECTRIC),
+		150, 2, 2, false, 5, callbackDeath);
+
+	addRightDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::DROP),
+		196, 6, 2, false, callbackDeath);
+	addLeftDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::DROP),
+		202, 6, 2, false, callbackDeath);
+
+	addRightDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::SHOT),
+		208, 7, 2, false, callbackDeath);
+	addLeftDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::SHOT),
+		215, 7, 2, false, callbackDeath);
 
 
 	KEYANIMANAGER->findAnimation("eric",
@@ -486,6 +501,32 @@ void ERIC::addRightAliveAnimationCoordinate(VIKING::STATE state, int behevior, i
 	KEYANIMANAGER->addCoordinateFrameAnimation("eric", strTmp, "eric", _arTmpFrame[0], _arTmpFrame[length - 1], fps, isReverse, isLoop, pCallBack, this);
 }
 
+void ERIC::addLeftDeathAnimationCoordinate(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isReverse, bool isLoop, void * pCallBack)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::DEATH)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addCoordinateFrameAnimation("eric", strTmp, "eric", _arTmpFrame[0], _arTmpFrame[length - 1], fps, isReverse, isLoop, pCallBack, this);
+}
+
+void ERIC::addRightDeathAnimationCoordinate(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isReverse, bool isLoop, void * pCallBack)
+{
+	string strTmp = "";
+	//키스트링 만들기
+	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::DEATH)],
+		VIKING::_vBehavior[static_cast<int>(state)][behevior]);
+	//배열 프레임 맞추어서 만들기
+	settingAniArray(startFrame, length);
+
+	KEYANIMANAGER->addCoordinateFrameAnimation("eric", strTmp, "eric", _arTmpFrame[0], _arTmpFrame[length - 1], fps, isReverse, isLoop, pCallBack, this);
+}
+
 void ERIC::addLeftAliveAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, int loopCount, void * pCallBack)
 {
 	string strTmp = "";
@@ -670,21 +711,7 @@ void ERIC::falldownAnimation()
 }
 
 
-void ERIC::callbackRun(void *obj)
-{
-	//해딩
-	//아이들
-	//점프
-	//한숨
-}
 
-void ERIC::callbackJump(void *obj)
-{
-
-	ERIC* pEric = (ERIC*)obj;
-	pEric->callbackEricJump();
-
-}
 
 void ERIC::callbackHading(void *obj)
 {
@@ -708,21 +735,13 @@ void ERIC::callbackBreath(void * obj)
 	pEric->callbackEricBreath();
 }
 
-
-void ERIC::callbackEricRun()
+void ERIC::callbackDeath(void * obj)
 {
+	ERIC* pEric = (ERIC*)obj;
+	pEric->callBackDeath();
 }
 
-void ERIC::callbackEricJump()
-{
-	//달리기
-	//아이들
-	//떨어지기
-	//아이들로 바꾸고 달리게 한다?
 
-
-
-}
 
 void ERIC::callbackEricHading()
 {
@@ -770,4 +789,9 @@ void ERIC::callbackEricFallDown()
 		setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::STUN));
 	}
 	setIsOnGround(true);
+}
+
+void ERIC::callBackDeath()
+{
+	VIKING::_isDeath = true;
 }

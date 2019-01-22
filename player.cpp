@@ -33,6 +33,7 @@ void PLAYER::update()
 {
 	for (int i = 0; i < 3; i++)
 	{
+		if (_pViking[_nCurrentViking]->getIsDeath()) continue;
 		if (!_pPixelCollision->getCollisionbot(i))
 		{
 			if (_pViking[i]->getAction() != VIKING::ACTION::ON_LADDER &&  _pViking[i]->getAction() != VIKING::ACTION::ON_LADDER_OVER)
@@ -72,6 +73,8 @@ void PLAYER::render(HDC hdc)
 
 	for (int i = 0; i < 3; i++)
 	{
+		if (_pViking[_nCurrentViking]->getIsDeath()) continue;
+
 		if (static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState()) != VIKING::STATE::DEATH_MOTION)
 		{
 			_pViking[i]->render(hdc);
@@ -298,6 +301,17 @@ void PLAYER::setLeft()
 void PLAYER::nextViking()
 {
 	_nCurrentViking++;
+	int nCount = 0;
+	while (_pViking[_nCurrentViking]->getIsDeath() && nCount < 3)
+	{
+		_nCurrentViking++;
+		if (_nCurrentViking > 2)
+		{
+			_nCurrentViking = 0;
+		}
+		nCount++;
+	}
+
 	if (_nCurrentViking > 2)
 	{
 		_nCurrentViking = 0;
@@ -307,4 +321,5 @@ void PLAYER::nextViking()
 void PLAYER::deathViking(VIKING::DEATH_MOTION death)
 {
 	_pViking[_nCurrentViking]->death(death);
+	_pViking[_nCurrentViking]->setDeathMotion(_nCurrentViking);
 }

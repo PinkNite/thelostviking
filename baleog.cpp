@@ -241,6 +241,23 @@ void BALEOG::initKeyAnimation()
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN), 186, 1, 2, true);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN), 187, 1, 2, true);
 
+
+	addLeftDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::ELECTRIC),
+		152, 2, 2, false, 5, callbackDeath);
+	addRightDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::ELECTRIC),
+		150, 2, 2, false, 5, callbackDeath);
+
+	addRightDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::DROP),
+		176, 5, 2, false, callbackDeath);
+	addLeftDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::DROP),
+		181, 5, 2, false, callbackDeath);
+
+	addRightDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::SHOT),
+		188, 7, 2, false, callbackDeath);
+	addLeftDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::SHOT),
+		195, 7, 2, false, callbackDeath);
+
+
 	KEYANIMANAGER->findAnimation("baleog",
 		addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
 			VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
@@ -661,9 +678,20 @@ void BALEOG::callbackSpecialIdle(void * obj)
 	pBalog->callbackbaleogSpecialIdle();
 }
 
+void BALEOG::callbackDeath(void * obj)
+{
+	BALEOG* pBalog = (BALEOG*)obj;
+	pBalog->callbackBaleogDeath();
+}
+
 void BALEOG::callbackbaleogSpecialIdle()
 {
 	setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	_isUsingSkillTwo = false;
+}
+
+void BALEOG::callbackBaleogDeath()
+{
+	VIKING::_isDeath = true;
 }
 

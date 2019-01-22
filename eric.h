@@ -53,6 +53,9 @@ private:
 
 	void	addLeftAliveAnimationCoordinate(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isReverse, bool isLoop, void * pCallBack);
 	void	addRightAliveAnimationCoordinate(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isReverse, bool isLoop, void * pCallBack);
+	void	addLeftDeathAnimationCoordinate(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isReverse, bool isLoop, void * pCallBack);
+	void	addRightDeathAnimationCoordinate(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isReverse, bool isLoop, void * pCallBack);
+
 
 	void	addLeftAliveAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, int loopCount, void * pCallBack);
 	void	addRightAliveAnimation(VIKING::STATE state, int behevior, int startFrame, int length, int fps, bool isLoop, int loopCount, void * pCallBack);
@@ -77,19 +80,19 @@ private:
 
 public:
 	//여러가지 상태로 변하는 애들은 여기서 처리한다.
-	static void	callbackRun(void *obj);	//달리는 상태 종류후 나오는 것들
-	static void	callbackJump(void *obj);	//점프후 나오는 상태 종류
+
 	static void	callbackHading(void *obj);//해딩후 나올수 있는 것들
 	static void	callbackStun(void* obj);//스턴후
 	static void callbackBreath(void* obj);
 
-	void	callbackEricRun();	//달리는 상태 종류후 나오는 것들
-	void	callbackEricJump();	//점프후 나오는 상태 종류
+	static void callbackDeath(void* obj);
+
+
 	void	callbackEricHading();//해딩후 나올수 있는 것들
 	void	callbackEricStun();//스턴후
 	void	callbackEricBreath();
 	void	callbackEricFallDown();
 
-
+	void	callBackDeath();
 
 };
