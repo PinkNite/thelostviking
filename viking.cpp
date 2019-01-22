@@ -111,7 +111,7 @@ void VIKING::moveDown(float acceleration)
 
 bool VIKING::stunStop()
 {
-	if (static_cast<VIKING::ACTION>(_behavior) == VIKING::ACTION::STUN)
+	if (static_cast<VIKING::ACTION>(_behavior) == VIKING::ACTION::STUN && static_cast<VIKING::STATE>(_state) == VIKING::STATE::ACTION)
 	{
 		return true;
 	}
