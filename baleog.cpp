@@ -79,6 +79,11 @@ void BALEOG::initKeyAnimation()
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER_OVER), 70, 2, 2, true);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER_OVER), 70, 2, 2, true);
 
+	addRightAliveAnimation(VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::SPECIAL), 72, 8, 2, true);
+	addLeftAliveAnimation(VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::SPECIAL), 80, 8, 2, true);
+
+	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FLY), 72, 8, 2, true);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FLY), 80, 8, 2, true);
 
 
 	setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));

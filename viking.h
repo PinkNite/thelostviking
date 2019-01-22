@@ -58,6 +58,8 @@ public:
 		SKILL_ONE,
 		SKILL_TWO,
 		SKILL_SPECIAL,
+		FLY,
+		FLY_TURN,
 		MAX
 	};
 
