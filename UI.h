@@ -139,7 +139,9 @@ public:
 
 	void moveItemTrashCan(int j);
 	void moveTrashCanItem(int j);
-
+	void playerDeath();
+	void useItem();
+	void useSelectCollisionItem();
 	SELECTSTATE conveyValue(SELECTSTATE* ss) { return *ss; }
 
 public:

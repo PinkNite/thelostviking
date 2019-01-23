@@ -108,11 +108,11 @@ void INPUTMANAGER::update()
 			_pPlayer->setLadderAnimation(0);
 		}
 	}
-	if (KEYMANAGER->isOnceKeyDown('S'))
+	if (KEYMANAGER->isOnceKeyDown('E'))
 	{
 		_isUse = true;
 	}
-	if (KEYMANAGER->isOnceKeyUp('S'))
+	if (KEYMANAGER->isOnceKeyUp('E'))
 	{
 		_isUse = false;
 	}
