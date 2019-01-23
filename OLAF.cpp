@@ -51,7 +51,8 @@ void OLAF::update()
 
 
 	if (VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER) ||
-		VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER_OVER))
+		VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER_OVER) ||
+		getIsUpperGravity())
 	{
 		_fallingTime = 0.0f;
 	}
@@ -139,110 +140,89 @@ void OLAF::initKeyAnimation()
 	VIKING::setImage(IMAGEMANAGER->findImage(this->_name));
 	KEYANIMANAGER->addObject(this->_name);
 
-	string idleNormal = VIKING::_vBehavior[int(VIKING::STATE::IDLE)][int(VIKING::IDLE::NORMAL)];
-	{
-		string blockFront = VIKING::_arOlafShield[int(VIKING::OLAFSHIELD::BLOCK_FRONT)];
-		addRightAliveAnimation(blockFront, idleNormal, 0, 1, 1, true);
-		addLeftAliveAnimation(blockFront, idleNormal, 1, 1, 1, true);
+	addRightAliveAnimation(VIKING::OLAFSHIELD::BLOCK_FRONT, VIKING::STATE::IDLE, int(VIKING::IDLE::NORMAL), 0, 1, 1, true);
+	addLeftAliveAnimation(VIKING::OLAFSHIELD::BLOCK_FRONT, VIKING::STATE::IDLE, int(VIKING::IDLE::NORMAL), 1, 1, 1, true);
+	addRightAliveAnimation(VIKING::OLAFSHIELD::BLOCK_TOP, VIKING::STATE::IDLE, int(VIKING::IDLE::NORMAL), 2, 1, 1, true);
+	addLeftAliveAnimation(VIKING::OLAFSHIELD::BLOCK_TOP, VIKING::STATE::IDLE, int(VIKING::IDLE::NORMAL), 3, 1, 1, true);
 
-		string blockTop = VIKING::_arOlafShield[int(VIKING::OLAFSHIELD::BLOCK_TOP)];
-		addRightAliveAnimation(blockTop, idleNormal, 2, 1, 1, true);
-		addLeftAliveAnimation(blockTop, idleNormal, 3, 1, 1, true);
-	}
+	addRightAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::TELEPORT), 4, 7, 3, false);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::TELEPORT), 11, 7, 3, false);
 
-	string actionTeleport = VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::TELEPORT)];
-	{
-		addRightAliveAnimation(actionTeleport, 4, 7, 3, false);
-		addLeftAliveAnimation(actionTeleport, 11, 7, 3, false);
-	}
+	// 전방우이동
+	addRightAliveAnimation(VIKING::OLAFSHIELD::BLOCK_FRONT, VIKING::STATE::ACTION, int(VIKING::ACTION::RUN),18, 8, 4, true);
+	// 전방좌이동
+	addLeftAliveAnimation(VIKING::OLAFSHIELD::BLOCK_FRONT, VIKING::STATE::ACTION, int(VIKING::ACTION::RUN), 26, 8, 4, true);
 
-	string actionRun = VIKING::_vBehavior[int(VIKING::STATE::ACTION)][int(VIKING::ACTION::RUN)];
-	{
-		string blockFront = VIKING::_arOlafShield[int(VIKING::OLAFSHIELD::BLOCK_FRONT)];
-		// 전방우이동
-		addRightAliveAnimation(blockFront, actionRun, 18, 8, 4, true);
-		// 전방좌이동
-		addLeftAliveAnimation(blockFront, actionRun, 26, 8, 4, true);
+	// 상방우이동
+	addRightAliveAnimation(VIKING::OLAFSHIELD::BLOCK_TOP, VIKING::STATE::ACTION, int(VIKING::ACTION::RUN), 34, 8, 4, true);
+	// 상방좌이동
+	addLeftAliveAnimation(VIKING::OLAFSHIELD::BLOCK_TOP, VIKING::STATE::ACTION, int(VIKING::ACTION::RUN), 42, 8, 4, true);
 
-		string blockTop = VIKING::_arOlafShield[int(VIKING::OLAFSHIELD::BLOCK_TOP)];
-		// 상방우이동
-		addRightAliveAnimation(blockTop, actionRun, 34, 8, 4, true);
-		// 상방좌이동
-		addLeftAliveAnimation(blockTop, actionRun, 42, 8, 4, true);
-	}
+	// 상방일때 바지 내려가는 액션
+	addRightAliveAnimation(VIKING::OLAFSHIELD::BLOCK_TOP, VIKING::STATE::IDLE, int(VIKING::IDLE::SPECIAL), 50, 4, 2, false);
+	addLeftAliveAnimation(VIKING::OLAFSHIELD::BLOCK_TOP, VIKING::STATE::IDLE, int(VIKING::IDLE::SPECIAL), 54, 4, 2, false);
 
-	string idleSpecial = VIKING::_vBehavior[int(VIKING::STATE::IDLE)][int(VIKING::IDLE::SPECIAL)];
-	{
-		// 상방일때 바지 내려가는 액션
-		string blockTop = VIKING::_arOlafShield[int(VIKING::OLAFSHIELD::BLOCK_TOP)];
-		addRightAliveAnimation(blockTop, idleSpecial, 50, 4, 2, false);
-		addLeftAliveAnimation(blockTop, idleSpecial, 54, 4, 2, false);
+	// 전방일때 코파는 액션
+	addRightAliveAnimation(VIKING::OLAFSHIELD::BLOCK_FRONT, VIKING::STATE::IDLE, int(VIKING::IDLE::SPECIAL), 58, 4, 2, false);
+	addLeftAliveAnimation(VIKING::OLAFSHIELD::BLOCK_FRONT, VIKING::STATE::IDLE, int(VIKING::IDLE::SPECIAL), 61, 4, 2, false);
 
-		// 전방일때 코파는 액션
-		string blockFront = VIKING::_arOlafShield[int(VIKING::OLAFSHIELD::BLOCK_FRONT)];
-		addRightAliveAnimation(blockFront, idleSpecial, 58, 4, 2, false);
-		addLeftAliveAnimation(blockFront, idleSpecial, 61, 4, 2, false);
-	}
+	// 사다리 
+	addRightAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::ON_LADDER), 64, 4, 2, true);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::ON_LADDER), 64, 4, 2, true);
+	addRightAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::ON_LADDER_OVER), 68, 2, 1, true);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::ON_LADDER_OVER), 68, 2, 1, true);
 
-	{ // 사다리
-		string actionLadder = VIKING::_vBehavior[int(VIKING::STATE::ACTION)][int(VIKING::ACTION::ON_LADDER)];
-		addRightAliveAnimation(actionLadder, 64, 4, 2, true);
-		addLeftAliveAnimation(actionLadder, 64, 4, 2, true);
+	// 비행 턴
+	addRightAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::FLY_TURN), 74, 2, 1, false);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::FLY_TURN), 76, 2, 1, false);
 
-		string actionLadderOver = VIKING::_vBehavior[int(VIKING::STATE::ACTION)][int(VIKING::ACTION::ON_LADDER_OVER)];
-		addRightAliveAnimation(actionLadderOver, 68, 2, 1, true);
-		addLeftAliveAnimation(actionLadderOver, 68, 2, 1, true);
-	}
+	//비행
+	addRightAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::FLY), 70, 2, 1, false);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::FLY), 72, 2, 1, false);
+	
+	// damage
+	addRightAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::DAMEGE), 78, 1, 1, false);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::DAMEGE), 79, 1, 1, false);
 
-	string actionFlyTurn = VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::FLY_TURN)];
-	{ // 비행 턴
-		addRightAliveAnimation(actionFlyTurn, 74, 2, 1, false);
-		addLeftAliveAnimation(actionFlyTurn, 76, 2, 1, false);
-	}
+	// 낙하 원
+	addRightAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::FALLDOWN), 80, 2, 1, true);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::FALLDOWN), 82, 2, 1, true);
 
-	string actionFly = VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::FLY)];
-	{ // 비행
-		addRightAliveAnimation(actionFly, 70, 2, 1, false);
-		addLeftAliveAnimation(actionFly, 72, 2, 1, false);
-	}
+	// 낙하 투: 사망각 
+	addRightAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::SKILL_TWO), 94, 2, 1, false);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::SKILL_TWO), 96, 2, 1, false);
 
-	string actionDamage = VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::DAMEGE)];
-	{ // Damage
-		addRightAliveAnimation(actionDamage, 78, 1, 1, false);
-		addLeftAliveAnimation(actionDamage, 79, 1, 1, false);
-	}
+	//  밀기
+	addRightAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::PUSH), 84, 4, 2, true);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::PUSH), 88, 4, 2, true);
 
-	string actionFallDown1 = VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::FALLDOWN)];
-	{ // 낙하 원
-		addRightAliveAnimation(actionFallDown1, 80, 2, 1, true);
-		addLeftAliveAnimation(actionFallDown1, 82, 2, 1, true);
-	}
+	//  풍선
+	addRightAliveAnimation(VIKING::STATE::IDLE, int(VIKING::IDLE::FAT), 92, 2, 1, false);
+	addLeftAliveAnimation(VIKING::STATE::IDLE, int(VIKING::IDLE::FAT), 94, 2, 1, false);
 
-	string actionFallDown2 = VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::SKILL_TWO)];
-	{ // 낙하 투: 사망각 
-		addRightAliveAnimation(actionFallDown2, 94, 2, 1, false);
-		addLeftAliveAnimation(actionFallDown2, 96, 2, 1, false);
-	}
-
-	string actionPush = VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::PUSH)];
-	{ //  밀기
-		addRightAliveAnimation(actionPush, 84, 4, 2, true);
-		addLeftAliveAnimation(actionPush, 88, 4, 2, true);
-	}
-
-	string idleFat = VIKING::_vBehavior[static_cast<int>(VIKING::STATE::IDLE)][static_cast<int>(VIKING::IDLE::FAT)];
-	{ //  풍선
-		addRightAliveAnimation(idleFat, 92, 2, 1, false);
-		addLeftAliveAnimation(idleFat, 94, 2, 1, false);
-	}
-
-	{ // 낙하 충돌 
-		addRightAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::STUN), 98, 5, 2, false, callbackSpecialIdle);
-		addLeftAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::STUN), 103, 5, 2, false, callbackSpecialIdle);
-	}
+	// 낙하 충돌 
+	addRightAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::STUN), 98, 5, 2, false, callbackSpecialIdle);
+	addLeftAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::STUN), 103, 5, 2, false, callbackSpecialIdle);
 
 	addRightAliveAnimationCoordinate(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE), 40, 8, 5, true, false, callbackSpecialIdle);
 	addLeftAliveAnimationCoordinate(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE), 48, 8, 5, true, false, callbackSpecialIdle);
+
+
+	addLeftDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::ELECTRIC),
+		133, 2, 2, false, 5, callbackDeath);
+	addRightDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::ELECTRIC),
+		135, 2, 2, false, 5, callbackDeath);
+
+	addRightDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::DROP),
+		159, 6, 3, false, callbackDeath);
+	addLeftDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::DROP),
+		165, 6, 3, false, callbackDeath);
+
+	addRightDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::SHOT),
+		171, 7, 3, false, callbackDeath);
+	addLeftDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::SHOT),
+		178, 7, 3, false, callbackDeath);
+
 
 	KEYANIMANAGER->findAnimation(this->_name,
 		addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
@@ -318,70 +298,30 @@ void OLAF::addKeyAnimation(VIKING::OLAFSHIELD shield, VIKING::DIRECTION directio
 	KEYANIMANAGER->addArrayFrameAnimation(this->_name, strTmp, this->_name.c_str(), _arTmpFrame, length, fps, isLoop);
 }
 
-void OLAF::addLeftAliveAnimation(string shield, string action, int startFrame, int length, int fps, bool isLoop)
+void OLAF::addLeftAliveAnimation(OLAF::OLAFSHIELD shield, VIKING::STATE state, int behavior, int startFrame, int length, int fps, bool isLoop)
 {
 	string strTmp = "";
 	//키스트링 만들기
-	strTmp = addString(shield,
+	strTmp = addString(
+		VIKING::_arOlafShield[int(shield)],
 		VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
-		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)], action);
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+		VIKING::_vBehavior[static_cast<int>(state)][behavior]);
 	//배열 프레임 맞추어서 만들기
 	settingAniArray(startFrame, length);
+
 	KEYANIMANAGER->addArrayFrameAnimation(this->_name, strTmp, this->_name.c_str(), _arTmpFrame, length, fps, isLoop);
 }
 
-void OLAF::addRightAliveAnimation(string shield, string action, int startFrame, int length, int fps, bool isLoop)
+void OLAF::addRightAliveAnimation(OLAF::OLAFSHIELD shield, VIKING::STATE state, int behavior, int startFrame, int length, int fps, bool isLoop)
 {
 	string strTmp = "";
 	//키스트링 만들기
-	strTmp = addString(shield,
+	strTmp = addString(
+		VIKING::_arOlafShield[int(shield)],
 		VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
-		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)], action);
-	//배열 프레임 맞추어서 만들기
-	settingAniArray(startFrame, length);
-	KEYANIMANAGER->addArrayFrameAnimation(this->_name, strTmp, this->_name.c_str(), _arTmpFrame, length, fps, isLoop);
-}
-
-void OLAF::addLeftAliveAnimation(string action, int startFrame, int length, int fps, bool isLoop)
-{
-	string strTmp = "";
-	//키스트링 만들기
-	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
-		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)], action);
-	//배열 프레임 맞추어서 만들기
-	settingAniArray(startFrame, length);
-	KEYANIMANAGER->addArrayFrameAnimation(this->_name, strTmp, this->_name.c_str(), _arTmpFrame, length, fps, isLoop);
-}
-
-void OLAF::addRightAliveAnimation(string action, int startFrame, int length, int fps, bool isLoop)
-{
-	string strTmp = "";
-	//키스트링 만들기
-	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
-		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)], action);
-	//배열 프레임 맞추어서 만들기
-	settingAniArray(startFrame, length);
-	KEYANIMANAGER->addArrayFrameAnimation(this->_name, strTmp, this->_name.c_str(), _arTmpFrame, length, fps, isLoop);
-}
-
-void OLAF::addLeftDeathAnimation(string action, int startFrame, int length, int fps, bool isLoop)
-{
-	string strTmp = "";
-	//키스트링 만들기
-	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::LEFT)],
-		VIKING::_arLive[static_cast<int>(VIKING::LIFE::DEATH)], action);
-	//배열 프레임 맞추어서 만들기
-	settingAniArray(startFrame, length);
-
-	KEYANIMANAGER->addArrayFrameAnimation(this->_name, strTmp, this->_name.c_str(), _arTmpFrame, length, fps, isLoop);
-}
-
-void OLAF::addRightDeathAnimation(string action, int startFrame, int length, int fps, bool isLoop)
-{
-	string strTmp = "";
-	//키스트링 만들기
-	strTmp = addString(VIKING::_arDirection[static_cast<int>(VIKING::DIRECTION::RIGHT)],
-		VIKING::_arLive[static_cast<int>(VIKING::LIFE::DEATH)], action);
+		VIKING::_arLive[static_cast<int>(VIKING::LIFE::ALIVE)],
+		VIKING::_vBehavior[static_cast<int>(state)][behavior]);
 	//배열 프레임 맞추어서 만들기
 	settingAniArray(startFrame, length);
 
@@ -717,10 +657,10 @@ void OLAF::setPushWallAni(bool isCollisionWall)
 void OLAF::callbackSpecialIdle(void * obj)
 {
 	OLAF* pOlaf = (OLAF*)obj;
-	pOlaf->callbackbaleogSpecialIdle();
+	pOlaf->callbackOlafSpecialIdle();
 }
 
-void OLAF::callbackbaleogSpecialIdle()
+void OLAF::callbackOlafSpecialIdle()
 {
 	setAnimation(VIKING::OLAFSHIELD(OLAF::_whereBlock), static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	_isUsingSkillTwo = false;
@@ -730,3 +670,16 @@ void OLAF::callbackbaleogSpecialIdle()
 void OLAF::callbackFallDown()
 {
 }
+
+void OLAF::callbackDeath(void * obj)
+{
+	OLAF* pBalog = (OLAF*)obj;
+	pBalog->callbackOlafDeath();
+}
+
+void OLAF::callbackOlafDeath()
+{
+	VIKING::_isDeath = true;
+}
+
+

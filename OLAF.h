@@ -31,16 +31,9 @@ private:
 	string	addString(string shield, string direction, string live, string action);
 	void	addKeyAnimation(VIKING::DIRECTION direction, VIKING::LIFE life, string action, int startFrame, int length, int fps, bool isLoop);
 	void	addKeyAnimation(VIKING::OLAFSHIELD shield, VIKING::DIRECTION direction, VIKING::LIFE life, string action, int startFrame, int length, int fps, bool isLoop);
-	
-	void	addLeftAliveAnimation(string shield, string action, int startFrame, int length, int fps, bool isLoop);
-	void	addRightAliveAnimation(string shield, string action, int startFrame, int length, int fps, bool isLoop);
 
-	void	addLeftAliveAnimation(string action, int startFrame, int length, int fps, bool isLoop);
-	void	addRightAliveAnimation(string action, int startFrame, int length, int fps, bool isLoop);
-
-	void	addLeftDeathAnimation(string action, int startFrame, int length, int fps, bool isLoop);
-	void	addRightDeathAnimation(string action, int startFrame, int length, int fps, bool isLoop);
-
+	void	addLeftAliveAnimation(OLAF::OLAFSHIELD shield, VIKING::STATE state, int behavior, int startFrame, int length, int fps, bool isLoop);
+	void	addRightAliveAnimation(OLAF::OLAFSHIELD shield, VIKING::STATE state, int behavior, int startFrame, int length, int fps, bool isLoop);
 
 	void	addLeftAliveAnimation(VIKING::STATE state, int behavior, int startFrame, int length, int fps, bool isLoop);
 	void	addRightAliveAnimation(VIKING::STATE state, int behavior, int startFrame, int length, int fps, bool isLoop);
@@ -73,9 +66,16 @@ private:
 	virtual void	falldownAnimation() override;
 	virtual void	setPushWallAni(bool isCollisionWall) override;
 
+
+public:
+
 	static void callbackSpecialIdle(void * obj);
-	void callbackbaleogSpecialIdle();
+	static void callbackDeath(void *obj);
+
+	void callbackOlafSpecialIdle();
 	void callbackFallDown();
+
+	void callbackOlafDeath();
 
 };
 
