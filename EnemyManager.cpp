@@ -62,10 +62,14 @@ void EnemyManager::render(HDC hdc)
 	}*/
 
 	// included: algorithm for lambda
-	std::for_each(_vEnemy.begin(), _vEnemy.end(), [&](auto& enemy) {
-		enemy->render(hdc);
-	});
+	//std::for_each(_vEnemy.begin(), _vEnemy.end(), [&](auto& enemy) {
+	//	enemy->render(hdc);
+	//});
 
+	for (int i = 0; i < getEnemySize(); i++)
+	{
+		_vEnemy[i]->render(hdc);
+	}
 }
 
 void EnemyManager::addEnemy(int count, ENEMY::ENEMY_TYPE type)
@@ -85,5 +89,11 @@ void EnemyManager::addEnemy(int count, ENEMY::ENEMY_TYPE type)
 
 		_vEnemy.push_back(enemy);
 	}
+}
+
+void EnemyManager::deleteEnemy(int nIndex)
+{
+	_vEnemy[nIndex]->release();
+	_vEnemy.erase(_vEnemy.begin() + nIndex);
 }
 

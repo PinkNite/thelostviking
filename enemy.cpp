@@ -136,7 +136,8 @@ void ENEMY::moveUpdate()
 
 void ENEMY::release()
 {
-	delete _pAnimation;
+	_pAnimation = nullptr;
+	//delete _pAnimation;
 	_vAniFrame.clear();
 }
 

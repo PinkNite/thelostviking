@@ -93,6 +93,7 @@ void PLAYER::update()
 		nextViking();
 	}
 	
+	playerAttack();
 }
 
 void PLAYER::release()
@@ -383,7 +384,41 @@ void PLAYER::playerAttack()
 	{
 		if (VIKING::ACTION::SKILL_ONE == static_cast<VIKING::ACTION>(_pViking[_nCurrentViking]->getBehavior()) && VIKING::STATE::ACTION == static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState()))
 		{
+			RECT rcMon;
+			POINT ptPlayer;
+			if (static_cast<VIKING::DIRECTION>(_pViking[_nCurrentViking]->getDirection() )== VIKING::DIRECTION::LEFT)
+			{
+				ptPlayer.x = _pViking[_nCurrentViking]->getPosX() - _pViking[_nCurrentViking]->getWidth() / 2;
+				ptPlayer.y = _pViking[_nCurrentViking]->getPosY();
 
+				for (int i = 0; i < _pEnemyMgr->getEnemySize(); i++)
+				{
+					rcMon = RectMakeCenter(_pEnemyMgr->getEnemy()[i]->getPosX(), _pEnemyMgr->getEnemy()[i]->getPosY(), _pEnemyMgr->getEnemy()[i]->getWidth(), _pEnemyMgr->getEnemy()[i]->getHeight());
+
+					if (PtInRect(&rcMon,ptPlayer))
+					{
+						_pEnemyMgr->deleteEnemy(i);
+						i--;
+					}
+				}
+			}
+			else
+			{
+				ptPlayer.x = _pViking[_nCurrentViking]->getPosX() + _pViking[_nCurrentViking]->getWidth() / 2;
+				ptPlayer.y = _pViking[_nCurrentViking]->getPosY();
+
+				for (int i = 0; i < _pEnemyMgr->getEnemySize(); i++)
+				{
+					rcMon = RectMakeCenter(_pEnemyMgr->getEnemy()[i]->getPosX(), _pEnemyMgr->getEnemy()[i]->getPosY(), _pEnemyMgr->getEnemy()[i]->getWidth(), _pEnemyMgr->getEnemy()[i]->getHeight());
+
+					if (PtInRect(&rcMon, ptPlayer))
+					{
+						_pEnemyMgr->deleteEnemy(i);
+						break;
+					}
+				}
+
+			}
 		}
 	}
 	//발로그 검 활

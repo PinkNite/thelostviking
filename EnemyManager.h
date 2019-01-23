@@ -50,6 +50,6 @@ public:
 
 	vEnemy&	getEnemy() { return _vEnemy; }
 	viEnemy getEnemyIter() { return _viEnemy; }
-	
+	void	deleteEnemy(int nIndex);
 };
 
