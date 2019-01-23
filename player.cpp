@@ -460,7 +460,8 @@ void PLAYER::playerAttack()
 
 					if (PtInRect(&rcMon, ptPlayer))
 					{
-						_pEnemyMgr->deleteEnemy(i);
+						_pEnemyMgr->setDeath(i);
+						//_pEnemyMgr->deleteEnemy(i);
 
 						break;
 					}
@@ -477,7 +478,8 @@ void PLAYER::playerAttack()
 
 					if (PtInRect(&rcMon, ptPlayer))
 					{
-						_pEnemyMgr->deleteEnemy(i);
+						_pEnemyMgr->setDeath(i);
+						//_pEnemyMgr->deleteEnemy(i);
 
 						break;
 					}
@@ -496,7 +498,8 @@ void PLAYER::playerAttack()
 				RECT rcTmp;
 				if (IntersectRect(&rcTmp, &rcMon, &rcArrow))
 				{
-					_pEnemyMgr->deleteEnemy(i);
+					_pEnemyMgr->setDeath(i);
+					//_pEnemyMgr->deleteEnemy(i);
 					pArrow->setDelete(true);
 					break;
 				}

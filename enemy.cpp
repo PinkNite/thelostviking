@@ -19,52 +19,65 @@ void ENEMY::init(int posX, int posY, int width, int height, float speed, ENEMY_T
 	
 	_startX = posX;
 	
-	_moveRange = 200.0f;
+	_moveRange = 300.0f;
 	
 	_endX = _startX + _moveRange;
 
 	_attackRange = 200.0f;
 
+	_fpsCount = 0.0f;
+
 	setEnemyType(type);
+
 }
 
 void ENEMY::update()
 {
-	if (_moveType != ENEMY_MOVE_TYPE::STAND)
+	if (ENEMY_STATE::DEATH != _state)
 	{
-		if (_startX >= OBJECT::_posX)
+		if (_moveType != ENEMY_MOVE_TYPE::STAND)
 		{
-			stateUpdate(ENEMY_STATE::MOVE_RIGHT);
+			if (_startX >= OBJECT::_posX)
+			{
+				stateUpdate(ENEMY_STATE::MOVE_RIGHT);
+			}
+
+			if (OBJECT::_posX >= _endX)
+			{
+				stateUpdate(ENEMY_STATE::MOVE_LEFT);
+			}
+
 		}
-		
-		if (OBJECT::_posX >= _endX )
+		else
 		{
-			stateUpdate(ENEMY_STATE::MOVE_LEFT);
+			// TODO: 플레이어가 근접한경우 처리
+			float _deltaX = abs(_startX - OBJECT::_posX);
+			if (OBJECT::_posX - _deltaX >= -_attackRange)
+			{
+				//stateUpdate(ENEMY_STATE::ATTACK_LEFT);
+			}
+
+			if (OBJECT::_posX - _deltaX <= _attackRange)
+			{
+				stateUpdate(ENEMY_STATE::ATTACK_RIGHT);
+			}
+
+			stateUpdate(ENEMY_STATE::ATTACK_RIGHT);
+
+			fire();
 		}
+
+		moveUpdate();
 
 	}
 	else
 	{
-		// TODO: 플레이어가 근접한경우 처리
-		float _deltaX = abs(_startX - OBJECT::_posX);
-		if (OBJECT::_posX - _deltaX >= -_attackRange)
-		{
-			//stateUpdate(ENEMY_STATE::ATTACK_LEFT);
-		}
+		_fpsCount += TIMEMANAGER->getElpasedTime();
 
-		if (OBJECT::_posX - _deltaX <= _attackRange)
-		{
-			stateUpdate(ENEMY_STATE::ATTACK_RIGHT);
-		}
-
-		stateUpdate(ENEMY_STATE::ATTACK_RIGHT);
-
-		fire();
 	}
 
-	moveUpdate();
-
 	KEYANIMANAGER->update();
+
 }
 
 // 상태에 맞는 애니메이션 설정
@@ -147,7 +160,11 @@ void ENEMY::render(HDC hdc)
 	{
 		_bullet->render(hdc, _bulletX, OBJECT::_posY);
 	}
-	OBJECT::getImage()->aniRender(hdc, OBJECT::getPosX() - OBJECT::getWidth() / 2, OBJECT::getPosY() - OBJECT::getHeight() / 2, _pAnimation);
+
+	if (_fpsCount < 0.5f) 
+	{
+		OBJECT::getImage()->aniRender(hdc, OBJECT::getPosX() - OBJECT::getWidth() / 2, OBJECT::getPosY() - OBJECT::getHeight() / 2, _pAnimation);
+	}
 }
 
 // 적의 종류 설정
@@ -223,21 +240,33 @@ void ENEMY::fire()
 		_bulletX = OBJECT::_posX;
 		_isFire = true;
 	}
+
+	if (_bulletX > MAPSIZEX)
+	{
+		_isFire = false;
+	}
 }
 
 void ENEMY::setDeath()
 {
+	//	IMAGEMANAGER->addFrameImage("enemyDeath", "resource/enemies/death.bmp", 370, 64, 5, 1, true, RGB(255, 0, 255));
+	//  _enemy->init(100, 609, 40, 64, 2.0f, ENEMY::ENEMY_TYPE::CANNON);
+	//  _enemyManager->addEnemy(5, ENEMY::ENEMY_TYPE::GREEN);
+
+	if (KEYANIMANAGER->findAnimation("enemyDeath", "death") == nullptr)
+	{
+		KEYANIMANAGER->addObject("enemyDeath");
+		KEYANIMANAGER->addArrayFrameAnimation("enemyDeath", "death", "enemyDeath", new int[5]{ 0, 1, 2, 3, 4 }, 5, 2, false);
+	}
+	_state = ENEMY_STATE::DEATH;
+	OBJECT::setImage(IMAGEMANAGER->findImage("enemyDeath"));
+	_pAnimation = KEYANIMANAGER->findAnimation("enemyDeath", "death");
+	_pAnimation->start();
 }
 
 void ENEMY::initAnimation()
 {
 	KEYANIMANAGER->addObject(_typeName);
-	/*
-	if (KEYANIMANAGER->findAnimation("enemyDeath", "enemyDeath") == nullptr)
-	{
-		KEYANIMANAGER->addObject("enemyDeath");
-		KEYANIMANAGER->addArrayFrameAnimation("enemyDeath", "death", "enemyDeath", new int[5]{0,1,2,3,4}, 5, 10, false);
-	}*/
 	initAniFrame();
 
 	_pAnimation = KEYANIMANAGER->findAnimation(_typeName, _arAniFrameStrKey[int(ENEMY_STATE::IDLE_LEFT)]);
@@ -297,25 +326,25 @@ void ENEMY::initAniFrame()
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_RIGHT)] = "IDLE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_RIGHT)] = 1;
 		frameNum = new int[1]{ 0 };
-		_frameFps.push_back(2);
+		_frameFps.push_back(1);
 		_vAniFrame.push_back(frameNum);
 
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_LEFT)] = "IDLE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_LEFT)] = 1;
 		frameNum = new int[1]{ 5 };
-		_frameFps.push_back(2);
+		_frameFps.push_back(1);
 		_vAniFrame.push_back(frameNum);
 
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_RIGHT)] = "MOVE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_RIGHT)] = 3;
 		frameNum = new int[3]{ 0, 1, 2 };
-		_frameFps.push_back(2);
+		_frameFps.push_back(1);
 		_vAniFrame.push_back(frameNum);
 
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_LEFT)] = "MOVE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_LEFT)] = 3;
 		frameNum = new int[3]{ 3, 4, 5 };
-		_frameFps.push_back(2);
+		_frameFps.push_back(1);
 		_vAniFrame.push_back(frameNum);
 
 		_maxAniFrame = 4;
@@ -441,37 +470,37 @@ void ENEMY::initAniFrame()
 		frameNum = new int[1]{ 0 };
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_RIGHT)] = "IDLE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_RIGHT)] = 1;
-		_frameFps.push_back(2);
+		_frameFps.push_back(1);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[1]{ 3 };
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_LEFT)] = "IDLE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_LEFT)] = 1;
-		_frameFps.push_back(2);
+		_frameFps.push_back(1);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[2]{ 2, 3 };
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_RIGHT)] = "MOVE_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_RIGHT)] = 2;
-		_frameFps.push_back(2);
+		_frameFps.push_back(1);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[2]{ 0, 1 };
 		_arAniFrameStrKey[int(ENEMY_STATE::MOVE_LEFT)] = "MOVE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::MOVE_LEFT)] = 2;
-		_frameFps.push_back(2);
+		_frameFps.push_back(1);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[2]{ 2, 3 };
 		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_RIGHT)] = "ATTACK_RIGHT";
 		_arAniFrameCount[int(ENEMY_STATE::ATTACK_RIGHT)] = 2;
-		_frameFps.push_back(2);
+		_frameFps.push_back(1);
 		_vAniFrame.push_back(frameNum);
 
 		frameNum = new int[2]{ 0, 1 };
 		_arAniFrameStrKey[int(ENEMY_STATE::ATTACK_LEFT)] = "ATTACK_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::ATTACK_LEFT)] = 2;
-		_frameFps.push_back(2);
+		_frameFps.push_back(1);
 		_vAniFrame.push_back(frameNum);
 
 		_maxAniFrame = 6;

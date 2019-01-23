@@ -56,6 +56,9 @@ private:
 	int _hp;
 	float _speed;
 
+	// 프레임 카운트
+	float _fpsCount;
+
 	// 생성 위치
 	float _startX;
 
@@ -86,7 +89,6 @@ public:
 	virtual void render(HDC hdc) override;
 
 
-
 	// 키애니메이션 설정
 	void initAnimation();
 	void initAniFrame();
@@ -99,6 +101,7 @@ public:
 	void setDeath();
 	void fire();
 
+	float getFpsTime() { return _fpsCount; };
 	void setMoveRange(float range) {
 		_moveRange = range;
 		_endX = _startX + _moveRange;

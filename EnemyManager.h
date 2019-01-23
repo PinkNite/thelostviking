@@ -42,8 +42,10 @@ public:
 	// Camera hdc
 	void render(HDC hdc);
 
-	// 
+	// 利 眠啊 
 	void addEnemy(int count, ENEMY::ENEMY_TYPE type);
+	// 利 磷澜 贸府
+	void setDeath(int num);
 
 	// properties
 	int getEnemySize() { return _vEnemy.size(); }

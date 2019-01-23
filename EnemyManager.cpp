@@ -14,23 +14,36 @@ EnemyManager::~EnemyManager()
 
 HRESULT EnemyManager::init()
 {
-	int i = 0; // 1Ãþ
-	_arrEnemyLocations[i].posX = 600.0f; _arrEnemyLocations[i].posY = 420.0f;
+	int i = 0; // ²À´ë±â Ãþ
+	_arrEnemyLocations[i].posX = 950.0f; _arrEnemyLocations[i].posY = 125.0f;
+	_arrEnemyLocations[i].width = 40;   _arrEnemyLocations[i].height = 64;
+	_arrEnemyLocations[i].left = _arrEnemyLocations[i].posX - (_arrEnemyLocations[i].width / 2);
+	_arrEnemyLocations[i].top  = _arrEnemyLocations[i].posY - (_arrEnemyLocations[i].height / 2);
+
+	i++; // ÇÃ·¹ÀÌ¾î ½ÃÀÛÃþ
+	_arrEnemyLocations[i].posX = 1200.0f; _arrEnemyLocations[i].posY = 420.0f;
 	_arrEnemyLocations[i].width = 40;   _arrEnemyLocations[i].height = 64;
 	_arrEnemyLocations[i].left = _arrEnemyLocations[i].posX - (_arrEnemyLocations[i].width / 2);
 	_arrEnemyLocations[i].top  = _arrEnemyLocations[i].posY - (_arrEnemyLocations[i].height / 2);
 
 	i++;	
-	_arrEnemyLocations[i].posX = 400.0f; _arrEnemyLocations[i].posY = 610.0f;
+	_arrEnemyLocations[i].posX = 300.0f; _arrEnemyLocations[i].posY = 610.0f;
 	_arrEnemyLocations[i].width = 40;   _arrEnemyLocations[i].height = 64;
 	_arrEnemyLocations[i].left = _arrEnemyLocations[i].posX - (_arrEnemyLocations[i].width / 2);
 	_arrEnemyLocations[i].top = _arrEnemyLocations[i].posY - (_arrEnemyLocations[i].height / 2);
 
-	i++;	// 2Ãþ
-	_arrEnemyLocations[i].posX = 100.0f; _arrEnemyLocations[i].posY = 610.0f;
+	i++;
+	_arrEnemyLocations[i].posX = 200.0f; _arrEnemyLocations[i].posY = 1378.0f;
 	_arrEnemyLocations[i].width = 40;   _arrEnemyLocations[i].height = 64;
 	_arrEnemyLocations[i].left = _arrEnemyLocations[i].posX - (_arrEnemyLocations[i].width / 2);
 	_arrEnemyLocations[i].top = _arrEnemyLocations[i].posY - (_arrEnemyLocations[i].height / 2);
+
+	i++;
+	_arrEnemyLocations[i].posX = 200.0f; _arrEnemyLocations[i].posY = 1536.0f;
+	_arrEnemyLocations[i].width = 40;   _arrEnemyLocations[i].height = 64;
+	_arrEnemyLocations[i].left = _arrEnemyLocations[i].posX - (_arrEnemyLocations[i].width / 2);
+	_arrEnemyLocations[i].top = _arrEnemyLocations[i].posY - (_arrEnemyLocations[i].height / 2);
+
 
 	_enemyCount = i;
 
@@ -77,18 +90,25 @@ void EnemyManager::addEnemy(int count, ENEMY::ENEMY_TYPE type)
 	if (count > _enemyCount + 1)
 		count = _enemyCount + 1;
 
+	float speed = 0.5f;
 	for (int i = 0; i < count; i++)
 	{
+		speed += 0.5f;
 		ENEMY* enemy = new ENEMY();
 		enemy->init(_arrEnemyLocations[i].posX,
 			_arrEnemyLocations[i].posY,
 			_arrEnemyLocations[i].width,
 			_arrEnemyLocations[i].height,
-			2.0f,
+			speed,
 			type);
 
 		_vEnemy.push_back(enemy);
 	}
+}
+
+void EnemyManager::setDeath(int num)
+{
+	_vEnemy[num]->setDeath();
 }
 
 void EnemyManager::deleteEnemy(int nIndex)
