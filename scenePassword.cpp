@@ -26,6 +26,7 @@ void SCENEPASSWORD::update()
 {
 	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
 	{
+		SOUNDMANAGER->play("button", 1.0f);
 		SCENEMANAGER->changeScene("MENU");
 	}
 }

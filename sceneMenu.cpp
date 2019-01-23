@@ -43,27 +43,31 @@ void SCENEMENU::update()
 
 	if (KEYMANAGER->isOnceKeyDown(VK_UP) && _y > 240)
 	{
+		SOUNDMANAGER->play("button", 1.0f);
 		_y -= 32;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_DOWN) && _y <= 272)
 	{
+		SOUNDMANAGER->play("button", 1.0f);
 		_y += 32;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
 	{
+		SOUNDMANAGER->play("button", 1.0f);
 		switch ((int)_y)
 		{
 		case 240:
-
+			
 			//SCENEMANAGER->changeScene("GAMEPLAY");
 			break;
 		case 272:
 
 
+			
 			SCENEMANAGER->changeScene("OPTION");
 			break;
 		case 304:
-
+			
 			SCENEMANAGER->changeScene("PASSWORD");
 			break;
 		}
