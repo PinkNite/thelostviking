@@ -220,9 +220,9 @@ void ERIC::initKeyAnimation()
 		67, 11, 1, false, callbackStun);
 
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO),
-		78, 4, 2, false);
+		78, 4, 5, false);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO),
-		82, 4, 2, false);
+		82, 4, 5, false);
 
 	addRightAliveAnimation(VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::SPECIAL),
 		86, 3, 2, false, 3, callbackBreath);
