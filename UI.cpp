@@ -187,7 +187,7 @@ void UI::update()
 {
 	//플레이어 상태값 갱신되는것
 	changePlayer();
-
+	playerDeath();
 
 	
 
@@ -202,6 +202,9 @@ void UI::update()
 		//아이템이동함수
 	}
 	else
+	{
+		useItem();//인벤아닐때 사용가능
+	}
 	////////////////캐릭 선택필 수 조건
 	
 	if (_pPlayer->getCurrentViking() ==PLAYER::VIKINGNAME::ERIC )
@@ -1546,6 +1549,119 @@ void UI::moveTrashCanItem(int j)
 		}
 
 	}
+}
+
+void UI::playerDeath()
+{
+	if (_pPlayer->getViking(0)->getIsDeath())
+	{
+		_erikState = ERIK_DEAD;
+	}
+	if (_pPlayer->getViking(1)->getIsDeath())
+	{
+		_baleogState = BALEOG_DEAD;
+	}
+	if (_pPlayer->getViking(2)->getIsDeath())
+	{
+		_olafState = OLAF_DEAD;
+	}
+}
+
+void UI::useItem()
+{
+	if (_pInputMG->getUse())//키가 눌렸고
+	{
+		cout << "aaa" << endl;
+		useSelectCollisionItem();
+	}
+
+}
+
+void UI::useSelectCollisionItem()
+{
+	
+	for (int i = 0; i < 3; i++)
+	{
+
+
+		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[0]->getX(), _pItemBoom[0]->getY(), 40, 40))
+		{
+
+			_pItemBoom[0]->setUse(true);//사용으로 바꿔줌
+			_pItemBoom[0]->SetIsAlliveFalse();
+
+			break;
+		}
+
+		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[1]->getX(), _pItemBoom[1]->getY(), 40, 40))
+		{
+
+			_pItemBoom[1]->setUse(true);//사용으로 바꿔줌
+			_pItemBoom[1]->SetIsAlliveFalse();
+			break;
+		}
+
+		//////////////////과일
+
+		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[0]->getX(), _pItemFruit1[0]->getY(), 40, 40))
+		{
+
+			_pItemFruit1[0]->setUse(true);
+			_pItemFruit1[0]->SetIsAlliveFalse();
+			break;
+
+		}
+
+		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[1]->getX(), _pItemFruit1[1]->getY(), 40, 40))
+		{
+			_pItemFruit1[1]->setUse(true);
+			_pItemFruit1[1]->SetIsAlliveFalse();
+			break;
+
+		}
+
+		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[0]->getX(), _pItemFruit2[0]->getY(), 40, 40))
+		{
+
+			_pItemFruit2[0]->setUse(true);
+			_pItemFruit2[0]->SetIsAlliveFalse();
+
+
+			break;
+
+		}
+
+		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[1]->getX(), _pItemFruit2[1]->getY(), 40, 40))
+		{
+			_pItemFruit2[1]->setUse(true);
+			_pItemFruit2[1]->SetIsAlliveFalse();
+
+
+			break;
+		}
+
+		//고기
+		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat[0]->getX(), _pItemMeat[0]->getY(), 40, 40))
+		{
+			_pItemMeat[0]->setUse(true);
+			_pItemMeat[0]->SetIsAlliveFalse();
+
+			break;
+
+		}
+
+		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat[1]->getX(), _pItemMeat[1]->getY(), 40, 40))
+		{
+			_pItemMeat[1]->setUse(true);
+			_pItemMeat[1]->SetIsAlliveFalse();
+
+			break;
+
+		}
+
+	}
+
+	
 }
 
 
