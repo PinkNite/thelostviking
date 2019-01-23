@@ -49,6 +49,8 @@ HRESULT ITEMMANAGER::init()
 	}
 	
 
+	_pUI = new UI;
+
 	return S_OK;
 }
 
@@ -96,53 +98,59 @@ void ITEMMANAGER::render(HDC hdc)
 
 void ITEMMANAGER::isCollisionPlayer()
 {
-
-	//플레이어 상태값을 받아야함
 	
-	for (int i = 0; i < 2; i++)
+	//플레이어 상태값을 받아야함
+	if (_pUI->getErikItemMax() != 5&& _pUI->getBaleogItemMax() != 5&& _pUI->getOlafItemMax() != 5)
 	{
-		if (isCollision(_pItemBoom[i]->getX(), _pItemBoom[i]->getY(), 40, 38, _pPlayer->getPosX(), _pPlayer->getPosY(), 64, 64) && _pItemBoom[i]->getIsAllive())
+		cout << _pUI->getErikItemMax() << endl;
+		for (int i = 0; i < 2; i++)
 		{
-
-			_pItemBoom[i]->SetIsAlliveFalse();//죽이고 죽으면 안보임 그리고 신호를 보내줘야함
-			_itemBoom[i] = 1;
-			break;
-		}
-		else
-		{
-			_itemBoom[i] = 0;
-		}
-		if (isCollision(_pItemFruit1[i]->getX(), _pItemFruit1[i]->getY(), 33, 40, _pPlayer->getPosX(), _pPlayer->getPosY(), 64, 64) && _pItemFruit1[i]->getIsAllive())
-		{
-			_pItemFruit1[i]->SetIsAlliveFalse();
-			_itemFruit1[i] = 1;
-			break;
-		}
-		else
-		{
-			_itemFruit1[i] = 0;
-		}
-		if (isCollision(_pItemFruit2[i]->getX(), _pItemFruit2[i]->getY(), 40, 35, _pPlayer->getPosX(), _pPlayer->getPosY(), 64, 64) && _pItemFruit2[i]->getIsAllive())
-		{
-			_pItemFruit2[i]->SetIsAlliveFalse();
-			_itemFruit2[i] = 1;
-			break;
-		}
-		else
-		{
-			_itemFruit2[i] = 0;
-		}
-		if (isCollision(_pItemMeat[i]->getX(), _pItemMeat[i]->getY(), 40, 38, _pPlayer->getPosX(), _pPlayer->getPosY(), 64, 64) && _pItemMeat[i]->getIsAllive())
-		{
-			_pItemMeat[i]->SetIsAlliveFalse();
-			_itemMeat[i] = 1;
-		}
-		else
-		{
-			_itemMeat[i] = 0;
+			if (isCollision(_pItemBoom[i]->getX(), _pItemBoom[i]->getY(), 40, 38, _pPlayer->getPosX(), _pPlayer->getPosY(), 64, 64) && _pItemBoom[i]->getIsAllive())
+			{
+				
+				_pItemBoom[i]->SetIsAlliveFalse();//죽이고 죽으면 안보임 그리고 신호를 보내줘야함
+				_itemBoom[i] = 1;
+				break;
+			}
+			else
+			{
+				_itemBoom[i] = 0;
+			}
+			if (isCollision(_pItemFruit1[i]->getX(), _pItemFruit1[i]->getY(), 33, 40, _pPlayer->getPosX(), _pPlayer->getPosY(), 64, 64) && _pItemFruit1[i]->getIsAllive())
+			{
+				_pItemFruit1[i]->SetIsAlliveFalse();
+				_itemFruit1[i] = 1;
+				break;
+			}
+			else
+			{
+				_itemFruit1[i] = 0;
+			}
+			if (isCollision(_pItemFruit2[i]->getX(), _pItemFruit2[i]->getY(), 40, 35, _pPlayer->getPosX(), _pPlayer->getPosY(), 64, 64) && _pItemFruit2[i]->getIsAllive())
+			{
+				_pItemFruit2[i]->SetIsAlliveFalse();
+				_itemFruit2[i] = 1;
+				break;
+			}
+			else
+			{
+				_itemFruit2[i] = 0;
+			}
+			if (isCollision(_pItemMeat[i]->getX(), _pItemMeat[i]->getY(), 40, 38, _pPlayer->getPosX(), _pPlayer->getPosY(), 64, 64) && _pItemMeat[i]->getIsAllive())
+			{
+				_pItemMeat[i]->SetIsAlliveFalse();
+				_itemMeat[i] = 1;
+			}
+			else
+			{
+				_itemMeat[i] = 0;
+			}
 		}
 	}
+	
+	//밸러그
 
+	
 
 }
 

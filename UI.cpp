@@ -388,10 +388,6 @@ void UI::render(HDC hdc)
 	//인벤토리 렌더
 	itemRender(hdc);
 
-	char str[128];
-	sprintf_s(str, "%d", _pInputMG->getRight());
-	TextOut(hdc, 400, 300, str, strlen(str));
-
 }
 
 void UI::selectMove()

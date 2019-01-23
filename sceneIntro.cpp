@@ -52,8 +52,10 @@ void SCENEINTRO::update()
 	actionOnOff(12.0f, 13.0f, 16.0f, &_imageAlphaCount, "intro2");
 	actionOn(19.0f, 20.0f, 23.0f, &_imageAlphaCount, "intro3");//1920
 	actionJump(21, 21.7f, 23, &_image2AlphaCount, "introTitle", &_y, &_y2);//2122
-	
-
+	if (_time > 19.0f)
+	{
+		SOUNDMANAGER->play("tilte");
+	}
 
 }
 
