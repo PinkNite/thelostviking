@@ -360,3 +360,21 @@ void PLAYER::deathViking(VIKING::DEATH_MOTION death)
 	_pViking[_nCurrentViking]->death(death);
 	_pViking[_nCurrentViking]->setDeathMotion(_nCurrentViking);
 }
+
+
+void PLAYER::playerAttack()
+{
+	//에릭 박치기
+	if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::ERIC)
+	{
+		if (VIKING::ACTION::SKILL_ONE == static_cast<VIKING::ACTION>(_pViking[_nCurrentViking]->getBehavior()) && VIKING::STATE::ACTION == static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState()))
+		{
+
+		}
+	}
+	//발로그 검 활
+	else if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::BALEOG)
+	{
+
+	}
+}

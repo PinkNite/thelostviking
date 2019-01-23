@@ -135,6 +135,9 @@ public:
 	inline bool getIsDeath() { return _isDeath; }
 	inline ARROW* getArrow() { return _pArrow; }
 
+	inline	int	getBehavior() { return _behavior; }
+	inline	int	getDirection() { return _direction; }
+	
 
 	inline void setPosX(float posX) { _posX = posX; }
 	inline void setPosY(float posY) { _posY = posY; }
@@ -191,4 +194,6 @@ public:
 	virtual void	setDeathMotion(int viking);
 
 	virtual void	setElevatorIdle(int viking);
+
+	
 };
