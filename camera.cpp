@@ -139,10 +139,12 @@ void CAMERA::moveToPlayer()
 
 void CAMERA::movingStart()
 {
-
-	_isMoving = true;
-	_time = 0.0f;
-
+	if (!_isMoving)
+	{
+		_isMoving = true;
+		_time = 0.0f;
+	}
+	
 	if (_pPlayer->getPosX() > _posX) {
 		_travelRangeX = _pPlayer->getPosX() - _posX;
 	}
