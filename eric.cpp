@@ -59,14 +59,8 @@ void ERIC::release()
 
 void ERIC::render(HDC hdc)
 {
-	RectangleMake(hdc,VIKING::getPosX() - VIKING::getWidth() / 2, VIKING::getPosY() - VIKING::getHeight() / 2, 64, 64);
-
-
-	
 
 	VIKING::getImage()->aniRender(hdc, VIKING::getPosX() - VIKING::getWidth() / 2, VIKING::getPosY() - VIKING::getHeight() / 2, _pAnimation);
-
-	
 }
 
 void ERIC::skillOne()
@@ -769,7 +763,7 @@ void ERIC::callbackEricStun()
 void ERIC::callbackEricBreath()
 {
 	//스턴후 아이들
-	if (VIKING::_direction == static_cast<int>(VIKING::DIRECTION::LEFT))
+	if (VIKING::_direction == static_cast<int>(VIKING::DIRECTION::LEFT) && VIKING::_behavior != static_cast<int>(VIKING::ACTION::ON_LADDER))
 	{
 		setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	}

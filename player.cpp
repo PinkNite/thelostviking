@@ -27,6 +27,7 @@ void PLAYER::init()
 
 	//처음 시작 바이킹 설정
 	_nCurrentViking = static_cast<int>(VIKINGNAME::ERIC);
+	_isAnnihilation = false;
 }
 
 void PLAYER::update()
@@ -38,8 +39,11 @@ void PLAYER::update()
 		{
 			if (_pViking[i]->getAction() != VIKING::ACTION::ON_LADDER &&  _pViking[i]->getAction() != VIKING::ACTION::ON_LADDER_OVER)
 			{
-				_pViking[i]->pressGravity();
-				_pViking[i]->setSkillAnimation();
+				if (static_cast<VIKING::STATE>(_pViking[i]->getState()) != VIKING::STATE::DEATH_MOTION) {
+
+					_pViking[i]->pressGravity();
+					_pViking[i]->setSkillAnimation();
+				}
 			}
 
 			_pViking[i]->setIsOnGround(false);
@@ -48,7 +52,10 @@ void PLAYER::update()
 		}
 		else {
 			_pViking[i]->setIsOnGround(true);
-			_pViking[i]->falldownAnimation();
+			if (static_cast<VIKING::STATE>(_pViking[i]->getState()) != VIKING::STATE::DEATH_MOTION) {
+
+				_pViking[i]->falldownAnimation();
+			}
 		}
 
 	}
@@ -60,6 +67,13 @@ void PLAYER::update()
 	}
 
 	_pViking[_nCurrentViking]->update();
+
+
+	if (_pViking[_nCurrentViking]->getIsDeath())
+	{
+		nextViking();
+	}
+	
 }
 
 void PLAYER::release()
@@ -73,9 +87,9 @@ void PLAYER::render(HDC hdc)
 
 	for (int i = 0; i < 3; i++)
 	{
-		if (_pViking[_nCurrentViking]->getIsDeath()) continue;
+		if (_pViking[i]->getIsDeath()) continue;
 
-		if (static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState()) != VIKING::STATE::DEATH_MOTION)
+		//if (static_cast<VIKING::STATE>(_pViking[i]->getState()) != VIKING::STATE::DEATH_MOTION)
 		{
 			_pViking[i]->render(hdc);
 		}
@@ -124,6 +138,9 @@ void PLAYER::moveLeft()
 {
 	if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::BALEOG && _pViking[_nCurrentViking]->getUseSkillOne()) return;
 	if (_pViking[_nCurrentViking]->stunStop()) return;
+	if (_pViking[_nCurrentViking]->getIsDeath()) return;
+
+
 	float	acceleration = 0.0f;
 	if (_nCurrentViking == static_cast<int>(VIKINGNAME::ERIC))
 	{
@@ -141,6 +158,7 @@ void PLAYER::moveRight()
 {
 	if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::BALEOG && _pViking[_nCurrentViking]->getUseSkillOne()) return;
 	if (_pViking[_nCurrentViking]->stunStop()) return;
+	if (_pViking[_nCurrentViking]->getIsDeath()) return;
 
 	float	acceleration = 0.0f;
 	if (_nCurrentViking == static_cast<int>(VIKINGNAME::ERIC))
@@ -157,6 +175,7 @@ void PLAYER::moveRight()
 
 void PLAYER::moveUp()
 {
+	if (_pViking[_nCurrentViking]->getIsDeath()) return;
 	if (isCollisionLadder())
 	{
 		if (_rcTmpTop - (_pViking[_nCurrentViking]->getPosY()-32) < 63)
@@ -168,6 +187,7 @@ void PLAYER::moveUp()
 
 void PLAYER::moveDown()
 {
+	if (_pViking[_nCurrentViking]->getIsDeath()) return;
 	if (isCollisionLadder())
 	{
 		if (_rcTmpBottom != _pViking[_nCurrentViking]->getPosY() +32)
@@ -186,32 +206,38 @@ void PLAYER::moveDown()
 
 void PLAYER::resetSpeed()
 {
+	if (_pViking[_nCurrentViking]->getIsDeath()) return;
 	_pViking[_nCurrentViking]->resetSpeed();
 }
 
 
 void PLAYER::useSkillOne()
 {
+	if (_pViking[_nCurrentViking]->getIsDeath()) return;
 	_pViking[_nCurrentViking]->skillOne();
 }
 
 void PLAYER::useSkillTwo()
 {
+	if (_pViking[_nCurrentViking]->getIsDeath()) return;
 	_pViking[_nCurrentViking]->skillTwo();
 }
 
 void PLAYER::stopSkillOne()
 {
+	if (_pViking[_nCurrentViking]->getIsDeath()) return;
 	_pViking[_nCurrentViking]->skillOneEnd();
 }
 
 void PLAYER::setMovingAnimation(int direction)
 {
+	if (_pViking[_nCurrentViking]->getIsDeath()) return;
 	_pViking[_nCurrentViking]->setMovingAnimation(direction);
 }
 
 void PLAYER::setStopAnimation()
 {
+	if (_pViking[_nCurrentViking]->getIsDeath()) return;
 	_pViking[_nCurrentViking]->setStopAnimation();
 }
 
@@ -302,6 +328,12 @@ void PLAYER::nextViking()
 {
 	_nCurrentViking++;
 	int nCount = 0;
+
+	if (_nCurrentViking > 2)
+	{
+		_nCurrentViking = 0;
+	}
+
 	while (_pViking[_nCurrentViking]->getIsDeath() && nCount < 3)
 	{
 		_nCurrentViking++;
@@ -311,10 +343,10 @@ void PLAYER::nextViking()
 		}
 		nCount++;
 	}
-
-	if (_nCurrentViking > 2)
+	
+	if (nCount >= 3)
 	{
-		_nCurrentViking = 0;
+		_isAnnihilation = true;
 	}
 }
 

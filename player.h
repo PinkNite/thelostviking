@@ -30,7 +30,7 @@ private:
 	int		_rcTmpTop;
 	int		_rcTmpBottom;
 
-
+	bool	_isAnnihilation;
 
 public:
 	PLAYER();

@@ -215,11 +215,12 @@ void VIKING::setDeathMotion(int viking)
 	strTmp.append(_arLive[_life]);
 	strTmp.append("_");
 	strTmp.append(_vBehavior[_state][_behavior]);
+	//_isDeath = true;
 
 	if (viking == 0)
 	{
 		_pAnimation = KEYANIMANAGER->findAnimation("eric", strTmp);
-
+		
 	}
 	else if (viking == 1)
 	{
@@ -230,5 +231,6 @@ void VIKING::setDeathMotion(int viking)
 	{
 		_pAnimation = KEYANIMANAGER->findAnimation("olaf", strTmp);
 	}
+	_pAnimation->start();
 }
 

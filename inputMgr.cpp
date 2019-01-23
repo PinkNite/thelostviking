@@ -132,6 +132,9 @@ void INPUTMANAGER::update()
 		_pCamera->movingStart();
 	}
 
+	if (KEYMANAGER->isOnceKeyDown('Q')) {
+		_pPlayer->deathViking(VIKING::DEATH_MOTION::ELECTRIC);
+	}
 
 
 	if (!_pCamera->getMoving())
