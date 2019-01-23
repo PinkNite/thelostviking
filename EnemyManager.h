@@ -48,7 +48,8 @@ public:
 	// properties
 	int getEnemySize() { return _vEnemy.size(); }
 
-
-
+	vEnemy&	getEnemy() { return _vEnemy; }
+	viEnemy getEnemyIter() { return _viEnemy; }
+	
 };
 

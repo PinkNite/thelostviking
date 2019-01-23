@@ -86,3 +86,4 @@ void EnemyManager::addEnemy(int count, ENEMY::ENEMY_TYPE type)
 		_vEnemy.push_back(enemy);
 	}
 }
+
