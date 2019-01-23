@@ -45,7 +45,8 @@ void ERIC::update()
 	jump();
 
 	if (VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER)||
-		VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER_OVER))
+		VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)||
+		getIsOnGround())
 	{
 		_jumpingTime = 0.0f;
 	}
@@ -654,6 +655,16 @@ void ERIC::setMovingAnimation(int direction)
 		}
 		else {
 			setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO));
+		}
+	}
+	else if (direction != VIKING::_direction && static_cast<int>(VIKING::ACTION::PUSH) == _behavior && VIKING::STATE::ACTION == static_cast<VIKING::STATE>(_state)) {
+		
+		if (direction == static_cast<int>(VIKING::DIRECTION::LEFT))
+		{
+			setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::RUN));
+		}
+		else {
+			setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::RUN));
 		}
 	}
 	//벽이랑 충돌나면 밀기로

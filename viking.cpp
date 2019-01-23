@@ -234,3 +234,29 @@ void VIKING::setDeathMotion(int viking)
 	_pAnimation->start();
 }
 
+void VIKING::setElevatorIdle(int viking)
+{
+	string strTmp = "";
+	strTmp.append(_arDirection[_direction]);
+	strTmp.append("_");
+	strTmp.append(_arLive[_life]);
+	strTmp.append("_");
+	strTmp.append(_vBehavior[static_cast<int>(VIKING::STATE::IDLE)][static_cast<int>(VIKING::IDLE::NORMAL)]);
+
+	if (viking == 0)
+	{
+		_pAnimation = KEYANIMANAGER->findAnimation("eric", strTmp);
+
+	}
+	else if (viking == 1)
+	{
+		_pAnimation = KEYANIMANAGER->findAnimation("baleog", strTmp);
+
+	}
+	else if (viking == 2)
+	{
+		_pAnimation = KEYANIMANAGER->findAnimation("olaf", strTmp);
+	}
+	_pAnimation->start();
+}
+

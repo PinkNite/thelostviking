@@ -181,4 +181,6 @@ public:
 	virtual void	death(DEATH_MOTION death);
 
 	virtual void	setDeathMotion(int viking);
+
+	virtual void	setElevatorIdle(int viking);
 };

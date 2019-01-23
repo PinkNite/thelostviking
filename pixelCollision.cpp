@@ -222,7 +222,7 @@ void pixelCollision::update()
 		RECT temp;
 		if (IntersectRect(&temp, &playerRect[i], &_rcElevatorC))
 		{
-			for (int j = _probeElavatorBottomY[i] - 10; j <= _probeElavatorBottomY[i]+5; ++j)
+			for (int j = _probeElavatorBottomY[i] - 10; j <= _probeElavatorBottomY[i]+4; ++j)
 			{
 				//PlayerRect ¿ÞÂÊ ¹üÀ§
 				COLORREF color = GetPixel(IMAGEMANAGER->findImage("map2Collision")->getMemDC(),
@@ -242,12 +242,12 @@ void pixelCollision::update()
 				if ((r == 255 && g == 0 && b == 255) || (r2 == 255 && g2 == 0 && b2 == 255))
 				{
 					_pPlayer->getViking(i)->setPosY(j - _pPlayer->getViking(i)->getHeight() / 2);
-					_isCollisionElevatorBottom[i] = true;
+					_isCollisionBottom[i] = true;
 					break;
 				}
 				else
 				{
-					_isCollisionElevatorBottom[i] = false;
+					_isCollisionBottom[i] = false;
 				}
 			}
 		}
