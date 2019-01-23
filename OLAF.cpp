@@ -32,18 +32,23 @@ void OLAF::update()
 		_fallingTime += TIMEMANAGER->getElpasedTime();
 	}
 
-	if (_fallingTime >= 2.0f && VIKING::_behavior == int(VIKING::ACTION::SKILL_TWO))
+	if (_fallingTime >= 2.0f && VIKING::_behavior == static_cast<int>(VIKING::ACTION::FLY))
 	{
 		setFallOut();
 	}
-	else if (_fallingTime >= 6.0f)
+	else if (getIsOnGround() && VIKING::_behavior == static_cast<int>(VIKING::ACTION::FALLDOWN))
 	{
-		if (getIsOnGround())
+		if (VIKING::_direction == static_cast<int>(VIKING::DIRECTION::LEFT))
 		{
-			callbackFallDown();
-			_fallingTime = 0.0f;
+			setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::STUN));
 		}
+		else {
+			setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::STUN));
+		}
+		setIsOnGround(true);
+		_fallingTime = 0.0F;
 	}
+
 
 	if (VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER) ||
 		VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER_OVER))
@@ -97,38 +102,34 @@ void OLAF::skillTwo()
 
 void OLAF::setLadderAnimation(int offset, bool isOverAni, int rcTmpHeight)
 {
-	if (VIKING::ACTION(VIKING::_behavior) != VIKING::ACTION::ON_LADDER && !isOverAni)
+	if (static_cast<VIKING::ACTION>(VIKING::_behavior) != VIKING::ACTION::ON_LADDER && !isOverAni)
 	{
-		setAnimation(VIKING::DIRECTION(_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, int(VIKING::ACTION::ON_LADDER));
+		setAnimation(static_cast<VIKING::DIRECTION>(_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER));
 	}
-	else if (VIKING::ACTION(VIKING::_behavior)!= VIKING::ACTION::ON_LADDER_OVER && !isOverAni)
-	{
-		setAnimation(VIKING::DIRECTION(_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, int(VIKING::ACTION::ON_LADDER_OVER));
+	else if (static_cast<VIKING::ACTION>(VIKING::_behavior) != VIKING::ACTION::ON_LADDER_OVER && isOverAni) {
+		setAnimation(static_cast<VIKING::DIRECTION>(_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER_OVER));
 	}
 
-	if (VIKING::ACTION(VIKING::_behavior) == VIKING::ACTION::ON_LADDER)
+
+	if (static_cast<VIKING::ACTION>(VIKING::_behavior) == VIKING::ACTION::ON_LADDER)
 	{
 		VIKING::_pAnimation->setClickVariable(offset);
 	}
-
-	if (VIKING::ACTION(VIKING::_behavior) == VIKING::ACTION::ON_LADDER_OVER)
+	if (static_cast<VIKING::ACTION>(VIKING::_behavior) == VIKING::ACTION::ON_LADDER_OVER)
 	{
-		if (rcTmpHeight < 5)
-		{
-			setAnimation(VIKING::DIRECTION(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, int(VIKING::IDLE::NORMAL));
+		if (rcTmpHeight < 5) {
+			setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 			VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY());
 		}
 		else if (rcTmpHeight <= 36)
 		{
 			VIKING::_pAnimation->setFixedFrame(1);
 		}
-		else if (rcTmpHeight <= 48)
-		{
+		else if (rcTmpHeight <= 48) {
 			VIKING::_pAnimation->setFixedFrame(0);
 		}
-		else if (rcTmpHeight > 32)
-		{
-			setAnimation(VIKING::DIRECTION(_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, int(VIKING::ACTION::ON_LADDER));
+		else if (rcTmpHeight > 32) {
+			setAnimation(static_cast<VIKING::DIRECTION>(_direction), VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::ON_LADDER));
 		}
 	}
 }
@@ -213,8 +214,8 @@ void OLAF::initKeyAnimation()
 
 	string actionFallDown1 = VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::FALLDOWN)];
 	{ // 開馬 据
-		addRightAliveAnimation(actionFallDown1, 80, 2, 1, false);
-		addLeftAliveAnimation(actionFallDown1, 82, 2, 1, false);
+		addRightAliveAnimation(actionFallDown1, 80, 2, 1, true);
+		addLeftAliveAnimation(actionFallDown1, 82, 2, 1, true);
 	}
 
 	string actionFallDown2 = VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::SKILL_TWO)];
@@ -235,10 +236,9 @@ void OLAF::initKeyAnimation()
 		addLeftAliveAnimation(idleFat, 94, 2, 1, false);
 	}
 
-	string actionStun = VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::STUN)];
 	{ // 開馬 中宜 
-		addRightAliveAnimation(actionStun, 98, 5, 2, false);
-		addLeftAliveAnimation(actionStun, 103, 5, 2, false);
+		addRightAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::STUN), 98, 5, 2, false, callbackSpecialIdle);
+		addLeftAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::STUN), 103, 5, 2, false, callbackSpecialIdle);
 	}
 
 	addRightAliveAnimationCoordinate(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE), 40, 8, 5, true, false, callbackSpecialIdle);
@@ -637,10 +637,10 @@ void OLAF::setMovingAnimation(int direction)
 	{
 		if (direction == static_cast<int>(VIKING::DIRECTION::LEFT))
 		{
-			setAnimation(VIKING::OLAFSHIELD(OLAF::_whereBlock), VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN));
+			setAnimation(VIKING::DIRECTION::LEFT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN));
 		}
 		else {
-			setAnimation(VIKING::OLAFSHIELD(OLAF::_whereBlock), VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN));
+			setAnimation(VIKING::DIRECTION::RIGHT, VIKING::LIFE::ALIVE, VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN));
 		}
 	}
 	else if (direction != VIKING::_direction && static_cast<int>(VIKING::ACTION::FLY) == _behavior && VIKING::STATE::ACTION == static_cast<VIKING::STATE>(_state))
@@ -722,7 +722,7 @@ void OLAF::callbackSpecialIdle(void * obj)
 
 void OLAF::callbackbaleogSpecialIdle()
 {
-	setAnimation(static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
+	setAnimation(VIKING::OLAFSHIELD(OLAF::_whereBlock), static_cast<VIKING::DIRECTION>(VIKING::_direction), VIKING::LIFE::ALIVE, VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::NORMAL));
 	_isUsingSkillTwo = false;
 }
 
