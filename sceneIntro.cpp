@@ -58,9 +58,9 @@ void SCENEINTRO::update()
 		
 		SOUNDMANAGER->play("titleBGM", 1.0f);
 	}
-	if (_time > 20 &&SOUNDMANAGER->isPlaySound("boomBGM"))
+	if (_time<22&&_time > 21.7f &&!SOUNDMANAGER->isPlaySound("boomBGM"))
 	{
-		cout << "s" << endl;
+		
 		SOUNDMANAGER->play("boomBGM", 1.0f);
 	}
 

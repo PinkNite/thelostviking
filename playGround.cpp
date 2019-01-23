@@ -71,7 +71,7 @@ void playGround::load()
 	SOUNDMANAGER->addSound("telepoteBGM", "resource/MUSIC/telepote.wav", true, false);
 	SOUNDMANAGER->addSound("titleBGM", "resource/MUSIC/Title.mp3", true, true);
 	SOUNDMANAGER->addSound("buttonBGM", "resource/MUSIC/button.ogg", true, false);
-	SOUNDMANAGER->addSound("boomBGM", "resource/MUSIC/boom.mp3", true, false);
+	SOUNDMANAGER->addSound("boomBGM", "resource/MUSIC/boom.wav", true, false);
 	// enemy image resources
 	IMAGEMANAGER->addFrameImage("redEnemy", "resource/enemies/red.bmp", 518, 256, 7, 4, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("blueEnemy", "resource/enemies/blue.bmp", 518, 256, 7, 4, true, RGB(255, 0, 255));
