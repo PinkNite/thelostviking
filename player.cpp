@@ -17,10 +17,10 @@ void PLAYER::init()
 {
 	//바이킹들 초기화
 	_pViking[static_cast<const int>(VIKINGNAME::ERIC)] = new ERIC();
-	_pViking[static_cast<const int>(VIKINGNAME::ERIC)]->init(610, 570, 64, 64);
+	_pViking[static_cast<const int>(VIKINGNAME::ERIC)]->init(228, 100, 64, 64);
 
 	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)] = new BALEOG();
-	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)]->init(100, 100, 64, 64);
+	_pViking[static_cast<const int>(VIKINGNAME::BALEOG)]->init(164, 100, 64, 64);
 
 	_pViking[static_cast<const int>(VIKINGNAME::OLAF)] = new OLAF();
 	_pViking[static_cast<const int>(VIKINGNAME::OLAF)]->init(100, 100, 64, 64);
