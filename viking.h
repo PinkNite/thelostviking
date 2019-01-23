@@ -141,6 +141,9 @@ public:
 	
 	inline	bool getIsUpperGravity() { return _isUpperGravity; }
 
+	inline 	int getAniFrame() { return _pAnimation->getFramePlayingCount(); }
+
+
 	inline void setPosX(float posX) { _posX = posX; }
 	inline void setPosY(float posY) { _posY = posY; }
 	inline void setWidth(int width) { _width = width; }
@@ -197,5 +200,6 @@ public:
 
 	virtual void	setElevatorIdle(int viking);
 
+	virtual void	setStunAnimation();
 	
 };

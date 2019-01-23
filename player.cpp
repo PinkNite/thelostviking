@@ -5,7 +5,7 @@
 #include "baleog.h"
 #include "OLAF.h"
 #include "EnemyManager.h"
-
+#include "arrow.h"
 
 PLAYER::PLAYER()
 {
@@ -62,7 +62,7 @@ void PLAYER::update()
 
 					_pViking[i]->pressGravity();
 					_pViking[i]->setSkillAnimation();
-					
+
 				}
 			}
 
@@ -92,7 +92,7 @@ void PLAYER::update()
 	{
 		nextViking();
 	}
-	
+
 	playerAttack();
 }
 
@@ -198,7 +198,7 @@ void PLAYER::moveUp()
 	if (_pViking[_nCurrentViking]->getIsDeath()) return;
 	if (isCollisionLadder())
 	{
-		if (_rcTmpTop - (_pViking[_nCurrentViking]->getPosY()-32) < 63)
+		if (_rcTmpTop - (_pViking[_nCurrentViking]->getPosY() - 32) < 63)
 		{
 			_pViking[_nCurrentViking]->moveUp(0.0f);
 		}
@@ -210,7 +210,7 @@ void PLAYER::moveDown()
 	if (_pViking[_nCurrentViking]->getIsDeath()) return;
 	if (isCollisionLadder())
 	{
-		if (_rcTmpBottom != _pViking[_nCurrentViking]->getPosY() +32)
+		if (_rcTmpBottom != _pViking[_nCurrentViking]->getPosY() + 32)
 		{
 			if (_pPixelCollision->getCollisionbot(_nCurrentViking))
 			{
@@ -276,12 +276,12 @@ void PLAYER::setLadderAnimation(int offset)
 		}
 
 	}
-	
+
 }
 
 bool PLAYER::isCollisionLadder()
 {
-	RECT rcPlayer = RectMakeCenter(_pViking[_nCurrentViking]->getPosX(), _pViking[_nCurrentViking]->getPosY()+ 5,
+	RECT rcPlayer = RectMakeCenter(_pViking[_nCurrentViking]->getPosX(), _pViking[_nCurrentViking]->getPosY() + 5,
 		_pViking[_nCurrentViking]->getWidth(), _pViking[_nCurrentViking]->getHeight());
 	_pMap2->getRCLadder(0);
 	bool bIsCollisionLadder = false;
@@ -310,7 +310,7 @@ bool PLAYER::isCollisionLadder()
 		}
 	}
 
-	
+
 
 	return bIsCollisionLadder;
 }
@@ -363,7 +363,7 @@ void PLAYER::nextViking()
 		}
 		nCount++;
 	}
-	
+
 	if (nCount >= 3)
 	{
 		_isAnnihilation = true;
@@ -386,7 +386,7 @@ void PLAYER::playerAttack()
 		{
 			RECT rcMon;
 			POINT ptPlayer;
-			if (static_cast<VIKING::DIRECTION>(_pViking[_nCurrentViking]->getDirection() )== VIKING::DIRECTION::LEFT)
+			if (static_cast<VIKING::DIRECTION>(_pViking[_nCurrentViking]->getDirection()) == VIKING::DIRECTION::LEFT)
 			{
 				ptPlayer.x = _pViking[_nCurrentViking]->getPosX() - _pViking[_nCurrentViking]->getWidth() / 2;
 				ptPlayer.y = _pViking[_nCurrentViking]->getPosY();
@@ -395,10 +395,12 @@ void PLAYER::playerAttack()
 				{
 					rcMon = RectMakeCenter(_pEnemyMgr->getEnemy()[i]->getPosX(), _pEnemyMgr->getEnemy()[i]->getPosY(), _pEnemyMgr->getEnemy()[i]->getWidth(), _pEnemyMgr->getEnemy()[i]->getHeight());
 
-					if (PtInRect(&rcMon,ptPlayer))
+					if (PtInRect(&rcMon, ptPlayer))
 					{
 						_pEnemyMgr->deleteEnemy(i);
-						i--;
+						_pViking[_nCurrentViking]->moveRight(0.0f);
+						_pViking[_nCurrentViking]->setStunAnimation();
+						break;
 					}
 				}
 			}
@@ -414,16 +416,74 @@ void PLAYER::playerAttack()
 					if (PtInRect(&rcMon, ptPlayer))
 					{
 						_pEnemyMgr->deleteEnemy(i);
+						_pViking[_nCurrentViking]->moveLeft(0.0f);
+						_pViking[_nCurrentViking]->setStunAnimation();
 						break;
 					}
 				}
-
 			}
 		}
 	}
 	//발로그 검 활
 	else if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::BALEOG)
 	{
+		if (VIKING::ACTION::SKILL_TWO == static_cast<VIKING::ACTION>(_pViking[_nCurrentViking]->getBehavior()) && VIKING::STATE::ACTION == static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState())
+			&&_pViking[_nCurrentViking]->getAniFrame() >= 2)
+		{
+			RECT rcMon;
+			POINT ptPlayer;
+			if (static_cast<VIKING::DIRECTION>(_pViking[_nCurrentViking]->getDirection()) == VIKING::DIRECTION::LEFT)
+			{
+				ptPlayer.x = _pViking[_nCurrentViking]->getPosX() - _pViking[_nCurrentViking]->getWidth() / 2;
+				ptPlayer.y = _pViking[_nCurrentViking]->getPosY();
 
+				for (int i = 0; i < _pEnemyMgr->getEnemySize(); i++)
+				{
+					rcMon = RectMakeCenter(_pEnemyMgr->getEnemy()[i]->getPosX(), _pEnemyMgr->getEnemy()[i]->getPosY(), _pEnemyMgr->getEnemy()[i]->getWidth(), _pEnemyMgr->getEnemy()[i]->getHeight());
+
+					if (PtInRect(&rcMon, ptPlayer))
+					{
+						_pEnemyMgr->deleteEnemy(i);
+
+						break;
+					}
+				}
+			}
+			else
+			{
+				ptPlayer.x = _pViking[_nCurrentViking]->getPosX() + _pViking[_nCurrentViking]->getWidth() / 2;
+				ptPlayer.y = _pViking[_nCurrentViking]->getPosY();
+
+				for (int i = 0; i < _pEnemyMgr->getEnemySize(); i++)
+				{
+					rcMon = RectMakeCenter(_pEnemyMgr->getEnemy()[i]->getPosX(), _pEnemyMgr->getEnemy()[i]->getPosY(), _pEnemyMgr->getEnemy()[i]->getWidth(), _pEnemyMgr->getEnemy()[i]->getHeight());
+
+					if (PtInRect(&rcMon, ptPlayer))
+					{
+						_pEnemyMgr->deleteEnemy(i);
+
+						break;
+					}
+				}
+			}
+		}
+		else if (_pViking[_nCurrentViking]->getArrow()) {
+			RECT rcMon;
+			RECT rcArrow;
+			ARROW* pArrow = _pViking[_nCurrentViking]->getArrow();
+			rcArrow = RectMakeCenter(pArrow->getPosX(), pArrow->getPosY(), pArrow->getWidth(), pArrow->getHeight());
+
+			for (int i = 0; i < _pEnemyMgr->getEnemySize(); i++)
+			{
+				rcMon = RectMakeCenter(_pEnemyMgr->getEnemy()[i]->getPosX(), _pEnemyMgr->getEnemy()[i]->getPosY(), _pEnemyMgr->getEnemy()[i]->getWidth(), _pEnemyMgr->getEnemy()[i]->getHeight());
+				RECT rcTmp;
+				if (IntersectRect(&rcTmp, &rcMon, &rcArrow))
+				{
+					_pEnemyMgr->deleteEnemy(i);
+					pArrow->setDelete(true);
+					break;
+				}
+			}
+		}
 	}
 }

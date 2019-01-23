@@ -260,3 +260,7 @@ void VIKING::setElevatorIdle(int viking)
 	_pAnimation->start();
 }
 
+void VIKING::setStunAnimation()
+{
+}
+

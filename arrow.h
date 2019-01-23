@@ -8,7 +8,7 @@ class pixelCollision;
 class ARROW :public OBJECT {
 private:
 	float	_angle;
-
+	bool	_isDelete;
 public:
 	ARROW();
 	~ARROW();
@@ -24,4 +24,8 @@ public:
 
 
 	bool	deleteArrow();
+	
+
+	inline bool	getDelete() { return _isDelete; }
+	inline void setDelete(bool isDelete) {	_isDelete = isDelete;	}
 };

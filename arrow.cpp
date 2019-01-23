@@ -20,13 +20,19 @@ void ARROW::init(int posX, int posY, int width, int height, float angle)
 	_angle = angle;
 
 	setImage(IMAGEMANAGER->findImage("arrow"));
+	_isDelete = false;
 }
 
 void ARROW::update()
 {
-	OBJECT::setPosX(OBJECT::getPosX() + Mins::presentPowerX(_angle, 600.0f)*TIMEMANAGER->getElpasedTime());
-	
-
+	if (!_isDelete)
+	{
+		OBJECT::setPosX(OBJECT::getPosX() + Mins::presentPowerX(_angle, 600.0f)*TIMEMANAGER->getElpasedTime());
+	}
+	else
+	{
+		release();
+	}
 }
 
 void ARROW::release()
@@ -36,15 +42,17 @@ void ARROW::release()
 
 void ARROW::render(HDC hdc)
 {
-	OBJECT::getImage()->renderCenter(hdc, OBJECT::_posX, OBJECT::_posY);
+	if (!_isDelete)
+	{
+		OBJECT::getImage()->renderCenter(hdc, OBJECT::_posX, OBJECT::_posY);
+	}
 }
 
 bool ARROW::deleteArrow()
 {
 	if (OBJECT::getPosX() - OBJECT::getWidth() / 2 > MAPSIZEX ||
 		OBJECT::getPosX() + OBJECT::getWidth() / 2 < 0) {
-		return true;
-
+		setDelete(true);
 	}
-	return false;
+	return _isDelete;
 }

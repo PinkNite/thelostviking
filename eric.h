@@ -73,7 +73,8 @@ private:
 	virtual	void	setSkillAnimation() override;
 	virtual void	pressGravity() override;
 	virtual void	falldownAnimation() override;
-	
+	virtual void	setStunAnimation() override;
+
 	void jump();
 
 	void fallDown();

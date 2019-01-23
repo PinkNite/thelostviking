@@ -715,6 +715,11 @@ void ERIC::falldownAnimation()
 	_jumpingTime = 0.0F;
 }
 
+void ERIC::setStunAnimation()
+{
+	callbackEricFallDown();
+}
+
 
 
 
