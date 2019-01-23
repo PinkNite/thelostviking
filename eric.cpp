@@ -78,7 +78,7 @@ void ERIC::skillTwo()
 	if (static_cast<VIKING::ACTION>(VIKING::_behavior) == VIKING::ACTION::SKILL_TWO)return;
 	
 	_jumpingTime = 0.0f;
-	_jumpSpeed = 1500.0f;
+	_jumpSpeed = 2000.0f;
 	_jumpPower = Mins::presentPowerY(PI / 2.0f, _jumpSpeed);
 	_isUsingSkillTwo = true;
 	VIKING::OBJECT::setPosY(VIKING::OBJECT::getPosY() + _jumpPower * TIMEMANAGER->getElpasedTime());
@@ -181,44 +181,44 @@ void ERIC::initKeyAnimation()
 
 	//애니메이션 삽입
 	addRightAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::IDLE)][static_cast<int>(VIKING::IDLE::NORMAL)],
-		0, 2, 1, true);
+		0, 2, 2, true);
 	addLeftAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::IDLE)][static_cast<int>(VIKING::IDLE::NORMAL)],
-		2, 2, 1, true);
+		2, 2, 2, true);
 
 	addRightAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::TELEPORT)],
-		4, 7, 3, false);
+		4, 7, 2, false);
 	addLeftAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::TELEPORT)],
-		11, 7, 3, false);
+		11, 7, 2, false);
 
 	addRightAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::DAMEGE)],
-		18, 3, 1, false);
+		18, 3, 2, false);
 	addLeftAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::DAMEGE)],
-		21, 3, 1, false);
+		21, 3, 2, false);
 
 	addRightAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::DAMEGE)],
-		18, 3, 1, false);
+		18, 3, 2, false);
 	addLeftAliveAnimation(VIKING::_vBehavior[static_cast<int>(VIKING::STATE::ACTION)][static_cast<int>(VIKING::ACTION::DAMEGE)],
-		21, 3, 1, false);
+		21, 3, 2, false);
 
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::RUN),
-		24, 8, 10, true);
+		24, 8, 2, true);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::RUN),
-		32, 8, 10, true);
+		32, 8, 2, true);
 
 	addRightAliveAnimationCoordinate(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE),
-		40, 8, 5, true, false, callbackHading);
+		40, 8, 2, true, false, callbackHading);
 	addLeftAliveAnimationCoordinate(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE),
-		48, 8, 5, true, false, callbackHading);
+		48, 8, 2, true, false, callbackHading);
 
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::STUN),
-		56, 11, 10, false, callbackStun);
+		56, 11, 1, false, callbackStun);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::STUN),
-		67, 11, 10, false, callbackStun);
+		67, 11, 1, false, callbackStun);
 
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO),
-		78, 4, 10, false);
+		78, 4, 2, false);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_TWO),
-		82, 4, 10, false);
+		82, 4, 2, false);
 
 	addRightAliveAnimation(VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::SPECIAL),
 		86, 3, 2, false, 3, callbackBreath);
@@ -236,19 +236,19 @@ void ERIC::initKeyAnimation()
 		96, 2, 2, false);
 
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::PUSH),
-		98, 4, 5, true);
+		98, 4, 2, true);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::PUSH),
-		102, 4, 5, true);
+		102, 4, 2, true);
 
 	addLeftAliveAnimation(VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::FAT),
-		112, 3, 5, true);
+		112, 3, 2, true);
 	addLeftAliveAnimation(VIKING::STATE::IDLE, static_cast<int>(VIKING::IDLE::FAT),
-		115, 3, 5, true);
+		115, 3, 2, true);
 
 	addRightAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN),
-		178, 1, 1, true);
+		178, 1, 2, true);
 	addLeftAliveAnimation(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::FALLDOWN),
-		180, 1, 1, true);
+		180, 1, 2, true);
 
 	addLeftDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::ELECTRIC),
 		152, 2, 2, false, 5, callbackDeath);
