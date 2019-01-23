@@ -46,7 +46,7 @@ void ERIC::update()
 
 	if (VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER)||
 		VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)||
-		getIsOnGround())
+		getIsUpperGravity())
 	{
 		_jumpingTime = 0.0f;
 	}

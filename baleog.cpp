@@ -56,7 +56,8 @@ void BALEOG::update()
 	jump();
 
 	if (VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER) ||
-		VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER_OVER))
+		VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)
+		|| getIsUpperGravity())
 	{
 		_jumpingTime = 0.0f;
 	}

@@ -36,6 +36,23 @@ void PLAYER::update()
 {
 	for (int i = 0; i < 3; i++)
 	{
+		if (_pMap2->getHandle())
+		{
+			RECT rcTmp;
+			if (IntersectRect(&rcTmp,
+				&RectMakeCenter(_pViking[i]->getPosX(), _pViking[i]->getPosY(), _pViking[i]->getWidth(), _pViking[i]->getHeight()),
+				&_pMap2->getRCUpeffect()))
+			{
+				_pViking[i]->moveUp(0.0f);
+				_pViking[i]->setisUpperGravity(true);
+			}
+			else {
+				_pViking[i]->setisUpperGravity(false);
+
+			}
+		}
+
+
 		if (_pViking[_nCurrentViking]->getIsDeath()) continue;
 		if (!_pPixelCollision->getCollisionbot(i))// && !_pPixelCollision->getCollisionElevatorBottom(i))
 		{
@@ -60,9 +77,6 @@ void PLAYER::update()
 				_pViking[i]->falldownAnimation();
 			}
 		}
-
-
-
 	}
 
 

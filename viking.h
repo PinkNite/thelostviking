@@ -112,6 +112,7 @@ protected:
 	bool			_isDeath;
 
 	ARROW*			_pArrow;
+	bool			_isUpperGravity;
 
 public:
 	void init(int posX, int posY, int width, int height);
@@ -138,6 +139,7 @@ public:
 	inline	int	getBehavior() { return _behavior; }
 	inline	int	getDirection() { return _direction; }
 	
+	inline	bool getIsUpperGravity() { return _isUpperGravity; }
 
 	inline void setPosX(float posX) { _posX = posX; }
 	inline void setPosY(float posY) { _posY = posY; }
@@ -145,7 +147,7 @@ public:
 	inline void setHeight(int height) { _height = height; }
 	inline void	setIsOnGround(bool isOnGround) { _isOnGround = isOnGround; }
 	inline void setIsDeath(bool isDeath) { _isDeath = isDeath; }
-
+	inline void	setisUpperGravity(bool isUpperGravity) { _isUpperGravity = isUpperGravity; }
 
 
 	//이동함수
