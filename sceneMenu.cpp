@@ -44,6 +44,10 @@ void SCENEMENU::update()
 	{
 		SOUNDMANAGER->stop("titleBGM");
 	}
+	/*if (SOUNDMANAGER->isPlaySound("boomBGM"))
+	{
+		SOUNDMANAGER->stop("boomBGM");
+	}*/
 
 	if (KEYMANAGER->isOnceKeyDown(VK_UP) && _y > 240)
 	{
