@@ -16,8 +16,8 @@ void INPUTMANAGER::init(PLAYER * pPlayer, CAMERA * pCamera)
 	_isRight = false;
 	_isTop = false;
 	_isBottom = false;
-	/*_isUse = false;
-	_isOpen = false;*/
+	_isUse = false;
+	_isOpen = false;
 }
 
 void INPUTMANAGER::update()
@@ -107,7 +107,22 @@ void INPUTMANAGER::update()
 			_pPlayer->setLadderAnimation(0);
 		}
 	}
-
+	if (KEYMANAGER->isOnceKeyDown('S'))
+	{
+		_isUse = true;
+	}
+	if (KEYMANAGER->isOnceKeyUp('S'))
+	{
+		_isUse = false;
+	}
+	if (KEYMANAGER->isOnceKeyDown('I'))
+	{
+		_isOpen = true;
+	}
+	if (KEYMANAGER->isOnceKeyUp('I'))
+	{
+		_isOpen = false;
+	}
 
 	if (KEYMANAGER->isOnceKeyDown('F'))
 	{
