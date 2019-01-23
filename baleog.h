@@ -16,7 +16,6 @@ private:
 	bool		_isUsingSkillTwo;
 	bool		_isUsingSKillOne;
 
-	ARROW*			_pArrow;
 public:
 	BALEOG();
 	~BALEOG();

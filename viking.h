@@ -2,7 +2,7 @@
 #include "object.h"
 #include "stdafx.h"
 
-
+class ARROW;
 
 enum { VIKING_WIDTH = 64 };
 enum { VIKING_HEIGHT = 64 };
@@ -110,6 +110,9 @@ protected:
 	bool			_isOnGround;
 
 	bool			_isDeath;
+
+	ARROW*			_pArrow;
+
 public:
 	void init(int posX, int posY, int width, int height);
 	virtual void update()			abstract;
@@ -130,6 +133,8 @@ public:
 	inline bool getIsOnGround() {return _isOnGround; }
 	inline int	getState() { return _state; }
 	inline bool getIsDeath() { return _isDeath; }
+	inline ARROW* getArrow() { return _pArrow; }
+
 
 	inline void setPosX(float posX) { _posX = posX; }
 	inline void setPosY(float posY) { _posY = posY; }
@@ -137,6 +142,9 @@ public:
 	inline void setHeight(int height) { _height = height; }
 	inline void	setIsOnGround(bool isOnGround) { _isOnGround = isOnGround; }
 	inline void setIsDeath(bool isDeath) { _isDeath = isDeath; }
+
+
+
 	//이동함수
 	//움직임 애니메이션 변경 생각
 	//현 상태를 본다.
