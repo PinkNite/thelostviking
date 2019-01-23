@@ -51,7 +51,7 @@ public:
 
 	void	moveToPlayer();
 	void	movingStart();
-
+	void	outOfRange();
 
 public:
 	inline	float	getLeft() { return _left; }

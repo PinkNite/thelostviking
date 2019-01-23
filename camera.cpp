@@ -43,6 +43,7 @@ void CAMERA::setting()
 {
 	_posX = _pPlayer->getPosX();
 	_posY = _pPlayer->getPosY();
+	outOfRange();
 	setLeftTop();
 }
 
@@ -93,6 +94,7 @@ void CAMERA::moveUp(float offset)
 void CAMERA::moveDown(float offset)
 {
 	_posY += offset;
+
 	if (_posY + _height / 2 >= MAPSIZEY)
 	{
 		_posY = MAPSIZEY - _height / 2;
@@ -161,4 +163,25 @@ void CAMERA::movingStart()
 		_travelRangeY = _posY - _pPlayer->getPosY();
 	}
 
+}
+
+void CAMERA::outOfRange()
+{
+	if (_posX + _width / 2 >= MAPSIZEX)
+	{
+		_posX = MAPSIZEX - _width / 2;
+	}
+	else if (_posX - _width / 2 <= 0)
+	{
+		_posX = _width / 2;
+	}
+
+	if (_posY - _height / 2 <= 0)
+	{
+		_posY = _height / 2;
+	}
+	else if (_posY + _height / 2 >= MAPSIZEY)
+	{
+		_posY = MAPSIZEY - _height / 2;
+	}
 }

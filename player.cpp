@@ -159,6 +159,7 @@ void PLAYER::moveLeft()
 	if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::BALEOG && _pViking[_nCurrentViking]->getUseSkillOne()) return;
 	if (_pViking[_nCurrentViking]->stunStop()) return;
 	if (_pViking[_nCurrentViking]->getIsDeath()) return;
+	if (static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState()) == VIKING::STATE::DEATH_MOTION) return;
 
 
 	float	acceleration = 0.0f;
@@ -179,6 +180,7 @@ void PLAYER::moveRight()
 	if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::BALEOG && _pViking[_nCurrentViking]->getUseSkillOne()) return;
 	if (_pViking[_nCurrentViking]->stunStop()) return;
 	if (_pViking[_nCurrentViking]->getIsDeath()) return;
+	if (static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState()) == VIKING::STATE::DEATH_MOTION) return;
 
 	float	acceleration = 0.0f;
 	if (_nCurrentViking == static_cast<int>(VIKINGNAME::ERIC))
@@ -196,6 +198,7 @@ void PLAYER::moveRight()
 void PLAYER::moveUp()
 {
 	if (_pViking[_nCurrentViking]->getIsDeath()) return;
+	if (static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState()) == VIKING::STATE::DEATH_MOTION) return;
 	if (isCollisionLadder())
 	{
 		if (_rcTmpTop - (_pViking[_nCurrentViking]->getPosY() - 32) < 63)
@@ -208,6 +211,8 @@ void PLAYER::moveUp()
 void PLAYER::moveDown()
 {
 	if (_pViking[_nCurrentViking]->getIsDeath()) return;
+	if (static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState()) == VIKING::STATE::DEATH_MOTION) return;
+
 	if (isCollisionLadder())
 	{
 		if (_rcTmpBottom != _pViking[_nCurrentViking]->getPosY() + 32)
@@ -227,6 +232,8 @@ void PLAYER::moveDown()
 void PLAYER::resetSpeed()
 {
 	if (_pViking[_nCurrentViking]->getIsDeath()) return;
+	if (static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState()) == VIKING::STATE::DEATH_MOTION) return;
+
 	_pViking[_nCurrentViking]->resetSpeed();
 }
 
@@ -234,30 +241,40 @@ void PLAYER::resetSpeed()
 void PLAYER::useSkillOne()
 {
 	if (_pViking[_nCurrentViking]->getIsDeath()) return;
+	if (static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState()) == VIKING::STATE::DEATH_MOTION) return;
+
 	_pViking[_nCurrentViking]->skillOne();
 }
 
 void PLAYER::useSkillTwo()
 {
 	if (_pViking[_nCurrentViking]->getIsDeath()) return;
+	if (static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState()) == VIKING::STATE::DEATH_MOTION) return;
+
 	_pViking[_nCurrentViking]->skillTwo();
 }
 
 void PLAYER::stopSkillOne()
 {
 	if (_pViking[_nCurrentViking]->getIsDeath()) return;
+	if (static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState()) == VIKING::STATE::DEATH_MOTION) return;
+
 	_pViking[_nCurrentViking]->skillOneEnd();
 }
 
 void PLAYER::setMovingAnimation(int direction)
 {
 	if (_pViking[_nCurrentViking]->getIsDeath()) return;
+	if (static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState()) == VIKING::STATE::DEATH_MOTION) return;
+
 	_pViking[_nCurrentViking]->setMovingAnimation(direction);
 }
 
 void PLAYER::setStopAnimation()
 {
 	if (_pViking[_nCurrentViking]->getIsDeath()) return;
+	if (static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState()) == VIKING::STATE::DEATH_MOTION) return;
+
 	_pViking[_nCurrentViking]->setStopAnimation();
 }
 
@@ -428,13 +445,13 @@ void PLAYER::playerAttack()
 	else if (static_cast<VIKINGNAME>(_nCurrentViking) == VIKINGNAME::BALEOG)
 	{
 		if (VIKING::ACTION::SKILL_TWO == static_cast<VIKING::ACTION>(_pViking[_nCurrentViking]->getBehavior()) && VIKING::STATE::ACTION == static_cast<VIKING::STATE>(_pViking[_nCurrentViking]->getState())
-			&&_pViking[_nCurrentViking]->getAniFrame() >= 2)
+			&&_pViking[_nCurrentViking]->getAniFrame() >= 1)
 		{
 			RECT rcMon;
 			POINT ptPlayer;
 			if (static_cast<VIKING::DIRECTION>(_pViking[_nCurrentViking]->getDirection()) == VIKING::DIRECTION::LEFT)
 			{
-				ptPlayer.x = _pViking[_nCurrentViking]->getPosX() - _pViking[_nCurrentViking]->getWidth() / 2;
+				ptPlayer.x = _pViking[_nCurrentViking]->getPosX() - _pViking[_nCurrentViking]->getWidth() / 2-1;
 				ptPlayer.y = _pViking[_nCurrentViking]->getPosY();
 
 				for (int i = 0; i < _pEnemyMgr->getEnemySize(); i++)
@@ -451,7 +468,7 @@ void PLAYER::playerAttack()
 			}
 			else
 			{
-				ptPlayer.x = _pViking[_nCurrentViking]->getPosX() + _pViking[_nCurrentViking]->getWidth() / 2;
+				ptPlayer.x = _pViking[_nCurrentViking]->getPosX() + _pViking[_nCurrentViking]->getWidth() / 2+1;
 				ptPlayer.y = _pViking[_nCurrentViking]->getPosY();
 
 				for (int i = 0; i < _pEnemyMgr->getEnemySize(); i++)

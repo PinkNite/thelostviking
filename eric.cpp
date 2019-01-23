@@ -28,6 +28,8 @@ void ERIC::init(int posX, int posY, int width, int height)
 
 void ERIC::update()
 {
+	if (static_cast<VIKING::STATE>(_state) == VIKING::STATE::DEATH_MOTION) return;
+	
 	if (!getIsOnGround())
 	{
 		_jumpingTime += TIMEMANAGER->getElpasedTime();
