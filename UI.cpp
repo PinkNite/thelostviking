@@ -194,7 +194,7 @@ void UI::update()
 	//_life[0].isAllive = false;//이럼 사라짐
 
 	//인벤 접근키
-	if (KEYMANAGER->isToggleKey(VK_F8))
+	if(_pInputMG->getOpen())// (KEYMANAGER->isToggleKey(VK_F8))
 	{
 		selectMove();//얘는 특정 조건에서만 되어야함
 		selectCollision();//충돌함수

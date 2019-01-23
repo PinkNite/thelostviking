@@ -18,6 +18,7 @@ void INPUTMANAGER::init(PLAYER * pPlayer, CAMERA * pCamera)
 	_isBottom = false;
 	_isUse = false;
 	_isOpen = false;
+	_num=0;
 }
 
 void INPUTMANAGER::update()
@@ -115,14 +116,28 @@ void INPUTMANAGER::update()
 	{
 		_isUse = false;
 	}
-	if (KEYMANAGER->isOnceKeyDown('I'))
-	{
-		_isOpen = true;
-	}
 	if (KEYMANAGER->isOnceKeyUp('I'))
 	{
-		_isOpen = false;
+		_num = 0;
 	}
+	if (KEYMANAGER->isToggleKey('I'))
+	{
+		
+		_num++;
+		switch (_num)
+		{
+		case 0:
+			_isOpen = false;
+			break;
+		case 1:
+			_isOpen = true;
+			break;
+
+		}
+		
+		cout << _num << endl;
+	}
+	
 
 	if (KEYMANAGER->isOnceKeyDown('F'))
 	{
