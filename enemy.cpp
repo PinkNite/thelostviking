@@ -249,10 +249,6 @@ void ENEMY::fire()
 
 void ENEMY::setDeath()
 {
-	//	IMAGEMANAGER->addFrameImage("enemyDeath", "resource/enemies/death.bmp", 370, 64, 5, 1, true, RGB(255, 0, 255));
-	//  _enemy->init(100, 609, 40, 64, 2.0f, ENEMY::ENEMY_TYPE::CANNON);
-	//  _enemyManager->addEnemy(5, ENEMY::ENEMY_TYPE::GREEN);
-
 	if (KEYANIMANAGER->findAnimation("enemyDeath", "death") == nullptr)
 	{
 		KEYANIMANAGER->addObject("enemyDeath");

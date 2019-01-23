@@ -44,11 +44,11 @@ HRESULT SCENESTAGE::init()
 
 
 	_enemy = new ENEMY();
-	_enemy->init(100, 610, 40, 64, 2.0f, ENEMY::ENEMY_TYPE::CANNON);
+	_enemy->init(100, 608, 40, 64, 2.0f, ENEMY::ENEMY_TYPE::CANNON);
 
 	_enemyManager = new EnemyManager();
 	_enemyManager->init();
-	_enemyManager->addEnemy(3, ENEMY::ENEMY_TYPE::GREEN);
+	_enemyManager->addEnemy(5, ENEMY::ENEMY_TYPE::GREEN);
 
 	_pPlayer->setMap2(_pMap2);
 	_pPlayer->setPixelCollision(_pixel);

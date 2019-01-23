@@ -87,8 +87,7 @@ void playGround::load()
 	IMAGEMANAGER->addFrameImage("bossBullet", "resource/enemies/bossBullet.bmp", 51, 16, 3, 1, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addImage("laser", "resource/enemies/laser.bmp", 32, 6, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("enemyDeath", "resource/enemies/death.bmp", 51, 16, 3, 1, true, RGB(255, 0, 255));
-
+	IMAGEMANAGER->addFrameImage("enemyDeath", "resource/enemies/death.bmp", 370, 64, 5, 1, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addImage("arrow","resource/arrow.bmp", 32, 6, true, RGB(255, 0, 255));
 }
