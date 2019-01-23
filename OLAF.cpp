@@ -150,14 +150,14 @@ void OLAF::initKeyAnimation()
 	addLeftAliveAnimation(VIKING::STATE::ACTION, int(VIKING::ACTION::TELEPORT), 11, 7, 3, false);
 
 	// 전방우이동
-	addRightAliveAnimation(VIKING::OLAFSHIELD::BLOCK_FRONT, VIKING::STATE::ACTION, int(VIKING::ACTION::RUN),18, 8, 4, true);
+	addRightAliveAnimation(VIKING::OLAFSHIELD::BLOCK_FRONT, VIKING::STATE::ACTION, int(VIKING::ACTION::RUN),18, 8, 2, true);
 	// 전방좌이동
-	addLeftAliveAnimation(VIKING::OLAFSHIELD::BLOCK_FRONT, VIKING::STATE::ACTION, int(VIKING::ACTION::RUN), 26, 8, 4, true);
+	addLeftAliveAnimation(VIKING::OLAFSHIELD::BLOCK_FRONT, VIKING::STATE::ACTION, int(VIKING::ACTION::RUN), 26, 8, 2, true);
 
 	// 상방우이동
-	addRightAliveAnimation(VIKING::OLAFSHIELD::BLOCK_TOP, VIKING::STATE::ACTION, int(VIKING::ACTION::RUN), 34, 8, 4, true);
+	addRightAliveAnimation(VIKING::OLAFSHIELD::BLOCK_TOP, VIKING::STATE::ACTION, int(VIKING::ACTION::RUN), 34, 8, 2, true);
 	// 상방좌이동
-	addLeftAliveAnimation(VIKING::OLAFSHIELD::BLOCK_TOP, VIKING::STATE::ACTION, int(VIKING::ACTION::RUN), 42, 8, 4, true);
+	addLeftAliveAnimation(VIKING::OLAFSHIELD::BLOCK_TOP, VIKING::STATE::ACTION, int(VIKING::ACTION::RUN), 42, 8, 2, true);
 
 	// 상방일때 바지 내려가는 액션
 	addRightAliveAnimation(VIKING::OLAFSHIELD::BLOCK_TOP, VIKING::STATE::IDLE, int(VIKING::IDLE::SPECIAL), 50, 4, 2, false);
