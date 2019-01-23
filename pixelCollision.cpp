@@ -40,7 +40,8 @@ HRESULT pixelCollision::init()
 	ladderRect[9] = RectMake(545, 1088, 32, 32);
 	ladderRect[10] = RectMake(81, 1408, 16, 30);
 	ladderRect[11] = RectMake(161, 1408, 16, 30);
-	
+	_frameCountDie = 0;
+	_onceDie = false;
 	//_rcElevatorC = RectMake(_pMap2->getRCElevator().left, _pMap2->getRCElevator().top + 31, (_pMap2->getRCElevator().right - _pMap2->getRCElevator().left), (_pMap2->getRCElevator().bottom - _pMap2->getRCElevator().top) / 2);
 	return S_OK;
 }
@@ -52,7 +53,21 @@ void pixelCollision::release()
 void pixelCollision::update()
 {
 	_rcElevatorC = RectMake(_pMap2->getRCElevator().left, _pMap2->getRCElevator().top, (_pMap2->getRCElevator().right - _pMap2->getRCElevator().left), (_pMap2->getRCElevator().bottom - _pMap2->getRCElevator().top) / 2);
-	
+	if(_onceDie == false)
+	{
+		electricCollision(_pPlayer);
+	}
+	else if (_onceDie == true)
+	{
+		_frameCountDie++;
+		printf("%d\n", _frameCountDie);
+	}
+	if (_frameCountDie > 100)
+	{
+		_frameCountDie = 0;
+		_onceDie = false;
+	}
+
 	for (int i = 0; i < 3; i++)
 	{
 		playerRect[i]			 = RectMakeCenter(_pPlayer->getViking(i)->getPosX(), _pPlayer->getViking(i)->getPosY(), _pPlayer->getViking(i)->getWidth(), _pPlayer->getViking(i)->getHeight());
@@ -61,13 +76,6 @@ void pixelCollision::update()
 		_probeLeftX[i]			 = _pPlayer->getViking(i)->getPosX() - (_pPlayer->getViking(i)->getWidth() / 2) + 6;
 		_probeRightX[i]			 = _pPlayer->getViking(i)->getPosX() + (_pPlayer->getViking(i)->getWidth() / 2) - 6;
 		_probeElavatorBottomY[i] = _pPlayer->getViking(i)->getPosY() + (_pPlayer->getViking(i)->getHeight() / 2);
-		/*
-		_probeTopY[i]			 = _pPlayer->getPosY() - (_pPlayer->getHeight() / 2);
-		_probeBottomY[i]		 = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
-		_probeLeftX[i]		 	 = _pPlayer->getPosX() - (_pPlayer->getWidth() / 2) + 6;
-		_probeRightX[i]			 = _pPlayer->getPosX() + (_pPlayer->getWidth() / 2) - 6;
-		_probeElavatorBottomY[i] = _pPlayer->getPosY() + (_pPlayer->getHeight() / 2);
-		*/
 	}
 
 	//애매한 렉트 처리
@@ -263,11 +271,7 @@ void pixelCollision::update()
 
 void pixelCollision::render(HDC hdc)
 {
-	//PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
-	//_imgMap2Cbg = IMAGEMANAGER->addImage("map2Collision", "resource/map/map1-2_collision4.bmp", 2048, 1630, false, RGB(255, 0, 255));
-	
-	//_imgElevatorC->render(IMAGEMANAGER->findImage("map2Collision")->getMemDC(), _rcElevatorC.left, _rcElevatorC.top);
-	//Rectangle(getMemDC(), _rcElevatorC);
+
 }
 
 void pixelCollision::collisionRect(RECT rect, PLAYER * pPlayer)
@@ -284,5 +288,30 @@ void pixelCollision::collisionRect(RECT rect, PLAYER * pPlayer)
 		{
 			pPlayer->setPosX(tempRect.left - pPlayer->getWidth() / 2);
 		}
+	}
+}
+
+void pixelCollision::electricCollision(PLAYER * pPlayer)
+{
+	RECT playerRect = RectMakeCenter(pPlayer->getPosX(), pPlayer->getPosY(), pPlayer->getWidth(), pPlayer->getHeight());
+	for (int i = 0; i < _pMap2->getVElectric().size(); i++)
+	{
+		RECT electricArea = RectMake(_pMap2->getVElectric()[i]->getRcTrigger().left + 9, _pMap2->getVElectric()[i]->getRcTrigger().top, _pMap2->getVElectric()[i]->getRcTrigger().right - _pMap2->getVElectric()[i]->getRcTrigger().left - 18, _pMap2->getVElectric()[i]->getRcTrigger().bottom - _pMap2->getVElectric()[i]->getRcTrigger().top);
+		if (_pMap2->getVElectric()[i]->getIsoff() == false)
+		{
+			RECT tempRc;
+			if (IntersectRect(&tempRc, &playerRect, &electricArea))
+			{
+				_pPlayer->deathViking(VIKING::DEATH_MOTION::ELECTRIC);
+				_onceDie = true;
+			}
+		}
+	}
+
+	RECT tempRc;
+	if (IntersectRect(&tempRc, &_pMap2->getRCElectric3(), &playerRect))
+	{
+		_pPlayer->deathViking(VIKING::DEATH_MOTION::ELECTRIC);
+		_onceDie = true;
 	}
 }

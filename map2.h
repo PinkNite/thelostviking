@@ -47,6 +47,8 @@ private:
 	vector<setBUTTON*>::iterator					_viButton;
 
 	int _indexElectric3;
+	int _frameCount;
+	int _frameSpeed;
 	int _indexElectric4;
 	int _indexUpeffect;
 	int _indexBrokenblock;
@@ -66,6 +68,7 @@ private:
 	bool _isHandle;
 	bool _isBrokenComputer;
 	bool _isBrokenblocks;
+	bool _onceDie;
 
 public:
 	MAP2();
@@ -94,7 +97,7 @@ public:
 	RECT							getRCBrokencomputer() { return _rcBrokencomputer; }
 	RECT							getRCBrokenblocks() { return _rcBrokenblocks; }
 	RECT							getRCUpeffect() { return _rcUpeffect; }
-	
+	RECT							getRCElectric3() { return _rcElectric3; }
 	// isMove(true = active elevator, false = unactive elevator), checkUpdown(true = Up, false = down), speedElevator(1, 2, 4)
 	void							setElevatorFloor(bool isMove, bool checkUpdown, int speedElevator = 2)
 	{

@@ -17,7 +17,8 @@ HRESULT MAP2::init()
 	_imgElectric3 = IMAGEMANAGER->addFrameImage("electric3", "resource/map/effect/electric_Shock3.bmp", 448, 32, 7, 1, true, RGB(255, 0, 255));
 	_imgHandleOff = IMAGEMANAGER->addImage("handleOff", "resource/map/effect/handleOff.bmp", 28, 30, true, RGB(255, 0, 255));
 	_imgHandleOn = IMAGEMANAGER->addImage("handleOn", "resource/map/effect/handleOn.bmp", 28, 30, true, RGB(255, 0, 255));
-    
+	_frameSpeed = 5;
+
 	for (int i = 0; i < MAXBROKENBLOCK; i++)
 	{
 		//sprintf_s(str, "brokenBlock%d", i);
@@ -214,18 +215,6 @@ void MAP2::update()
 			_countBrokenblock++;
 		}
 	}
-	for (int i = 0; i < 12; i++)
-	{
-		//printf("_arrBool[%d] : %d \n", i, _arrBool[i]);
-		//printf("_imgBrokenblock[%d]->getFrameX(%d) \n", i, _imgBrokenblock[i]->getFrameX());
-	}
-	/*테스트용*/
-	/*
-	if (KEYMANAGER->isOnceKeyDown('1'))
-	{
-		_isBrokenblocks = true;
-	}
-	*/
 	// 자동문
 	for (int i = 0; i < _vDoor.size(); i++)
 	{
@@ -299,6 +288,18 @@ void MAP2::update()
 	{
 		_vElectric[5]->setIsoff(true);
 	}
+
+	if (_frameCount % _frameSpeed == 0)
+	{
+		_imgElectric3->SetFrameX(_indexElectric3);
+		_indexElectric3++;
+		if (_indexElectric3 > _imgElectric3->getMaxFrameX())
+		{
+			_indexElectric3 = 0;
+		}
+		_frameCount = 0;
+	}
+	_frameCount++;
 
 //		if (KEYMANAGER->isOnceKeyDown('S'))
 //	{

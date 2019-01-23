@@ -30,6 +30,7 @@ private:
 	int _probeElavatorBottomY[3];
 	int _probeLeftX[3];
 	int _probeRightX[3];
+	int _frameCountDie;
 
 	bool _isCollisionTop[3];
 	bool _isCollisionBottom[3];
@@ -38,6 +39,7 @@ private:
 	bool _isCollisionRight[3];
 	bool _onceCollisionLeft[3];
 	bool _onceCollisionRight[3];
+	bool _onceDie;
 
 public:
 	pixelCollision();
@@ -61,7 +63,7 @@ public:
 	void setCollisionElevatorBottom(bool isCollisionElevatorBottom, int index) { _isCollisionBottom[index] = isCollisionElevatorBottom; }
 
 
-
+	void electricCollision(PLAYER * pPlayer);
 	void setMap2(MAP2* pMap2) { _pMap2 = pMap2; }
 };
 
