@@ -35,7 +35,7 @@ void PLAYER::update()
 	for (int i = 0; i < 3; i++)
 	{
 		if (_pViking[_nCurrentViking]->getIsDeath()) continue;
-		if (!_pPixelCollision->getCollisionbot(i))
+		if (!_pPixelCollision->getCollisionbot(i) && !_pPixelCollision->getCollisionElevatorBottom(i))
 		{
 			if (_pViking[i]->getAction() != VIKING::ACTION::ON_LADDER &&  _pViking[i]->getAction() != VIKING::ACTION::ON_LADDER_OVER)
 			{

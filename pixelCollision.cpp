@@ -222,7 +222,7 @@ void pixelCollision::update()
 		RECT temp;
 		if (IntersectRect(&temp, &playerRect[i], &_rcElevatorC))
 		{
-			for (int j = _probeElavatorBottomY[i] - 10; j <= _probeElavatorBottomY[i]; ++j)
+			for (int j = _probeElavatorBottomY[i] - 10; j <= _probeElavatorBottomY[i]+5; ++j)
 			{
 				//PlayerRect ¿ÞÂÊ ¹üÀ§
 				COLORREF color = GetPixel(IMAGEMANAGER->findImage("map2Collision")->getMemDC(),

@@ -56,6 +56,12 @@ public:
 	void setCollisionleft(bool isCollisionLeft, int index) { _isCollisionLeft[index] = isCollisionLeft; }
 	bool getCollisionright(int index) { return _isCollisionRight[index]; }
 	void setCollisionright(bool isCollisionRight, int index) { _isCollisionRight[index] = isCollisionRight; }
+
+	bool getCollisionElevatorBottom(int index) { return _isCollisionElevatorBottom[index]; }
+	void setCollisionElevatorBottom(bool isCollisionElevatorBottom, int index) { _isCollisionBottom[index] = isCollisionElevatorBottom; }
+
+
+
 	void setMap2(MAP2* pMap2) { _pMap2 = pMap2; }
 };
 
