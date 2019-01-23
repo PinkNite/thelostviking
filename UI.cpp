@@ -194,7 +194,7 @@ void UI::update()
 	//_life[0].isAllive = false;//이럼 사라짐
 
 	//인벤 접근키
-	if(_pInputMG->getOpen())// (KEYMANAGER->isToggleKey(VK_F8))
+	if(KEYMANAGER->isToggleKey('I'))// (KEYMANAGER->isToggleKey(VK_F8))
 	{
 		selectMove();//얘는 특정 조건에서만 되어야함
 		selectCollision();//충돌함수
@@ -225,7 +225,7 @@ void UI::update()
 	
 
 	//인벤에서 나오면 셀렉트 알파값 원상태복귀
-	if (KEYMANAGER->isOnceKeyUp(VK_F8))//렌더 알파값
+	if (KEYMANAGER->isOnceKeyUp('I'))//렌더 알파값
 	{
 		_select[0].alphaCount = 255;
 		_select[1].alphaCount = 255;
@@ -1138,7 +1138,7 @@ void UI::moveItem()
 		if (isCollisionSelectItem())//그상태에서 피를 누른다
 		{
 
-			if (KEYMANAGER->isOnceKeyDown('P'))
+			if (KEYMANAGER->isOnceKeyDown('R'))
 			{
 				///////////////////////////
 				for (int i = 0; i < 2; i++)
@@ -1197,7 +1197,7 @@ void UI::moveItem()
 		if (isCollisionSelectItem())//그상태에서 피를 누른다
 		{
 
-			if (KEYMANAGER->isOnceKeyDown('P'))
+			if (KEYMANAGER->isOnceKeyDown('R'))
 			{
 				for (int i = 0; i < 2; i++)
 				{
@@ -1248,12 +1248,12 @@ void UI::moveItem()
 			}
 		}
 	}
-	else if (_baleogState == OLAF_ON)
+	else if (_olafState == OLAF_ON)
 	{
 		if (isCollisionSelectItem())//그상태에서 피를 누른다
 		{
 
-			if (KEYMANAGER->isOnceKeyDown('P'))
+			if (KEYMANAGER->isOnceKeyDown('R'))
 			{
 
 		
@@ -1349,7 +1349,7 @@ void UI::moveItem()
 			{
 				moveItemTrashCan(1);
 			}
-			else if (_baleogState == OLAF_ON)
+			else if (_olafState == OLAF_ON)
 			{
 				moveItemTrashCan(2);
 			}
@@ -1365,7 +1365,7 @@ void UI::moveItem()
 			{
 				moveTrashCanItem(1);
 			}
-			else if (_baleogState == OLAF_ON)
+			else if (_olafState == OLAF_ON)
 			{
 				moveTrashCanItem(2);
 			}
@@ -1571,7 +1571,7 @@ void UI::useItem()
 {
 	if (_pInputMG->getUse())//키가 눌렸고
 	{
-		cout << "aaa" << endl;
+	
 		useSelectCollisionItem();
 	}
 
