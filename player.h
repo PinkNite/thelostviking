@@ -9,6 +9,8 @@ class OBJECT;
 class MAP2;
 class pixelCollision;
 class BALEOG;
+class EnemyManager;
+
 class PLAYER
 {
 public://∞Ì√∆¥Ÿ µø»÷æﬂ
@@ -31,6 +33,8 @@ private:
 	int		_rcTmpBottom;
 
 	bool	_isAnnihilation;
+
+	EnemyManager*	_pEnemyMgr;
 
 public:
 	PLAYER();
@@ -85,4 +89,5 @@ public:
 
 
 	inline VIKING*	getViking(int index) { return _pViking[index]; }
+	inline void		linkEnemyMgr(EnemyManager* pEnemyMgr) { _pEnemyMgr = pEnemyMgr; }
 };

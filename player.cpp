@@ -4,6 +4,8 @@
 #include "pixelCollision.h"
 #include "baleog.h"
 #include "OLAF.h"
+#include "EnemyManager.h"
+
 
 PLAYER::PLAYER()
 {

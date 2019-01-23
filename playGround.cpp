@@ -149,6 +149,7 @@ HRESULT playGround::init()
 
 	_pPlayer->setMap2(_pMap2);
 	_pPlayer->setPixelCollision(_pixel);
+	_pPlayer->linkEnemyMgr(_enemyManager);
 
 	SCENEMANAGER->addScene("INTRO", new SCENEINTRO);
 	SCENEMANAGER->addScene("MENU", new SCENEMENU);
@@ -158,6 +159,8 @@ HRESULT playGround::init()
 	SCENEMANAGER->changeScene("INTRO");
 	
 	_gameState = PLAY;
+
+
 	return S_OK;
 }
 
