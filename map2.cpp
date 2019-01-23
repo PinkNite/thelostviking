@@ -220,12 +220,12 @@ void MAP2::update()
 		//printf("_imgBrokenblock[%d]->getFrameX(%d) \n", i, _imgBrokenblock[i]->getFrameX());
 	}
 	/*테스트용*/
-	
+	/*
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		_isBrokenblocks = true;
 	}
-	
+	*/
 	// 자동문
 	for (int i = 0; i < _vDoor.size(); i++)
 	{
@@ -242,13 +242,25 @@ void MAP2::update()
 
 	if (KEYMANAGER->isOnceKeyDown('S'))
 	{
-		RECT tempRc;
 		//버튼
 		for (int i = 0; i < _vButton.size(); i++)
 		{
+			RECT tempRc;
 			if (IntersectRect(&tempRc, &_vButton[i]->getRcTrigger(), &playerRect))
 			{
 				_vButton[i]->setIsoff(true);
+			}
+		}
+		RECT tempRc;
+		if (IntersectRect(&tempRc, &_rcHandle, &playerRect))
+		{
+			if (_isHandle == false)
+			{
+				_isHandle = true;
+			}
+			else if (_isHandle == true)
+			{
+				_isHandle = false;
 			}
 		}
 	}
@@ -266,7 +278,6 @@ void MAP2::update()
 	if (KEYMANAGER->isOnceKeyDown(VK_UP))
 	{
 		RECT tempRc;
-		//버튼
 		if (IntersectRect(&tempRc, &playerRect, &_rcElevator))
 		{
 			_isElevatorMove = true;

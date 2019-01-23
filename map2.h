@@ -66,6 +66,7 @@ private:
 	bool _isHandle;
 	bool _isBrokenComputer;
 	bool _isBrokenblocks;
+
 public:
 	MAP2();
 	~MAP2();
@@ -92,12 +93,15 @@ public:
 	RECT							getRCHandle() { return _rcHandle; }
 	RECT							getRCBrokencomputer() { return _rcBrokencomputer; }
 	RECT							getRCBrokenblocks() { return _rcBrokenblocks; }
+	RECT							getRCUpeffect() { return _rcUpeffect; }
+	
 	// isMove(true = active elevator, false = unactive elevator), checkUpdown(true = Up, false = down), speedElevator(1, 2, 4)
 	void							setElevatorFloor(bool isMove, bool checkUpdown, int speedElevator = 2)
 	{
 		_isElevatorMove = isMove; _checkElevatorUpdown = checkUpdown; _speedElevator = speedElevator;
 	}
 	void							setHandle(bool isHandle) { _isHandle = isHandle; }
+	bool							getHandle() { return _isHandle; }
 	void							setBrokencomputer(bool isBrokenComputer) { _isBrokenComputer = isBrokenComputer; }
 	void							setBrokenblocks(bool isBrokenblocks) { _isBrokenblocks = isBrokenblocks; }
 	void							setPlayer(PLAYER* pPlayer) { _pPlayer = pPlayer; }
