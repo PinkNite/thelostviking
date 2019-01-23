@@ -63,8 +63,13 @@ void playGround::load()
 	IMAGEMANAGER->addImage("olafOff", "resource/UI/olafOff.bmp", 80, 60, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("olafDead", "resource/UI/olafDead.bmp", 80, 60, true, RGB(255, 0, 255));
 
-
-
+	//bgm
+	SOUNDMANAGER->addSound("doorOpen", "resource/MUSIC/doorOpen.mp3", true, 0);
+	SOUNDMANAGER->addSound("laser", "resource/MUSIC/laser.wav", true, 0);
+	SOUNDMANAGER->addSound("mainStage", "resource/MUSIC/mainStage.mp3", true, true);
+	SOUNDMANAGER->addSound("sword", "resource/MUSIC/sword.wav", true, false);
+	SOUNDMANAGER->addSound("telepote", "resource/MUSIC/telepote.wav", true, false);
+	SOUNDMANAGER->addSound("title", "resource/MUSIC/Title.wav", true, true);
 	// enemy image resources
 	IMAGEMANAGER->addFrameImage("redEnemy", "resource/enemies/red.bmp", 518, 256, 7, 4, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("blueEnemy", "resource/enemies/blue.bmp", 518, 256, 7, 4, true, RGB(255, 0, 255));
