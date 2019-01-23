@@ -70,6 +70,8 @@ void playGround::load()
 	SOUNDMANAGER->addSound("sword", "resource/MUSIC/sword.wav", true, false);
 	SOUNDMANAGER->addSound("telepote", "resource/MUSIC/telepote.wav", true, false);
 	SOUNDMANAGER->addSound("title", "resource/MUSIC/Title.wav", true, true);
+	SOUNDMANAGER->addSound("button", "resource/MUSIC/button.ogg", true, false);
+
 	// enemy image resources
 	IMAGEMANAGER->addFrameImage("redEnemy", "resource/enemies/red.bmp", 518, 256, 7, 4, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("blueEnemy", "resource/enemies/blue.bmp", 518, 256, 7, 4, true, RGB(255, 0, 255));
