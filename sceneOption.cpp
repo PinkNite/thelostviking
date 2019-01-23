@@ -90,12 +90,20 @@ void SCENEOPTION::update()
 	{
 		if (_y == 360)
 		{
-			SOUNDMANAGER->play("button", 1.0f);
+			if (!SOUNDMANAGER->isPlaySound("buttonBGM"))
+			{
+				SOUNDMANAGER->stop("buttonBGM");
+				SOUNDMANAGER->play("buttonBGM", 1.0f);
+			}
 			_y = 304;
 		}
 		else if (_y <= 304)
 		{
-			SOUNDMANAGER->play("button", 1.0f);
+			if (!SOUNDMANAGER->isPlaySound("buttonBGM"))
+			{
+				SOUNDMANAGER->stop("buttonBGM");
+				SOUNDMANAGER->play("buttonBGM", 1.0f);
+			}
 			_y -= 32;
 		}
 	}
@@ -103,19 +111,31 @@ void SCENEOPTION::update()
 	{
 		if (_y == 304)
 		{
-			SOUNDMANAGER->play("button", 1.0f);
+			if (!SOUNDMANAGER->isPlaySound("buttonBGM"))
+			{
+				SOUNDMANAGER->stop("buttonBGM");
+				SOUNDMANAGER->play("buttonBGM", 1.0f);
+			}
 			_y = 360;
 		}
 		if (_y < 304)
 		{
-			SOUNDMANAGER->play("button", 1.0f);
+			if (!SOUNDMANAGER->isPlaySound("buttonBGM"))
+			{
+				SOUNDMANAGER->stop("buttonBGM");
+				SOUNDMANAGER->play("buttonBGM", 1.0f);
+			}
 			_y += 32;
 		}
 
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_RETURN) && _y == 360)
 	{
-		SOUNDMANAGER->play("button", 1.0f);
+		if (!SOUNDMANAGER->isPlaySound("buttonBGM"))
+		{
+			SOUNDMANAGER->stop("buttonBGM");
+			SOUNDMANAGER->play("buttonBGM", 1.0f);
+		}
 		SCENEMANAGER->changeScene("MENU");
 	}
 
@@ -124,20 +144,36 @@ void SCENEOPTION::update()
 		switch ((int)_y)
 		{
 		case 208:
-			SOUNDMANAGER->play("button", 1.0f);
+			if (!SOUNDMANAGER->isPlaySound("buttonBGM"))
+			{
+				SOUNDMANAGER->stop("buttonBGM");
+				SOUNDMANAGER->play("buttonBGM", 1.0f);
+			}
 			_numButtonFrameX++;
 			break;
 		case 240:
-			SOUNDMANAGER->play("button", 1.0f);
+			if (!SOUNDMANAGER->isPlaySound("buttonBGM"))
+			{
+				SOUNDMANAGER->stop("buttonBGM");
+				SOUNDMANAGER->play("buttonBGM", 1.0f);
+			}
 			_onOffButtonFrameX++;
 			break;
 		case 272:
 
-			SOUNDMANAGER->play("button", 1.0f);
+			if (!SOUNDMANAGER->isPlaySound("buttonBGM"))
+			{
+				SOUNDMANAGER->stop("buttonBGM");
+				SOUNDMANAGER->play("buttonBGM", 1.0f);
+			}
 			_onOffButtonFrameX2++;
 			break;
 		case 304:
-			SOUNDMANAGER->play("button", 1.0f);
+			if (!SOUNDMANAGER->isPlaySound("buttonBGM"))
+			{
+				SOUNDMANAGER->stop("buttonBGM");
+				SOUNDMANAGER->play("buttonBGM", 1.0f);
+			}
 			_onOffButtonFrameX3++;
 			break;
 

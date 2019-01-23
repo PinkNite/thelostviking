@@ -21,7 +21,7 @@ HRESULT SCENEINTRO::init()
 	_pImage2 = new image;
 	_pImage2 = IMAGEMANAGER->findImage("pink");
 
-	
+
 	_imageAlphaCount = 0;
 	_image2AlphaCount = 255;
 	_backGroundAlphaCount = 255;
@@ -41,6 +41,7 @@ void SCENEINTRO::release()
 
 void SCENEINTRO::update()
 {
+
 	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
 	{
 
@@ -52,9 +53,10 @@ void SCENEINTRO::update()
 	actionOnOff(12.0f, 13.0f, 16.0f, &_imageAlphaCount, "intro2");
 	actionOn(19.0f, 20.0f, 23.0f, &_imageAlphaCount, "intro3");//1920
 	actionJump(21, 21.7f, 23, &_image2AlphaCount, "introTitle", &_y, &_y2);//2122
-	if (_time > 19.0f)
+	if ( _time > 15&&!SOUNDMANAGER->isPlaySound("titleBGM"))
 	{
-		SOUNDMANAGER->play("tilte");
+		
+		SOUNDMANAGER->play("titleBGM", 1.0f);
 	}
 
 }

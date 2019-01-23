@@ -64,13 +64,13 @@ void playGround::load()
 	IMAGEMANAGER->addImage("olafDead", "resource/UI/olafDead.bmp", 80, 60, true, RGB(255, 0, 255));
 
 	//bgm
-	SOUNDMANAGER->addSound("doorOpen", "resource/MUSIC/doorOpen.mp3", true, 0);
-	SOUNDMANAGER->addSound("laser", "resource/MUSIC/laser.wav", true, 0);
-	SOUNDMANAGER->addSound("mainStage", "resource/MUSIC/mainStage.mp3", true, true);
-	SOUNDMANAGER->addSound("sword", "resource/MUSIC/sword.wav", true, false);
-	SOUNDMANAGER->addSound("telepote", "resource/MUSIC/telepote.wav", true, false);
-	SOUNDMANAGER->addSound("title", "resource/MUSIC/Title.wav", true, true);
-	SOUNDMANAGER->addSound("button", "resource/MUSIC/button.ogg", true, false);
+	SOUNDMANAGER->addSound("doorOpenBGM", "resource/MUSIC/doorOpen.mp3", true, 0);
+	SOUNDMANAGER->addSound("laserBGM", "resource/MUSIC/laser.wav", true, 0);
+	SOUNDMANAGER->addSound("mainStageBGM", "resource/MUSIC/mainStage.mp3", true, true);
+	SOUNDMANAGER->addSound("swordBGM", "resource/MUSIC/sword.wav", true, false);
+	SOUNDMANAGER->addSound("telepoteBGM", "resource/MUSIC/telepote.wav", true, false);
+	SOUNDMANAGER->addSound("titleBGM", "resource/MUSIC/Title.mp3", true, true);
+	SOUNDMANAGER->addSound("buttonBGM", "resource/MUSIC/button.ogg", true, false);
 
 	// enemy image resources
 	IMAGEMANAGER->addFrameImage("redEnemy", "resource/enemies/red.bmp", 518, 256, 7, 4, true, RGB(255, 0, 255));
@@ -93,19 +93,7 @@ void playGround::load()
 	IMAGEMANAGER->addImage("arrow","resource/arrow.bmp", 32, 6, true, RGB(255, 0, 255));
 }
 
-void playGround::link()
-{
-	_pCamera->setPlayer(_pPlayer);
 
-	_pItemManager->setLinkPlayer(_pPlayer);
-
-	_pUI->linkItemManger(_pItemManager);
-	_pUI->linkPlayer(_pPlayer);
-	_pUI->linkInputManager(_pInputMgr);
-	_pItemManager->setLinkUI(_pUI);
-	
-	
-}
 
 
 HRESULT playGround::init()
@@ -113,54 +101,16 @@ HRESULT playGround::init()
 	gameNode::init(true);
 	
 	load();
-	_pCamera = new CAMERA();
-	_pCamera->init(512, 512, WINSIZEX, WINSIZEY);
-
-	_pPlayer = new PLAYER;
-	_pPlayer->init();
-
-	_pItemManager = new ITEMMANAGER;
-	_pItemManager->init();
-	_pUI = new UI;
-	_pUI->init();
-	_pInputMgr = new INPUTMANAGER();
-	_pInputMgr->init(_pPlayer, _pCamera);
-	link();
-
-	_pMap2 = new MAP2;
-	_pMap2->setPlayer(_pPlayer);
-	_pMap2->init();
-	_pCamera->setMap(IMAGEMANAGER->findImage("Map2bg"));
-
-	_pixel = new pixelCollision;
-	_pixel->setPlayer(_pPlayer);
-	_pixel->setMap2(_pMap2);
-	_pixel->init();
-	//_pCamera->setMap(IMAGEMANAGER->findImage("map2Collision"));
-
-	_pCamera->setting();
-
 	
-
-	_enemy = new ENEMY();
-	_enemy->init(100, 610, 40, 64, 2.0f, ENEMY::ENEMY_TYPE::CANNON);
-	
-	_enemyManager = new EnemyManager();
-	_enemyManager->init();
-	_enemyManager->addEnemy(3, ENEMY::ENEMY_TYPE::GREEN);
-
-	_pPlayer->setMap2(_pMap2);
-	_pPlayer->setPixelCollision(_pixel);
-	_pPlayer->linkEnemyMgr(_enemyManager);
 
 	SCENEMANAGER->addScene("INTRO", new SCENEINTRO);
 	SCENEMANAGER->addScene("MENU", new SCENEMENU);
 	SCENEMANAGER->addScene("OPTION", new SCENEOPTION);
 	SCENEMANAGER->addScene("PASSWORD", new SCENEPASSWORD);
-	
+	SCENEMANAGER->addScene("GAMESTAGE", new SCENESTAGE);
 	SCENEMANAGER->changeScene("INTRO");
 	
-	_gameState = PLAY;
+	
 
 
 	return S_OK;
@@ -170,43 +120,17 @@ HRESULT playGround::init()
 void playGround::release()
 {
 	gameNode::release();
-
-	_pInputMgr->release();
-
-	delete _pCamera;
-	_pCamera = nullptr;
-	delete _pPlayer;
-	_pPlayer = nullptr;
+	
+	
 }
 
 
 void playGround::update()
 {
 	gameNode::update();
-	if (_gameState==PLAY)
-	{
-		_pCamera->update();
-
-		_pMap2->update();
-
-		_pPlayer->update();
-
-		_pInputMgr->update();
-
-		_enemy->update();
-
-		_enemyManager->update();
-
-		_pixel->update();
-
-		_pItemManager->update();//ÀÌ½ÂÀç
-
-		_pUI->update();//ÀÌ½ÂÀç
-	}
-	else
-	{
+	
 		SCENEMANAGER->update();
-	}
+		SOUNDMANAGER->update();
 }
 
 
@@ -214,35 +138,9 @@ void playGround::update()
 void playGround::render()
 {
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY+118, BLACKNESS);
-	_pCamera->renderinit();
-	if (_gameState ==PLAY)
-	{
-		_pMap2->render(_pCamera->getMemDC());
-		_pixel->render(_pCamera->getMemDC());
-		_pPlayer->render(_pCamera->getMemDC());
-
-		_enemy->render(_pCamera->getMemDC());
-		_enemyManager->render(_pCamera->getMemDC());
-
-		//pCamera->getCameraBuffer()->render(getMemDC(), 0, 0, 200, 200, 800, 600);
-		////getMemDc ´ë½Å ¹¹ ³ÖÀ»¶§´Â pCamera->getMemDc()¸¦ ¾²¼¼¿ä.
-
-		//pCamera->getMemDC();
-
-		//UI
-
-		//Scene
-		//_pSceneStart->render();//ÀÌ½ÂÀç 2019-01-16
-		_pItemManager->render(_pCamera->getMemDC());
-
-		TIMEMANAGER->render(getMemDC());
-		_pCamera->render(getMemDC());
-		_pUI->render(getMemDC());
-	}
-	else
-	{
+	
 		SCENEMANAGER->render();
-	}
+	
 	//===========================================================
 	this->getBackBuffer()->render(getHDC(), 0, 0);
 }

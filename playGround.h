@@ -15,6 +15,7 @@
 #include "sceneMenu.h"
 #include "sceneOption.h"
 #include "scenePassword.h"
+#include "sceneStage.h"
 enum GAMESTATE
 {
 	INTRO,
@@ -28,19 +29,7 @@ enum GAMESTATE
 class playGround : public gameNode
 {
 private:
-	CAMERA *		_pCamera;
-	PLAYER*			_pPlayer;
-	INPUTMANAGER*	_pInputMgr;
-	MAP1*           _pMap1;
-	MAP2*           _pMap2;
-
-	ENEMY*			_enemy;
-	EnemyManager*	_enemyManager;
-
-	pixelCollision* _pixel;
-
-	ITEMMANAGER*    _pItemManager;
-	UI*				_pUI;
+	
 	GAMESTATE       _gameState;
 public:
 	virtual HRESULT init();
@@ -53,7 +42,6 @@ public:
 	~playGround();
 	//이미지 로드 여기서 하세요
 	void	load();
-	//상호참조 여기서 하세요
-	void	link();
+	
 };
 

@@ -267,6 +267,9 @@
     <ClInclude Include="arrow.h">
       <Filter>PlayGround\Object</Filter>
     </ClInclude>
+    <ClInclude Include="sceneStage.h">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -424,6 +427,9 @@
     </ClCompile>
     <ClCompile Include="arrow.cpp">
       <Filter>PlayGround\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneStage.cpp">
+      <Filter>PlayGround\scene\sceneStart\scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
