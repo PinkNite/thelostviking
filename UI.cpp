@@ -201,6 +201,7 @@ void UI::update()
 		moveItem();
 		//아이템이동함수
 	}
+	else
 	////////////////캐릭 선택필 수 조건
 	
 	if (_pPlayer->getCurrentViking() ==PLAYER::VIKINGNAME::ERIC )
