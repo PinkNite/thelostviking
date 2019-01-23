@@ -85,8 +85,7 @@ public:
 	virtual void release()		 override;
 	virtual void render(HDC hdc) override;
 
-	virtual void moveLeft() override;
-	virtual void moveRight() override;
+
 
 	// 키애니메이션 설정
 	void initAnimation();

@@ -53,7 +53,6 @@ void BALEOG::update()
 		setIsOnGround(true);
 		_jumpingTime = 0.0F;
 	}
-	jump();
 
 	if (VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER) ||
 		VIKING::_behavior == static_cast<int>(VIKING::ACTION::ON_LADDER_OVER)

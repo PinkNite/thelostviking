@@ -214,13 +214,6 @@ void ENEMY::setEnemyType(ENEMY_TYPE type)
 	initAnimation();
 }
 
-void ENEMY::moveLeft()
-{
-}
-
-void ENEMY::moveRight()
-{
-}
 
 void ENEMY::fire()
 {
