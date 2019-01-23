@@ -53,6 +53,7 @@ void pixelCollision::release()
 void pixelCollision::update()
 {
 	_rcElevatorC = RectMake(_pMap2->getRCElevator().left, _pMap2->getRCElevator().top, (_pMap2->getRCElevator().right - _pMap2->getRCElevator().left), (_pMap2->getRCElevator().bottom - _pMap2->getRCElevator().top) / 2);
+	//Àü±â die
 	if(_onceDie == false)
 	{
 		electricCollision(_pPlayer);
@@ -67,6 +68,7 @@ void pixelCollision::update()
 		_frameCountDie = 0;
 		_onceDie = false;
 	}
+	//
 
 	for (int i = 0; i < 3; i++)
 	{

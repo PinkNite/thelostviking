@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "map2.h"
 #include "player.h"
-
+#include "arrow.h"
 MAP2::MAP2()
 {
 }
@@ -254,6 +254,19 @@ void MAP2::update()
 		}
 	}
 
+	//화살, 버튼 충돌
+	if (_pPlayer->getArrow() != nullptr)
+	{
+		RECT tempRc;
+		RECT ArrowRc = RectMake(_pPlayer->getArrow()->getPosX(), _pPlayer->getArrow()->getPosY()-5, _pPlayer->getArrow()->getWidth(), _pPlayer->getArrow()->getHeight());
+		if (IntersectRect(&tempRc, &ArrowRc, &_vButton[2]->getRcTrigger()))
+		{
+			_vButton[2]->setIsoff(true);
+			_pPlayer->getArrow()->setDelete(true);
+		}
+	}
+	//
+
 	if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
 	{
 		RECT tempRc;
@@ -286,8 +299,13 @@ void MAP2::update()
 	}
 	if (_vButton[2]->getIsoff() == true)
 	{
+		_vElectric[3]->setIsoff(true);
+		_vElectric[4]->setIsoff(true);
 		_vElectric[5]->setIsoff(true);
+		_vElectric[6]->setIsoff(true);
 	}
+
+
 
 	if (_frameCount % _frameSpeed == 0)
 	{
