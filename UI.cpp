@@ -1574,6 +1574,7 @@ void UI::useItem()
 	
 		useSelectCollisionItem();
 	}
+	
 
 }
 
@@ -1583,82 +1584,249 @@ void UI::useSelectCollisionItem()
 	for (int i = 0; i < 3; i++)
 	{
 
-
-		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[0]->getX(), _pItemBoom[0]->getY(), 40, 40))
+		switch (i)
 		{
+		case 0:
+			if (_erikState == ERIK_ON)
+			{
+				
+					if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[0]->getX(), _pItemBoom[0]->getY(), 40, 40))
+					{
 
-			_pItemBoom[0]->setUse(true);//»ç¿ëÀ¸·Î ¹Ù²ãÁÜ
-			_pItemBoom[0]->SetIsAlliveFalse();
+						_pItemBoom[0]->setUse(true);//»ç¿ëÀ¸·Î ¹Ù²ãÁÜ
+						_pItemBoom[0]->SetIsAlliveFalse();
 
+						break;
+					}
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[1]->getX(), _pItemBoom[1]->getY(), 40, 40))
+				{
+
+					_pItemBoom[1]->setUse(true);//»ç¿ëÀ¸·Î ¹Ù²ãÁÜ
+					_pItemBoom[1]->SetIsAlliveFalse();
+					break;
+				}
+
+				//////////////////°úÀÏ
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[0]->getX(), _pItemFruit1[0]->getY(), 40, 40))
+				{
+
+					_pItemFruit1[0]->setUse(true);
+					_pItemFruit1[0]->SetIsAlliveFalse();
+					break;
+
+				}
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[1]->getX(), _pItemFruit1[1]->getY(), 40, 40))
+				{
+					_pItemFruit1[1]->setUse(true);
+					_pItemFruit1[1]->SetIsAlliveFalse();
+					break;
+
+				}
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[0]->getX(), _pItemFruit2[0]->getY(), 40, 40))
+				{
+
+					_pItemFruit2[0]->setUse(true);
+					_pItemFruit2[0]->SetIsAlliveFalse();
+
+
+					break;
+
+				}
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[1]->getX(), _pItemFruit2[1]->getY(), 40, 40))
+				{
+					_pItemFruit2[1]->setUse(true);
+					_pItemFruit2[1]->SetIsAlliveFalse();
+
+
+					break;
+				}
+
+				//°í±â
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat[0]->getX(), _pItemMeat[0]->getY(), 40, 40))
+				{
+					_pItemMeat[0]->setUse(true);
+					_pItemMeat[0]->SetIsAlliveFalse();
+
+					break;
+
+				}
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat[1]->getX(), _pItemMeat[1]->getY(), 40, 40))
+				{
+					_pItemMeat[1]->setUse(true);
+					_pItemMeat[1]->SetIsAlliveFalse();
+
+					break;
+
+				}
+			}
+				break;
+		case 1:
+			if (_baleogState == BALEOG_ON)
+			{
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[0]->getX(), _pItemBoom[0]->getY(), 40, 40))
+				{
+
+					_pItemBoom[0]->setUse(true);//»ç¿ëÀ¸·Î ¹Ù²ãÁÜ
+					_pItemBoom[0]->SetIsAlliveFalse();
+
+					break;
+				}
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[1]->getX(), _pItemBoom[1]->getY(), 40, 40))
+				{
+
+					_pItemBoom[1]->setUse(true);//»ç¿ëÀ¸·Î ¹Ù²ãÁÜ
+					_pItemBoom[1]->SetIsAlliveFalse();
+					break;
+				}
+
+				//////////////////°úÀÏ
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[0]->getX(), _pItemFruit1[0]->getY(), 40, 40))
+				{
+
+					_pItemFruit1[0]->setUse(true);
+					_pItemFruit1[0]->SetIsAlliveFalse();
+					break;
+
+				}
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[1]->getX(), _pItemFruit1[1]->getY(), 40, 40))
+				{
+					_pItemFruit1[1]->setUse(true);
+					_pItemFruit1[1]->SetIsAlliveFalse();
+					break;
+
+				}
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[0]->getX(), _pItemFruit2[0]->getY(), 40, 40))
+				{
+
+					_pItemFruit2[0]->setUse(true);
+					_pItemFruit2[0]->SetIsAlliveFalse();
+
+
+					break;
+
+				}
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[1]->getX(), _pItemFruit2[1]->getY(), 40, 40))
+				{
+					_pItemFruit2[1]->setUse(true);
+					_pItemFruit2[1]->SetIsAlliveFalse();
+
+
+					break;
+				}
+
+				//°í±â
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat[0]->getX(), _pItemMeat[0]->getY(), 40, 40))
+				{
+					_pItemMeat[0]->setUse(true);
+					_pItemMeat[0]->SetIsAlliveFalse();
+
+					break;
+
+				}
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat[1]->getX(), _pItemMeat[1]->getY(), 40, 40))
+				{
+					_pItemMeat[1]->setUse(true);
+					_pItemMeat[1]->SetIsAlliveFalse();
+
+					break;
+
+				}
+			}
 			break;
-		}
+		case 2:
+			if (_olafState == OLAF_OFF)
+			{
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[0]->getX(), _pItemBoom[0]->getY(), 40, 40))
+				{
 
-		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[1]->getX(), _pItemBoom[1]->getY(), 40, 40))
-		{
+					_pItemBoom[0]->setUse(true);//»ç¿ëÀ¸·Î ¹Ù²ãÁÜ
+					_pItemBoom[0]->SetIsAlliveFalse();
 
-			_pItemBoom[1]->setUse(true);//»ç¿ëÀ¸·Î ¹Ù²ãÁÜ
-			_pItemBoom[1]->SetIsAlliveFalse();
+					break;
+				}
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemBoom[1]->getX(), _pItemBoom[1]->getY(), 40, 40))
+				{
+
+					_pItemBoom[1]->setUse(true);//»ç¿ëÀ¸·Î ¹Ù²ãÁÜ
+					_pItemBoom[1]->SetIsAlliveFalse();
+					break;
+				}
+
+				//////////////////°úÀÏ
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[0]->getX(), _pItemFruit1[0]->getY(), 40, 40))
+				{
+
+					_pItemFruit1[0]->setUse(true);
+					_pItemFruit1[0]->SetIsAlliveFalse();
+					break;
+
+				}
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[1]->getX(), _pItemFruit1[1]->getY(), 40, 40))
+				{
+					_pItemFruit1[1]->setUse(true);
+					_pItemFruit1[1]->SetIsAlliveFalse();
+					break;
+
+				}
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[0]->getX(), _pItemFruit2[0]->getY(), 40, 40))
+				{
+
+					_pItemFruit2[0]->setUse(true);
+					_pItemFruit2[0]->SetIsAlliveFalse();
+
+
+					break;
+
+				}
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[1]->getX(), _pItemFruit2[1]->getY(), 40, 40))
+				{
+					_pItemFruit2[1]->setUse(true);
+					_pItemFruit2[1]->SetIsAlliveFalse();
+
+
+					break;
+				}
+
+				//°í±â
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat[0]->getX(), _pItemMeat[0]->getY(), 40, 40))
+				{
+					_pItemMeat[0]->setUse(true);
+					_pItemMeat[0]->SetIsAlliveFalse();
+
+					break;
+
+				}
+
+				if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat[1]->getX(), _pItemMeat[1]->getY(), 40, 40))
+				{
+					_pItemMeat[1]->setUse(true);
+					_pItemMeat[1]->SetIsAlliveFalse();
+
+					break;
+
+				}
+			}
 			break;
+
+			
 		}
-
-		//////////////////°úÀÏ
-
-		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[0]->getX(), _pItemFruit1[0]->getY(), 40, 40))
-		{
-
-			_pItemFruit1[0]->setUse(true);
-			_pItemFruit1[0]->SetIsAlliveFalse();
-			break;
-
-		}
-
-		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit1[1]->getX(), _pItemFruit1[1]->getY(), 40, 40))
-		{
-			_pItemFruit1[1]->setUse(true);
-			_pItemFruit1[1]->SetIsAlliveFalse();
-			break;
-
-		}
-
-		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[0]->getX(), _pItemFruit2[0]->getY(), 40, 40))
-		{
-
-			_pItemFruit2[0]->setUse(true);
-			_pItemFruit2[0]->SetIsAlliveFalse();
-
-
-			break;
-
-		}
-
-		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemFruit2[1]->getX(), _pItemFruit2[1]->getY(), 40, 40))
-		{
-			_pItemFruit2[1]->setUse(true);
-			_pItemFruit2[1]->SetIsAlliveFalse();
-
-
-			break;
-		}
-
-		//°í±â
-		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat[0]->getX(), _pItemMeat[0]->getY(), 40, 40))
-		{
-			_pItemMeat[0]->setUse(true);
-			_pItemMeat[0]->SetIsAlliveFalse();
-
-			break;
-
-		}
-
-		if (isCollision(_select[i].x, _select[i].y, 40, 40, _pItemMeat[1]->getX(), _pItemMeat[1]->getY(), 40, 40))
-		{
-			_pItemMeat[1]->setUse(true);
-			_pItemMeat[1]->SetIsAlliveFalse();
-
-			break;
-
-		}
-
 	}
 
 	

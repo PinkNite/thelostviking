@@ -102,7 +102,7 @@ void ITEMMANAGER::isCollisionPlayer()
 	//플레이어 상태값을 받아야함
 	if (_pUI->getErikItemMax() != 5&& _pUI->getBaleogItemMax() != 5&& _pUI->getOlafItemMax() != 5)
 	{
-		cout << _pUI->getErikItemMax() << endl;
+		
 		for (int i = 0; i < 2; i++)
 		{
 			if (isCollision(_pItemBoom[i]->getX(), _pItemBoom[i]->getY(), 40, 38, _pPlayer->getPosX(), _pPlayer->getPosY(), 64, 64) && _pItemBoom[i]->getIsAllive())

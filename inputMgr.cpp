@@ -135,7 +135,7 @@ void INPUTMANAGER::update()
 
 		}
 		
-		cout << _num << endl;
+		
 	}
 	
 
