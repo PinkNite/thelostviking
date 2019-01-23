@@ -58,6 +58,8 @@ void ERIC::update()
 
 void ERIC::release()
 {
+	VIKING::_pAnimation = nullptr;
+
 }
 
 void ERIC::render(HDC hdc)

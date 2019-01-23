@@ -62,6 +62,7 @@ void OLAF::update()
 
 void OLAF::release()
 {
+	_pAnimation = nullptr;
 }
 
 void OLAF::render(HDC hdc)
@@ -208,9 +209,9 @@ void OLAF::initKeyAnimation()
 	addLeftAliveAnimationCoordinate(VIKING::STATE::ACTION, static_cast<int>(VIKING::ACTION::SKILL_ONE), 48, 8, 5, true, false, callbackSpecialIdle);
 
 
-	addLeftDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::ELECTRIC),
-		133, 2, 2, false, 5, callbackDeath);
 	addRightDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::ELECTRIC),
+		133, 2, 2, false, 5, callbackDeath);
+	addLeftDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::ELECTRIC),
 		135, 2, 2, false, 5, callbackDeath);
 
 	addRightDeathAnimation(VIKING::STATE::DEATH_MOTION, static_cast<int>(VIKING::DEATH_MOTION::DROP),
@@ -253,11 +254,11 @@ string OLAF::addString(string direction, string live, string action)
 {
 	string str;
 	str.append(direction);
-	str.append("-");
+	str.append("_");
 	str.append(live);
-	str.append("-");
+	str.append("_");
 	str.append(action);
-	str.append("-");
+	
 	return str;
 }
 
@@ -265,13 +266,12 @@ string OLAF::addString(string shield, string direction, string live, string acti
 {
 	string str;
 	str.append(shield);
-	str.append("-");
+	str.append("_");
 	str.append(direction);
-	str.append("-");
+	str.append("_");
 	str.append(live);
-	str.append("-");
+	str.append("_");
 	str.append(action);
-	str.append("-");
 
 	return str;
 }

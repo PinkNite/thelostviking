@@ -109,6 +109,13 @@ void BALEOG::updateArrow()
 
 void BALEOG::release()
 {
+	VIKING::_pAnimation = nullptr;
+	if (_pArrow)
+	{
+		_pArrow->release();
+	}
+	delete _pArrow;
+	_pArrow = nullptr;
 }
 
 void BALEOG::render(HDC hdc)
