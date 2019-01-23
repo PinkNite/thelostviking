@@ -309,7 +309,7 @@ void ENEMY::initAniFrame()
 
 		_arAniFrameStrKey[int(ENEMY_STATE::IDLE_LEFT)] = "IDLE_LEFT";
 		_arAniFrameCount[int(ENEMY_STATE::IDLE_LEFT)] = 1;
-		frameNum = new int[1]{ 6 };
+		frameNum = new int[1]{ 5 };
 		_frameFps.push_back(2);
 		_vAniFrame.push_back(frameNum);
 
