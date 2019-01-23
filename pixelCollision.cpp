@@ -12,8 +12,8 @@ pixelCollision::~pixelCollision()
 
 HRESULT pixelCollision::init()
 {
-	_imgMap2Cbg = IMAGEMANAGER->addImage("map2Collision", "resource/map/map1-2_collision5.bmp", 2048, 1630, false, RGB(255, 0, 255));
-	_imgMap2CbgCopy = IMAGEMANAGER->addImage("map2Collision2", "resource/map/map1-2_collision5.bmp", 2048, 1630, false, RGB(255, 0, 255));
+	_imgMap2Cbg = IMAGEMANAGER->addImage("map2Collision", "resource/map/map1-2_collision6.bmp", 2048, 1630, false, RGB(255, 0, 255));
+	_imgMap2CbgCopy = IMAGEMANAGER->addImage("map2Collision2", "resource/map/map1-2_collision6.bmp", 2048, 1630, false, RGB(255, 0, 255));
 	_imgElevatorC = IMAGEMANAGER->addImage("elevatorCollision", "resource/map/effect/elevatorCollision.bmp", 64, 64, false, RGB(255, 0, 255));
 
 	for (int i = 0; i < 3; i++)
