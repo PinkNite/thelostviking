@@ -90,6 +90,7 @@ public:
 
 	inline VIKING*	getViking(int index) { return _pViking[index]; }
 	inline void		linkEnemyMgr(EnemyManager* pEnemyMgr) { _pEnemyMgr = pEnemyMgr; }
+	inline ARROW*	getArrow() { return _pViking[_nCurrentViking]->getArrow(); }
 
 	void	playerAttack();
 };
